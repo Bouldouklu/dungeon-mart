@@ -1,0 +1,20 @@
+{
+    "asset": "037f3ebd9bcf15f4a91865ec145a629f",
+    "fileName": "01996374-a6d4-7f07-a8ee-9cf2bb278b13.png",
+    "prompt": "groundfloor tile of a dungeon",
+    "negativePrompt": "",
+    "model": "e019af84-3249-4fe3-81bc-a1ba0323fdce",
+    "modelName": "GPT Image 1 - High",
+    "customSeed": -1,
+    "w3CTraceId": "edbb907c93a7f1a07dc1e23e96e063c9",
+    "refinementMode": "Generation",
+    "pixelateTargetSize": 0,
+    "pixelateKeepImageSize": false,
+    "pixelatePixelBlockSize": 0,
+    "pixelateMode": 0,
+    "pixelateOutlineThickness": 0,
+    "doodles": {
+        "m_Items": []
+    },
+    "upscaleFactor": 0
+}

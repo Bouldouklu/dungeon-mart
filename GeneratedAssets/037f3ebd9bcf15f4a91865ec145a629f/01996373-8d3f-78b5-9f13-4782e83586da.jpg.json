@@ -1,0 +1,20 @@
+{
+    "asset": "037f3ebd9bcf15f4a91865ec145a629f",
+    "fileName": "01996373-8d3f-78b5-9f13-4782e83586da.jpg",
+    "prompt": "groundfloor tile of a dungeon",
+    "negativePrompt": "",
+    "model": "94c4260f-b988-40e7-b3d3-435b9f449bd0",
+    "modelName": "Flux.1 Dev",
+    "customSeed": -1,
+    "w3CTraceId": "f19a8adbbbda617db570164807a84f33",
+    "refinementMode": "Generation",
+    "pixelateTargetSize": 0,
+    "pixelateKeepImageSize": false,
+    "pixelatePixelBlockSize": 0,
+    "pixelateMode": 0,
+    "pixelateOutlineThickness": 0,
+    "doodles": {
+        "m_Items": []
+    },
+    "upscaleFactor": 0
+}

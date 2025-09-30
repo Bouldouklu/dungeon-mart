@@ -1,0 +1,20 @@
+{
+    "asset": "037f3ebd9bcf15f4a91865ec145a629f",
+    "fileName": "0199636b-3b7c-788f-b0b6-1d8e742fc690.png",
+    "prompt": "groundfloor of a dungeon, pixel art style",
+    "negativePrompt": "",
+    "model": "5fa78152-02ea-492b-b8ea-777b31a8a2f8",
+    "modelName": "GPT Image 1 - Low",
+    "customSeed": -1,
+    "w3CTraceId": "e8f3863ce4dbaa6f79a28f43b8e84ed6",
+    "refinementMode": "Generation",
+    "pixelateTargetSize": 0,
+    "pixelateKeepImageSize": false,
+    "pixelatePixelBlockSize": 0,
+    "pixelateMode": 0,
+    "pixelateOutlineThickness": 0,
+    "doodles": {
+        "m_Items": []
+    },
+    "upscaleFactor": 0
+}
