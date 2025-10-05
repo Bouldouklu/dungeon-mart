@@ -3,7 +3,7 @@
 ## 🎯 Core Concept
 **Tagline**: *"Evil customer service meets corporate absurdity"*
 
-Run a retail store supplying evil customers with weapons, minions, and dungeon equipment. Handle both quick ground-floor shopping and special underground deliveries while managing corporate bureaucracy gone hilariously wrong.
+Run a retail store supplying evil customers with weapons, minions, and dungeon equipment. Handle both quick ground-floor shopping while managing corporate bureaucracy gone hilariously wrong.
 
 **Genre**: Business Simulation + Retail Management  
 **Platform**: PC/Browser (Unity WebGL)  
@@ -16,8 +16,8 @@ Run a retail store supplying evil customers with weapons, minions, and dungeon e
 1. **Customers enter** with shopping needs 
 2. **Browse store**: Customers walk around, examine items on shelves
 3. **Grab items**: Pick up weapons, armor, potions, accessories from displays
-4. **Checkout process**: Handle transactions, special requests, customer service issues
-5. **Store management**: Restock shelves, handle returns, pay bills, manage business
+4. **Checkout process**: Handle transactions, handle returns
+5. **Store management**: Restock shelves, manage items returned, pay bills, manage business
 
 ---
 
@@ -44,44 +44,27 @@ Run a retail store supplying evil customers with weapons, minions, and dungeon e
 - **Armor Section**: Shields, helmets, chainmail, leather armor, gauntlets, boots
 - **Magic & Consumables**: Potions, scrolls, spell components, magical herbs
 - **Accessories**: Rings, amulets, crowns, belts, cloaks, small enchanted items
-- **Basic Minions**: Small creatures that can be carried (imp in a jar, pet skeleton, trained rat)
 - **Trap Supplies**: Rope, spikes, locks, keys, basic mechanical components
 
-**Store Layout**:
-```
-┌─────────────────────────────────────────┐
-│ 🚪 ENTRANCE           OFFICE 📋         │
-│                                         │
-│ [WEAPONS]  [ARMOR]   [MAGIC]   [ACCESS] │
-│   ⚔️        🛡️        🧪        💍     │
-│                                         │
-│ [MINIONS]  [TRAPS]   [SUPPLIES] [BOOKS] │
-│   👹        💣        📦        📚     │
-│                                         │
-│ ═══════════════════════════════════════ │
-│     💰 CHECKOUT COUNTERS 💰    YOU🧑‍💼   │
-│        ↑ ↑ ↑ QUEUE ↑ ↑ ↑               │
-└─────────────────────────────────────────┘
-```
 
 ### **Customer Shopping Flow**:
 - **Enter store** and browse different sections
 - **Pick up items** directly from shelves and displays  
 - **Carry items** to checkout counter
 - **Queue system** when multiple customers shopping
-- **Checkout interaction** with payment, complaints, special requests
+- **Checkout interaction** with payment, and returns
 
 ---
 
-## 👥 Customer Types & AI
+## 👥 Customer Types & AI 
 
 ### **Customer Archetypes**:
 - **Quick Shoppers** (35%): Know exactly what they want, grab and go, small purchases
-- **Browsers** (30%): Wander around, examine multiple items, impulse purchases  
-- **Big Spenders** (20%): Buy expensive items, multiple purchases, premium customers
-- **Indecisive Customers** (15%): Change minds frequently, ask lots of questions, slow checkout
+- **Browsers** (30%): Wander around, examine multiple items, impulse purchases 
+- **Big Spenders** (20%): Buy expensive items, multiple purchases, premium customers 
+- **more to be defined**
 
-### **Customer Personalities**:
+### **Customer Personalities** (used as guides for dialogues implementations): 
 - **The Experienced Evil**: *"Just getting my usual sword maintenance kit"*
 - **The Nervous Newcomer**: *"Um, is this skeleton... user-friendly?"*
 - **The Difficult Customer**: *"This price is outrageous! I demand to speak to a manager!"*
@@ -96,7 +79,7 @@ Run a retail store supplying evil customers with weapons, minions, and dungeon e
 ### **Customer AI Behavior**:
 - **Enter** with invisible shopping list (1-4 items)
 - **Browse** sections relevant to their needs
-- **Decision making**: Budget constraints, item comparisons  
+- **Decision making**: Budget constraints, item comparisons
 - **Patience system**: Decreases during long waits, affects satisfaction
 - **Checkout behavior**: Join shortest queue, react to service quality
 
@@ -114,10 +97,10 @@ Run a retail store supplying evil customers with weapons, minions, and dungeon e
 **Monthly Expenses**:
 - **Utility Bills**: Electricity ($127), Magical Energy ($847), Goblin Food ($234)
 - **Insurance**: Dragon Liability ($1,200), Cursed Item Containment ($89)
-- **Licensing**: Evil Business Permit ($150), Safety Compliance ($75)
+- **Licensing**: Evil Business Permit ($150), Safety Compliance ($75) 
 - Must maintain cash flow to avoid closure
 
-**Try Before Buy Demo Area**:
+**Try Before Buy Demo Area**: - 
 - Customers test items for 30-60 seconds
 - Outcomes: Happy (guaranteed sale), Neutral (50% chance), Disaster (no sale + lawsuit)
 - Comedy potential: Dragons setting things on fire, goblins escaping
@@ -178,42 +161,40 @@ Run a retail store supplying evil customers with weapons, minions, and dungeon e
 
 ---
 
-## 📅 3-Day Implementation Plan
+## 📅 Implementation Plan
 
-### **Day 1: Core Retail Operations (7 hours)**
-**Morning (4 hours)**:
+### **Prototype V1: Core Retail Operations**
+**1st step**:
 - Camera setup (angled top-down) and store layout
 - Customer spawning, pathfinding, and shelf browsing
-- Item pickup mechanics - customers grab items from shelves
+- Item & 1 type of shelf mechanic with pickup mechanics - customers grab items from shelves
 - Basic inventory tracking and shelf restocking
 
-**Afternoon (3 hours)**:
+**2nd step**:
 - Checkout counter system with queue management
-- Money transactions and basic customer satisfaction
+- Money transactions
 - Simple store management: cash flow, daily sales tracking
 
 **Goal**: Customers can browse store, pick up items, and complete purchases
 
-### **Day 2: Customer Variety + Business Mechanics (7 hours)**
-**Morning (4 hours)**:
+### **Prototype V2: Customer Variety + Business Mechanics (7 hours)**
+**1st step**:
 - Multiple customer types with different behaviors and personalities
-- Customer service dialogue system with multiple response options
-- Store expansion: more shelf space, additional product categories
+- Store expansion: more shelf space, additional product categories, more shelf type
 
-**Afternoon (3 hours)**:
+**2nd step**:
 - Customer returns system with absurd corporate policies
 - Monthly expense bills and cash flow management
 - Inventory management: supplier orders, stock levels, popular items
 
 **Goal**: Complete retail simulation with variety and business pressure
 
-### **Day 3: Polish + Corporate Comedy (7 hours)**
-**Morning (3 hours)**:
-- Try-before-buy demo area with customer testing items
+### **Prototype V3: Polish + Corporate Comedy**
+**1st step**:
 - Corporate dialogue and policy responses for maximum humor
 - Store upgrades: better checkout systems, security, customer service tools
 
-**Afternoon (4 hours)**:
+**2nd step**:
 - Visual and audio polish: animations, sound effects, background music
 - Balance testing: customer flow, pricing, difficulty progression
 - Bug fixes, optimization, and final WebGL build
@@ -231,7 +212,7 @@ Run a retail store supplying evil customers with weapons, minions, and dungeon e
 - **Humor Delivery**: Players should laugh within first minute of play
 
 ### **Technical Goals**:
-- **Complete Feature Set**: All core systems working by end of Day 2
+- **Complete Feature Set**: All core systems working by end of prototype v2
 - **Performance**: Smooth 60fps in browser, quick load times
 - **Scope Management**: Prioritize core loop over feature creep
 
