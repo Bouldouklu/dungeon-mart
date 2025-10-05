@@ -11,7 +11,7 @@ DungeonMart is a Unity 6.2 game project. This file contains project-specific ins
 ## Unity Project Structure
 ```
 Assets/
-├── Scripts/           # Game logic and components
+├── Scripts/          # Game logic and components
 ├── Scenes/           # Unity scenes
 ├── Prefabs/          # Reusable game objects
 ├── Materials/        # Rendering materials
@@ -75,3 +75,30 @@ Assets/
 - Follow Unity best practices and component-based design
 - Maintain clean, readable code with proper documentation
 - Use the observer pattern for decoupled architecture
+
+## Claude's Responsibilities
+
+### What Claude Should Do:
+
+- Write, create, and modify C# scripts only
+- Provide clear instructions for what to do in the Unity Editor (e.g., "Create a GameObject
+  named 'CustomerSpawner'", "Attach this script to the Main Camera", "Link the PlayerTransform
+  field in the Inspector to the Player object")
+- Use read-only tools (Read, Glob, Grep, MCP functions) to inspect scenes, prefabs, and
+  existing code
+- Plan and architect the code structure and component relationships
+
+### What Claude Should NOT Do:
+
+- Do NOT create or modify Unity scene files (.unity files)
+- Do NOT create or modify prefabs (.prefab files)
+- Do NOT create or modify Unity asset files (materials, sprites, etc.)
+- Do NOT attempt to configure Unity Editor settings through file manipulation
+
+### Workflow:
+
+1. Claude writes the necessary C# scripts
+2. Claude provides step-by-step Unity Editor instructions for you to follow
+3. You perform the Unity Editor work (creating GameObjects, assigning references,
+   configuring components, etc.)
+4. Claude can read scene/prefab files to verify setup or understand the current state
