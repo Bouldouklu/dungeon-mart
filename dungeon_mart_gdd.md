@@ -24,7 +24,7 @@ Run a retail store supplying evil customers with weapons, minions, and dungeon e
 ## 🎥 Camera & Visual Style
 
 ### **Camera View**: Angled Top-Down (Moonlighter Style)
-- **Angle**: 45° tilt toward player for comfortable viewing
+- **Angle**: tilt toward player for comfortable viewing
 - **Type**: Orthographic camera for clean 2D sprite rendering
 - **Benefits**: Clear customer expressions, obvious store layout, simple implementation
 
@@ -258,16 +258,12 @@ The game succeeds when players feel like small business owners serving a niche m
 - **Ground floor only** - eliminates complex inventory routing
 - **Business humor as strength** - if mechanics are simple, personality and dialogue carry the experience
 
-### **Success Criteria**:
-- **Day 1**: Basic shopping and checkout working
-- **Day 2**: Multiple customer types and business pressure  
-- **Day 3**: Polish and maximum humor delivery
 
 **Philosophy**: Better to have a simple, polished, hilarious retail experience than a complex, half-finished logistics simulator!
 
 ---
 
-## 🚀 Version 2: Future Features
+## 🚀 Future Features
 
 *The following features are planned for post-prototype expansion:*
 
@@ -293,5 +289,4 @@ The game succeeds when players feel like small business owners serving a niche m
 
 ---
 
-*Last Updated: [Date]*  
-*Version: 1.0*
+*Last Updated: 05.10.2025*
