@@ -25,6 +25,10 @@ MonoBehaviour:
         - globalObjectIdString: GlobalObjectId_V1-2-8c9cfa26abfee488c85f1582747f6a02-519420028-0
         - globalObjectIdString: GlobalObjectId_V1-2-8c9cfa26abfee488c85f1582747f6a02-619394800-0
         - globalObjectIdString: GlobalObjectId_V1-2-8c9cfa26abfee488c85f1582747f6a02-535471810-0
+        - globalObjectIdString: GlobalObjectId_V1-2-8c9cfa26abfee488c85f1582747f6a02-396376006-0
+        - globalObjectIdString: GlobalObjectId_V1-2-8c9cfa26abfee488c85f1582747f6a02-1563176834-0
+        - globalObjectIdString: GlobalObjectId_V1-2-8c9cfa26abfee488c85f1582747f6a02-1073320396-0
+        - globalObjectIdString: GlobalObjectId_V1-2-8c9cfa26abfee488c85f1582747f6a02-1217772335-0
         values:
         - colorIndex: 0
           iconNameOrGuid: AvatarMask On Icon
@@ -39,7 +43,7 @@ MonoBehaviour:
           isIconRecursive: 1
           isColorRecursive: 0
         - colorIndex: 0
-          iconNameOrGuid: Canvas Icon
+          iconNameOrGuid: Image Icon
           isIconRecursive: 1
           isColorRecursive: 0
         - colorIndex: 0
@@ -53,6 +57,22 @@ MonoBehaviour:
         - colorIndex: 0
           iconNameOrGuid: cs Script Icon
           isIconRecursive: 1
+          isColorRecursive: 0
+        - colorIndex: 0
+          iconNameOrGuid: Image Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 0
+          iconNameOrGuid: Image Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 0
+          iconNameOrGuid: Image Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 0
+          iconNameOrGuid: Text Icon
+          isIconRecursive: 0
           isColorRecursive: 0
   bookmarks: []
   bookmarkedScenePaths: []
