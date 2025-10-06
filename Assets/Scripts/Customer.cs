@@ -55,7 +55,8 @@ public class Customer : MonoBehaviour
             if (carriedItem == null)
             {
                 Debug.Log("Customer leaving - no items available!");
-                Destroy(gameObject);
+                DayManager.Instance?.RecordCustomerLeft();
+                NotifySpawnerAndLeave();
                 yield break;
             }
 
@@ -80,6 +81,15 @@ public class Customer : MonoBehaviour
         }
 
         // Leave store
+        NotifySpawnerAndLeave();
+    }
+
+    private void NotifySpawnerAndLeave()
+    {
+        if (CustomerSpawner.Instance != null)
+        {
+            CustomerSpawner.Instance.OnCustomerLeft();
+        }
         Destroy(gameObject);
     }
 
@@ -96,7 +106,9 @@ public class Customer : MonoBehaviour
         // Process payment
         if (carriedItem != null)
         {
-            GameManager.Instance.AddMoney(carriedItem.GetSellPrice());
+            int salePrice = carriedItem.GetSellPrice();
+            GameManager.Instance.AddMoney(salePrice);
+            DayManager.Instance?.RecordCustomerSale(salePrice);
             Destroy(carriedItem.gameObject);
             carriedItem = null;
         }

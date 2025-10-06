@@ -61,6 +61,33 @@ public class OrderMenu : MonoBehaviour
         }
     }
 
+    private bool CanOpenMenu()
+    {
+        if (DayManager.Instance == null) return true;
+
+        GamePhase currentPhase = DayManager.Instance.CurrentPhase;
+
+        // Only allow ordering during End of Day phase
+        return currentPhase == GamePhase.EndOfDay;
+    }
+
+    private void ShowPhaseRestrictionMessage()
+    {
+        if (DayManager.Instance == null) return;
+
+        GamePhase phase = DayManager.Instance.CurrentPhase;
+
+        switch (phase)
+        {
+            case GamePhase.Morning:
+                Debug.Log("Cannot order during morning. Open delivery boxes and prepare for the day!");
+                break;
+            case GamePhase.OpenForBusiness:
+                Debug.Log("Cannot order while shop is open. Wait until end of day!");
+                break;
+        }
+    }
+
     public void ToggleMenu()
     {
         if (isMenuOpen)
@@ -69,6 +96,12 @@ public class OrderMenu : MonoBehaviour
         }
         else
         {
+            if (!CanOpenMenu())
+            {
+                ShowPhaseRestrictionMessage();
+                return;
+            }
+
             OpenMenu();
         }
     }

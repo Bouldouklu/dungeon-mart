@@ -91,13 +91,22 @@ public class OrderManager : MonoBehaviour
             return false;
         }
 
-        // Add items to inventory immediately (will be delivered in morning phase later)
-        foreach (var kvp in currentOrder)
+        // Send order to delivery manager for next morning delivery
+        if (DeliveryManager.Instance != null)
         {
-            InventoryManager.Instance.AddToInventory(kvp.Key, kvp.Value);
+            DeliveryManager.Instance.AddPendingDelivery(GetCurrentOrder());
+        }
+        else
+        {
+            Debug.LogWarning("DeliveryManager not found! Items added to inventory immediately.");
+            // Fallback: add immediately if no delivery manager
+            foreach (var kvp in currentOrder)
+            {
+                InventoryManager.Instance.AddToInventory(kvp.Key, kvp.Value);
+            }
         }
 
-        Debug.Log($"Order confirmed! Total cost: ${totalCost}");
+        Debug.Log($"Order confirmed! Total cost: ${totalCost}. Items will be delivered tomorrow morning.");
         ClearOrder();
         return true;
     }
