@@ -10,6 +10,10 @@ public class Customer : MonoBehaviour
     private Item carriedItem;
     private bool isMoving = false;
     private Vector3 targetPosition;
+    private bool waitingForCheckout = false;
+    private CheckoutCounter checkoutCounter;
+
+    public bool IsMoving => isMoving;
 
     public void Initialize()
     {
@@ -55,30 +59,50 @@ public class Customer : MonoBehaviour
                 yield break;
             }
 
-            // Move to checkout
-            GameObject checkout = GameObject.FindGameObjectWithTag("Checkout");
-            if (checkout != null)
+            // Find checkout counter and join queue
+            checkoutCounter = FindFirstObjectByType<CheckoutCounter>();
+            if (checkoutCounter != null)
             {
-                Debug.Log("Found checkout at: " + checkout.transform.position);
-                Vector3 checkoutPos = checkout.transform.position + new Vector3(0, -1f, 0);
-                MoveToPosition(checkoutPos);
-                while (isMoving)
+                Debug.Log("Joining checkout queue");
+                waitingForCheckout = true;
+                checkoutCounter.JoinQueue(this);
+
+                // Wait for our turn at checkout
+                while (waitingForCheckout)
                 {
                     yield return null;
                 }
-
-                // Complete purchase
-                yield return new WaitForSeconds(1f);
-                if (carriedItem != null)
-                {
-                    GameManager.Instance.AddMoney(carriedItem.GetSellPrice());
-                    Destroy(carriedItem.gameObject);
-                }
+            }
+            else
+            {
+                Debug.LogWarning("No CheckoutCounter found in scene!");
             }
         }
 
-        // Leave
+        // Leave store
         Destroy(gameObject);
+    }
+
+    public void ApproachCheckout(Vector3 checkoutPosition)
+    {
+        Debug.Log("Approaching checkout counter");
+        MoveToPosition(checkoutPosition);
+    }
+
+    public void CompleteTransaction()
+    {
+        Debug.Log("Completing transaction");
+
+        // Process payment
+        if (carriedItem != null)
+        {
+            GameManager.Instance.AddMoney(carriedItem.GetSellPrice());
+            Destroy(carriedItem.gameObject);
+            carriedItem = null;
+        }
+
+        // Signal we're done waiting
+        waitingForCheckout = false;
     }
 
     private void MoveToPosition(Vector3 target)
