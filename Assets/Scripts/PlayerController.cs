@@ -46,7 +46,17 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E) && nearestShelf != null)
         {
-            nearestShelf.RestockShelf(1);
+            bool success = nearestShelf.RestockShelf(1);
+            if (!success)
+            {
+                Debug.LogWarning("Cannot restock shelf - check inventory or shelf capacity");
+            }
+        }
+
+        // Debug key to add test inventory
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            InventoryManager.Instance.AddDebugInventory();
         }
     }
 }

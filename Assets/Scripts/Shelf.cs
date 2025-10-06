@@ -18,13 +18,21 @@ public class Shelf : MonoBehaviour
         if (IsFull) return false;
 
         int itemsToAdd = Mathf.Min(quantity, maxCapacity - currentStock.Count);
-        int totalCost = itemsToAdd * itemToStock.restockCost;
 
-        if (!GameManager.Instance.SpendMoney(totalCost))
+        // Check if we have items in inventory
+        if (!InventoryManager.Instance.HasItem(itemToStock, itemsToAdd))
+        {
+            Debug.Log($"Not enough {itemToStock.itemName} in inventory!");
+            return false;
+        }
+
+        // Remove items from inventory
+        if (!InventoryManager.Instance.RemoveFromInventory(itemToStock, itemsToAdd))
         {
             return false;
         }
 
+        // Place items on shelf
         for (int i = 0; i < itemsToAdd; i++)
         {
             GameObject itemObj = Instantiate(itemPrefab, transform);
@@ -37,7 +45,7 @@ public class Shelf : MonoBehaviour
             }
         }
 
-        Debug.Log($"Restocked {itemsToAdd}x {itemToStock.itemName}");
+        Debug.Log($"Restocked {itemsToAdd}x {itemToStock.itemName} from inventory");
         return true;
     }
 
