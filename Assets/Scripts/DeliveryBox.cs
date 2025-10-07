@@ -1,43 +1,39 @@
 using UnityEngine;
 
-public class DeliveryBox : MonoBehaviour
-{
+public class DeliveryBox : MonoBehaviour {
     [Header("Box Contents")]
     private ItemDataSO itemData;
+
     private int quantity;
 
     [Header("Interaction")]
     [SerializeField] private float interactionRange = 1.5f;
+
     [SerializeField] private GameObject promptUI;
 
     private Transform playerTransform;
     private bool playerNearby = false;
 
-    private void Start()
-    {
+    private void Start() {
         // Find player
         GameObject player = GameObject.FindGameObjectWithTag("Player");
-        if (player != null)
-        {
+        if (player != null) {
             playerTransform = player.transform;
         }
 
         // Hide prompt initially
-        if (promptUI != null)
-        {
+        if (promptUI != null) {
             promptUI.SetActive(false);
         }
     }
 
-    public void Initialize(ItemDataSO data, int qty)
-    {
+    public void Initialize(ItemDataSO data, int qty) {
         itemData = data;
         quantity = qty;
         Debug.Log($"Delivery box initialized: {quantity}x {itemData.itemName}");
     }
 
-    private void Update()
-    {
+    private void Update() {
         if (playerTransform == null) return;
 
         // Check if player is nearby
@@ -45,22 +41,18 @@ public class DeliveryBox : MonoBehaviour
         playerNearby = distance <= interactionRange;
 
         // Show/hide prompt
-        if (promptUI != null)
-        {
+        if (promptUI != null) {
             promptUI.SetActive(playerNearby);
         }
 
         // Handle interaction
-        if (playerNearby && Input.GetKeyDown(KeyCode.E))
-        {
+        if (playerNearby && Input.GetKeyDown(KeyCode.E)) {
             OpenBox();
         }
     }
 
-    private void OpenBox()
-    {
-        if (itemData == null)
-        {
+    private void OpenBox() {
+        if (itemData == null) {
             Debug.LogWarning("Cannot open box - no item data!");
             return;
         }
@@ -70,8 +62,7 @@ public class DeliveryBox : MonoBehaviour
         Debug.Log($"Opened delivery box: {quantity}x {itemData.itemName} added to inventory");
 
         // Notify delivery manager
-        if (DeliveryManager.Instance != null)
-        {
+        if (DeliveryManager.Instance != null) {
             DeliveryManager.Instance.OnBoxOpened(this);
         }
 
@@ -79,8 +70,7 @@ public class DeliveryBox : MonoBehaviour
         Destroy(gameObject);
     }
 
-    private void OnDrawGizmosSelected()
-    {
+    private void OnDrawGizmosSelected() {
         // Visualize interaction range in editor
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, interactionRange);

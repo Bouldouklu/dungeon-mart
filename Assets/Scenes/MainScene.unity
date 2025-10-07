@@ -3386,6 +3386,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DeliveryManager
   deliveryBoxPrefab: {fileID: 4524389661435240235, guid: 0be5163f4b418904cae85b8a91281807, type: 3}
   deliverySpawnPoint: {fileID: 1827166923}
+  startingDelivery:
+  - item: {fileID: 11400000, guid: 1c254825188b41b41b50ff00f093c8a8, type: 2}
+    quantity: 3
+  - item: {fileID: 11400000, guid: 2cd8dae2f1552bc4faf94d8efa5c0e98, type: 2}
+    quantity: 5
 --- !u!1 &1550207063
 GameObject:
   m_ObjectHideFlags: 0

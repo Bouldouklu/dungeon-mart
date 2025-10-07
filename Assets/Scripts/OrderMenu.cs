@@ -3,10 +3,10 @@ using UnityEngine.UI;
 using TMPro;
 using System.Collections.Generic;
 
-public class OrderMenu : MonoBehaviour
-{
+public class OrderMenu : MonoBehaviour {
     [Header("UI References")]
     [SerializeField] private GameObject menuPanel;
+
     [SerializeField] private Transform itemListContainer;
     [SerializeField] private GameObject orderMenuItemPrefab;
     [SerializeField] private TextMeshProUGUI totalCostText;
@@ -19,50 +19,40 @@ public class OrderMenu : MonoBehaviour
     private List<OrderMenuItem> menuItems = new List<OrderMenuItem>();
     private bool isMenuOpen = false;
 
-    private void Start()
-    {
-        if (menuPanel != null)
-        {
+    private void Start() {
+        if (menuPanel != null) {
             menuPanel.SetActive(false);
         }
 
-        if (confirmOrderButton != null)
-        {
+        if (confirmOrderButton != null) {
             confirmOrderButton.onClick.AddListener(OnConfirmOrder);
         }
 
-        if (closeButton != null)
-        {
+        if (closeButton != null) {
             closeButton.onClick.AddListener(CloseMenu);
         }
 
-        if (clearCartButton != null)
-        {
+        if (clearCartButton != null) {
             clearCartButton.onClick.AddListener(OnClearCart);
         }
 
         OrderManager.Instance.OnOrderChanged += UpdateOrderDisplay;
     }
 
-    private void OnDestroy()
-    {
-        if (OrderManager.Instance != null)
-        {
+    private void OnDestroy() {
+        if (OrderManager.Instance != null) {
             OrderManager.Instance.OnOrderChanged -= UpdateOrderDisplay;
         }
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Tab))
-        {
+    private void Update() {
+        if (Input.GetKeyDown(KeyCode.Tab)) {
             Debug.Log("Tab key pressed - toggling menu");
             ToggleMenu();
         }
     }
 
-    private bool CanOpenMenu()
-    {
+    private bool CanOpenMenu() {
         if (DayManager.Instance == null) return true;
 
         GamePhase currentPhase = DayManager.Instance.CurrentPhase;
@@ -71,14 +61,12 @@ public class OrderMenu : MonoBehaviour
         return currentPhase == GamePhase.EndOfDay;
     }
 
-    private void ShowPhaseRestrictionMessage()
-    {
+    private void ShowPhaseRestrictionMessage() {
         if (DayManager.Instance == null) return;
 
         GamePhase phase = DayManager.Instance.CurrentPhase;
 
-        switch (phase)
-        {
+        switch (phase) {
             case GamePhase.Morning:
                 Debug.Log("Cannot order during morning. Open delivery boxes and prepare for the day!");
                 break;
@@ -88,16 +76,12 @@ public class OrderMenu : MonoBehaviour
         }
     }
 
-    public void ToggleMenu()
-    {
-        if (isMenuOpen)
-        {
+    public void ToggleMenu() {
+        if (isMenuOpen) {
             CloseMenu();
         }
-        else
-        {
-            if (!CanOpenMenu())
-            {
+        else {
+            if (!CanOpenMenu()) {
                 ShowPhaseRestrictionMessage();
                 return;
             }
@@ -106,17 +90,14 @@ public class OrderMenu : MonoBehaviour
         }
     }
 
-    public void OpenMenu()
-    {
+    public void OpenMenu() {
         Debug.Log("Opening order menu");
         isMenuOpen = true;
-        if (menuPanel != null)
-        {
+        if (menuPanel != null) {
             menuPanel.SetActive(true);
             Debug.Log("Menu panel activated");
         }
-        else
-        {
+        else {
             Debug.LogError("Menu panel is null!");
         }
 
@@ -125,102 +106,85 @@ public class OrderMenu : MonoBehaviour
         Time.timeScale = 0f; // Pause game
     }
 
-    public void CloseMenu()
-    {
+    public void CloseMenu() {
         isMenuOpen = false;
-        if (menuPanel != null)
-        {
+        if (menuPanel != null) {
             menuPanel.SetActive(false);
         }
 
         Time.timeScale = 1f; // Resume game
     }
 
-    private void PopulateItemList()
-    {
+    private void PopulateItemList() {
         // Clear existing items
-        foreach (var item in menuItems)
-        {
-            if (item != null)
-            {
+        foreach (var item in menuItems) {
+            if (item != null) {
                 Destroy(item.gameObject);
             }
         }
+
         menuItems.Clear();
 
         // Create new items
-        foreach (ItemDataSO itemData in OrderManager.Instance.AvailableItems)
-        {
+        foreach (ItemDataSO itemData in OrderManager.Instance.AvailableItems) {
             if (itemData == null || orderMenuItemPrefab == null || itemListContainer == null) continue;
 
             GameObject itemObj = Instantiate(orderMenuItemPrefab, itemListContainer);
             OrderMenuItem menuItem = itemObj.GetComponent<OrderMenuItem>();
 
-            if (menuItem != null)
-            {
+            if (menuItem != null) {
                 menuItem.Initialize(itemData);
                 menuItems.Add(menuItem);
             }
         }
     }
 
-    private void UpdateOrderDisplay()
-    {
+    private void UpdateOrderDisplay() {
         int totalCost = OrderManager.Instance.GetTotalOrderCost();
         int currentMoney = GameManager.Instance.CurrentMoney;
 
-        if (totalCostText != null)
-        {
+        if (totalCostText != null) {
             totalCostText.text = $"Total: ${totalCost}";
         }
 
-        if (currentMoneyText != null)
-        {
+        if (currentMoneyText != null) {
             currentMoneyText.text = $"Money: ${currentMoney}";
         }
 
         // Update cart details
-        if (cartDetailsText != null)
-        {
+        if (cartDetailsText != null) {
             var cart = OrderManager.Instance.GetCurrentOrder();
-            if (cart.Count == 0)
-            {
+            if (cart.Count == 0) {
                 cartDetailsText.text = "Cart is empty";
             }
-            else
-            {
+            else {
                 string cartText = "Cart:\n";
-                foreach (var kvp in cart)
-                {
+                foreach (var kvp in cart) {
                     cartText += $"• {kvp.Value}x {kvp.Key.itemName} (${kvp.Key.restockCost * kvp.Value})\n";
                 }
+
                 cartDetailsText.text = cartText;
             }
         }
 
-        if (confirmOrderButton != null)
-        {
+        if (confirmOrderButton != null) {
             confirmOrderButton.interactable = totalCost > 0 && currentMoney >= totalCost;
         }
 
-        if (clearCartButton != null)
-        {
+        if (clearCartButton != null) {
             clearCartButton.interactable = totalCost > 0;
         }
     }
 
-    private void OnConfirmOrder()
-    {
+    private void OnConfirmOrder() {
         bool success = OrderManager.Instance.ConfirmOrder();
-        if (success)
-        {
+        if (success) {
             UpdateOrderDisplay();
             Debug.Log("Order placed successfully!");
         }
     }
 
-    private void OnClearCart()
-    {
+    private void OnClearCart() {
         OrderManager.Instance.ClearOrder();
         UpdateOrderDisplay();
         Debug.Log("Cart cleared");

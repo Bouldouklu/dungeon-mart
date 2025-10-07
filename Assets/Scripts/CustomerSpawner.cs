@@ -1,12 +1,12 @@
 using System.Collections;
 using UnityEngine;
 
-public class CustomerSpawner : MonoBehaviour
-{
+public class CustomerSpawner : MonoBehaviour {
     public static CustomerSpawner Instance;
 
     [Header("Spawn Settings")]
     [SerializeField] private GameObject customerPrefab;
+
     [SerializeField] private int customersPerDay = 8;
     [SerializeField] private float spawnInterval = 3f;
 
@@ -19,42 +19,34 @@ public class CustomerSpawner : MonoBehaviour
     public int CustomersLeft => customersLeft;
     public int TotalCustomersForDay => totalCustomersForDay;
 
-    private void Awake()
-    {
-        if (Instance != null && Instance != this)
-        {
+    private void Awake() {
+        if (Instance != null && Instance != this) {
             Destroy(gameObject);
             return;
         }
+
         Instance = this;
     }
 
-    private void Start()
-    {
-        if (DayManager.Instance != null)
-        {
+    private void Start() {
+        if (DayManager.Instance != null) {
             DayManager.Instance.OnPhaseChanged += OnPhaseChanged;
         }
     }
 
-    private void OnDestroy()
-    {
-        if (DayManager.Instance != null)
-        {
+    private void OnDestroy() {
+        if (DayManager.Instance != null) {
             DayManager.Instance.OnPhaseChanged -= OnPhaseChanged;
         }
     }
 
-    private void OnPhaseChanged(GamePhase phase)
-    {
-        if (phase == GamePhase.OpenForBusiness && !isSpawning)
-        {
+    private void OnPhaseChanged(GamePhase phase) {
+        if (phase == GamePhase.OpenForBusiness && !isSpawning) {
             StartSpawningWave();
         }
     }
 
-    private void StartSpawningWave()
-    {
+    private void StartSpawningWave() {
         // Reset counters for new day
         customersSpawned = 0;
         customersLeft = 0;
@@ -64,18 +56,15 @@ public class CustomerSpawner : MonoBehaviour
         StartCoroutine(SpawnWaveCoroutine());
     }
 
-    private IEnumerator SpawnWaveCoroutine()
-    {
+    private IEnumerator SpawnWaveCoroutine() {
         isSpawning = true;
 
-        for (int i = 0; i < totalCustomersForDay; i++)
-        {
+        for (int i = 0; i < totalCustomersForDay; i++) {
             SpawnCustomer();
             customersSpawned++;
 
             // Wait before spawning next customer (except for last one)
-            if (i < totalCustomersForDay - 1)
-            {
+            if (i < totalCustomersForDay - 1) {
                 yield return new WaitForSeconds(spawnInterval);
             }
         }
@@ -84,31 +73,25 @@ public class CustomerSpawner : MonoBehaviour
         Debug.Log($"Wave complete: {customersSpawned} customers spawned");
     }
 
-    private void SpawnCustomer()
-    {
-        if (customerPrefab != null)
-        {
+    private void SpawnCustomer() {
+        if (customerPrefab != null) {
             GameObject customerObj = Instantiate(customerPrefab, transform.position, Quaternion.identity);
             Customer customer = customerObj.GetComponent<Customer>();
-            if (customer != null)
-            {
+            if (customer != null) {
                 customer.Initialize();
                 Debug.Log($"Customer {customersSpawned + 1}/{totalCustomersForDay} spawned");
             }
         }
     }
 
-    public void OnCustomerLeft()
-    {
+    public void OnCustomerLeft() {
         customersLeft++;
         Debug.Log($"Customer left. Progress: {customersLeft}/{totalCustomersForDay}");
 
         // Check if all customers have left
-        if (customersLeft >= totalCustomersForDay)
-        {
+        if (customersLeft >= totalCustomersForDay) {
             Debug.Log("All customers have left - ending day");
-            if (DayManager.Instance != null)
-            {
+            if (DayManager.Instance != null) {
                 DayManager.Instance.EndDay();
             }
         }

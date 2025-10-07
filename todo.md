@@ -3,29 +3,9 @@
 ## Next Session Tasks
 
 ### 1. Testing & Verification
-- [ ] **Test complete daily cycle:**
-  - [ ] Morning phase: Open delivery boxes, restock shelves
-  - [ ] Press O to open shop
-  - [ ] Customers spawn (8 customers), serve them all
-  - [ ] Day auto-ends when last customer leaves
-  - [ ] End of day: Place orders (Tab menu works)
-  - [ ] Next morning: Delivery boxes appear
-
-- [ ] **Test phase restrictions:**
-  - [ ] Morning: Tab blocked (cannot order)
-  - [ ] Business: Tab blocked (cannot order)
-  - [ ] End of Day: Tab works (can order)
-
-- [ ] **Test inventory flow:**
-  - [ ] Order items → delivered next morning → open boxes → items in inventory
-  - [ ] Restock shelves from inventory (E key)
-  - [ ] Customers take items from shelves
-  - [ ] Money earned from sales
-
-- [ ] **Test edge cases:**
-  - [ ] What happens if player doesn't place order?
-  - [ ] What happens if shelves are empty when customers arrive?
-  - [ ] Can player restock during business hours? (should work)
+- [ ] **TBD:**
+  - [ ] TBD
+  - [ ] TBD
 
 ### 2. Continue Implementation - Step 5: UI & Polish
 

@@ -1,16 +1,13 @@
 using UnityEngine;
 using TMPro;
 
-public class PhaseIndicatorUI : MonoBehaviour
-{
+public class PhaseIndicatorUI : MonoBehaviour {
     [SerializeField] private TextMeshProUGUI phaseText;
     [SerializeField] private TextMeshProUGUI dayText;
     [SerializeField] private TextMeshProUGUI instructionText;
 
-    private void Start()
-    {
-        if (DayManager.Instance != null)
-        {
+    private void Start() {
+        if (DayManager.Instance != null) {
             DayManager.Instance.OnPhaseChanged += UpdatePhaseDisplay;
             DayManager.Instance.OnDayStarted += UpdateDayDisplay;
         }
@@ -19,43 +16,35 @@ public class PhaseIndicatorUI : MonoBehaviour
         UpdateDisplay();
     }
 
-    private void OnDestroy()
-    {
-        if (DayManager.Instance != null)
-        {
+    private void OnDestroy() {
+        if (DayManager.Instance != null) {
             DayManager.Instance.OnPhaseChanged -= UpdatePhaseDisplay;
             DayManager.Instance.OnDayStarted -= UpdateDayDisplay;
         }
     }
 
-    private void UpdatePhaseDisplay(GamePhase phase)
-    {
+    private void UpdatePhaseDisplay(GamePhase phase) {
         UpdateDisplay();
     }
 
-    private void UpdateDayDisplay(int day)
-    {
+    private void UpdateDayDisplay(int day) {
         UpdateDisplay();
     }
 
-    private void UpdateDisplay()
-    {
+    private void UpdateDisplay() {
         if (DayManager.Instance == null) return;
 
         GamePhase phase = DayManager.Instance.CurrentPhase;
         int day = DayManager.Instance.CurrentDay;
 
         // Update day text
-        if (dayText != null)
-        {
+        if (dayText != null) {
             dayText.text = $"Day {day}";
         }
 
         // Update phase text and instructions
-        if (phaseText != null && instructionText != null)
-        {
-            switch (phase)
-            {
+        if (phaseText != null && instructionText != null) {
+            switch (phase) {
                 case GamePhase.Morning:
                     phaseText.text = "MORNING";
                     instructionText.text = "Open delivery boxes (E)\nRestock shelves (E)\nPress O to open shop";

@@ -2,8 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CheckoutCounter : MonoBehaviour
-{
+public class CheckoutCounter : MonoBehaviour {
     [SerializeField] private float transactionTime = 2f;
     [SerializeField] private Transform checkoutPosition;
 
@@ -11,28 +10,23 @@ public class CheckoutCounter : MonoBehaviour
     private Customer currentCustomer = null;
     private bool isProcessing = false;
 
-    public void JoinQueue(Customer customer)
-    {
+    public void JoinQueue(Customer customer) {
         customerQueue.Enqueue(customer);
         Debug.Log("Customer joined queue. Queue length: " + customerQueue.Count);
 
         // Start processing if not already doing so
-        if (!isProcessing)
-        {
+        if (!isProcessing) {
             StartCoroutine(ProcessQueue());
         }
     }
 
-    private IEnumerator ProcessQueue()
-    {
+    private IEnumerator ProcessQueue() {
         isProcessing = true;
 
-        while (customerQueue.Count > 0)
-        {
+        while (customerQueue.Count > 0) {
             currentCustomer = customerQueue.Dequeue();
 
-            if (currentCustomer == null)
-            {
+            if (currentCustomer == null) {
                 continue;
             }
 
@@ -43,8 +37,7 @@ public class CheckoutCounter : MonoBehaviour
             currentCustomer.ApproachCheckout(counterPosition);
 
             // Wait for customer to actually reach the counter
-            while (currentCustomer != null && currentCustomer.IsMoving)
-            {
+            while (currentCustomer != null && currentCustomer.IsMoving) {
                 yield return null;
             }
 
@@ -65,13 +58,11 @@ public class CheckoutCounter : MonoBehaviour
         isProcessing = false;
     }
 
-    public int GetQueueLength()
-    {
+    public int GetQueueLength() {
         return customerQueue.Count;
     }
 
-    public bool IsProcessing()
-    {
+    public bool IsProcessing() {
         return currentCustomer != null;
     }
 }

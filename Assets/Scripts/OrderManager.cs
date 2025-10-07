@@ -1,8 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class OrderManager : MonoBehaviour
-{
+public class OrderManager : MonoBehaviour {
     public static OrderManager Instance;
 
     [SerializeField] private List<ItemDataSO> availableItems = new List<ItemDataSO>();
@@ -13,26 +12,22 @@ public class OrderManager : MonoBehaviour
 
     public List<ItemDataSO> AvailableItems => availableItems;
 
-    private void Awake()
-    {
-        if (Instance != null && Instance != this)
-        {
+    private void Awake() {
+        if (Instance != null && Instance != this) {
             Destroy(gameObject);
             return;
         }
+
         Instance = this;
     }
 
-    public void AddToOrder(ItemDataSO item, int quantity)
-    {
+    public void AddToOrder(ItemDataSO item, int quantity) {
         if (item == null || quantity <= 0) return;
 
-        if (currentOrder.ContainsKey(item))
-        {
+        if (currentOrder.ContainsKey(item)) {
             currentOrder[item] += quantity;
         }
-        else
-        {
+        else {
             currentOrder[item] = quantity;
         }
 
@@ -40,68 +35,57 @@ public class OrderManager : MonoBehaviour
         OnOrderChanged?.Invoke();
     }
 
-    public void RemoveFromOrder(ItemDataSO item, int quantity)
-    {
+    public void RemoveFromOrder(ItemDataSO item, int quantity) {
         if (item == null || !currentOrder.ContainsKey(item)) return;
 
         currentOrder[item] -= quantity;
 
-        if (currentOrder[item] <= 0)
-        {
+        if (currentOrder[item] <= 0) {
             currentOrder.Remove(item);
         }
 
         OnOrderChanged?.Invoke();
     }
 
-    public void ClearOrder()
-    {
+    public void ClearOrder() {
         currentOrder.Clear();
         OnOrderChanged?.Invoke();
     }
 
-    public int GetOrderQuantity(ItemDataSO item)
-    {
+    public int GetOrderQuantity(ItemDataSO item) {
         return currentOrder.ContainsKey(item) ? currentOrder[item] : 0;
     }
 
-    public int GetTotalOrderCost()
-    {
+    public int GetTotalOrderCost() {
         int total = 0;
-        foreach (var kvp in currentOrder)
-        {
+        foreach (var kvp in currentOrder) {
             total += kvp.Key.restockCost * kvp.Value;
         }
+
         return total;
     }
 
-    public bool ConfirmOrder()
-    {
+    public bool ConfirmOrder() {
         int totalCost = GetTotalOrderCost();
 
-        if (totalCost == 0)
-        {
+        if (totalCost == 0) {
             Debug.Log("Order is empty!");
             return false;
         }
 
-        if (!GameManager.Instance.SpendMoney(totalCost))
-        {
+        if (!GameManager.Instance.SpendMoney(totalCost)) {
             Debug.Log("Not enough money to complete order!");
             return false;
         }
 
         // Send order to delivery manager for next morning delivery
-        if (DeliveryManager.Instance != null)
-        {
+        if (DeliveryManager.Instance != null) {
             DeliveryManager.Instance.AddPendingDelivery(GetCurrentOrder());
         }
-        else
-        {
+        else {
             Debug.LogWarning("DeliveryManager not found! Items added to inventory immediately.");
             // Fallback: add immediately if no delivery manager
-            foreach (var kvp in currentOrder)
-            {
+            foreach (var kvp in currentOrder) {
                 InventoryManager.Instance.AddToInventory(kvp.Key, kvp.Value);
             }
         }
@@ -111,8 +95,7 @@ public class OrderManager : MonoBehaviour
         return true;
     }
 
-    public Dictionary<ItemDataSO, int> GetCurrentOrder()
-    {
+    public Dictionary<ItemDataSO, int> GetCurrentOrder() {
         return new Dictionary<ItemDataSO, int>(currentOrder);
     }
 }
