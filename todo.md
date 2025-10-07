@@ -43,7 +43,7 @@
 
 ## Current Status
 
-### ✅ Completed (Phase 1-10)
+### ✅ Completed (Phase 1-11)
 - ✅ Phase 1: Core inventory system
 - ✅ Phase 2: Ordering system with UI
 - ✅ Phase 3: Day/Night cycle with three phases
@@ -54,6 +54,7 @@
 - ✅ Phase 8: Main Menu Scene with Play, Settings (TBD), and Quit buttons
 - ✅ Phase 9: Pause System with ESC key, pause menu overlay, and all buttons
 - ✅ Phase 10: End of Day Summary Panel with statistics and continue button
+- ✅ Phase 11: 2D Physics collision system (player blocked by walls, configurable spawn points)
 
 ### 🎮 Current Gameplay Loop
 1. **Morning:** Delivery boxes appear → Press E to open → Items to inventory → Restock shelves
@@ -62,6 +63,7 @@
 4. **Next Morning:** Repeat cycle (Day 2, 3, 4...)
 
 ### 🔧 Controls
+- **WASD/Arrow Keys** - Move player (blocked by walls)
 - **ESC** - Pause/unpause game (opens pause menu)
 - **Tab** - Open order menu (end of day only)
 - **E** - Interact (open delivery boxes, restock shelves)
@@ -76,5 +78,8 @@
 ## Notes for Next Session
 - All core systems are implemented and working
 - Full gameplay loop is functional
+- 2D physics system with Dynamic Rigidbody2D using velocity-based movement
+- Player properly collides with walls (requires Player tag to be set)
+- Customer spawner supports configurable spawn point transform
 - Ready for testing, polish, and additional features
 - Consider removing debug keys (M, K, I) after polish phase

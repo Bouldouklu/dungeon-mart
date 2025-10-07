@@ -6,6 +6,7 @@ public class CustomerSpawner : MonoBehaviour {
 
     [Header("Spawn Settings")]
     [SerializeField] private GameObject customerPrefab;
+    [SerializeField] private Transform spawnPoint;
 
     [SerializeField] private int customersPerDay = 8;
     [SerializeField] private float spawnInterval = 3f;
@@ -75,7 +76,9 @@ public class CustomerSpawner : MonoBehaviour {
 
     private void SpawnCustomer() {
         if (customerPrefab != null) {
-            GameObject customerObj = Instantiate(customerPrefab, transform.position, Quaternion.identity);
+            // Use spawn point if assigned, otherwise fall back to this transform
+            Vector3 spawnPosition = spawnPoint != null ? spawnPoint.position : transform.position;
+            GameObject customerObj = Instantiate(customerPrefab, spawnPosition, Quaternion.identity);
             Customer customer = customerObj.GetComponent<Customer>();
             if (customer != null) {
                 customer.Initialize();

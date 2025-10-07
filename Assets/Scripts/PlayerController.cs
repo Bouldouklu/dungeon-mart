@@ -1,11 +1,25 @@
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody2D))]
 public class PlayerController : MonoBehaviour {
     [SerializeField] private float moveSpeed = 5f;
     [SerializeField] private float interactionRange = 1.5f;
 
+    private Rigidbody2D rb2d;
     private Vector2 moveInput;
     private Shelf nearestShelf;
+
+    private void Awake() {
+        rb2d = GetComponent<Rigidbody2D>();
+
+        // Enforce proper Rigidbody2D settings for collision detection
+        rb2d.bodyType = RigidbodyType2D.Dynamic;
+        rb2d.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
+        rb2d.gravityScale = 0f;
+        rb2d.constraints = RigidbodyConstraints2D.FreezeRotation;
+
+        Debug.Log("PlayerController: Rigidbody2D configured for collision detection");
+    }
 
     private void Update() {
         HandleMovement();
@@ -18,8 +32,8 @@ public class PlayerController : MonoBehaviour {
         moveInput.y = Input.GetAxisRaw("Vertical");
         moveInput.Normalize();
 
-        Vector3 movement = new Vector3(moveInput.x, moveInput.y, 0) * moveSpeed * Time.deltaTime;
-        transform.position += movement;
+        // Use velocity for Dynamic Rigidbody2D
+        rb2d.linearVelocity = moveInput * moveSpeed;
     }
 
     private void FindNearestShelf() {
@@ -48,5 +62,9 @@ public class PlayerController : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.I)) {
             InventoryManager.Instance.AddDebugInventory();
         }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision) {
+        Debug.Log("Collision detected with: " + collision.gameObject.name);
     }
 }
