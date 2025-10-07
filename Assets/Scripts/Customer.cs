@@ -1,75 +1,146 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Customer : MonoBehaviour {
-    [SerializeField] private float moveSpeed = 3f;
     [SerializeField] private Transform itemCarryPoint;
+    [SerializeField] private SpriteRenderer spriteRenderer;
 
-    private Shelf targetShelf;
-    private Item carriedItem;
+    private CustomerTypeDataSO customerType;
+    private List<Item> carriedItems = new List<Item>();
+    private int desiredItemCount;
+    private float currentPatience;
     private bool isMoving = false;
     private Vector3 targetPosition;
     private bool waitingForCheckout = false;
     private CheckoutCounter checkoutCounter;
 
     public bool IsMoving => isMoving;
+    public CustomerTypeDataSO CustomerType => customerType;
 
-    public void Initialize() {
+    public void Initialize(CustomerTypeDataSO type) {
+        customerType = type;
+
+        if (customerType == null)
+        {
+            Debug.LogError("Customer initialized without CustomerTypeDataSO!");
+            Destroy(gameObject);
+            return;
+        }
+
+        // Set visual appearance
+        if (spriteRenderer != null && customerType.customerSprite != null)
+        {
+            spriteRenderer.sprite = customerType.customerSprite;
+        }
+        if (spriteRenderer != null)
+        {
+            spriteRenderer.color = customerType.customerTint;
+        }
+
+        // Initialize behavior parameters
+        desiredItemCount = customerType.GetRandomItemCount();
+        currentPatience = customerType.initialPatience;
+
+        Debug.Log($"Customer spawned: {customerType.customerTypeName} wants {desiredItemCount} items");
+
+        // Show entry dialogue
+        if (DialogueManager.Instance != null)
+        {
+            DialogueManager.Instance.ShowRandomDialogue(customerType.entryDialogues, transform);
+        }
+
         StartCoroutine(ShoppingRoutine());
     }
 
     private IEnumerator ShoppingRoutine() {
-        // Find a shelf
+        // Wait before starting shopping
         yield return new WaitForSeconds(0.5f);
 
         Shelf[] shelves = FindObjectsByType<Shelf>(FindObjectsSortMode.None);
-        if (shelves.Length > 0) {
-            targetShelf = shelves[Random.Range(0, shelves.Length)];
+
+        // Try to collect desired number of items
+        for (int i = 0; i < desiredItemCount; i++) {
+            if (shelves.Length == 0) break;
+
+            // Pick a random shelf
+            Shelf targetShelf = shelves[Random.Range(0, shelves.Length)];
 
             // Move to shelf
-            Debug.Log("Moving to shelf at: " + targetShelf.transform.position);
             Vector3 shelfPos = targetShelf.transform.position + new Vector3(0, -1f, 0);
             MoveToPosition(shelfPos);
             while (isMoving) {
                 yield return null;
             }
 
-            // Take item
-            yield return new WaitForSeconds(1f);
+            // Browse at shelf (use customer type's browse time)
+            if (DialogueManager.Instance != null && customerType.browsingDialogues.Length > 0) {
+                DialogueManager.Instance.ShowRandomDialogue(customerType.browsingDialogues, transform);
+            }
+            yield return new WaitForSeconds(customerType.browseTime);
+
+            // Take item if available
             if (targetShelf != null && !targetShelf.IsEmpty) {
-                carriedItem = targetShelf.TakeItem();
-                if (carriedItem != null && itemCarryPoint != null) {
-                    carriedItem.transform.SetParent(itemCarryPoint);
-                    carriedItem.transform.localPosition = Vector3.zero;
+                Item item = targetShelf.TakeItem();
+                if (item != null) {
+                    carriedItems.Add(item);
+                    // Position items in carry point (stack them slightly offset)
+                    if (itemCarryPoint != null) {
+                        item.transform.SetParent(itemCarryPoint);
+                        item.transform.localPosition = new Vector3(0, carriedItems.Count * 0.1f, 0);
+                    }
+                    Debug.Log($"Customer picked up item {i + 1}/{desiredItemCount}");
                 }
-            }
-
-            // If didn't get an item, leave disappointed
-            if (carriedItem == null) {
-                Debug.Log("Customer leaving - no items available!");
-                DayManager.Instance?.RecordCustomerLeft();
-                NotifySpawnerAndLeave();
-                yield break;
-            }
-
-            // Find checkout counter and join queue
-            checkoutCounter = FindFirstObjectByType<CheckoutCounter>();
-            if (checkoutCounter != null) {
-                Debug.Log("Joining checkout queue");
-                waitingForCheckout = true;
-                checkoutCounter.JoinQueue(this);
-
-                // Wait for our turn at checkout
-                while (waitingForCheckout) {
-                    yield return null;
-                }
-            }
-            else {
-                Debug.LogWarning("No CheckoutCounter found in scene!");
             }
         }
 
+        // If didn't get any items, leave disappointed
+        if (carriedItems.Count == 0) {
+            Debug.Log($"Customer leaving disappointed - no items available!");
+            if (DialogueManager.Instance != null) {
+                DialogueManager.Instance.ShowRandomDialogue(customerType.disappointedDialogues, transform);
+            }
+            DayManager.Instance?.RecordCustomerLeft();
+            yield return new WaitForSeconds(2f); // Wait to show dialogue
+            NotifySpawnerAndLeave();
+            yield break;
+        }
+
+        // Find checkout counter and join queue
+        checkoutCounter = FindFirstObjectByType<CheckoutCounter>();
+        if (checkoutCounter != null) {
+            Debug.Log($"Customer heading to checkout with {carriedItems.Count} items");
+            if (DialogueManager.Instance != null) {
+                DialogueManager.Instance.ShowRandomDialogue(customerType.checkoutDialogues, transform);
+            }
+
+            waitingForCheckout = true;
+            checkoutCounter.JoinQueue(this);
+
+            // Wait for our turn at checkout (with patience system)
+            while (waitingForCheckout) {
+                currentPatience -= customerType.patienceDrainRate * Time.deltaTime;
+
+                // Could add impatient behavior here if patience runs out
+                if (currentPatience <= 0) {
+                    Debug.Log($"Customer lost patience and left!");
+                    // For now, just continue waiting
+                }
+
+                yield return null;
+            }
+        }
+        else {
+            Debug.LogWarning("No CheckoutCounter found in scene!");
+        }
+
+        // Show exit dialogue
+        if (DialogueManager.Instance != null) {
+            DialogueManager.Instance.ShowRandomDialogue(customerType.exitDialogues, transform);
+        }
+
         // Leave store
+        yield return new WaitForSeconds(1f); // Brief delay to show exit dialogue
         NotifySpawnerAndLeave();
     }
 
@@ -87,16 +158,25 @@ public class Customer : MonoBehaviour {
     }
 
     public void CompleteTransaction() {
-        Debug.Log("Completing transaction");
+        Debug.Log($"Completing transaction for {carriedItems.Count} items");
 
-        // Process payment
-        if (carriedItem != null) {
-            int salePrice = carriedItem.GetSellPrice();
-            GameManager.Instance.AddMoney(salePrice);
-            DayManager.Instance?.RecordCustomerSale(salePrice);
-            Destroy(carriedItem.gameObject);
-            carriedItem = null;
+        // Process payment for all carried items
+        int totalPrice = 0;
+        foreach (Item item in carriedItems) {
+            if (item != null) {
+                int salePrice = item.GetSellPrice();
+                totalPrice += salePrice;
+                Destroy(item.gameObject);
+            }
         }
+
+        if (totalPrice > 0) {
+            GameManager.Instance.AddMoney(totalPrice);
+            DayManager.Instance?.RecordCustomerSale(totalPrice);
+            Debug.Log($"Transaction complete: ${totalPrice} for {carriedItems.Count} items");
+        }
+
+        carriedItems.Clear();
 
         // Signal we're done waiting
         waitingForCheckout = false;
@@ -108,8 +188,8 @@ public class Customer : MonoBehaviour {
     }
 
     private void Update() {
-        if (isMoving) {
-            transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
+        if (isMoving && customerType != null) {
+            transform.position = Vector3.MoveTowards(transform.position, targetPosition, customerType.moveSpeed * Time.deltaTime);
 
             if (Vector3.Distance(transform.position, targetPosition) < 0.1f) {
                 isMoving = false;

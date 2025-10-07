@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9312f147001b3f46bdf04731157d70c, type: 3}
+  m_Name: CustomerType_Browser
+  m_EditorClassIdentifier: Assembly-CSharp::CustomerTypeDataSO
+  customerTypeName: Browser
+  archetype: Browser
+  moveSpeed: 2
+  browseTime: 2.5
+  minItemCount: 2
+  maxItemCount: 3
+  initialPatience: 120
+  patienceDrainRate: 3
+  entryDialogues:
+  - 'Ooh, let me browse a bit...
+
+'
+  - 'I wonder what they have today?
+
+'
+  - Time to do some evil shopping!
+  browsingDialogues:
+  - Hmm, does this sword spark joy?
+  - Interesting selection...
+  - Maybe I'll get this one too
+  - Let me compare these cursed items
+  checkoutDialogues:
+  - I think I got everything!
+  - Found some nice items today
+  exitDialogues:
+  - Great shopping experience!
+  - I'll be back for more!
+  disappointedDialogues:
+  - Empty shelves? What kind of evil business is this?
+  customerSprite: {fileID: 0}
+  customerTint: {r: 0.8, g: 0.9, b: 1, a: 1}

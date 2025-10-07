@@ -8,6 +8,10 @@ public class CustomerSpawner : MonoBehaviour {
     [SerializeField] private GameObject customerPrefab;
     [SerializeField] private Transform spawnPoint;
 
+    [Header("Customer Types")]
+    [SerializeField] private CustomerTypeDataSO[] customerTypes;
+
+    [Header("Day Settings")]
     [SerializeField] private int customersPerDay = 8;
     [SerializeField] private float spawnInterval = 3f;
 
@@ -75,16 +79,42 @@ public class CustomerSpawner : MonoBehaviour {
     }
 
     private void SpawnCustomer() {
-        if (customerPrefab != null) {
-            // Use spawn point if assigned, otherwise fall back to this transform
-            Vector3 spawnPosition = spawnPoint != null ? spawnPoint.position : transform.position;
-            GameObject customerObj = Instantiate(customerPrefab, spawnPosition, Quaternion.identity);
-            Customer customer = customerObj.GetComponent<Customer>();
-            if (customer != null) {
-                customer.Initialize();
-                Debug.Log($"Customer {customersSpawned + 1}/{totalCustomersForDay} spawned");
-            }
+        if (customerPrefab == null) {
+            Debug.LogError("Customer prefab not assigned!");
+            return;
         }
+
+        // Pick a random customer type
+        CustomerTypeDataSO customerType = GetRandomCustomerType();
+        if (customerType == null) {
+            Debug.LogError("No customer types assigned to spawner!");
+            return;
+        }
+
+        // Use spawn point if assigned, otherwise fall back to this transform
+        Vector3 spawnPosition = spawnPoint != null ? spawnPoint.position : transform.position;
+        GameObject customerObj = Instantiate(customerPrefab, spawnPosition, Quaternion.identity);
+        Customer customer = customerObj.GetComponent<Customer>();
+
+        if (customer != null) {
+            customer.Initialize(customerType);
+            Debug.Log($"Customer {customersSpawned + 1}/{totalCustomersForDay} spawned: {customerType.customerTypeName}");
+        }
+        else {
+            Debug.LogError("Customer prefab missing Customer component!");
+            Destroy(customerObj);
+        }
+    }
+
+    /// <summary>
+    /// Gets a random customer type from the available types array.
+    /// </summary>
+    private CustomerTypeDataSO GetRandomCustomerType() {
+        if (customerTypes == null || customerTypes.Length == 0) {
+            return null;
+        }
+
+        return customerTypes[Random.Range(0, customerTypes.Length)];
     }
 
     public void OnCustomerLeft() {

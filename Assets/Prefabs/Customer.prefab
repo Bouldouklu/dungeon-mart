@@ -46,8 +46,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8cdf463cc94852148acff1352d60887b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Customer
-  moveSpeed: 3
   itemCarryPoint: {fileID: 4716547161590365858}
+  spriteRenderer: {fileID: 1772077259930718752}
 --- !u!1 &5951895863386750732
 GameObject:
   m_ObjectHideFlags: 0

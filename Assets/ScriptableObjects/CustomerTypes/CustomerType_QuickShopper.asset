@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9312f147001b3f46bdf04731157d70c, type: 3}
+  m_Name: CustomerType_QuickShopper
+  m_EditorClassIdentifier: Assembly-CSharp::CustomerTypeDataSO
+  customerTypeName: Quick Shopper
+  archetype: Quick Shopper
+  moveSpeed: 4.5
+  browseTime: 0.5
+  minItemCount: 1
+  maxItemCount: 1
+  initialPatience: 80
+  patienceDrainRate: 8
+  entryDialogues:
+  - Just need a cursed dagger, in and out!
+  - Quick trip for some evil supplies
+  - No time to browse, got dungeons to raid!
+  browsingDialogues:
+  - This'll do
+  - Perfect!
+  checkoutDialogues:
+  - Ring me up, I'm in a hurry!
+  - '"Let''s make this quick'
+  exitDialogues:
+  - Thanks, gotta run!
+  - Efficient service, nice!
+  disappointedDialogues:
+  - Out of stock? Unbelievable! I'm going to Hell-Mart!
+  customerSprite: {fileID: 0}
+  customerTint: {r: 0.8, g: 1, b: 0.8, a: 1}
