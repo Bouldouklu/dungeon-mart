@@ -36,13 +36,13 @@
   - [x] Quit button
   - [x] Game title/logo display
 
-- [ ] **Pause System:**
-  - [ ] Pause menu overlay (ESC key)
-  - [ ] Resume button
-  - [ ] Settings button
-  - [ ] Return to Main Menu button
-  - [ ] Pause gameplay when menu is open
-  - [ ] Unpause when resuming
+- [x] **Pause System:**
+  - [x] Pause menu overlay (ESC key)
+  - [x] Resume button
+  - [x] Settings button
+  - [x] Return to Main Menu button
+  - [x] Pause gameplay when menu is open
+  - [x] Unpause when resuming
 
 ### 4. Future Enhancements (Nice to Have)
 
@@ -61,7 +61,7 @@
 
 ## Current Status
 
-### ✅ Completed (Phase 1-8)
+### ✅ Completed (Phase 1-9)
 - ✅ Phase 1: Core inventory system
 - ✅ Phase 2: Ordering system with UI
 - ✅ Phase 3: Day/Night cycle with three phases
@@ -70,6 +70,7 @@
 - ✅ Phase 6: Phase restrictions (order menu only at end of day)
 - ✅ Phase 7: Starting delivery boxes on Day 1 & proper day progression
 - ✅ Phase 8: Main Menu Scene with Play, Settings (TBD), and Quit buttons
+- ✅ Phase 9: Pause System with ESC key, pause menu overlay, and all buttons
 
 ### 🎮 Current Gameplay Loop
 1. **Morning:** Delivery boxes appear → Press E to open → Items to inventory → Restock shelves
@@ -77,7 +78,12 @@
 3. **End of Day:** Press Tab → Order stock for tomorrow → Confirm order → Press M to advance
 4. **Next Morning:** Repeat cycle (Day 2, 3, 4...)
 
-### 🔧 Debug Controls
+### 🔧 Controls
+- **ESC** - Pause/unpause game (opens pause menu)
+- **Tab** - Open order menu (end of day only)
+- **E** - Interact (open delivery boxes, restock shelves)
+
+### 🐛 Debug Controls
 - **M** - Advance to next day (increments day counter and starts morning)
 - **O** - Open shop (morning → business)
 - **K** - Force end day (business → end of day)
