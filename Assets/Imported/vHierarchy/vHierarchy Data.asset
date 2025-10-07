@@ -15,6 +15,9 @@ MonoBehaviour:
   sceneDatas_byGuid:
     keys:
     - 8c9cfa26abfee488c85f1582747f6a02
+    - d486d39bb59ac1d44b29166c822dd726
+    - 34491db9b3eb82b40981c9a328d280a4
+    - 2b769a35a31a4444c9afe53dd433cb0e
     values:
     - goDatas_byGlobalId:
         keys:
@@ -29,6 +32,31 @@ MonoBehaviour:
         - globalObjectIdString: GlobalObjectId_V1-2-8c9cfa26abfee488c85f1582747f6a02-1563176834-0
         - globalObjectIdString: GlobalObjectId_V1-2-8c9cfa26abfee488c85f1582747f6a02-1073320396-0
         - globalObjectIdString: GlobalObjectId_V1-2-8c9cfa26abfee488c85f1582747f6a02-1217772335-0
+        - globalObjectIdString: GlobalObjectId_V1-2-8c9cfa26abfee488c85f1582747f6a02-1317030175-0
+        - globalObjectIdString: GlobalObjectId_V1-2-8c9cfa26abfee488c85f1582747f6a02-310647361-0
+        - globalObjectIdString: GlobalObjectId_V1-2-8c9cfa26abfee488c85f1582747f6a02-1622248659-0
+        - globalObjectIdString: GlobalObjectId_V1-2-8c9cfa26abfee488c85f1582747f6a02-468857649-0
+        - globalObjectIdString: GlobalObjectId_V1-2-8c9cfa26abfee488c85f1582747f6a02-1077210367-0
+        - globalObjectIdString: GlobalObjectId_V1-2-8c9cfa26abfee488c85f1582747f6a02-1824381966-0
+        - globalObjectIdString: GlobalObjectId_V1-2-8c9cfa26abfee488c85f1582747f6a02-850362584-0
+        - globalObjectIdString: GlobalObjectId_V1-2-8c9cfa26abfee488c85f1582747f6a02-1881727501-0
+        - globalObjectIdString: GlobalObjectId_V1-2-8c9cfa26abfee488c85f1582747f6a02-1091283678-0
+        - globalObjectIdString: GlobalObjectId_V1-2-8c9cfa26abfee488c85f1582747f6a02-1297869948-0
+        - globalObjectIdString: GlobalObjectId_V1-2-8c9cfa26abfee488c85f1582747f6a02-229787412-0
+        - globalObjectIdString: GlobalObjectId_V1-2-8c9cfa26abfee488c85f1582747f6a02-666032815-0
+        - globalObjectIdString: GlobalObjectId_V1-2-8c9cfa26abfee488c85f1582747f6a02-1247554668-0
+        - globalObjectIdString: GlobalObjectId_V1-2-8c9cfa26abfee488c85f1582747f6a02-873270438-0
+        - globalObjectIdString: GlobalObjectId_V1-2-8c9cfa26abfee488c85f1582747f6a02-797551528-0
+        - globalObjectIdString: GlobalObjectId_V1-2-8c9cfa26abfee488c85f1582747f6a02-181375438-0
+        - globalObjectIdString: GlobalObjectId_V1-2-8c9cfa26abfee488c85f1582747f6a02-2510843-0
+        - globalObjectIdString: GlobalObjectId_V1-2-8c9cfa26abfee488c85f1582747f6a02-141961057-0
+        - globalObjectIdString: GlobalObjectId_V1-2-8c9cfa26abfee488c85f1582747f6a02-242823760-0
+        - globalObjectIdString: GlobalObjectId_V1-2-8c9cfa26abfee488c85f1582747f6a02-189324414-0
+        - globalObjectIdString: GlobalObjectId_V1-2-8c9cfa26abfee488c85f1582747f6a02-589862562-0
+        - globalObjectIdString: GlobalObjectId_V1-2-8c9cfa26abfee488c85f1582747f6a02-1990248179-0
+        - globalObjectIdString: GlobalObjectId_V1-2-8c9cfa26abfee488c85f1582747f6a02-1424907274-0
+        - globalObjectIdString: GlobalObjectId_V1-2-8c9cfa26abfee488c85f1582747f6a02-1488516666-0
+        - globalObjectIdString: GlobalObjectId_V1-2-8c9cfa26abfee488c85f1582747f6a02-1827166922-0
         values:
         - colorIndex: 0
           iconNameOrGuid: AvatarMask On Icon
@@ -72,6 +100,595 @@ MonoBehaviour:
           isColorRecursive: 0
         - colorIndex: 0
           iconNameOrGuid: Text Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 0
+          iconNameOrGuid: Transform Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 0
+          iconNameOrGuid: Canvas Icon
+          isIconRecursive: 1
+          isColorRecursive: 0
+        - colorIndex: 0
+          iconNameOrGuid: cs Script Icon
+          isIconRecursive: 1
+          isColorRecursive: 0
+        - colorIndex: 0
+          iconNameOrGuid: cs Script Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 0
+          iconNameOrGuid: Text Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 0
+          iconNameOrGuid: Text Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 0
+          iconNameOrGuid: Text Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 0
+          iconNameOrGuid: Text Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 0
+          iconNameOrGuid: Text Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 0
+          iconNameOrGuid: Text Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 0
+          iconNameOrGuid: Text Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 0
+          iconNameOrGuid: Text Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 0
+          iconNameOrGuid: Text Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 0
+          iconNameOrGuid: Text Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 0
+          iconNameOrGuid: Text Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 0
+          iconNameOrGuid: cs Script Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 0
+          iconNameOrGuid: Text Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 0
+          iconNameOrGuid: Text Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 0
+          iconNameOrGuid: cs Script Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 0
+          iconNameOrGuid: Text Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 0
+          iconNameOrGuid: Text Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 0
+          iconNameOrGuid: Text Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 0
+          iconNameOrGuid: Text Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 0
+          iconNameOrGuid: cs Script Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 0
+          iconNameOrGuid: Transform Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+    - goDatas_byGlobalId:
+        keys:
+        - globalObjectIdString: GlobalObjectId_V1-1-d486d39bb59ac1d44b29166c822dd726-4894603767221840469-0
+        - globalObjectIdString: GlobalObjectId_V1-1-d486d39bb59ac1d44b29166c822dd726-913708793926872902-0
+        - globalObjectIdString: GlobalObjectId_V1-1-d486d39bb59ac1d44b29166c822dd726-1168898801932469017-0
+        - globalObjectIdString: GlobalObjectId_V1-1-d486d39bb59ac1d44b29166c822dd726-2341734291982288005-0
+        - globalObjectIdString: GlobalObjectId_V1-1-d486d39bb59ac1d44b29166c822dd726-6460403238653909145-0
+        - globalObjectIdString: GlobalObjectId_V1-1-d486d39bb59ac1d44b29166c822dd726-273017078219723191-0
+        - globalObjectIdString: GlobalObjectId_V1-1-d486d39bb59ac1d44b29166c822dd726-2968593144789493361-0
+        values:
+        - colorIndex: 0
+          iconNameOrGuid: Text Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 0
+          iconNameOrGuid: Text Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 0
+          iconNameOrGuid: Text Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 0
+          iconNameOrGuid: Text Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 0
+          iconNameOrGuid: Text Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 0
+          iconNameOrGuid: Text Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 0
+          iconNameOrGuid: Text Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+    - goDatas_byGlobalId:
+        keys:
+        - globalObjectIdString: GlobalObjectId_V1-2-34491db9b3eb82b40981c9a328d280a4-1598629088-0
+        - globalObjectIdString: GlobalObjectId_V1-2-34491db9b3eb82b40981c9a328d280a4-1691409139-0
+        - globalObjectIdString: GlobalObjectId_V1-2-34491db9b3eb82b40981c9a328d280a4-1656746640-0
+        - globalObjectIdString: GlobalObjectId_V1-2-34491db9b3eb82b40981c9a328d280a4-367985825-0
+        - globalObjectIdString: GlobalObjectId_V1-2-34491db9b3eb82b40981c9a328d280a4-519420028-0
+        - globalObjectIdString: GlobalObjectId_V1-2-34491db9b3eb82b40981c9a328d280a4-619394800-0
+        - globalObjectIdString: GlobalObjectId_V1-2-34491db9b3eb82b40981c9a328d280a4-535471810-0
+        - globalObjectIdString: GlobalObjectId_V1-2-34491db9b3eb82b40981c9a328d280a4-396376006-0
+        - globalObjectIdString: GlobalObjectId_V1-2-34491db9b3eb82b40981c9a328d280a4-1563176834-0
+        - globalObjectIdString: GlobalObjectId_V1-2-34491db9b3eb82b40981c9a328d280a4-1073320396-0
+        - globalObjectIdString: GlobalObjectId_V1-2-34491db9b3eb82b40981c9a328d280a4-1217772335-0
+        - globalObjectIdString: GlobalObjectId_V1-2-34491db9b3eb82b40981c9a328d280a4-1317030175-0
+        - globalObjectIdString: GlobalObjectId_V1-2-34491db9b3eb82b40981c9a328d280a4-310647361-0
+        - globalObjectIdString: GlobalObjectId_V1-2-34491db9b3eb82b40981c9a328d280a4-1622248659-0
+        - globalObjectIdString: GlobalObjectId_V1-2-34491db9b3eb82b40981c9a328d280a4-468857649-0
+        - globalObjectIdString: GlobalObjectId_V1-2-34491db9b3eb82b40981c9a328d280a4-1077210367-0
+        - globalObjectIdString: GlobalObjectId_V1-2-34491db9b3eb82b40981c9a328d280a4-1824381966-0
+        - globalObjectIdString: GlobalObjectId_V1-2-34491db9b3eb82b40981c9a328d280a4-850362584-0
+        - globalObjectIdString: GlobalObjectId_V1-2-34491db9b3eb82b40981c9a328d280a4-1881727501-0
+        - globalObjectIdString: GlobalObjectId_V1-2-34491db9b3eb82b40981c9a328d280a4-1091283678-0
+        - globalObjectIdString: GlobalObjectId_V1-2-34491db9b3eb82b40981c9a328d280a4-1297869948-0
+        - globalObjectIdString: GlobalObjectId_V1-2-34491db9b3eb82b40981c9a328d280a4-229787412-0
+        - globalObjectIdString: GlobalObjectId_V1-2-34491db9b3eb82b40981c9a328d280a4-666032815-0
+        - globalObjectIdString: GlobalObjectId_V1-2-34491db9b3eb82b40981c9a328d280a4-1247554668-0
+        - globalObjectIdString: GlobalObjectId_V1-2-34491db9b3eb82b40981c9a328d280a4-873270438-0
+        - globalObjectIdString: GlobalObjectId_V1-2-34491db9b3eb82b40981c9a328d280a4-797551528-0
+        - globalObjectIdString: GlobalObjectId_V1-2-34491db9b3eb82b40981c9a328d280a4-181375438-0
+        - globalObjectIdString: GlobalObjectId_V1-2-34491db9b3eb82b40981c9a328d280a4-2510843-0
+        - globalObjectIdString: GlobalObjectId_V1-2-34491db9b3eb82b40981c9a328d280a4-141961057-0
+        - globalObjectIdString: GlobalObjectId_V1-2-34491db9b3eb82b40981c9a328d280a4-242823760-0
+        - globalObjectIdString: GlobalObjectId_V1-2-34491db9b3eb82b40981c9a328d280a4-189324414-0
+        - globalObjectIdString: GlobalObjectId_V1-2-34491db9b3eb82b40981c9a328d280a4-589862562-0
+        - globalObjectIdString: GlobalObjectId_V1-2-34491db9b3eb82b40981c9a328d280a4-1990248179-0
+        - globalObjectIdString: GlobalObjectId_V1-2-34491db9b3eb82b40981c9a328d280a4-1424907274-0
+        - globalObjectIdString: GlobalObjectId_V1-2-34491db9b3eb82b40981c9a328d280a4-1488516666-0
+        - globalObjectIdString: GlobalObjectId_V1-2-34491db9b3eb82b40981c9a328d280a4-1827166922-0
+        - globalObjectIdString: GlobalObjectId_V1-2-34491db9b3eb82b40981c9a328d280a4-1245617096-0
+        - globalObjectIdString: GlobalObjectId_V1-2-34491db9b3eb82b40981c9a328d280a4-306906252-0
+        - globalObjectIdString: GlobalObjectId_V1-2-34491db9b3eb82b40981c9a328d280a4-254007169-0
+        - globalObjectIdString: GlobalObjectId_V1-2-34491db9b3eb82b40981c9a328d280a4-529391900-0
+        - globalObjectIdString: GlobalObjectId_V1-2-34491db9b3eb82b40981c9a328d280a4-1878540671-0
+        - globalObjectIdString: GlobalObjectId_V1-2-34491db9b3eb82b40981c9a328d280a4-1358205553-0
+        - globalObjectIdString: GlobalObjectId_V1-2-34491db9b3eb82b40981c9a328d280a4-1610607632-0
+        values:
+        - colorIndex: 0
+          iconNameOrGuid: AvatarMask On Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 0
+          iconNameOrGuid: cs Script Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 0
+          iconNameOrGuid: cs Script Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 0
+          iconNameOrGuid: Image Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 0
+          iconNameOrGuid: Camera Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 0
+          iconNameOrGuid: Light Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 0
+          iconNameOrGuid: cs Script Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 0
+          iconNameOrGuid: Image Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 0
+          iconNameOrGuid: Image Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 0
+          iconNameOrGuid: Image Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 0
+          iconNameOrGuid: Text Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 0
+          iconNameOrGuid: Transform Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 0
+          iconNameOrGuid: Canvas Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 0
+          iconNameOrGuid: cs Script Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 0
+          iconNameOrGuid: cs Script Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 0
+          iconNameOrGuid: Text Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 0
+          iconNameOrGuid: Text Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 0
+          iconNameOrGuid: Text Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 0
+          iconNameOrGuid: Text Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 0
+          iconNameOrGuid: Text Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 0
+          iconNameOrGuid: Text Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 0
+          iconNameOrGuid: Text Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 0
+          iconNameOrGuid: Text Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 0
+          iconNameOrGuid: Text Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 0
+          iconNameOrGuid: Text Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 0
+          iconNameOrGuid: Text Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 0
+          iconNameOrGuid: cs Script Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 0
+          iconNameOrGuid: Text Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 0
+          iconNameOrGuid: Text Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 0
+          iconNameOrGuid: cs Script Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 0
+          iconNameOrGuid: Text Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 0
+          iconNameOrGuid: Text Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 0
+          iconNameOrGuid: Text Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 0
+          iconNameOrGuid: Text Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 0
+          iconNameOrGuid: cs Script Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 0
+          iconNameOrGuid: Transform Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 0
+          iconNameOrGuid: Text Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 0
+          iconNameOrGuid: Text Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 0
+          iconNameOrGuid: Canvas Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 0
+          iconNameOrGuid: Canvas Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 0
+          iconNameOrGuid: Canvas Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 0
+          iconNameOrGuid: Text Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 0
+          iconNameOrGuid: Text Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+    - goDatas_byGlobalId:
+        keys:
+        - globalObjectIdString: GlobalObjectId_V1-2-2b769a35a31a4444c9afe53dd433cb0e-1598629088-0
+        - globalObjectIdString: GlobalObjectId_V1-2-2b769a35a31a4444c9afe53dd433cb0e-1691409139-0
+        - globalObjectIdString: GlobalObjectId_V1-2-2b769a35a31a4444c9afe53dd433cb0e-1656746640-0
+        - globalObjectIdString: GlobalObjectId_V1-2-2b769a35a31a4444c9afe53dd433cb0e-367985825-0
+        - globalObjectIdString: GlobalObjectId_V1-2-2b769a35a31a4444c9afe53dd433cb0e-519420028-0
+        - globalObjectIdString: GlobalObjectId_V1-2-2b769a35a31a4444c9afe53dd433cb0e-619394800-0
+        - globalObjectIdString: GlobalObjectId_V1-2-2b769a35a31a4444c9afe53dd433cb0e-535471810-0
+        - globalObjectIdString: GlobalObjectId_V1-2-2b769a35a31a4444c9afe53dd433cb0e-396376006-0
+        - globalObjectIdString: GlobalObjectId_V1-2-2b769a35a31a4444c9afe53dd433cb0e-1563176834-0
+        - globalObjectIdString: GlobalObjectId_V1-2-2b769a35a31a4444c9afe53dd433cb0e-1073320396-0
+        - globalObjectIdString: GlobalObjectId_V1-2-2b769a35a31a4444c9afe53dd433cb0e-1217772335-0
+        - globalObjectIdString: GlobalObjectId_V1-2-2b769a35a31a4444c9afe53dd433cb0e-1317030175-0
+        - globalObjectIdString: GlobalObjectId_V1-2-2b769a35a31a4444c9afe53dd433cb0e-310647361-0
+        - globalObjectIdString: GlobalObjectId_V1-2-2b769a35a31a4444c9afe53dd433cb0e-1622248659-0
+        - globalObjectIdString: GlobalObjectId_V1-2-2b769a35a31a4444c9afe53dd433cb0e-468857649-0
+        - globalObjectIdString: GlobalObjectId_V1-2-2b769a35a31a4444c9afe53dd433cb0e-1077210367-0
+        - globalObjectIdString: GlobalObjectId_V1-2-2b769a35a31a4444c9afe53dd433cb0e-1824381966-0
+        - globalObjectIdString: GlobalObjectId_V1-2-2b769a35a31a4444c9afe53dd433cb0e-850362584-0
+        - globalObjectIdString: GlobalObjectId_V1-2-2b769a35a31a4444c9afe53dd433cb0e-1881727501-0
+        - globalObjectIdString: GlobalObjectId_V1-2-2b769a35a31a4444c9afe53dd433cb0e-1091283678-0
+        - globalObjectIdString: GlobalObjectId_V1-2-2b769a35a31a4444c9afe53dd433cb0e-1297869948-0
+        - globalObjectIdString: GlobalObjectId_V1-2-2b769a35a31a4444c9afe53dd433cb0e-229787412-0
+        - globalObjectIdString: GlobalObjectId_V1-2-2b769a35a31a4444c9afe53dd433cb0e-666032815-0
+        - globalObjectIdString: GlobalObjectId_V1-2-2b769a35a31a4444c9afe53dd433cb0e-1247554668-0
+        - globalObjectIdString: GlobalObjectId_V1-2-2b769a35a31a4444c9afe53dd433cb0e-873270438-0
+        - globalObjectIdString: GlobalObjectId_V1-2-2b769a35a31a4444c9afe53dd433cb0e-797551528-0
+        - globalObjectIdString: GlobalObjectId_V1-2-2b769a35a31a4444c9afe53dd433cb0e-181375438-0
+        - globalObjectIdString: GlobalObjectId_V1-2-2b769a35a31a4444c9afe53dd433cb0e-2510843-0
+        - globalObjectIdString: GlobalObjectId_V1-2-2b769a35a31a4444c9afe53dd433cb0e-141961057-0
+        - globalObjectIdString: GlobalObjectId_V1-2-2b769a35a31a4444c9afe53dd433cb0e-242823760-0
+        - globalObjectIdString: GlobalObjectId_V1-2-2b769a35a31a4444c9afe53dd433cb0e-189324414-0
+        - globalObjectIdString: GlobalObjectId_V1-2-2b769a35a31a4444c9afe53dd433cb0e-589862562-0
+        - globalObjectIdString: GlobalObjectId_V1-2-2b769a35a31a4444c9afe53dd433cb0e-1990248179-0
+        - globalObjectIdString: GlobalObjectId_V1-2-2b769a35a31a4444c9afe53dd433cb0e-1424907274-0
+        - globalObjectIdString: GlobalObjectId_V1-2-2b769a35a31a4444c9afe53dd433cb0e-1488516666-0
+        - globalObjectIdString: GlobalObjectId_V1-2-2b769a35a31a4444c9afe53dd433cb0e-1827166922-0
+        - globalObjectIdString: GlobalObjectId_V1-2-2b769a35a31a4444c9afe53dd433cb0e-675327520-0
+        - globalObjectIdString: GlobalObjectId_V1-2-2b769a35a31a4444c9afe53dd433cb0e-176728311-0
+        - globalObjectIdString: GlobalObjectId_V1-2-2b769a35a31a4444c9afe53dd433cb0e-1476031567-0
+        - globalObjectIdString: GlobalObjectId_V1-2-2b769a35a31a4444c9afe53dd433cb0e-1680990017-0
+        - globalObjectIdString: GlobalObjectId_V1-2-2b769a35a31a4444c9afe53dd433cb0e-1941543351-0
+        - globalObjectIdString: GlobalObjectId_V1-2-2b769a35a31a4444c9afe53dd433cb0e-413671483-0
+        - globalObjectIdString: GlobalObjectId_V1-2-2b769a35a31a4444c9afe53dd433cb0e-957423298-0
+        - globalObjectIdString: GlobalObjectId_V1-2-2b769a35a31a4444c9afe53dd433cb0e-740093920-0
+        - globalObjectIdString: GlobalObjectId_V1-2-2b769a35a31a4444c9afe53dd433cb0e-1437113615-0
+        - globalObjectIdString: GlobalObjectId_V1-2-2b769a35a31a4444c9afe53dd433cb0e-1382410420-0
+        values:
+        - colorIndex: 0
+          iconNameOrGuid: AvatarMask On Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 0
+          iconNameOrGuid: cs Script Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 0
+          iconNameOrGuid: cs Script Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 0
+          iconNameOrGuid: Image Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 0
+          iconNameOrGuid: Camera Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 0
+          iconNameOrGuid: Light Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 0
+          iconNameOrGuid: cs Script Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 0
+          iconNameOrGuid: Image Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 0
+          iconNameOrGuid: Image Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 0
+          iconNameOrGuid: Image Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 0
+          iconNameOrGuid: Text Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 0
+          iconNameOrGuid: Transform Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 0
+          iconNameOrGuid: Canvas Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 0
+          iconNameOrGuid: cs Script Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 0
+          iconNameOrGuid: cs Script Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 0
+          iconNameOrGuid: Text Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 0
+          iconNameOrGuid: Text Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 0
+          iconNameOrGuid: Text Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 0
+          iconNameOrGuid: Text Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 0
+          iconNameOrGuid: Text Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 0
+          iconNameOrGuid: Text Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 0
+          iconNameOrGuid: Text Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 0
+          iconNameOrGuid: Text Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 0
+          iconNameOrGuid: Text Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 0
+          iconNameOrGuid: Text Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 0
+          iconNameOrGuid: Text Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 0
+          iconNameOrGuid: cs Script Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 0
+          iconNameOrGuid: Text Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 0
+          iconNameOrGuid: Text Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 0
+          iconNameOrGuid: cs Script Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 0
+          iconNameOrGuid: Text Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 0
+          iconNameOrGuid: Text Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 0
+          iconNameOrGuid: Text Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 0
+          iconNameOrGuid: Text Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 0
+          iconNameOrGuid: cs Script Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 0
+          iconNameOrGuid: Transform Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 0
+          iconNameOrGuid: Text Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 0
+          iconNameOrGuid: Text Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 0
+          iconNameOrGuid: Text Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 0
+          iconNameOrGuid: Canvas Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 0
+          iconNameOrGuid: Canvas Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 0
+          iconNameOrGuid: Canvas Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 0
+          iconNameOrGuid: Canvas Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 0
+          iconNameOrGuid: Canvas Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 0
+          iconNameOrGuid: Canvas Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 0
+          iconNameOrGuid: cs Script Icon
           isIconRecursive: 0
           isColorRecursive: 0
   bookmarks: []

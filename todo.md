@@ -29,12 +29,12 @@
 
 ### 3. Core Menu & System Features
 
-- [ ] **Main Menu Scene:**
-  - [ ] Create dedicated main menu scene
-  - [ ] Start Game button (loads game scene)
-  - [ ] Settings button (opens settings menu)
-  - [ ] Quit button
-  - [ ] Game title/logo display
+- [x] **Main Menu Scene:**
+  - [x] Create dedicated main menu scene
+  - [x] Start Game button (loads game scene)
+  - [x] Settings button (opens settings menu - placeholder TBD)
+  - [x] Quit button
+  - [x] Game title/logo display
 
 - [ ] **Pause System:**
   - [ ] Pause menu overlay (ESC key)
@@ -61,7 +61,7 @@
 
 ## Current Status
 
-### ✅ Completed (Phase 1-7)
+### ✅ Completed (Phase 1-8)
 - ✅ Phase 1: Core inventory system
 - ✅ Phase 2: Ordering system with UI
 - ✅ Phase 3: Day/Night cycle with three phases
@@ -69,6 +69,7 @@
 - ✅ Phase 5: Delivery system (boxes spawn, player opens them)
 - ✅ Phase 6: Phase restrictions (order menu only at end of day)
 - ✅ Phase 7: Starting delivery boxes on Day 1 & proper day progression
+- ✅ Phase 8: Main Menu Scene with Play, Settings (TBD), and Quit buttons
 
 ### 🎮 Current Gameplay Loop
 1. **Morning:** Delivery boxes appear → Press E to open → Items to inventory → Restock shelves
