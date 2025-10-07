@@ -51,7 +51,7 @@ public class DayManager : MonoBehaviour
         // Debug keys for manual phase transitions
         if (Input.GetKeyDown(KeyCode.M))
         {
-            StartMorningPhase();
+            StartNextDay();
         }
 
         if (Input.GetKeyDown(KeyCode.O))
@@ -62,6 +62,28 @@ public class DayManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.K))
         {
             EndDay();
+        }
+
+        // Time scale controls for testing
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            Time.timeScale = 1f;
+            Debug.Log("Time scale: 1x (Normal)");
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            Time.timeScale = 2f;
+            Debug.Log("Time scale: 2x");
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            Time.timeScale = 3f;
+            Debug.Log("Time scale: 3x");
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha5))
+        {
+            Time.timeScale = 5f;
+            Debug.Log("Time scale: 5x");
         }
     }
 

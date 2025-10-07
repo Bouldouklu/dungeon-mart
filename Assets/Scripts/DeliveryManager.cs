@@ -1,6 +1,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
+public class StartingDeliveryItem
+{
+    public ItemDataSO item;
+    public int quantity;
+}
+
 public class DeliveryManager : MonoBehaviour
 {
     public static DeliveryManager Instance;
@@ -8,6 +15,9 @@ public class DeliveryManager : MonoBehaviour
     [Header("Delivery Settings")]
     [SerializeField] private GameObject deliveryBoxPrefab;
     [SerializeField] private Transform deliverySpawnPoint;
+
+    [Header("Starting Delivery (Day 1)")]
+    [SerializeField] private List<StartingDeliveryItem> startingDelivery = new List<StartingDeliveryItem>();
 
     private Dictionary<ItemDataSO, int> pendingDelivery = new Dictionary<ItemDataSO, int>();
     private List<DeliveryBox> activeBoxes = new List<DeliveryBox>();
@@ -27,6 +37,12 @@ public class DeliveryManager : MonoBehaviour
         if (DayManager.Instance != null)
         {
             DayManager.Instance.OnPhaseChanged += OnPhaseChanged;
+
+            // If already in morning phase when we start, spawn boxes immediately
+            if (DayManager.Instance.CurrentPhase == GamePhase.Morning)
+            {
+                SpawnDeliveryBoxes();
+            }
         }
     }
 
@@ -71,6 +87,19 @@ public class DeliveryManager : MonoBehaviour
             }
         }
         activeBoxes.Clear();
+
+        // Check if Day 1 and no pending delivery - use starting delivery
+        if (DayManager.Instance != null && DayManager.Instance.CurrentDay == 1 && pendingDelivery.Count == 0)
+        {
+            foreach (var startingItem in startingDelivery)
+            {
+                if (startingItem.item != null && startingItem.quantity > 0)
+                {
+                    pendingDelivery[startingItem.item] = startingItem.quantity;
+                }
+            }
+            Debug.Log($"Day 1: Loaded {pendingDelivery.Count} starting delivery items.");
+        }
 
         // If no pending delivery, nothing to spawn
         if (pendingDelivery.Count == 0)
