@@ -165,8 +165,7 @@ UnityServices/
 *.meta
 
 # Unity Asset Store plugins/packages
-Assets/vFolders/
-Assets/vHierarchy/
+Assets/Imported/
 
 # Project imported Asset
 Assets/Admurin's Pixel Items/
