@@ -52,6 +52,53 @@
   - [ ] Empty shelf indicators
 
 
+### Bug Fixes & UX Improvements
+
+**Bugs to Fix:**
+- [ ] **Customer.cs dialogue system** - Customers not showing correct "disappointed" dialogue when shelves are empty
+  - Current behavior: May be using wrong dialogue array when no items available
+  - Expected: Should display `disappointedDialogues` from CustomerTypeDataSO
+  - Location: Customer.cs:99-107 (shopping routine when carriedItems.Count == 0)
+
+**UX Improvements:**
+- [ ] **RestockUIManager.cs** - Allow multiple clicks without closing UI
+  - Current: Clicking item button restocks 1 item and closes UI (line 146: `HideRestockUI()`)
+  - Desired: Clicking should restock 1 item but keep UI open for faster multi-item restocking
+  - Player should manually close UI with E key or Close button
+  - Benefits: Faster restocking workflow, less UI opening/closing
+
+---
+
+### Code Quality & Optimization Tasks (From Architecture Review)
+
+**Minor Concerns (Medium Priority):**
+- [ ] **PlayerController.cs:46-58** - Optimize shelf search (currently runs every frame)
+  - Option 1: Cache shelves array in Start() and refresh on level change
+  - Option 2: Use trigger colliders (OnTriggerEnter/Exit) to detect nearby shelves automatically
+  - Impact: Low priority for now (<10 shelves), but important for 50+ shelves
+
+- [ ] **DeliveryBox.cs:19** - Replace tag-based player search with serialized field
+  - Current: `GameObject.FindGameObjectWithTag("Player")` in Start()
+  - Better: Add `[SerializeField] private PlayerController player;` and link in Inspector
+  - Impact: More robust, less fragile (doesn't depend on tag being set)
+
+**Optimizations to Consider (Low Priority):**
+- [ ] **Shelf.cs:42-50** - Pre-generate slots in editor instead of procedural generation
+  - Current: Slots created at runtime in Awake()
+  - Benefit: Visual tweaking in editor, see slot layout before play mode
+  - Note: Current approach works fine, this is polish only
+
+- [ ] **Customer.cs:56-146** - Consider parallel customer behavior system
+  - Current: Sequential shopping coroutine (works great!)
+  - Future: Multiple customers browsing simultaneously (more realistic)
+  - Note: Only needed if you want more dynamic/overlapping customer behavior
+
+**Pre-Release Tasks:**
+- [ ] Remove debug keys before browser release (M, K, I, O, 1-5) in DayManager.cs
+- [ ] Remove debug inventory system or hide behind developer mode
+
+---
+
 ### Future Enhancements (Nice to Have)
 
 - [ ] **Tutorial/Help:**

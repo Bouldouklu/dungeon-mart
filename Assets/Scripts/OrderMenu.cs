@@ -103,7 +103,11 @@ public class OrderMenu : MonoBehaviour {
 
         PopulateItemList();
         UpdateOrderDisplay();
-        Time.timeScale = 0f; // Pause game
+
+        // Use PauseManager to preserve debug time scale settings
+        if (PauseManager.Instance != null) {
+            PauseManager.Instance.PauseGame();
+        }
     }
 
     public void CloseMenu() {
@@ -112,7 +116,10 @@ public class OrderMenu : MonoBehaviour {
             menuPanel.SetActive(false);
         }
 
-        Time.timeScale = 1f; // Resume game
+        // Use PauseManager to restore previous time scale
+        if (PauseManager.Instance != null) {
+            PauseManager.Instance.ResumeGame();
+        }
     }
 
     private void PopulateItemList() {
