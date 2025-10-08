@@ -2,7 +2,7 @@
 
 ## Next Session Tasks
 
-### 0. **Phase 15 - Restock UI System (NEXT)**
+### **Phase 15 - Restock UI System (NEXT)**
 
 **Goal**: Replace auto-select restocking with proper UI for item selection
 
@@ -21,107 +21,7 @@
 
 ---
 
-### ~~0. **TESTING REQUIRED: Phase 13 - Diverse Shelving System**~~ ✅ COMPLETE
-
-**⚠️ Unity Editor Setup Required Before Testing:**
-
-1. **Create ShelfType ScriptableObjects** (Assets > Create > DungeonMart > Shelf Type):
-   - [x] **Wall Shelf**:
-     - Shelf Type Name: "Wall Shelf"
-     - Total Slots: 6
-     - Allowed Item Sizes: Add Small, Add Medium (use + button)
-     - Slots Per Row: 3
-     - Slot Spacing: X=0.5, Y=0.5
-     - Horizontal Layout: ✓ checked
-
-   - [x] **Display Case**:
-     - Shelf Type Name: "Display Case"
-     - Total Slots: 9
-     - Allowed Item Sizes: Add Small only
-     - Slots Per Row: 3
-     - Slot Spacing: X=0.3, Y=0.3
-     - Horizontal Layout: ✓ checked
-
-   - [x] **Floor Display**:
-     - Shelf Type Name: "Floor Display"
-     - Total Slots: 4
-     - Allowed Item Sizes: Add Medium, Add Big
-     - Slots Per Row: 2
-     - Slot Spacing: X=0.8, Y=0.8
-     - Horizontal Layout: ✓ checked
-
-   - [x] **Pedestal**:
-     - Shelf Type Name: "Pedestal"
-     - Total Slots: 1
-     - Allowed Item Sizes: Add Big only
-     - Slots Per Row: 1
-     - Slot Spacing: X=0, Y=0
-     - Horizontal Layout: ✓ checked
-
-2. **Update Existing Item ScriptableObjects**:
-   - [x] Open each existing ItemDataSO in the Inspector
-   - [x] Set "Item Size" field (Small/Medium/Big)
-   - [x] "Slots Required" will auto-update based on size
-   - [x] Example assignments:
-     - Potions, Food → Small (1 slot)
-     - Swords, Shields, Bags → Medium (2 slots)
-     - Furniture, Traps, Thrones → Big (3 slots)
-
-3. **Update Shelf GameObjects in Scene**:
-   - [x] Select each existing Shelf GameObject in the hierarchy
-   - [x] Remove old "Item To Stock" field reference (no longer used)
-   - [x] Assign appropriate ShelfTypeDataSO to "Shelf Type" field
-   - [x] Verify "Item Prefab" is still assigned
-   - [x] Set "Items Per Slot" (default: 5)
-   - [x] Save scene
-
-4. **Create Test Items with Different Sizes** (if not done):
-   - [x] Create at least one Small, Medium, and Big item for testing
-   - [x] Add these items to InventoryManager's "Debug Items To Add" list
-
-**Testing Checklist:**
-
-- [x] **Basic Functionality:**
-  - [x] Play scene, press I to add debug inventory
-  - [x] Verify shelves initialize with slots (check Console for "Initialized X with Y slots")
-  - [x] Approach shelf, press E to restock
-  - [x] Verify items appear on shelf in correct positions
-  - [x] Verify slot GameObjects created as children of shelf in hierarchy
-
-- [x] **Size Validation:**
-  - [x] Try restocking Small items on Wall Shelf → Should work
-  - [x] Try restocking Big items on Wall Shelf → Should fail with console message
-  - [x] Try restocking Small items on Pedestal → Should fail (pedestal only accepts Big)
-  - [x] Try restocking Big items on Pedestal → Should work
-
-- [x] **Multi-Item Storage:**
-  - [x] Restock multiple different item types on same shelf
-  - [x] Verify each item type fills its own slots
-  - [x] Verify slots show stacked items (slight visual offset)
-  - [x] Restock until shelf is full (slots * items per slot)
-  - [x] Verify can't add more when full
-
-- [x] **Customer Interaction:**
-  - [x] Stock shelves with multiple item types
-  - [x] Press O to spawn customers
-  - [x] Verify customers browse shelves and pick up items
-  - [x] Verify customers can take from shelves with multiple item types
-  - [x] Check Console shows "Customer picked up [ItemName]"
-  - [x] Verify shelf empties as customers take items
-
-- [x] **Edge Cases:**
-  - [x] Try restocking with empty inventory → Should show warning
-  - [x] Try restocking shelf with no ShelfTypeDataSO assigned → Should error
-  - [x] Verify ItemDataSO.slotsRequired updates in Inspector when changing itemSize
-  - [x] Test with different "Items Per Slot" values (1, 5, 10)
-
-**Known Issues to Watch For:**
-- If slots don't appear, check that ShelfTypeDataSO is assigned to Shelf
-- If items don't stack properly, check itemPrefab has Item component
-- If size validation fails incorrectly, check ItemDataSO.itemSize is set
-- PlayerController now auto-selects first inventory item when restocking (no item selection UI yet)
-
-### 1. Next Implementation - Gameplay, UI & Polish
+### Next Implementation - Gameplay, UI & Polish
 
 
 
@@ -132,7 +32,7 @@
   - [ ] Empty shelf indicators
 
 
-### 2. Future Enhancements (Nice to Have)
+### Future Enhancements (Nice to Have)
 
 - [ ] **Tutorial/Help:**
     - [ ] First-time instructions
@@ -145,10 +45,10 @@
   - [ ] Save/load settings
 
 - [ ] **Multiple item types:** Add more items (potions, armor, etc.)
-- [ ] **Shop upgrades:** Additional shelves, faster checkout
+- [ ] **Shop upgrades:** Additional shelves, faster checkout, more floors, auto-restocking, etc.
 - [ ] **Difficulty progression:** More customers per day as game progresses
 - [ ] **Customer patience system:** Customers leave if waiting too long
-- [ ] **Special orders:** Customers request specific items
+- [ ] **Special orders:** Customers request specific items, that can't be ordered, put in inventory but not shown in the shop. Customers will come back after a few days and ask for it at the checkout counter
 
 ## Current Status
 
