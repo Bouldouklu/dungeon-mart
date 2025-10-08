@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour {
     private Rigidbody2D rb2d;
     private Vector2 moveInput;
     private Shelf nearestShelf;
+    private bool canMove = true;
 
     private void Awake() {
         rb2d = GetComponent<Rigidbody2D>();
@@ -28,6 +29,12 @@ public class PlayerController : MonoBehaviour {
     }
 
     private void HandleMovement() {
+        if (!canMove) {
+            // Stop movement when player cannot move (e.g., UI is open)
+            rb2d.linearVelocity = Vector2.zero;
+            return;
+        }
+
         moveInput.x = Input.GetAxisRaw("Horizontal");
         moveInput.y = Input.GetAxisRaw("Vertical");
         moveInput.Normalize();
@@ -51,17 +58,18 @@ public class PlayerController : MonoBehaviour {
     }
 
     private void HandleInteraction() {
-        if (Input.GetKeyDown(KeyCode.E) && nearestShelf != null) {
-            // Get the first available item from inventory to restock
-            ItemDataSO itemToRestock = InventoryManager.Instance.GetFirstAvailableItem();
-
-            if (itemToRestock != null) {
-                bool success = nearestShelf.RestockShelf(itemToRestock, 1);
-                if (!success) {
-                    Debug.LogWarning($"Cannot restock {itemToRestock.itemName} - check shelf type or capacity");
+        if (Input.GetKeyDown(KeyCode.E)) {
+            // Check if Restock UI is already open
+            if (RestockUIManager.Instance != null && RestockUIManager.Instance.IsUIOpen()) {
+                // Close UI if already open
+                RestockUIManager.Instance.HideRestockUI();
+            } else if (nearestShelf != null) {
+                // Open restock UI to select item
+                if (RestockUIManager.Instance != null) {
+                    RestockUIManager.Instance.ShowRestockUI(nearestShelf);
+                } else {
+                    Debug.LogWarning("RestockUIManager not found in scene!");
                 }
-            } else {
-                Debug.LogWarning("No items in inventory to restock");
             }
         }
 
@@ -69,6 +77,13 @@ public class PlayerController : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.I)) {
             InventoryManager.Instance.AddDebugInventory();
         }
+    }
+
+    /// <summary>
+    /// Enable or disable player movement (called by UI managers)
+    /// </summary>
+    public void SetCanMove(bool canMove) {
+        this.canMove = canMove;
     }
 
     private void OnCollisionEnter2D(Collision2D collision) {

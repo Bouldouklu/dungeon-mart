@@ -2,26 +2,46 @@
 
 ## Next Session Tasks
 
-### **Phase 15 - Restock UI System (NEXT)**
+### **Phase 16 - Economy & Progression Balancing (RECOMMENDED NEXT)**
 
-**Goal**: Replace auto-select restocking with proper UI for item selection
+**Goal**: Balance the core gameplay loop with proper economic incentives and progression
+
+**Why This Phase**: Before adding more features, we need to ensure the current game loop is fun and rewarding. Players need clear goals, progression feedback, and meaningful choices.
 
 **Requirements**:
-- [ ] Create RestockUIManager singleton script
-- [ ] Create RestockItemButton component script
-- [ ] Design UI Canvas with item selection panel (grid layout)
-- [ ] Create item button prefab (icon, name, quantity display)
-- [ ] Update PlayerController to open UI instead of auto-restocking
-- [ ] Filter items by shelf's allowed item size
-- [ ] Handle click events to restock selected item
-- [ ] Close UI after successful restock
-- [ ] Test with multiple item types in inventory
+- [ ] Add money/earnings display to HUD (persistent UI)
+- [ ] Add day counter display to HUD
+- [ ] Balance item prices (sell price vs restock cost → profit margin)
+- [ ] Set starting money amount (enough for Day 1 orders)
+- [ ] Add "target earnings" goals per day (progression milestones)
+- [ ] Test full gameplay loop (order → restock → sell → profit → next day)
+- [ ] Adjust customer spawn rates for balanced difficulty
+- [ ] Add visual feedback when earning money (text popup or sound)
 
-**Current Workaround**: PlayerController auto-selects first available inventory item when pressing E near shelf
+**Why Important**:
+- Currently no visible money counter → players can't track progress
+- No clear goals → players don't know if they're doing well
+- Economic balance affects all future features
+- Foundation for upgrades/expansions system
 
 ---
 
-### Next Implementation - Gameplay, UI & Polish
+### Alternative: Phase 16 - Visual Polish & Juice
+
+**Goal**: Make the game feel more alive and responsive
+
+**Requirements**:
+- [ ] Better item sprites (replace circles with actual item art)
+- [ ] Particle effects when opening delivery boxes
+- [ ] Sound effects (cash register, item pickup, customer satisfaction)
+- [ ] Empty shelf visual indicators (highlight or UI prompt)
+- [ ] Smooth camera following player
+- [ ] Item pickup animations
+- [ ] Customer satisfaction visual feedback
+
+---
+
+### Next Implementation - Additional Features
 
 
 
@@ -52,7 +72,7 @@
 
 ## Current Status
 
-### ✅ Completed (Phase 1-14)
+### ✅ Completed (Phase 1-15)
 - ✅ Phase 1: Core inventory system
 - ✅ Phase 2: Ordering system with UI
 - ✅ Phase 3: Day/Night cycle with three phases
@@ -67,6 +87,7 @@
 - ✅ Phase 12: Customer Types & Corporate Humor (3 types, dialogue system, visual bubbles)
 - ✅ Phase 13: Diverse Shelving System with item sizes and multi-item support
 - ✅ Phase 14: Single Item Size Per Shelf Type restriction
+- ✅ Phase 15: Restock UI System with item selection and size filtering
 
 ### 🎮 Current Gameplay Loop
 1. **Morning:** Delivery boxes appear → Press E to open → Items to inventory → Restock shelves
@@ -80,10 +101,10 @@
 - **Big Spender**: Medium (3 speed), 3-4 items, demanding, gold tint
 
 ### 🔧 Controls
-- **WASD/Arrow Keys** - Move player (blocked by walls)
+- **WASD/Arrow Keys** - Move player (blocked by walls, disabled when UI open)
 - **ESC** - Pause/unpause game (opens pause menu)
 - **Tab** - Open order menu (end of day only)
-- **E** - Interact (open delivery boxes, restock shelves)
+- **E** - Interact (open delivery boxes, toggle restock UI near shelves)
 
 ### 🐛 Debug Controls
 - **M** - Advance to next day (increments day counter and starts morning)
@@ -94,7 +115,103 @@
 
 ## Notes for Next Session
 
-### 🆕 Phase 13 & 14: Diverse Shelving System (TESTED & COMPLETE)
+### 🆕 Phase 15: Restock UI System (TESTED & COMPLETE)
+
+**What Was Implemented:**
+
+**New Features:**
+- **Interactive Item Selection**: Press E near shelf to open UI panel with filtered inventory
+- **Size-Based Filtering**: Only items matching shelf's allowed size are shown
+- **Visual Item Display**: Each button shows item icon, name, and quantity
+- **Click to Restock**: Click item button to restock shelf with 1 item
+- **Player Movement Control**: Movement disabled while UI is open
+- **E Key Toggle**: Press E to open/close UI (no need for separate close button)
+
+**New Scripts Created:**
+1. **RestockUIManager.cs** (Singleton):
+   - Manages restock UI panel visibility
+   - Filters inventory by shelf's allowed item size
+   - Dynamically spawns item buttons
+   - Disables/enables player movement
+   - Methods: `ShowRestockUI(shelf)`, `HideRestockUI()`, `IsUIOpen()`
+   - Uses `FindFirstObjectByType<PlayerController>()` for movement control
+
+2. **RestockItemButton.cs** (UI Component):
+   - Individual button for each inventory item
+   - Displays item icon (Image), name (TextMeshProUGUI), quantity (TextMeshProUGUI)
+   - Handles click events via callback pattern
+   - Method: `Setup(itemData, quantity, onClickCallback)`
+
+**Code Changes:**
+3. **PlayerController.cs** (Updated):
+   - Added `canMove` boolean flag
+   - Added `SetCanMove(bool)` public method for UI managers
+   - Movement input blocked when `canMove = false`
+   - E key now toggles UI (checks `IsUIOpen()` before opening)
+   - Velocity set to zero when movement disabled
+
+**UI Structure (Unity Editor):**
+```
+Canvas (Main UI Canvas)
+└── RestockPanel [disabled by default]
+    ├── TitleText (TextMeshProUGUI)
+    ├── ItemScrollView (Scroll View)
+    │   └── Viewport
+    │       └── Content (Vertical Layout Group + Content Size Fitter)
+    │           └── [RestockItemButton prefabs spawned here]
+    ├── CloseButton (Button)
+    └── MessageText (TextMeshProUGUI) [optional - "No compatible items"]
+```
+
+**RestockItemButton Prefab Structure:**
+```
+RestockItemButton (Button + Horizontal Layout Group)
+├── ItemIcon (Image)
+├── ItemNameText (TextMeshProUGUI)
+└── QuantityText (TextMeshProUGUI)
+```
+
+**User Experience Flow:**
+1. Player walks near shelf → Press E
+2. UI opens, shows only compatible items (filtered by size)
+3. Player clicks item → Shelf restocks, inventory decreases, UI closes
+4. OR player presses E again → UI closes without restocking
+5. OR player clicks Close button → UI closes
+
+**Technical Highlights:**
+- **TextMeshPro Support**: All UI text uses TMP for better rendering
+- **LINQ Filtering**: Uses `.Where()` to filter inventory by item size
+- **Event-Driven**: Callback pattern for button clicks
+- **Singleton Pattern**: Consistent with existing managers
+- **Movement Control**: PlayerController exposes public API for external control
+- **Auto-Cleanup**: Destroys spawned buttons on UI close
+
+**Design Benefits:**
+- **User Agency**: Players choose which item to restock (no auto-select)
+- **Clear Feedback**: Visual confirmation of available items and quantities
+- **Error Prevention**: Size filtering prevents invalid restock attempts
+- **Intuitive Controls**: E key toggles UI (consistent with "interact" pattern)
+- **Non-Blocking**: UI-only pause (doesn't stop entire game like pause menu)
+
+**UX Improvements Implemented:**
+- Player movement disabled while UI open (prevents accidental movement)
+- E key toggles UI (no need to click close button)
+- UI auto-closes on successful restock
+- Empty inventory shows message instead of blank screen
+
+**Tested Scenarios:**
+- ✅ Size filtering (Small/Medium/Big shelves show correct items)
+- ✅ Multiple item types in inventory
+- ✅ Empty inventory handling
+- ✅ Full shelf behavior
+- ✅ E key toggle open/close
+- ✅ Player movement disabled when UI open
+- ✅ Multiple shelves of same size
+- ✅ Inventory depletion (buttons disappear when quantity = 0)
+
+---
+
+### 📋 Phase 13 & 14: Diverse Shelving System (COMPLETED)
 
 **What Was Implemented:**
 
@@ -160,8 +277,7 @@
 - Shelves now require `ShelfTypeDataSO` assignment in Inspector
 - `ShelfTypeDataSO.allowedItemSizes` (List) changed to `allowedItemSize` (single ItemSize) in Phase 14
 
-**Current Limitations (To Be Addressed in Phase 15):**
-- ⚠️ No UI for selecting which item to restock (uses first available from inventory)
+**Current Limitations:**
 - No visual indicators for shelf capacity or allowed sizes
 - Slot positions are procedurally generated (not manually placeable)
 - No slot reservation system (customers take first available)
@@ -194,7 +310,8 @@
 - Customer spawner supports configurable spawn point transform
 
 ### 🎯 Next Steps:
-  - **Phase 15: Restock UI System** - Proper UI for selecting items to restock (HIGH PRIORITY)
+  - **Phase 16: Economy & Progression Balancing** - Add HUD with money/day counter, balance prices, add goals (RECOMMENDED)
+  - Alternative: Visual Polish & Juice - Better sprites, particles, sounds, animations
   - Visual indicators for shelf capacity and allowed item sizes
   - More customer dialogue variety and personality-based behaviors
   - Customer returns system with absurd corporate policies
