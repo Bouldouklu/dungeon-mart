@@ -79,9 +79,10 @@ public class Customer : MonoBehaviour {
             }
             yield return new WaitForSeconds(customerType.browseTime);
 
-            // Take item if available
+            // Take item if available (randomly choose from available item types)
             if (targetShelf != null && !targetShelf.IsEmpty) {
-                Item item = targetShelf.TakeItem();
+                ItemDataSO randomItemType = targetShelf.GetRandomAvailableItemType();
+                Item item = targetShelf.TakeItem(randomItemType);
                 if (item != null) {
                     carriedItems.Add(item);
                     // Position items in carry point (stack them slightly offset)
@@ -89,7 +90,7 @@ public class Customer : MonoBehaviour {
                         item.transform.SetParent(itemCarryPoint);
                         item.transform.localPosition = new Vector3(0, carriedItems.Count * 0.1f, 0);
                     }
-                    Debug.Log($"Customer picked up item {i + 1}/{desiredItemCount}");
+                    Debug.Log($"Customer picked up {item.GetItemName()} - item {i + 1}/{desiredItemCount}");
                 }
             }
         }

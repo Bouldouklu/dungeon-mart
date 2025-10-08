@@ -1,10 +1,24 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
+public class InventoryEntry {
+    public ItemDataSO itemData;
+    public int quantity;
+
+    public InventoryEntry(ItemDataSO item, int qty) {
+        itemData = item;
+        quantity = qty;
+    }
+}
+
 public class InventoryManager : MonoBehaviour {
     public static InventoryManager Instance;
 
     private Dictionary<ItemDataSO, int> inventory = new Dictionary<ItemDataSO, int>();
+
+    [Header("Inventory Display (Read-Only)")]
+    [SerializeField] private List<InventoryEntry> currentInventoryDisplay = new List<InventoryEntry>();
 
     public event System.Action OnInventoryChanged;
 
@@ -28,6 +42,7 @@ public class InventoryManager : MonoBehaviour {
         }
 
         Debug.Log($"Added {quantity}x {itemData.itemName} to inventory. Total: {inventory[itemData]}");
+        UpdateInventoryDisplay();
         OnInventoryChanged?.Invoke();
     }
 
@@ -46,6 +61,7 @@ public class InventoryManager : MonoBehaviour {
         }
 
         Debug.Log($"Removed {quantity}x {itemData.itemName} from inventory");
+        UpdateInventoryDisplay();
         OnInventoryChanged?.Invoke();
         return true;
     }
@@ -61,6 +77,18 @@ public class InventoryManager : MonoBehaviour {
 
     public Dictionary<ItemDataSO, int> GetAllInventory() {
         return new Dictionary<ItemDataSO, int>(inventory);
+    }
+
+    /// <summary>
+    /// Get the first available item in inventory (useful for quick restocking)
+    /// </summary>
+    public ItemDataSO GetFirstAvailableItem() {
+        foreach (var kvp in inventory) {
+            if (kvp.Value > 0) {
+                return kvp.Key;
+            }
+        }
+        return null;
     }
 
     [SerializeField] private List<ItemDataSO> debugItemsToAdd = new List<ItemDataSO>();
@@ -82,5 +110,15 @@ public class InventoryManager : MonoBehaviour {
         }
 
         Debug.Log($"Added debug inventory: {debugItemsToAdd.Count} item types x{debugQuantityPerItem} each");
+    }
+
+    /// <summary>
+    /// Updates the Inspector display list to show current inventory (for debugging/testing)
+    /// </summary>
+    private void UpdateInventoryDisplay() {
+        currentInventoryDisplay.Clear();
+        foreach (var kvp in inventory) {
+            currentInventoryDisplay.Add(new InventoryEntry(kvp.Key, kvp.Value));
+        }
     }
 }

@@ -2,6 +2,125 @@
 
 ## Next Session Tasks
 
+### 0. **Phase 15 - Restock UI System (NEXT)**
+
+**Goal**: Replace auto-select restocking with proper UI for item selection
+
+**Requirements**:
+- [ ] Create RestockUIManager singleton script
+- [ ] Create RestockItemButton component script
+- [ ] Design UI Canvas with item selection panel (grid layout)
+- [ ] Create item button prefab (icon, name, quantity display)
+- [ ] Update PlayerController to open UI instead of auto-restocking
+- [ ] Filter items by shelf's allowed item size
+- [ ] Handle click events to restock selected item
+- [ ] Close UI after successful restock
+- [ ] Test with multiple item types in inventory
+
+**Current Workaround**: PlayerController auto-selects first available inventory item when pressing E near shelf
+
+---
+
+### ~~0. **TESTING REQUIRED: Phase 13 - Diverse Shelving System**~~ ✅ COMPLETE
+
+**⚠️ Unity Editor Setup Required Before Testing:**
+
+1. **Create ShelfType ScriptableObjects** (Assets > Create > DungeonMart > Shelf Type):
+   - [x] **Wall Shelf**:
+     - Shelf Type Name: "Wall Shelf"
+     - Total Slots: 6
+     - Allowed Item Sizes: Add Small, Add Medium (use + button)
+     - Slots Per Row: 3
+     - Slot Spacing: X=0.5, Y=0.5
+     - Horizontal Layout: ✓ checked
+
+   - [x] **Display Case**:
+     - Shelf Type Name: "Display Case"
+     - Total Slots: 9
+     - Allowed Item Sizes: Add Small only
+     - Slots Per Row: 3
+     - Slot Spacing: X=0.3, Y=0.3
+     - Horizontal Layout: ✓ checked
+
+   - [x] **Floor Display**:
+     - Shelf Type Name: "Floor Display"
+     - Total Slots: 4
+     - Allowed Item Sizes: Add Medium, Add Big
+     - Slots Per Row: 2
+     - Slot Spacing: X=0.8, Y=0.8
+     - Horizontal Layout: ✓ checked
+
+   - [x] **Pedestal**:
+     - Shelf Type Name: "Pedestal"
+     - Total Slots: 1
+     - Allowed Item Sizes: Add Big only
+     - Slots Per Row: 1
+     - Slot Spacing: X=0, Y=0
+     - Horizontal Layout: ✓ checked
+
+2. **Update Existing Item ScriptableObjects**:
+   - [x] Open each existing ItemDataSO in the Inspector
+   - [x] Set "Item Size" field (Small/Medium/Big)
+   - [x] "Slots Required" will auto-update based on size
+   - [x] Example assignments:
+     - Potions, Food → Small (1 slot)
+     - Swords, Shields, Bags → Medium (2 slots)
+     - Furniture, Traps, Thrones → Big (3 slots)
+
+3. **Update Shelf GameObjects in Scene**:
+   - [x] Select each existing Shelf GameObject in the hierarchy
+   - [x] Remove old "Item To Stock" field reference (no longer used)
+   - [x] Assign appropriate ShelfTypeDataSO to "Shelf Type" field
+   - [x] Verify "Item Prefab" is still assigned
+   - [x] Set "Items Per Slot" (default: 5)
+   - [x] Save scene
+
+4. **Create Test Items with Different Sizes** (if not done):
+   - [x] Create at least one Small, Medium, and Big item for testing
+   - [x] Add these items to InventoryManager's "Debug Items To Add" list
+
+**Testing Checklist:**
+
+- [x] **Basic Functionality:**
+  - [x] Play scene, press I to add debug inventory
+  - [x] Verify shelves initialize with slots (check Console for "Initialized X with Y slots")
+  - [x] Approach shelf, press E to restock
+  - [x] Verify items appear on shelf in correct positions
+  - [x] Verify slot GameObjects created as children of shelf in hierarchy
+
+- [x] **Size Validation:**
+  - [x] Try restocking Small items on Wall Shelf → Should work
+  - [x] Try restocking Big items on Wall Shelf → Should fail with console message
+  - [x] Try restocking Small items on Pedestal → Should fail (pedestal only accepts Big)
+  - [x] Try restocking Big items on Pedestal → Should work
+
+- [x] **Multi-Item Storage:**
+  - [x] Restock multiple different item types on same shelf
+  - [x] Verify each item type fills its own slots
+  - [x] Verify slots show stacked items (slight visual offset)
+  - [x] Restock until shelf is full (slots * items per slot)
+  - [x] Verify can't add more when full
+
+- [x] **Customer Interaction:**
+  - [x] Stock shelves with multiple item types
+  - [x] Press O to spawn customers
+  - [x] Verify customers browse shelves and pick up items
+  - [x] Verify customers can take from shelves with multiple item types
+  - [x] Check Console shows "Customer picked up [ItemName]"
+  - [x] Verify shelf empties as customers take items
+
+- [x] **Edge Cases:**
+  - [x] Try restocking with empty inventory → Should show warning
+  - [x] Try restocking shelf with no ShelfTypeDataSO assigned → Should error
+  - [x] Verify ItemDataSO.slotsRequired updates in Inspector when changing itemSize
+  - [x] Test with different "Items Per Slot" values (1, 5, 10)
+
+**Known Issues to Watch For:**
+- If slots don't appear, check that ShelfTypeDataSO is assigned to Shelf
+- If items don't stack properly, check itemPrefab has Item component
+- If size validation fails incorrectly, check ItemDataSO.itemSize is set
+- PlayerController now auto-selects first inventory item when restocking (no item selection UI yet)
+
 ### 1. Next Implementation - Gameplay, UI & Polish
 
 
@@ -33,7 +152,7 @@
 
 ## Current Status
 
-### ✅ Completed (Phase 1-12)
+### ✅ Completed (Phase 1-14)
 - ✅ Phase 1: Core inventory system
 - ✅ Phase 2: Ordering system with UI
 - ✅ Phase 3: Day/Night cycle with three phases
@@ -46,6 +165,8 @@
 - ✅ Phase 10: End of Day Summary Panel with statistics and continue button
 - ✅ Phase 11: 2D Physics collision system (player blocked by walls, configurable spawn points)
 - ✅ Phase 12: Customer Types & Corporate Humor (3 types, dialogue system, visual bubbles)
+- ✅ Phase 13: Diverse Shelving System with item sizes and multi-item support
+- ✅ Phase 14: Single Item Size Per Shelf Type restriction
 
 ### 🎮 Current Gameplay Loop
 1. **Morning:** Delivery boxes appear → Press E to open → Items to inventory → Restock shelves
@@ -72,6 +193,89 @@
 - **1/2/3/5** - Time scale controls (1x, 2x, 3x, 5x speed)
 
 ## Notes for Next Session
+
+### 🆕 Phase 13 & 14: Diverse Shelving System (TESTED & COMPLETE)
+
+**What Was Implemented:**
+
+**New Architecture:**
+- **Item Size System**: 3-tier system (Small, Medium, Big) with configurable slot requirements
+- **Shelf Types**: Data-driven shelf configuration via ScriptableObjects
+- **Multi-Item Storage**: Shelves can now hold multiple different item types simultaneously
+- **Slot-Based System**: Each shelf has configurable slots, each slot holds up to N items of one type
+- **Single Size Per Shelf**: Each shelf type accepts only ONE item size (Phase 14)
+
+**New Scripts Created:**
+1. **ItemDataSO.cs** (Modified):
+   - Added `ItemSize` enum (Small, Medium, Big)
+   - Added `itemSize` and `slotsRequired` fields
+   - Auto-validation: slotsRequired updates based on itemSize
+
+2. **ShelfTypeDataSO.cs** (New):
+   - Configurable shelf properties (name, total slots, single allowed item size)
+   - Visual layout settings (slot spacing, slots per row, horizontal/vertical)
+   - Item display settings (offset, scale)
+   - Validates item size compatibility via `CanHoldItemSize(ItemSize)`
+
+3. **ShelfSlot.cs** (New):
+   - Individual storage slot component
+   - Holds multiple items of the same type (stacking)
+   - Visual stacking with slight offsets
+   - Automatic item type tracking
+
+4. **Shelf.cs** (Complete Rewrite):
+   - Slot-based multi-item storage system
+   - Size validation on restocking
+   - Auto-generates slots on Awake() based on ShelfTypeDataSO
+   - Smart item placement across available slots
+   - Methods: `RestockShelf(itemData, quantity)`, `TakeItem(preferredType)`, `GetRandomAvailableItemType()`
+
+5. **InventoryManager.cs** (Extended):
+   - Added `GetFirstAvailableItem()` helper method for quick restocking
+   - Added `currentInventoryDisplay` list for real-time Inspector viewing (debugging)
+   - Displays inventory contents in Unity Inspector during play mode
+
+6. **PlayerController.cs** (Updated):
+   - Fixed to work with new `RestockShelf(itemData, quantity)` signature
+   - Auto-selects first inventory item when pressing E (temporary - Phase 15 will add UI)
+
+7. **Customer.cs** (Updated):
+   - Now picks random item types from multi-item shelves
+   - Shows item name in debug logs when picking up
+
+**Design Benefits:**
+- **Flexibility**: Create unlimited shelf types with different size restrictions
+- **Realism**: Big items require appropriate display spaces (pedestals, floor displays)
+- **Scalability**: Easy to add new item sizes or shelf configurations
+- **Data-Driven**: All shelf behavior configured via ScriptableObjects
+
+**Architecture Patterns Used:**
+- Component-based design (Shelf → ShelfSlots → Items)
+- ScriptableObject configuration pattern
+- LINQ for collection queries
+- Event-driven inventory updates
+
+**Breaking Changes:**
+- `Shelf.RestockShelf()` signature changed from `(int quantity)` to `(ItemDataSO itemData, int quantity)`
+- Shelves now require `ShelfTypeDataSO` assignment in Inspector
+- `ShelfTypeDataSO.allowedItemSizes` (List) changed to `allowedItemSize` (single ItemSize) in Phase 14
+
+**Current Limitations (To Be Addressed in Phase 15):**
+- ⚠️ No UI for selecting which item to restock (uses first available from inventory)
+- No visual indicators for shelf capacity or allowed sizes
+- Slot positions are procedurally generated (not manually placeable)
+- No slot reservation system (customers take first available)
+
+**Shelf Type Configuration (Phase 14)**:
+- **Wall Shelf**: Medium items only
+- **Display Case**: Small items only
+- **Floor Display**: Medium items only
+- **Pedestal**: Big items only
+
+---
+
+### 📋 Previous Systems (Still Functional)
+
 - All core systems are implemented and working
 - Full gameplay loop is functional with customer variety and humor
 - **Customer System Features:**
@@ -88,8 +292,10 @@
 - 2D physics system with Dynamic Rigidbody2D using velocity-based movement
 - Player properly collides with walls (requires Player tag to be set)
 - Customer spawner supports configurable spawn point transform
-- **Recommended Next Steps:**
-  - Diversified shelf types (weapon racks, display cases, small/large shelves)
+
+### 🎯 Next Steps:
+  - **Phase 15: Restock UI System** - Proper UI for selecting items to restock (HIGH PRIORITY)
+  - Visual indicators for shelf capacity and allowed item sizes
   - More customer dialogue variety and personality-based behaviors
   - Customer returns system with absurd corporate policies
-- Consider removing debug keys (M, K, I) after polish phase
+  - Consider removing debug keys (M, K, I) after polish phase

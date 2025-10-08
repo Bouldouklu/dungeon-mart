@@ -52,9 +52,16 @@ public class PlayerController : MonoBehaviour {
 
     private void HandleInteraction() {
         if (Input.GetKeyDown(KeyCode.E) && nearestShelf != null) {
-            bool success = nearestShelf.RestockShelf(1);
-            if (!success) {
-                Debug.LogWarning("Cannot restock shelf - check inventory or shelf capacity");
+            // Get the first available item from inventory to restock
+            ItemDataSO itemToRestock = InventoryManager.Instance.GetFirstAvailableItem();
+
+            if (itemToRestock != null) {
+                bool success = nearestShelf.RestockShelf(itemToRestock, 1);
+                if (!success) {
+                    Debug.LogWarning($"Cannot restock {itemToRestock.itemName} - check shelf type or capacity");
+                }
+            } else {
+                Debug.LogWarning("No items in inventory to restock");
             }
         }
 
