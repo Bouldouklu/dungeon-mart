@@ -1601,7 +1601,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 100
   m_TargetDisplay: 0
 --- !u!224 &310647365
 RectTransform:
@@ -4154,7 +4154,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DialogueManager
   dialogueBubblePrefab: {fileID: 5465516109345280944, guid: d1761194f90b08646a88bc7183f72aff, type: 3}
-  dialogueCanvas: {fileID: 0}
+  dialogueCanvas: {fileID: 310647364}
   dialogueDuration: 2.5
   bubbleOffset: {x: 0, y: 1.5, z: 0}
 --- !u!1 &723009858
