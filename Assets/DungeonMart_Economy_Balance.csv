@@ -1,0 +1,24 @@
+Item Name,Sell Price,Restock Cost,Size,Slots Required
+Health Potion,5,3,Small,1
+Mana Potion,5,3,Small,1
+Antidote Vial,4,2,Small,1
+Energy Drink,3,2,Small,1
+Cursed Ring,15,8,Small,1
+Lucky Amulet,20,12,Small,1
+Poison Dagger,12,7,Small,1
+Diamond Ring,50,30,Small,1
+Spell Scroll,35,20,Small,1
+Iron Sword,25,15,Medium,2
+Wooden Shield,20,12,Medium,2
+Crossbow,30,18,Medium,2
+Leather Armor,40,25,Medium,2
+Chainmail Vest,55,35,Medium,2
+Steel Helmet,35,22,Medium,2
+Enchanted Bow,80,50,Medium,2
+Magic Staff,90,55,Medium,2
+Bear Trap,60,40,Big,3
+Wooden Throne,75,50,Big,3
+Spike Trap Kit,120,80,Big,3
+Demonic Statue,150,100,Big,3
+Dragon Skull,200,130,Big,3
+Golden Throne,250,160,Big,3
