@@ -54,18 +54,18 @@
 
 ### Bug Fixes & UX Improvements
 
-**Bugs to Fix:**
-- [ ] **Customer.cs dialogue system** - Customers not showing correct "disappointed" dialogue when shelves are empty
-  - Current behavior: May be using wrong dialogue array when no items available
-  - Expected: Should display `disappointedDialogues` from CustomerTypeDataSO
-  - Location: Customer.cs:99-107 (shopping routine when carriedItems.Count == 0)
+**✅ Completed:**
+- [x] **Customer.cs dialogue system** - Fixed dialogue timing for empty shelves
+  - **Solution**: Reordered logic to check shelf status BEFORE showing dialogue
+  - **Now**: Customers show disappointed dialogue immediately at each empty shelf
+  - **Also**: Added validation warnings for missing dialogue arrays in ScriptableObjects
+  - **Location**: Customer.cs:76-103 (shopping routine with context-aware dialogues)
 
-**UX Improvements:**
-- [ ] **RestockUIManager.cs** - Allow multiple clicks without closing UI
-  - Current: Clicking item button restocks 1 item and closes UI (line 146: `HideRestockUI()`)
-  - Desired: Clicking should restock 1 item but keep UI open for faster multi-item restocking
-  - Player should manually close UI with E key or Close button
-  - Benefits: Faster restocking workflow, less UI opening/closing
+- [x] **RestockUIManager.cs** - Implemented multiple restock clicks without closing UI
+  - **Solution**: Replaced `HideRestockUI()` with `RefreshUI()` on successful restock
+  - **Now**: UI stays open, updates inventory counts after each click
+  - **Result**: Much faster restocking workflow, players close UI manually with E or Close button
+  - **Location**: RestockUIManager.cs:138-153
 
 ---
 

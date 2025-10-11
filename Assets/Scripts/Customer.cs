@@ -73,14 +73,15 @@ public class Customer : MonoBehaviour {
                 yield return null;
             }
 
-            // Browse at shelf (use customer type's browse time)
-            if (DialogueManager.Instance != null && customerType.browsingDialogues.Length > 0) {
-                DialogueManager.Instance.ShowRandomDialogue(customerType.browsingDialogues, transform);
-            }
-            yield return new WaitForSeconds(customerType.browseTime);
-
-            // Take item if available (randomly choose from available item types)
+            // Check if shelf has items FIRST, then show appropriate dialogue
             if (targetShelf != null && !targetShelf.IsEmpty) {
+                // Shelf has items - show browsing dialogue
+                if (DialogueManager.Instance != null && customerType.browsingDialogues.Length > 0) {
+                    DialogueManager.Instance.ShowRandomDialogue(customerType.browsingDialogues, transform);
+                }
+                yield return new WaitForSeconds(customerType.browseTime);
+
+                // Take item (randomly choose from available item types)
                 ItemDataSO randomItemType = targetShelf.GetRandomAvailableItemType();
                 Item item = targetShelf.TakeItem(randomItemType);
                 if (item != null) {
@@ -92,15 +93,31 @@ public class Customer : MonoBehaviour {
                     }
                     Debug.Log($"Customer picked up {item.GetItemName()} - item {i + 1}/{desiredItemCount}");
                 }
+            } else {
+                // Shelf is empty - show disappointed dialogue immediately
+                if (DialogueManager.Instance != null && customerType.disappointedDialogues != null && customerType.disappointedDialogues.Length > 0) {
+                    DialogueManager.Instance.ShowRandomDialogue(customerType.disappointedDialogues, transform);
+                }
+                Debug.Log($"Customer found empty shelf - no items to browse");
+                yield return new WaitForSeconds(customerType.browseTime * 0.5f); // Shorter wait for empty shelf
             }
         }
 
         // If didn't get any items, leave disappointed
         if (carriedItems.Count == 0) {
-            Debug.Log($"Customer leaving disappointed - no items available!");
-            if (DialogueManager.Instance != null) {
+            Debug.Log($"Customer leaving disappointed - no items found in entire store!");
+
+            // Validate disappointed dialogues exist
+            if (customerType.disappointedDialogues == null || customerType.disappointedDialogues.Length == 0) {
+                Debug.LogWarning($"CustomerTypeDataSO '{customerType.customerTypeName}' has no disappointed dialogues configured!");
+            }
+
+            // Show final disappointed dialogue when leaving (they already complained at each empty shelf)
+            // This serves as a "giving up" message
+            if (DialogueManager.Instance != null && customerType.disappointedDialogues != null && customerType.disappointedDialogues.Length > 0) {
                 DialogueManager.Instance.ShowRandomDialogue(customerType.disappointedDialogues, transform);
             }
+
             DayManager.Instance?.RecordCustomerLeft();
             yield return new WaitForSeconds(2f); // Wait to show dialogue
             NotifySpawnerAndLeave();

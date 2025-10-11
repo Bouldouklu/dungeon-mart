@@ -143,12 +143,11 @@ public class RestockUIManager : MonoBehaviour {
 
         if (success) {
             Debug.Log($"Successfully restocked {itemData.itemName}");
-            // Close UI on successful restock
-            HideRestockUI();
+            // Refresh UI to show updated inventory (keep UI open for multiple restocks)
+            RefreshUI();
         } else {
             Debug.LogWarning($"Failed to restock {itemData.itemName} - shelf may be full");
-            // Could show error message here instead of closing
-            // For now, just refresh the UI to show updated inventory
+            // Refresh the UI to show updated inventory
             RefreshUI();
         }
     }
