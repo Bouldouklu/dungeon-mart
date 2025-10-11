@@ -41,33 +41,7 @@
 
 ---
 
-### Next Implementation - Additional Features
-
-
-
-- [ ] **Visual Polish:**
-  - [ ] Better delivery box visuals
-  - [ ] Particle effects when opening boxes
-  - [ ] Sound effects (optional)
-  - [ ] Empty shelf indicators
-
-
-### Bug Fixes & UX Improvements
-
-**✅ Completed:**
-- [x] **Customer.cs dialogue system** - Fixed dialogue timing for empty shelves
-  - **Solution**: Reordered logic to check shelf status BEFORE showing dialogue
-  - **Now**: Customers show disappointed dialogue immediately at each empty shelf
-  - **Also**: Added validation warnings for missing dialogue arrays in ScriptableObjects
-  - **Location**: Customer.cs:76-103 (shopping routine with context-aware dialogues)
-
-- [x] **RestockUIManager.cs** - Implemented multiple restock clicks without closing UI
-  - **Solution**: Replaced `HideRestockUI()` with `RefreshUI()` on successful restock
-  - **Now**: UI stays open, updates inventory counts after each click
-  - **Result**: Much faster restocking workflow, players close UI manually with E or Close button
-  - **Location**: RestockUIManager.cs:138-153
-
----
+## Future Implementation - Additional Features
 
 ### Code Quality & Optimization Tasks (From Architecture Review)
 
@@ -97,9 +71,8 @@
 - [ ] Remove debug keys before browser release (M, K, I, O, 1-5) in DayManager.cs
 - [ ] Remove debug inventory system or hide behind developer mode
 
----
 
-### Future Enhancements (Nice to Have)
+### Nice to Have
 
 - [ ] **Tutorial/Help:**
     - [ ] First-time instructions
@@ -119,7 +92,7 @@
 
 ## Current Status
 
-### ✅ Completed (Phase 1-15)
+### ✅ Completed (Phase 1-15 + Tools)
 - ✅ Phase 1: Core inventory system
 - ✅ Phase 2: Ordering system with UI
 - ✅ Phase 3: Day/Night cycle with three phases
@@ -135,6 +108,7 @@
 - ✅ Phase 13: Diverse Shelving System with item sizes and multi-item support
 - ✅ Phase 14: Single Item Size Per Shelf Type restriction
 - ✅ Phase 15: Restock UI System with item selection and size filtering
+- ✅ **CSV Item Importer Tool**: Automated ItemDataSO generation from Excel/CSV spreadsheet
 
 ### 🎮 Current Gameplay Loop
 1. **Morning:** Delivery boxes appear → Press E to open → Items to inventory → Restock shelves
@@ -159,6 +133,64 @@
 - **K** - Force end day (business → end of day)
 - **I** - Add debug inventory (testing only)
 - **1/2/3/5** - Time scale controls (1x, 2x, 3x, 5x speed)
+
+### 🛠️ CSV Item Importer Tool
+
+**Purpose:**
+- Automate ItemDataSO ScriptableObject creation/updates from Excel spreadsheet
+- Single source of truth for game economy balancing
+- Preserve manually assigned sprites during updates
+
+**Tool Features:**
+- **Unity Editor Window**: Tools → DungeonMart → Import Items from CSV
+- **CSV Parsing**: Reads `DungeonMart_Economy_Balance.csv` from Assets folder
+- **Smart Updates**: Updates existing SOs without overwriting sprites
+- **PascalCase Filenames**: "Health Potion" → `HealthPotion.asset`
+- **Flexible Column Names**: Supports "Item Name", "ItemName", "Name", etc.
+- **Batch Processing**: Imports all 23 items in seconds
+- **Import Log**: Detailed feedback on created/updated items
+
+**Technical Implementation:**
+1. **ItemDataImporter.cs** (Editor Script):
+   - Custom EditorWindow with GUI
+   - CSV parsing with header detection
+   - AssetDatabase integration for SO creation/updates
+   - Regex-based PascalCase converter
+   - Error handling and validation
+
+**CSV Format:**
+```csv
+Item Name,Sell Price,Restock Cost,Size,Slots Required
+Health Potion,5,3,Small,1
+Iron Sword,25,15,Medium,2
+Dragon Throne,200,130,Big,3
+```
+
+**Workflow:**
+1. Edit Excel spreadsheet with balance changes
+2. Export as CSV to `Assets/DungeonMart_Economy_Balance.csv`
+3. In Unity: Tools → DungeonMart → Import Items from CSV
+4. All items created/updated automatically
+5. Add sprites manually in Inspector (preserved on re-import)
+
+**Items Created (23 Total):**
+- **Small Items (9)**: Health Potion, Mana Potion, Antidote Vial, Energy Drink, Cursed Ring, Lucky Amulet, Poison Dagger, Diamond Ring, Spell Scroll
+- **Medium Items (8)**: Iron Sword, Wooden Shield, Crossbow, Leather Armor, Chainmail Vest, Steel Helmet, Enchanted Bow, Magic Staff
+- **Big Items (6)**: Bear Trap, Wooden Throne, Spike Trap Kit, Demonic Statue, Dragon Skull, Golden Throne
+
+**Benefits:**
+- Rapid iteration on game economy
+- No manual SO creation needed
+- Easy to rebalance prices across all items
+- Designer-friendly workflow (Excel → Unity)
+- Sprite assignment workflow preserved
+
+**Location:**
+- Script: `Assets/Scripts/Editor/ItemDataImporter.cs`
+- CSV: `Assets/DungeonMart_Economy_Balance.csv`
+- Output: `Assets/Resources/Items/*.asset`
+
+---
 
 ## Notes for Next Session
 
