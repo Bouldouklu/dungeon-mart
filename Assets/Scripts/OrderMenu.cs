@@ -104,8 +104,10 @@ public class OrderMenu : MonoBehaviour {
         PopulateItemList();
         UpdateOrderDisplay();
 
-        // Use PauseManager to preserve debug time scale settings
-        if (PauseManager.Instance != null) {
+        // Don't pause during End of Day phase - it's already a natural pause in gameplay
+        bool isEndOfDay = DayManager.Instance != null && DayManager.Instance.CurrentPhase == GamePhase.EndOfDay;
+
+        if (!isEndOfDay && PauseManager.Instance != null) {
             PauseManager.Instance.PauseGame();
         }
     }
@@ -116,8 +118,10 @@ public class OrderMenu : MonoBehaviour {
             menuPanel.SetActive(false);
         }
 
-        // Use PauseManager to restore previous time scale
-        if (PauseManager.Instance != null) {
+        // Only resume if we actually paused (not during End of Day phase)
+        bool isEndOfDay = DayManager.Instance != null && DayManager.Instance.CurrentPhase == GamePhase.EndOfDay;
+
+        if (!isEndOfDay && PauseManager.Instance != null) {
             PauseManager.Instance.ResumeGame();
         }
     }
