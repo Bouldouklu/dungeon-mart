@@ -52,13 +52,6 @@ public class CustomerTypeDataSO : ScriptableObject {
     [TextArea(2, 3)]
     public string[] disappointedDialogues;
 
-    [Header("Visual Identification")]
-    [Tooltip("Optional sprite override for this customer type")]
-    public Sprite customerSprite;
-
-    [Tooltip("Color tint to identify customer type")]
-    public Color customerTint = Color.white;
-
     /// <summary>
     /// Gets a random item count within the defined range.
     /// </summary>

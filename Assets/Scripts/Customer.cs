@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Customer : MonoBehaviour {
     [SerializeField] private Transform itemCarryPoint;
-    [SerializeField] private SpriteRenderer spriteRenderer;
+    [SerializeField] private Transform visualParent;
+    [SerializeField] private GameObject[] visualPrefabs;
 
     private CustomerTypeDataSO customerType;
     private List<Item> carriedItems = new List<Item>();
@@ -28,14 +29,17 @@ public class Customer : MonoBehaviour {
             return;
         }
 
-        // Set visual appearance
-        if (spriteRenderer != null && customerType.customerSprite != null)
+        // Spawn random visual prefab
+        if (visualPrefabs != null && visualPrefabs.Length > 0 && visualParent != null)
         {
-            spriteRenderer.sprite = customerType.customerSprite;
+            int randomIndex = Random.Range(0, visualPrefabs.Length);
+            GameObject visualInstance = Instantiate(visualPrefabs[randomIndex], visualParent);
+            visualInstance.transform.localPosition = Vector3.zero;
+            visualInstance.transform.localRotation = Quaternion.identity;
         }
-        if (spriteRenderer != null)
+        else
         {
-            spriteRenderer.color = customerType.customerTint;
+            Debug.LogWarning("Customer visual prefabs array is empty or visualParent is not assigned!");
         }
 
         // Initialize behavior parameters
