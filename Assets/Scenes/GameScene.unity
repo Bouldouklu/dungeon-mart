@@ -13283,7 +13283,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 55ef99b5fbe514149b29fb5d6874f876, type: 2}
   - {fileID: 11400000, guid: ee8aa288b634bcf4a9e4692defbe3c2f, type: 2}
   - {fileID: 11400000, guid: 8b10e23703cc0204196b328c29d588cf, type: 2}
-  customersPerDay: 0
+  customersPerDay: 8
   spawnInterval: 10
 --- !u!4 &1656746642
 Transform:
