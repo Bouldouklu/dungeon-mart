@@ -14,6 +14,8 @@ public class EndOfDaySummaryUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI customersServedText;
     [SerializeField] private TextMeshProUGUI dailyRevenueText;
     [SerializeField] private TextMeshProUGUI totalMoneyText;
+    [SerializeField] private TextMeshProUGUI rentInfoText;
+    [SerializeField] private TextMeshProUGUI loanPaymentText;
     [SerializeField] private Button continueButton;
 
     private void Start()
@@ -30,6 +32,12 @@ public class EndOfDaySummaryUI : MonoBehaviour
             DayManager.Instance.OnDayEnded += OnDayEnded;
         }
 
+        // Subscribe to rent paid event to show summary after rent is paid
+        if (ExpenseManager.Instance != null)
+        {
+            ExpenseManager.Instance.OnRentPaid += OnRentPaid;
+        }
+
         // Wire up button event
         if (continueButton != null)
         {
@@ -43,16 +51,30 @@ public class EndOfDaySummaryUI : MonoBehaviour
         {
             DayManager.Instance.OnDayEnded -= OnDayEnded;
         }
+
+        if (ExpenseManager.Instance != null)
+        {
+            ExpenseManager.Instance.OnRentPaid -= OnRentPaid;
+        }
     }
 
     /// <summary>
     /// Called when the day ends - displays summary with statistics.
+    /// If rent is due, waits for rent to be paid before showing summary.
     /// </summary>
     private void OnDayEnded(int day, int customersServed, int revenue)
     {
         if (summaryPanel == null)
         {
             Debug.LogWarning("Summary panel is not assigned!");
+            return;
+        }
+
+        // Check if rent is due - if so, don't show summary yet
+        // It will be shown after rent is paid via OnRentPaid event
+        if (ExpenseManager.Instance != null && ExpenseManager.Instance.RentIsDueNow)
+        {
+            Debug.Log("Rent is due - waiting for rent payment before showing summary");
             return;
         }
 
@@ -91,10 +113,79 @@ public class EndOfDaySummaryUI : MonoBehaviour
             totalMoneyText.text = $"Total Money: ${currentMoney}";
         }
 
+        // Update rent info
+        if (rentInfoText != null && ExpenseManager.Instance != null)
+        {
+            int daysUntilRent = ExpenseManager.Instance.DaysUntilRentDue;
+            int rentAmount = ExpenseManager.Instance.MonthlyRentAmount;
+
+            if (daysUntilRent == 1)
+            {
+                rentInfoText.text = $"⚠ Rent Due Tomorrow: ${rentAmount}";
+                rentInfoText.color = Color.yellow;
+            }
+            else
+            {
+                rentInfoText.text = $"Rent Due: {daysUntilRent} days (${rentAmount})";
+                rentInfoText.color = Color.white;
+            }
+            rentInfoText.gameObject.SetActive(true);
+        }
+
+        // Update loan payment info
+        if (loanPaymentText != null && LoanManager.Instance != null)
+        {
+            if (LoanManager.Instance.HasActiveLoan)
+            {
+                int suggestedPayment = LoanManager.Instance.GetSuggestedDailyPayment();
+                int remaining = LoanManager.Instance.AmountRemaining;
+                int daysLeft = LoanManager.Instance.DaysUntilDue;
+
+                loanPaymentText.text = $"Loan Balance: ${remaining} (Due in {daysLeft} days)";
+
+                if (daysLeft <= 2)
+                {
+                    loanPaymentText.color = Color.red;
+                }
+                else if (daysLeft <= 4)
+                {
+                    loanPaymentText.color = Color.yellow;
+                }
+                else
+                {
+                    loanPaymentText.color = Color.white;
+                }
+
+                loanPaymentText.gameObject.SetActive(true);
+            }
+            else
+            {
+                loanPaymentText.gameObject.SetActive(false);
+            }
+        }
+
         // Show the panel
         summaryPanel.SetActive(true);
 
         Debug.Log($"End of Day Summary displayed for Day {day}");
+    }
+
+    /// <summary>
+    /// Called when rent is paid - shows the summary with updated money values.
+    /// </summary>
+    private void OnRentPaid(int amountPaid, int newMonth)
+    {
+        // Show the summary now that rent has been paid
+        // Use current day info from DayManager
+        if (DayManager.Instance != null)
+        {
+            int day = DayManager.Instance.CurrentDay;
+            int customersServed = DayManager.Instance.CustomersServedToday;
+            int revenue = DayManager.Instance.DailyRevenue;
+
+            Debug.Log($"Rent paid - now showing End of Day Summary for Day {day}");
+            OnDayEnded(day, customersServed, revenue);
+        }
     }
 
     /// <summary>

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: AntidoteVial
   m_EditorClassIdentifier: Assembly-CSharp::ItemDataSO
   itemName: Antidote Vial
-  itemSprite: {fileID: 0}
+  itemSprite: {fileID: -839994024, guid: e5451acd36b9e2f44bb4826f38bcce15, type: 3}
   sellPrice: 4
   restockCost: 2
   itemSize: 0

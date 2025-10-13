@@ -90,9 +90,67 @@
 - [ ] **Customer patience system:** Customers leave if waiting too long
 - [ ] **Special orders:** Customers request specific items, that can't be ordered, put in inventory but not shown in the shop. Customers will come back after a few days and ask for it at the checkout counter
 
+## Known Issues
+
+### 🐛 Game Over UI Input Blocking (HIGH PRIORITY)
+
+**Status**: Under Investigation
+
+**Symptoms**:
+- Game Over screen appears visually correct
+- All UI elements properly configured and visible
+- Window loses fullscreen mode when Game Over triggers
+- Mouse/keyboard input completely stops working
+- All buttons non-clickable despite being `interactable=True` and `active=True`
+- Unity play mode continues running (doesn't crash)
+- Must manually stop play mode via Unity Editor
+
+**Debug Evidence**:
+```
+✅ EventSystem found and enabled
+✅ EventSystem GameObject active
+✅ All buttons marked as interactable=True, active=True
+✅ Panel activated successfully
+✅ No exceptions or errors in console (after NullReferenceException fix)
+❌ Input processing completely blocked
+❌ Window loses fullscreen
+```
+
+**What's Been Tried**:
+1. ~~Removed `PauseManager.PauseGame()` call (Time.timeScale = 0 blocking input)~~ - Didn't fix
+2. ~~Added button delay mechanism with coroutine~~ - Coroutine never completed
+3. ~~Fixed NullReferenceException when toggling EventSystem~~ - Fixed exception but input still blocked
+4. ~~Removed button delay entirely, made buttons immediately interactable~~ - Input still blocked
+5. ~~Added EventSystem.SetSelectedGameObject(null)~~ - Input still blocked
+
+**Potential Causes**:
+- Unity EventSystem input processing blocked during `Update()` chain execution
+- Canvas/GraphicRaycaster configuration issue
+- Multiple UI panels competing for input (RentPaymentUI, GameOverUI overlap)
+- Unity Input System vs Legacy Input conflict
+- Game window focus loss at OS level
+
+**Investigation Areas**:
+- Check Canvas render mode and sorting order settings in Unity Editor
+- Verify GraphicRaycaster component on Canvas
+- Check if multiple EventSystems exist in scene
+- Test triggering Game Over outside of DayManager.Update() chain
+- Check Unity Input System package configuration
+- Investigate if other UI modals (RentPaymentUI, LoanUI) are still active
+
+**Workaround**: None - Game Over state is unrecoverable, must restart Unity play mode
+
+**Files Involved**:
+- `Assets/Scripts/UI/GameOverUI.cs` - Main UI controller
+- `Assets/Scripts/Singletons/FailStateManager.cs` - Game over trigger
+- `Assets/Scripts/Singletons/LoanManager.cs` - Loan default trigger
+- `Assets/Scripts/Singletons/DayManager.cs` - Update loop where Game Over happens
+
+---
+
 ## Current Status
 
-### ✅ Completed (Phase 1-15 + Tools)
+### ✅ Completed (Phase 1-15 + Tools + Monthly Expenses System)
 - ✅ Phase 1: Core inventory system
 - ✅ Phase 2: Ordering system with UI
 - ✅ Phase 3: Day/Night cycle with three phases
@@ -109,6 +167,7 @@
 - ✅ Phase 14: Single Item Size Per Shelf Type restriction
 - ✅ Phase 15: Restock UI System with item selection and size filtering
 - ✅ **CSV Item Importer Tool**: Automated ItemDataSO generation from Excel/CSV spreadsheet
+- ✅ **Monthly Expenses System**: Rent tracking, loan system with interest, fail states (KNOWN BUG: Game Over UI input blocked)
 
 ### 🎮 Current Gameplay Loop
 1. **Morning:** Delivery boxes appear → Press E to open → Items to inventory → Restock shelves

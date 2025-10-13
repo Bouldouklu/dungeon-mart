@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: IronSword
   m_EditorClassIdentifier: Assembly-CSharp::ItemDataSO
   itemName: Iron Sword
-  itemSprite: {fileID: 21300000, guid: 02a504cbb1170e9438f953f84e671690, type: 3}
+  itemSprite: {fileID: 1848948272, guid: e5451acd36b9e2f44bb4826f38bcce15, type: 3}
   sellPrice: 25
   restockCost: 15
   itemSize: 1

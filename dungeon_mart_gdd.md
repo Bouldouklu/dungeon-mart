@@ -7,8 +7,8 @@ Run a retail store supplying evil customers with weapons, minions, and dungeon e
 
 **Genre**: Business Simulation + Retail Management  
 **Platform**: PC/Browser (Unity WebGL)  
-**Development**: Several days for playable and fund prototype  
-**Target**: Players who enjoy Potion Craft: Alchemist Simulator, Moonlighter, and cozy business/management sims
+**Development**: Several days for playable and fun prototype  
+**Target**: Players who enjoy Potion Craft: Alchemist Simulator, Moonlighter, and small business/management sims
 
 ---
 

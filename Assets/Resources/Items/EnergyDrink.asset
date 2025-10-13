@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: EnergyDrink
   m_EditorClassIdentifier: Assembly-CSharp::ItemDataSO
   itemName: Energy Drink
-  itemSprite: {fileID: 0}
+  itemSprite: {fileID: 1208803805, guid: e5451acd36b9e2f44bb4826f38bcce15, type: 3}
   sellPrice: 3
   restockCost: 2
   itemSize: 0
