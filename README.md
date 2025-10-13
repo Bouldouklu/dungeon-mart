@@ -168,6 +168,7 @@
 - ✅ Phase 15: Restock UI System with item selection and size filtering
 - ✅ **CSV Item Importer Tool**: Automated ItemDataSO generation from Excel/CSV spreadsheet
 - ✅ **Monthly Expenses System**: Rent tracking, loan system with interest, fail states (KNOWN BUG: Game Over UI input blocked)
+- ✅ **Visual Polish**: Customer visuals now use random SPUM character prefabs (48 variants)
 
 ### 🎮 Current Gameplay Loop
 1. **Morning:** Delivery boxes appear → Press E to open → Items to inventory → Restock shelves
@@ -176,9 +177,10 @@
 4. **Next Morning:** Repeat cycle (Day 2, 3, 4...)
 
 ### 👥 Customer Types
-- **Quick Shopper**: Fast (4.5 speed), 1 item, impatient, green tint
-- **Browser**: Slow (2 speed), 2-3 items, patient, blue tint
-- **Big Spender**: Medium (3 speed), 3-4 items, demanding, gold tint
+- **Quick Shopper**: Fast (4.5 speed), 1 item, impatient
+- **Browser**: Slow (2 speed), 2-3 items, patient
+- **Big Spender**: Medium (3 speed), 3-4 items, demanding
+- **Visual Variety**: Each customer spawns with a random SPUM character model (48 unique variants)
 
 ### 🔧 Controls
 - **WASD/Arrow Keys** - Move player (blocked by walls, disabled when UI open)
@@ -252,6 +254,60 @@ Dragon Throne,200,130,Big,3
 ---
 
 ## Notes for Next Session
+
+### 🆕 Visual Polish Update: Customer Character Visuals (COMPLETE)
+
+**What Was Implemented:**
+
+**Visual System Refactor:**
+- **Random Character Prefabs**: Customers now spawn with random SPUM character models instead of simple sprite tints
+- **Prefab-Based System**: Customer.cs accepts array of visual prefabs and instantiates random one per customer
+- **48 Visual Variants**: Large pool of diverse character models for visual variety
+- **Parent-Child Architecture**: Visual prefabs spawn as children of customer GameObject
+
+**Code Changes:**
+1. **Customer.cs** (Assets/Scripts/Customer.cs):
+   - **Removed**: `spriteRenderer` field (no longer needed)
+   - **Added**: `visualParent` Transform field (where visual spawns)
+   - **Added**: `visualPrefabs` GameObject[] array (holds 48 SPUM prefab references)
+   - **Updated**: `Initialize()` method now randomly selects and instantiates visual prefab as child
+   - Visual spawns at local position (0,0,0) with identity rotation
+
+2. **CustomerTypeDataSO.cs** (Assets/Scripts/SOs/CustomerTypeDataSO.cs):
+   - **Removed**: `customerSprite` field (obsolete)
+   - **Removed**: `customerTint` field (obsolete)
+   - Customer types now differentiated by behavior only, not visual appearance
+
+3. **Customer.prefab** (Assets/Prefabs/Customer.prefab):
+   - **Removed**: "Capsule" child GameObject with SpriteRenderer
+   - **Added**: "VisualParent" empty child GameObject at (0,0,0)
+   - **Configured**: `visualPrefabs` array populated with 48 SPUM character prefabs from Assets/Prefabs/CustomerVisuals/
+   - **Linked**: `visualParent` field references VisualParent GameObject
+
+**Technical Benefits:**
+- **Visual Diversity**: No two customers look exactly alike with 48 variants
+- **Scalability**: Easy to add more character models by expanding prefab array
+- **Maintainability**: Visuals completely decoupled from customer type data
+- **Performance**: Visual instantiation only happens once per customer spawn
+- **No Singleton**: Simple array-based approach, configured in Inspector
+
+**Design Improvements:**
+- Customers feel more unique and alive with varied character models
+- Easier to identify individual customers in crowded shop
+- Supports future animations/character customization via prefab structure
+- Removes rigid color-coding system (green/blue/gold tints)
+
+**Known Limitations:**
+- SPUM prefabs have missing script references (harmless warnings)
+- Visual models don't currently animate (future enhancement)
+- All customers share same size/scale (could vary in future)
+
+**Files Modified:**
+- `Assets/Scripts/Customer.cs` - Visual system refactor
+- `Assets/Scripts/SOs/CustomerTypeDataSO.cs` - Removed obsolete fields
+- `Assets/Prefabs/Customer.prefab` - Updated structure and references
+
+---
 
 ### 🆕 Phase 15: Restock UI System (TESTED & COMPLETE)
 
@@ -437,12 +493,13 @@ RestockItemButton (Button + Horizontal Layout Group)
   - Multiple items per customer (1-4 items based on type)
   - Patience system implemented (customers track patience while waiting)
   - Visual dialogue bubbles follow customers with corporate evil humor
-  - Color-coded customer tints for easy identification
+  - Random character visuals (48 SPUM prefab variants)
 - **Technical Implementation:**
   - CustomerTypeDataSO ScriptableObject system for data-driven design
   - DialogueManager singleton with bubble prefab instantiation
   - Screen space overlay canvas for dialogue UI
   - Customers now browse multiple shelves based on item count
+  - Prefab-based visual system with parent-child architecture
 - 2D physics system with Dynamic Rigidbody2D using velocity-based movement
 - Player properly collides with walls (requires Player tag to be set)
 - Customer spawner supports configurable spawn point transform
