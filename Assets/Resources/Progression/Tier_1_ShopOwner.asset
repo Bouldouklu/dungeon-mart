@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75efa83aaa595b249bd83dbdda1e115b, type: 3}
+  m_Name: Tier_1_ShopOwner
+  m_EditorClassIdentifier: Assembly-CSharp::ProgressionDataSO
+  tierName: Tier_1_ShopOwner
+  tierIndex: 1
+  tierIcon: {fileID: 0}
+  requiredLifetimeRevenue: 1500
+  description: Your shop is gaining recognition in the local market.
+  unlockedUpgrades: []

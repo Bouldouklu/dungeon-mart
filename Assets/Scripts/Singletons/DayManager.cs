@@ -85,6 +85,23 @@ public class DayManager : MonoBehaviour
             Time.timeScale = 5f;
             Debug.Log("Time scale: 5x");
         }
+
+        // Debug keys for progression testing
+        if (Input.GetKeyDown(KeyCode.Alpha7))
+        {
+            GameManager.Instance?.AddMoney(500);
+            Debug.Log("DEBUG: Added $500 for progression testing");
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha8))
+        {
+            GameManager.Instance?.AddMoney(1500);
+            Debug.Log("DEBUG: Added $1500 for progression testing (Tier 1 threshold)");
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha9))
+        {
+            GameManager.Instance?.AddMoney(5000);
+            Debug.Log("DEBUG: Added $5000 for progression testing");
+        }
     }
 
     public void StartMorningPhase()
