@@ -428,6 +428,7 @@ MonoBehaviour:
   - {fileID: 1144452822}
   - {fileID: 979162671}
   baseItemsPerSlot: 5
+  capacityBonus: 0
 --- !u!4 &12593961
 Transform:
   m_ObjectHideFlags: 0
@@ -4370,6 +4371,7 @@ MonoBehaviour:
   - {fileID: 1301286577}
   - {fileID: 742226509}
   baseItemsPerSlot: 5
+  capacityBonus: 0
 --- !u!4 &513204643
 Transform:
   m_ObjectHideFlags: 0
@@ -8083,6 +8085,7 @@ MonoBehaviour:
   slotPositions:
   - {fileID: 271443007}
   baseItemsPerSlot: 5
+  capacityBonus: 0
 --- !u!4 &899093724
 Transform:
   m_ObjectHideFlags: 0
@@ -14631,6 +14634,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 8b10e23703cc0204196b328c29d588cf, type: 2}
   baseCustomersPerDay: 6
   spawnInterval: 10
+  bonusCustomers: 0
 --- !u!4 &1656746642
 Transform:
   m_ObjectHideFlags: 0
@@ -16573,6 +16577,7 @@ MonoBehaviour:
   slotPositions:
   - {fileID: 791679806}
   baseItemsPerSlot: 5
+  capacityBonus: 0
 --- !u!4 &1910678951
 Transform:
   m_ObjectHideFlags: 0
@@ -18010,9 +18015,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ExpenseManager
   monthlyRentAmount: 500
   daysPerMonth: 7
-  daysUntilRentDue: 2
+  daysUntilRentDue: 7
   currentMonth: 1
-  rentIsDueNow: 0
+  rentIsDueNow: 1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

@@ -165,6 +165,20 @@ public class DayManager : MonoBehaviour
                 Debug.Log(ShopSegmentManager.Instance.GetSegmentStatusDebug());
             }
         }
+
+        // Debug key for ExpenseManager status
+        if (Input.GetKeyDown(KeyCode.F10))
+        {
+            if (ExpenseManager.Instance != null)
+            {
+                Debug.Log($"DEBUG: Rent Status - Due: {ExpenseManager.Instance.RentIsDueNow}, Days Until: {ExpenseManager.Instance.DaysUntilRentDue}, Month: {ExpenseManager.Instance.CurrentMonth}");
+                if (ExpenseManager.Instance.RentIsDueNow && ExpenseManager.Instance.CanAffordRent())
+                {
+                    Debug.Log("DEBUG: Attempting to pay rent...");
+                    ExpenseManager.Instance.PayRent();
+                }
+            }
+        }
     }
 
     public void StartMorningPhase()

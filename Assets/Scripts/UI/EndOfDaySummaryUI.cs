@@ -74,9 +74,11 @@ public class EndOfDaySummaryUI : MonoBehaviour
         // It will be shown after rent is paid via OnRentPaid event
         if (ExpenseManager.Instance != null && ExpenseManager.Instance.RentIsDueNow)
         {
-            Debug.Log("Rent is due - waiting for rent payment before showing summary");
+            Debug.Log("EndOfDaySummaryUI: Rent is due - waiting for rent payment before showing summary");
             return;
         }
+
+        Debug.Log($"EndOfDaySummaryUI: Displaying summary for Day {day}");
 
         // Get total customers for the day
         int totalCustomers = 0;
