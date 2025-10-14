@@ -102,6 +102,32 @@ public class DayManager : MonoBehaviour
             GameManager.Instance?.AddMoney(5000);
             Debug.Log("DEBUG: Added $5000 for progression testing");
         }
+
+        // Debug keys for shop segment testing
+        if (Input.GetKeyDown(KeyCode.U))
+        {
+            if (ShopSegmentManager.Instance != null)
+            {
+                ShopSegmentManager.Instance.UnlockSegment(1);
+                Debug.Log("DEBUG: Attempted to unlock Segment 1");
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            if (ShopSegmentManager.Instance != null)
+            {
+                ShopSegmentManager.Instance.UnlockSegment(2);
+                Debug.Log("DEBUG: Attempted to unlock Segment 2");
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            if (ShopSegmentManager.Instance != null)
+            {
+                ShopSegmentManager.Instance.UnlockSegment(3);
+                Debug.Log("DEBUG: Attempted to unlock Segment 3");
+            }
+        }
     }
 
     public void StartMorningPhase()
