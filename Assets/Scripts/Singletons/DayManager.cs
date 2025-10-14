@@ -104,7 +104,7 @@ public class DayManager : MonoBehaviour
         }
 
         // Debug keys for shop segment testing
-        if (Input.GetKeyDown(KeyCode.U))
+        if (Input.GetKeyDown(KeyCode.F4))
         {
             if (ShopSegmentManager.Instance != null)
             {
@@ -112,7 +112,7 @@ public class DayManager : MonoBehaviour
                 Debug.Log("DEBUG: Attempted to unlock Segment 1");
             }
         }
-        if (Input.GetKeyDown(KeyCode.I))
+        if (Input.GetKeyDown(KeyCode.F5))
         {
             if (ShopSegmentManager.Instance != null)
             {
@@ -120,7 +120,7 @@ public class DayManager : MonoBehaviour
                 Debug.Log("DEBUG: Attempted to unlock Segment 2");
             }
         }
-        if (Input.GetKeyDown(KeyCode.P))
+        if (Input.GetKeyDown(KeyCode.F6))
         {
             if (ShopSegmentManager.Instance != null)
             {
