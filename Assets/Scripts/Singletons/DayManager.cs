@@ -128,6 +128,21 @@ public class DayManager : MonoBehaviour
                 Debug.Log("DEBUG: Attempted to unlock Segment 3");
             }
         }
+
+        // Debug key for shelf capacity upgrade testing
+        if (Input.GetKeyDown(KeyCode.F7))
+        {
+            if (UpgradeManager.Instance != null)
+            {
+                // Find all shelves and increase capacity by 2
+                Shelf[] shelves = FindObjectsByType<Shelf>(FindObjectsSortMode.None);
+                foreach (Shelf shelf in shelves)
+                {
+                    shelf.IncreaseCapacity(2);
+                }
+                Debug.Log($"DEBUG: Increased capacity for {shelves.Length} shelves by 2");
+            }
+        }
     }
 
     public void StartMorningPhase()
