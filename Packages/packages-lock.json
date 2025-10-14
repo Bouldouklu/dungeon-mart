@@ -1,5 +1,14 @@
 {
   "dependencies": {
+    "com.coplaydev.unity-mcp": {
+      "version": "https://github.com/CoplayDev/unity-mcp.git?path=/MCPForUnity",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {
+        "com.unity.nuget.newtonsoft-json": "3.0.2"
+      },
+      "hash": "6c00294231b82385c72f5979429fd7747e84daad"
+    },
     "com.unity.2d.animation": {
       "version": "12.0.2",
       "depth": 0,
@@ -51,6 +60,15 @@
       },
       "url": "https://packages.unity.com"
     },
+    "com.unity.2d.pixel-perfect": {
+      "version": "5.1.1",
+      "depth": 1,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.modules.imgui": "1.0.0"
+      },
+      "url": "https://packages.unity.com"
+    },
     "com.unity.2d.psdimporter": {
       "version": "11.0.1",
       "depth": 0,
@@ -96,18 +114,6 @@
         "com.unity.2d.tilemap": "1.0.0",
         "com.unity.modules.tilemap": "1.0.0",
         "com.unity.modules.jsonserialize": "1.0.0"
-      },
-      "url": "https://packages.unity.com"
-    },
-    "com.unity.ai.assistant": {
-      "version": "1.0.0-pre.12",
-      "depth": 0,
-      "source": "registry",
-      "dependencies": {
-        "com.unity.ai.toolkit": "1.0.0-pre.18",
-        "com.unity.serialization": "3.1.1",
-        "com.unity.nuget.newtonsoft-json": "3.2.1",
-        "com.unity.modules.unitywebrequest": "1.0.0"
       },
       "url": "https://packages.unity.com"
     },
@@ -208,6 +214,21 @@
       "source": "builtin",
       "dependencies": {}
     },
+    "com.unity.feature.2d": {
+      "version": "2.0.1",
+      "depth": 0,
+      "source": "builtin",
+      "dependencies": {
+        "com.unity.2d.animation": "12.0.2",
+        "com.unity.2d.pixel-perfect": "5.1.1",
+        "com.unity.2d.psdimporter": "11.0.1",
+        "com.unity.2d.sprite": "1.0.0",
+        "com.unity.2d.spriteshape": "12.0.1",
+        "com.unity.2d.tilemap": "1.0.0",
+        "com.unity.2d.tilemap.extras": "5.0.1",
+        "com.unity.2d.aseprite": "2.0.2"
+      }
+    },
     "com.unity.ide.rider": {
       "version": "3.0.38",
       "depth": 0,
@@ -218,16 +239,16 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.ide.visualstudio": {
-      "version": "2.0.23",
+      "version": "2.0.25",
       "depth": 0,
       "source": "registry",
       "dependencies": {
-        "com.unity.test-framework": "1.1.9"
+        "com.unity.test-framework": "1.1.31"
       },
       "url": "https://packages.unity.com"
     },
     "com.unity.inputsystem": {
-      "version": "1.14.2",
+      "version": "1.15.0",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -312,16 +333,6 @@
       "depth": 2,
       "source": "registry",
       "dependencies": {},
-      "url": "https://packages.unity.com"
-    },
-    "com.unity.serialization": {
-      "version": "3.1.2",
-      "depth": 1,
-      "source": "registry",
-      "dependencies": {
-        "com.unity.burst": "1.7.2",
-        "com.unity.collections": "2.4.2"
-      },
       "url": "https://packages.unity.com"
     },
     "com.unity.settings-manager": {

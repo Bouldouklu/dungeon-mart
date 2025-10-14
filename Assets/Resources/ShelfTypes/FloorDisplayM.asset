@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: FloorDisplayM
   m_EditorClassIdentifier: Assembly-CSharp::ShelfTypeDataSO
   shelfTypeName: Floor Display M
-  totalSlots: 4
+  totalSlots: 2
   allowedItemSize: 1
   slotSpacing: {x: 0.8, y: 0.8}
   slotsPerRow: 2

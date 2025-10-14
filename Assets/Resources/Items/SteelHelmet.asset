@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: SteelHelmet
   m_EditorClassIdentifier: Assembly-CSharp::ItemDataSO
   itemName: Steel Helmet
-  itemSprite: {fileID: 0}
+  itemSprite: {fileID: 21300000, guid: 96abf63d683f04dee937fa2e2872886b, type: 3}
   sellPrice: 35
   restockCost: 22
   itemSize: 1

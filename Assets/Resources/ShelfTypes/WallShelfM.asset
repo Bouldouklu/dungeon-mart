@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: WallShelfM
   m_EditorClassIdentifier: Assembly-CSharp::ShelfTypeDataSO
   shelfTypeName: Wall Shelf M
-  totalSlots: 6
+  totalSlots: 1
   allowedItemSize: 1
   slotSpacing: {x: 0.5, y: 0.5}
-  slotsPerRow: 3
+  slotsPerRow: 1
   horizontalLayout: 1
   itemDisplayOffset: {x: 0, y: 0, z: 0}
   itemScale: 1

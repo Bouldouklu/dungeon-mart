@@ -514,6 +514,74 @@ RestockItemButton (Button + Horizontal Layout Group)
 
 ---
 
+### 🔧 Shelf System Refactor: Transform-Based Positioning (COMPLETED)
+
+**What Was Changed:**
+
+**Goal**: Replace grid-calculated slot positioning with inspector-assigned transform array for maximum flexibility in shelf design.
+
+**Problem Solved:**
+- Previous system used procedural grid calculations (rows, columns, spacing)
+- All shelves forced into regular grid patterns (horizontal/vertical only)
+- No support for irregular shelf shapes (curved, diagonal, asymmetric displays)
+- Designer couldn't visually position slots without code changes
+
+**New Architecture:**
+- **Inspector-Assigned Transform Array**: Each shelf has explicit array of Transform references
+- **Visual Editor Workflow**: Designers create empty child GameObjects and position them where items should spawn
+- **Per-Shelf Customization**: Each shelf instance can have completely unique slot layouts
+- **Irregular Shape Support**: Corner shelves, curved displays, asymmetric arrangements fully supported
+
+**Code Changes:**
+
+1. **ShelfTypeDataSO.cs** (Simplified):
+   - **Removed**: `totalSlots`, `slotSpacing`, `slotsPerRow`, `horizontalLayout` fields
+   - **Removed**: `GetSlotPosition()` method (no longer needed)
+   - **Kept**: `allowedItemSize` for item size validation
+   - **Kept**: `itemScale` for display settings
+
+2. **Shelf.cs** (Refactored):
+   - **Added**: `Transform[] slotPositions` inspector array
+   - **Removed**: `slotsContainer` field (no longer needed)
+   - **Updated**: `InitializeShelf()` now loops through assigned transforms instead of creating new GameObjects
+   - Validates `slotPositions` array is populated
+   - Adds `ShelfSlot` components to existing transforms
+   - Handles null transforms gracefully with warnings
+
+3. **ShelfSlot.cs** (No Changes):
+   - Already used transform-based positioning
+   - Stacking system continues to work with local positions
+   - Fully compatible with new approach
+
+**Unity Editor Workflow:**
+1. Create empty child GameObjects under shelf (e.g., "SlotPos_0", "SlotPos_1")
+2. Position them visually where items should appear
+3. In Shelf component inspector, set array size and drag transforms into slots
+4. Visual and explicit - no hidden logic or naming conventions
+
+**Design Benefits:**
+- ✅ **Visual Freedom**: Create any shelf shape (curved, diagonal, irregular)
+- ✅ **Per-Shelf Customization**: Each shelf instance has unique layout
+- ✅ **Designer-Friendly**: No code changes needed for new designs
+- ✅ **Clear and Explicit**: Transform references visible in inspector
+- ✅ **Flexible Stacking**: Multiple items per slot still work perfectly
+
+**Breaking Changes:**
+- Existing shelves need slot position transforms created and assigned
+- ScriptableObject fields removed (totalSlots, slotSpacing, etc.)
+- Shelves without assigned transforms will log errors and fail to initialize
+
+**Backward Compatibility:**
+- ShelfSlot stacking behavior unchanged
+- RestockShelf() and TakeItem() APIs unchanged
+- Item size validation unchanged
+
+**Files Modified:**
+- `Assets/Scripts/SOs/ShelfTypeDataSO.cs` - Removed grid calculation fields
+- `Assets/Scripts/Shelf.cs` - Added transform array, refactored initialization
+
+---
+
 ### 📋 Phase 13 & 14: Diverse Shelving System (COMPLETED)
 
 **What Was Implemented:**

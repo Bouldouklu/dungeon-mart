@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: DisplayCaseS
   m_EditorClassIdentifier: Assembly-CSharp::ShelfTypeDataSO
   shelfTypeName: Display Case S
-  totalSlots: 9
+  totalSlots: 4
   allowedItemSize: 0
   slotSpacing: {x: 0.3, y: 0.3}
-  slotsPerRow: 3
+  slotsPerRow: 2
   horizontalLayout: 1
   itemDisplayOffset: {x: 0, y: 0, z: 0}
   itemScale: 1

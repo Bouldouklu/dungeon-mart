@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__UnityMCP__manage_scene"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

@@ -6,7 +6,9 @@ public class Shelf : MonoBehaviour {
     [Header("Shelf Configuration")]
     [SerializeField] private ShelfTypeDataSO shelfType;
     [SerializeField] private GameObject itemPrefab;
-    [SerializeField] private Transform slotsContainer;
+
+    [Header("Slot Positions")]
+    [SerializeField] private Transform[] slotPositions;
 
     [Header("Slot Settings")]
     [SerializeField] private int itemsPerSlot = 5;
@@ -26,7 +28,7 @@ public class Shelf : MonoBehaviour {
     }
 
     /// <summary>
-    /// Initialize shelf with slots based on shelf type configuration
+    /// Initialize shelf with slots based on assigned slot position transforms
     /// </summary>
     private void InitializeShelf() {
         if (shelfType == null) {
@@ -34,23 +36,32 @@ public class Shelf : MonoBehaviour {
             return;
         }
 
-        if (slotsContainer == null) {
-            slotsContainer = transform;
+        if (slotPositions == null || slotPositions.Length == 0) {
+            Debug.LogError($"Shelf {gameObject.name} has no slot positions assigned! Please assign transforms in the inspector.");
+            return;
         }
 
-        // Create slots
-        for (int i = 0; i < shelfType.totalSlots; i++) {
-            GameObject slotObj = new GameObject($"Slot_{i}");
-            slotObj.transform.SetParent(slotsContainer);
-            slotObj.transform.localPosition = shelfType.GetSlotPosition(i);
+        // Create ShelfSlot components at each assigned transform position
+        for (int i = 0; i < slotPositions.Length; i++) {
+            Transform slotTransform = slotPositions[i];
 
-            ShelfSlot slot = slotObj.AddComponent<ShelfSlot>();
+            if (slotTransform == null) {
+                Debug.LogWarning($"Shelf {gameObject.name}: Slot position {i} is null, skipping...");
+                continue;
+            }
+
+            // Add ShelfSlot component if it doesn't exist
+            ShelfSlot slot = slotTransform.GetComponent<ShelfSlot>();
+            if (slot == null) {
+                slot = slotTransform.gameObject.AddComponent<ShelfSlot>();
+            }
+
             slot.Initialize(i, itemsPerSlot);
             slots.Add(slot);
         }
 
         isInitialized = true;
-        Debug.Log($"Initialized {shelfType.shelfTypeName} with {slots.Count} slots");
+        Debug.Log($"Initialized {shelfType.shelfTypeName} with {slots.Count} slots at custom positions");
     }
 
     /// <summary>
