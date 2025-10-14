@@ -12,7 +12,7 @@ public class Shelf : MonoBehaviour {
 
     [Header("Slot Settings")]
     [SerializeField] private int baseItemsPerSlot = 5;
-    private int capacityBonus = 0;
+    [SerializeField] private int capacityBonus = 0;
 
     private List<ShelfSlot> slots = new List<ShelfSlot>();
     private bool isInitialized = false;
