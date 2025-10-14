@@ -54,6 +54,11 @@ public class Customer : MonoBehaviour {
             DialogueManager.Instance.ShowRandomDialogue(customerType.entryDialogues, transform);
         }
 
+        // Play door bell sound when customer enters
+        if (AudioManager.Instance != null) {
+            AudioManager.Instance.PlaySound(SoundType.DoorBell);
+        }
+
         StartCoroutine(ShoppingRoutine());
     }
 

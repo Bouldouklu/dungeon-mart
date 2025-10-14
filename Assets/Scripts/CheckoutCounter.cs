@@ -50,6 +50,11 @@ public class CheckoutCounter : MonoBehaviour {
             // Complete transaction
             currentCustomer.CompleteTransaction();
 
+            // Play cash register sound
+            if (AudioManager.Instance != null) {
+                AudioManager.Instance.PlaySound(SoundType.CashRegister);
+            }
+
             // Wait for customer to leave before processing next
             yield return new WaitForSeconds(0.5f);
         }

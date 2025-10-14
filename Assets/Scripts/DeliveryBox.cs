@@ -57,6 +57,11 @@ public class DeliveryBox : MonoBehaviour {
             return;
         }
 
+        // Play box open sound
+        if (AudioManager.Instance != null) {
+            AudioManager.Instance.PlaySound(SoundType.BoxOpen);
+        }
+
         // Add items to inventory
         InventoryManager.Instance.AddToInventory(itemData, quantity);
         Debug.Log($"Opened delivery box: {quantity}x {itemData.itemName} added to inventory");

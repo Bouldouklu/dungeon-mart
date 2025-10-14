@@ -112,6 +112,12 @@ public class Shelf : MonoBehaviour {
         if (itemsPlaced > 0) {
             InventoryManager.Instance.RemoveFromInventory(itemData, itemsPlaced);
             Debug.Log($"Restocked {itemsPlaced}x {itemData.itemName} on {shelfType.shelfTypeName}");
+
+            // Play shelf restock sound
+            if (AudioManager.Instance != null) {
+                AudioManager.Instance.PlaySound(SoundType.ShelfRestock);
+            }
+
             return true;
         }
 

@@ -118,6 +118,11 @@ public class OrderMenu : MonoBehaviour {
             menuPanel.SetActive(false);
         }
 
+        // Play UI click sound
+        if (AudioManager.Instance != null) {
+            AudioManager.Instance.PlaySound(SoundType.UIClick);
+        }
+
         // Only resume if we actually paused (not during End of Day phase)
         bool isEndOfDay = DayManager.Instance != null && DayManager.Instance.CurrentPhase == GamePhase.EndOfDay;
 
@@ -192,6 +197,16 @@ public class OrderMenu : MonoBehaviour {
         if (success) {
             UpdateOrderDisplay();
             Debug.Log("Order placed successfully!");
+
+            // Play UI confirm sound
+            if (AudioManager.Instance != null) {
+                AudioManager.Instance.PlaySound(SoundType.UIConfirm);
+            }
+        } else {
+            // Play error sound if order failed
+            if (AudioManager.Instance != null) {
+                AudioManager.Instance.PlaySound(SoundType.UIError);
+            }
         }
     }
 
@@ -199,5 +214,10 @@ public class OrderMenu : MonoBehaviour {
         OrderManager.Instance.ClearOrder();
         UpdateOrderDisplay();
         Debug.Log("Cart cleared");
+
+        // Play UI click sound
+        if (AudioManager.Instance != null) {
+            AudioManager.Instance.PlaySound(SoundType.UIClick);
+        }
     }
 }

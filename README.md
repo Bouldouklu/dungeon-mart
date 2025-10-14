@@ -150,7 +150,7 @@
 
 ## Current Status
 
-### ✅ Completed (Phase 1-15 + Tools + Monthly Expenses System)
+### ✅ Completed (Phase 1-15 + Tools + Monthly Expenses System + Audio)
 - ✅ Phase 1: Core inventory system
 - ✅ Phase 2: Ordering system with UI
 - ✅ Phase 3: Day/Night cycle with three phases
@@ -169,6 +169,8 @@
 - ✅ **CSV Item Importer Tool**: Automated ItemDataSO generation from Excel/CSV spreadsheet
 - ✅ **Monthly Expenses System**: Rent tracking, loan system with interest, fail states (KNOWN BUG: Game Over UI input blocked)
 - ✅ **Visual Polish**: Customer visuals now use random SPUM character prefabs (48 variants)
+- ✅ **Sound System**: Multi-AudioSource sound effects with gameplay and UI sounds
+- ✅ **Music System**: Phase-based dynamic background music with smooth crossfades
 
 ### 🎮 Current Gameplay Loop
 1. **Morning:** Delivery boxes appear → Press E to open → Items to inventory → Restock shelves
@@ -250,6 +252,113 @@ Dragon Throne,200,130,Big,3
 - Script: `Assets/Scripts/Editor/ItemDataImporter.cs`
 - CSV: `Assets/DungeonMart_Economy_Balance.csv`
 - Output: `Assets/Resources/Items/*.asset`
+
+---
+
+### 🔊 Audio System (Sound Effects & Background Music)
+
+**What Was Implemented:**
+
+**Sound Effects System:**
+- **Multi-AudioSource Architecture**: 3 separate AudioSources (SFX, UI, Ambient/Music)
+- **Category-Based Routing**: Sounds automatically routed to appropriate source
+- **Concurrent Playback**: Multiple sounds play simultaneously without cutting off
+- **Volume Control**: Independent volume per category (SFX: 1.0, UI: 0.7, Music: 0.5)
+
+**Implemented Sound Effects (8 types):**
+1. **CashRegister** - Plays at checkout completion (CheckoutCounter.cs:54)
+2. **DoorBell** - Plays when customer enters store (Customer.cs:58)
+3. **BoxOpen** - Plays when player opens delivery box (DeliveryBox.cs:61)
+4. **ShelfRestock** - Plays when player restocks shelf (Shelf.cs:117)
+5. **UIClick** - Plays on menu button clicks (OrderMenu.cs:122, 214)
+6. **UIConfirm** - Plays on successful order placement (OrderMenu.cs:197)
+7. **UICancel** - Reserved for future cancel actions
+8. **UIError** - Plays when order fails (OrderMenu.cs:202)
+
+**Background Music System:**
+- **Phase-Based Dynamic Music**: Different tracks for Morning/Business/Evening phases
+- **Smooth Crossfades**: 2-second transitions between tracks
+- **Automatic Playback**: Music changes automatically with game phase
+- **Looping Support**: Seamless music loops
+
+**Music Tracks (3 types):**
+1. **MorningMusic** - Calm preparation music (plays during Morning phase)
+2. **BusinessMusic** - Upbeat shop music (plays during OpenForBusiness phase)
+3. **EveningMusic** - Relaxed closing music (plays during EndOfDay phase)
+
+**New Scripts Created:**
+1. **SoundType.cs** (Enum):
+   - Defines all sound effect categories
+   - Used by AudioManager for sound routing
+
+2. **MusicType.cs** (Enum):
+   - Defines all background music tracks
+   - Used for phase-based music selection
+
+3. **AudioManager.cs** (Singleton):
+   - Centralized audio management for sound effects and music
+   - Multiple AudioSource components (sfxSource, uiSource, ambientSource)
+   - Sound dictionary for quick clip lookup
+   - Music dictionary for background track management
+   - Volume control methods for each category
+   - Public API: `PlaySound(SoundType)`, `PlayMusic(MusicType)`, `CrossfadeMusic(MusicType)`
+   - Coroutine-based volume fading for smooth transitions
+   - DontDestroyOnLoad for persistence across scenes
+
+**Code Integrations:**
+- **CheckoutCounter.cs** - Cash register sound on transaction
+- **Customer.cs** - Door bell on entry (removed redundant coin drop)
+- **DeliveryBox.cs** - Box open sound when opened
+- **Shelf.cs** - Restock sound when items placed
+- **OrderMenu.cs** - UI sounds for button interactions
+- **DayManager.cs** - Music transitions on phase changes (Morning → Business → Evening)
+
+**Technical Features:**
+- ✅ Concurrent sound playback (e.g., DoorBell + CashRegister simultaneously)
+- ✅ Category-based volume control (UI sounds quieter than gameplay)
+- ✅ Null-safe checks (won't crash if AudioManager or clips missing)
+- ✅ Inspector-friendly configuration (SoundMapping and MusicMapping lists)
+- ✅ Crossfade support with configurable duration (default: 2 seconds)
+- ✅ Automatic music looping
+- ✅ Volume fade coroutines for smooth transitions
+
+**Unity Editor Setup Required:**
+1. Create AudioManager GameObject in main scene
+2. Attach AudioManager.cs component
+3. AudioSources auto-created if not manually assigned
+4. Assign 8 sound effect AudioClips in Inspector (Sound Mappings)
+5. Assign 3 music AudioClips in Inspector (Music Mappings)
+6. Adjust fade duration if desired (default: 2s)
+
+**Audio Assets Needed:**
+- **Sound Effects**: 8 short clips (cash register, door bell, box open, etc.)
+- **Music Tracks**: 3 looping tracks (morning calm, business upbeat, evening relaxed)
+- **Sources**: Unity Asset Store, freesound.org, OpenGameArt.org, Incompetech.com
+
+**Design Benefits:**
+- Clear audio feedback for all major player actions
+- Phase-appropriate music enhances atmosphere
+- Professional audio experience with smooth transitions
+- Easy to extend with more sounds/music
+- Ready for future settings menu (volume sliders per category)
+
+**Files Created:**
+- `Assets/Scripts/SoundType.cs` - Sound effect enum
+- `Assets/Scripts/MusicType.cs` - Music track enum
+- `Assets/Scripts/Singletons/AudioManager.cs` - Audio management system
+
+**Files Modified:**
+- `Assets/Scripts/CheckoutCounter.cs` - Added cash register sound
+- `Assets/Scripts/Customer.cs` - Added door bell sound, removed coin drop
+- `Assets/Scripts/DeliveryBox.cs` - Added box open sound
+- `Assets/Scripts/Shelf.cs` - Added restock sound
+- `Assets/Scripts/OrderMenu.cs` - Added UI button sounds
+- `Assets/Scripts/Singletons/DayManager.cs` - Added music phase transitions
+
+**Testing Notes:**
+- Test with M/O/K keys to trigger phase changes and verify music crossfades
+- Verify multiple sounds play concurrently (customer enters while checkout happens)
+- Adjust volume levels in Inspector if needed
 
 ---
 

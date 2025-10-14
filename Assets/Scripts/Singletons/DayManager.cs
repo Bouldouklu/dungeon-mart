@@ -97,6 +97,11 @@ public class DayManager : MonoBehaviour
         customersServedToday = 0;
         dailyRevenue = 0;
 
+        // Play morning music
+        if (AudioManager.Instance != null) {
+            AudioManager.Instance.PlayMusic(MusicType.MorningMusic, fadeIn: true);
+        }
+
         OnPhaseChanged?.Invoke(currentPhase);
         OnDayStarted?.Invoke(currentDay);
     }
@@ -112,6 +117,11 @@ public class DayManager : MonoBehaviour
         currentPhase = GamePhase.OpenForBusiness;
         Debug.Log($"=== SHOP IS NOW OPEN - DAY {currentDay} ===");
         Debug.Log("Serve customers and keep shelves stocked!");
+
+        // Crossfade to business music
+        if (AudioManager.Instance != null) {
+            AudioManager.Instance.CrossfadeMusic(MusicType.BusinessMusic);
+        }
 
         OnPhaseChanged?.Invoke(currentPhase);
     }
@@ -129,6 +139,11 @@ public class DayManager : MonoBehaviour
         Debug.Log($"Customers served: {customersServedToday}");
         Debug.Log($"Revenue earned: ${dailyRevenue}");
         Debug.Log("Place orders for tomorrow!");
+
+        // Crossfade to evening music
+        if (AudioManager.Instance != null) {
+            AudioManager.Instance.CrossfadeMusic(MusicType.EveningMusic);
+        }
 
         OnPhaseChanged?.Invoke(currentPhase);
         OnDayEnded?.Invoke(currentDay, customersServedToday, dailyRevenue);
