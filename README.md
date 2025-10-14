@@ -39,7 +39,7 @@ This iterative testing ensures we catch bugs early and validate design decisions
 
 ---
 
-## Phase 1: Core Progression Framework ✅ PHASE 1.1 COMPLETE | ⏳ PHASE 1.2 IN PROGRESS
+## Phase 1: Core Progression Framework ✅ PHASE 1.1 COMPLETE | ⚙️ PHASE 1.2 BACKEND COMPLETE | 🎨 PHASE 1.2 UI PENDING
 
 **Goal:** Give players clear milestones and track their empire growth
 
@@ -112,24 +112,34 @@ This iterative testing ensures we catch bugs early and validate design decisions
 
 ---
 
-### 1.2 Shop Upgrade System
+### 1.2 Shop Upgrade System ⚙️ BACKEND COMPLETE | 🎨 UI PENDING
 
-**New Scripts to Create:**
-- [ ] `Assets/Scripts/Singletons/UpgradeManager.cs`
-  - Track owned upgrades (List<UpgradeDataSO>)
-  - Check if upgrades are unlocked (tier requirements)
-  - Purchase/apply upgrades (deduct money, call effect methods)
-  - Persist upgrade state across sessions
-
-- [ ] `Assets/Scripts/SOs/UpgradeDataSO.cs`
-  - Upgrade name, description, icon
-  - Cost (in money)
+**New Scripts Created:**
+- ✅ `Assets/Scripts/SOs/UpgradeDataSO.cs` (COMPLETE)
+  - Upgrade name, description, icon, cost
   - Tier requirement (minimum tier to unlock)
-  - Upgrade category enum: Shelves, Operations, CustomerFlow
-  - Effect type enum: ShelfCapacity, CustomerCount, CheckoutSpeed, BulkOrdering, AutoRestock
+  - Prerequisites system (upgrade dependencies)
+  - UpgradeCategory enum: ShopExpansion, ShelfCapacity, Operations, CustomerFlow
+  - UpgradeEffectType enum: UnlockShopSegment, IncreaseShelfCapacity, IncreaseCustomerCount, DecreaseCheckoutTime, EnableBulkOrdering, EnableAutoRestock
   - Effect value (int for numeric effects)
-  - Is repeatable (can buy multiple times)
-  - Max purchases (if repeatable)
+  - Target segment index (for shop expansion)
+  - Repeatable upgrades with max purchase limits
+
+- ✅ `Assets/Scripts/Singletons/UpgradeManager.cs` (COMPLETE)
+  - Tracks owned upgrades (List<UpgradeDataSO>)
+  - Purchase count tracking for repeatable upgrades
+  - Validates purchase requirements (tier, prerequisites, money, purchase limits)
+  - Applies upgrade effects via effect routing system
+  - Events: OnUpgradePurchased
+  - Methods: CanPurchaseUpgrade(), PurchaseUpgrade(), HasUpgrade(), GetPurchaseCount()
+
+- ✅ `Assets/Scripts/Singletons/ShopSegmentManager.cs` (COMPLETE)
+  - Manages segmented shop expansion system
+  - ShopSegment serializable class with unlock costs, tier requirements, shelf slots
+  - Unlocks shop segments via GameObject.SetActive()
+  - Calculates rent contribution: (unlockedCount - 1) × $100
+  - Events: OnSegmentUnlocked
+  - Methods: UnlockSegment(), GetRentContribution(), GetUnlockedShelfSlots()
 
 **Upgrade Types to Implement:**
 - [ ] **Shelf Expansion Pack** - Unlock new shelf slots (requires scene setup)
@@ -140,10 +150,18 @@ This iterative testing ensures we catch bugs early and validate design decisions
 - [ ] **Auto-Restock Robot** - Morning deliveries auto-fill shelves (add automation logic)
 
 **Integration Points:**
-- [ ] Modify `Shelf.cs` to apply capacity upgrades dynamically
-- [ ] Modify `CustomerSpawner.cs` to accept customer count modifiers
-- [ ] Add upgrade effect application methods in relevant managers
-- [ ] Hook into `GameManager.SpendMoney` for purchases
+- ✅ Modified `Shelf.cs` to apply capacity upgrades dynamically
+  - Added baseItemsPerSlot + capacityBonus pattern
+  - IncreaseCapacity(amount) method updates all slots
+  - Serialized capacityBonus field for Inspector visibility
+- ✅ Modified `ShelfSlot.cs` to support dynamic capacity updates
+  - UpdateMaxCapacity(newMaxCapacity) method added
+- ✅ Modified `CustomerSpawner.cs` to accept customer count modifiers
+  - Added baseCustomersPerDay + bonusCustomers pattern
+  - AddBonusCustomers(count) method for Extended Hours upgrade
+  - Serialized bonusCustomers field for Inspector visibility
+- ✅ Added SoundType.Purchase to audio system
+- ✅ Upgrade effect routing in UpgradeManager.ApplyUpgradeEffect()
 
 **UI Components:**
 - [ ] `Assets/Scripts/UI/UpgradeShopUI.cs`
@@ -161,18 +179,63 @@ This iterative testing ensures we catch bugs early and validate design decisions
 - Add category filter buttons (All, Shelves, Operations, CustomerFlow)
 - Link "Upgrades" button to pause menu or end-of-day screen
 
-**Testing Checklist:**
+**Backend Testing Results (✅ ALL PASSED):**
+- ✅ **5.1: Shop Segment Unlocking**
+  - F4/F5/F6 keys unlock segments 1/2/3 correctly
+  - Segment GameObjects activate via SetActive(true)
+  - Console logs confirm unlock events
+  - Hierarchy reflects activation state
+
+- ✅ **5.2: Shelf Capacity Upgrades**
+  - F7 key increases all shelf capacity by +2
+  - capacityBonus field visible and updates in Inspector
+  - ItemsPerSlot calculation (base + bonus) works correctly
+  - Multiple upgrades stack additively (5→7→9→11)
+  - ShelfSlot.UpdateMaxCapacity() called correctly
+
+- ✅ **5.3: Customer Bonus**
+  - F8 key adds +3 bonus customers
+  - bonusCustomers field visible and updates in Inspector
+  - CustomersPerDay calculation (base + bonus) works correctly
+  - Multiple upgrades stack (6→9→12→15)
+  - Spawn wave uses updated customer count
+
+- ✅ **5.4: Rent Contribution**
+  - F9 key displays rent calculation breakdown
+  - Formula correct: (unlockedSegments - 1) × $100
+  - Progression: 1 seg=$0, 2=$100, 3=$200, 4=$300
+  - GetSegmentStatusDebug() shows all segment states
+
+**Debug Keys Added:**
+- F4/F5/F6: Unlock shop segments 1/2/3
+- F7: Increase all shelf capacity (+2)
+- F8: Add bonus customers (+3)
+- F9: Display rent contribution breakdown
+- F10: Show rent status & manually pay rent
+
+**UI Testing Checklist (PENDING):**
 - [ ] Upgrade shop opens from pause menu
 - [ ] Locked upgrades show gray/disabled state
 - [ ] Purchase confirmation dialog appears on click
 - [ ] Money deducted correctly on purchase
 - [ ] Owned upgrades show "Owned" state
-- [ ] Upgrade effects apply correctly:
-  - [ ] Shelf capacity increases work
-  - [ ] Customer count increases work
-  - [ ] Checkout speed increases work
 - [ ] Repeatable upgrades can be purchased multiple times (up to max)
 - [ ] Cannot purchase if insufficient money
+
+**Known Issues:**
+- ⚠️ **End-of-Day Summary Not Appearing**: EndOfDaySummaryUI is blocked when rent is due (ExpenseManager.RentIsDueNow). The summary should appear after rent payment via OnRentPaid event, but this flow may not be working correctly. **Workaround**: Press F10 to manually pay rent if due.
+- ⚠️ **Rent Contribution Not Integrated**: ShopSegmentManager.GetRentContribution() calculates correctly but is NOT yet added to ExpenseManager.MonthlyRentAmount. Rent is still hardcoded at $500. **Fix needed**: Modify ExpenseManager to use baseRentAmount + GetRentContribution().
+
+**Next Steps for Phase 1.2:**
+1. [ ] Integrate rent contribution into ExpenseManager (change monthlyRentAmount to calculated property)
+2. [ ] Create UpgradeShopUI.cs with card-based layout system
+3. [ ] Create 8 UpgradeDataSO ScriptableObject assets:
+   - Tier 1: Shop Expansion 1 ($500), Efficient Shelving Lv1 ($300), Bulk Ordering ($400)
+   - Tier 2: Shop Expansion 2 ($800), Extended Hours ($600), Efficient Shelving Lv2 ($500)
+   - Tier 3: Shop Expansion 3 ($1200), Express Checkout ($700), Auto-Restock Assistant ($1000)
+4. [ ] Unity scene setup: Create 4 shop segment GameObjects with shelf slot transforms
+5. [ ] Add "Upgrades" button to Pause Menu UI
+6. [ ] Full integration testing with UI
 
 ---
 

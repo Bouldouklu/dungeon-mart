@@ -18017,7 +18017,7 @@ MonoBehaviour:
   daysPerMonth: 7
   daysUntilRentDue: 7
   currentMonth: 1
-  rentIsDueNow: 1
+  rentIsDueNow: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
