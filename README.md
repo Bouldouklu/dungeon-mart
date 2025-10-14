@@ -2,38 +2,33 @@
 
 ## Next Session Tasks
 
-### **Phase 16 - Economy & Progression Balancing (RECOMMENDED NEXT)**
+### **Economy & Progression Balancing (RECOMMENDED NEXT)**
 
 **Goal**: Balance the core gameplay loop with proper economic incentives and progression
 
 **Why This Phase**: Before adding more features, we need to ensure the current game loop is fun and rewarding. Players need clear goals, progression feedback, and meaningful choices.
 
 **Requirements**:
-- [ ] Add money/earnings display to HUD (persistent UI)
-- [ ] Add day counter display to HUD
 - [ ] Balance item prices (sell price vs restock cost → profit margin)
 - [ ] Set starting money amount (enough for Day 1 orders)
 - [ ] Add "target earnings" goals per day (progression milestones)
 - [ ] Test full gameplay loop (order → restock → sell → profit → next day)
-- [ ] Adjust customer spawn rates for balanced difficulty
-- [ ] Add visual feedback when earning money (text popup or sound)
+- [ ] Create dynamic customer spawn rates for balanced difficulty
 
 **Why Important**:
-- Currently no visible money counter → players can't track progress
 - No clear goals → players don't know if they're doing well
 - Economic balance affects all future features
 - Foundation for upgrades/expansions system
 
 ---
 
-### Alternative: Phase 16 - Visual Polish & Juice
+### Alternative: Visual Polish & Juice
 
 **Goal**: Make the game feel more alive and responsive
 
 **Requirements**:
 - [ ] Better item sprites (replace circles with actual item art)
 - [ ] Particle effects when opening delivery boxes
-- [ ] Sound effects (cash register, item pickup, customer satisfaction)
 - [ ] Empty shelf visual indicators (highlight or UI prompt)
 - [ ] Smooth camera following player
 - [ ] Item pickup animations
@@ -70,6 +65,9 @@
 **Pre-Release Tasks:**
 - [ ] Remove debug keys before browser release (M, K, I, O, 1-5) in DayManager.cs
 - [ ] Remove debug inventory system or hide behind developer mode
+
+**CSV importer tool optimization:**
+- [ ] refactor the tool to generate folders when items are created segmenting items per size. 
 
 
 ### Nice to Have
@@ -150,27 +148,28 @@
 
 ## Current Status
 
-### ✅ Completed (Phase 1-15 + Tools + Monthly Expenses System + Audio)
-- ✅ Phase 1: Core inventory system
-- ✅ Phase 2: Ordering system with UI
-- ✅ Phase 3: Day/Night cycle with three phases
-- ✅ Phase 4: Customer wave system (fixed spawns per day)
-- ✅ Phase 5: Delivery system (boxes spawn, player opens them)
-- ✅ Phase 6: Phase restrictions (order menu only at end of day)
-- ✅ Phase 7: Starting delivery boxes on Day 1 & proper day progression
-- ✅ Phase 8: Main Menu Scene with Play, Settings (TBD), and Quit buttons
-- ✅ Phase 9: Pause System with ESC key, pause menu overlay, and all buttons
-- ✅ Phase 10: End of Day Summary Panel with statistics and continue button
-- ✅ Phase 11: 2D Physics collision system (player blocked by walls, configurable spawn points)
-- ✅ Phase 12: Customer Types & Corporate Humor (3 types, dialogue system, visual bubbles)
-- ✅ Phase 13: Diverse Shelving System with item sizes and multi-item support
-- ✅ Phase 14: Single Item Size Per Shelf Type restriction
-- ✅ Phase 15: Restock UI System with item selection and size filtering
+### ✅ Tracking of implementation:
+- ✅ Core inventory system
+- ✅ Ordering system with UI
+- ✅ Day/Night cycle with three phases
+- ✅ Customer wave system (fixed spawns per day)
+- ✅ Delivery system (boxes spawn, player opens them)
+- ✅ Phase restrictions (order menu only at end of day)
+- ✅ Starting delivery boxes on Day 1 & proper day progression
+- ✅ Main Menu Scene with Play, Settings (TBD), and Quit buttons
+- ✅ Pause System with ESC key, pause menu overlay, and all buttons
+- ✅ End of Day Summary Panel with statistics and continue button
+- ✅ 2D Physics collision system (player blocked by walls, configurable spawn points)
+- ✅ Customer Types & Corporate Humor (3 types, dialogue system, visual bubbles)
+- ✅ Diverse Shelving System with item sizes and multi-item support
+- ✅ Single Item Size Per Shelf Type restriction
+- ✅ Restock UI System with item selection and size filtering
 - ✅ **CSV Item Importer Tool**: Automated ItemDataSO generation from Excel/CSV spreadsheet
 - ✅ **Monthly Expenses System**: Rent tracking, loan system with interest, fail states (KNOWN BUG: Game Over UI input blocked)
 - ✅ **Visual Polish**: Customer visuals now use random SPUM character prefabs (48 variants)
 - ✅ **Sound System**: Multi-AudioSource sound effects with gameplay and UI sounds
 - ✅ **Music System**: Phase-based dynamic background music with smooth crossfades
+- ✅ **Shelf System Refactor**: Replace grid-calculated slot positioning with inspector-assigned transform array for maximum flexibility in shelf design.
 
 ### 🎮 Current Gameplay Loop
 1. **Morning:** Delivery boxes appear → Press E to open → Items to inventory → Restock shelves
@@ -255,168 +254,7 @@ Dragon Throne,200,130,Big,3
 
 ---
 
-### 🔊 Audio System (Sound Effects & Background Music)
-
-**What Was Implemented:**
-
-**Sound Effects System:**
-- **Multi-AudioSource Architecture**: 3 separate AudioSources (SFX, UI, Ambient/Music)
-- **Category-Based Routing**: Sounds automatically routed to appropriate source
-- **Concurrent Playback**: Multiple sounds play simultaneously without cutting off
-- **Volume Control**: Independent volume per category (SFX: 1.0, UI: 0.7, Music: 0.5)
-
-**Implemented Sound Effects (8 types):**
-1. **CashRegister** - Plays at checkout completion (CheckoutCounter.cs:54)
-2. **DoorBell** - Plays when customer enters store (Customer.cs:58)
-3. **BoxOpen** - Plays when player opens delivery box (DeliveryBox.cs:61)
-4. **ShelfRestock** - Plays when player restocks shelf (Shelf.cs:117)
-5. **UIClick** - Plays on menu button clicks (OrderMenu.cs:122, 214)
-6. **UIConfirm** - Plays on successful order placement (OrderMenu.cs:197)
-7. **UICancel** - Reserved for future cancel actions
-8. **UIError** - Plays when order fails (OrderMenu.cs:202)
-
-**Background Music System:**
-- **Phase-Based Dynamic Music**: Different tracks for Morning/Business/Evening phases
-- **Smooth Crossfades**: 2-second transitions between tracks
-- **Automatic Playback**: Music changes automatically with game phase
-- **Looping Support**: Seamless music loops
-
-**Music Tracks (3 types):**
-1. **MorningMusic** - Calm preparation music (plays during Morning phase)
-2. **BusinessMusic** - Upbeat shop music (plays during OpenForBusiness phase)
-3. **EveningMusic** - Relaxed closing music (plays during EndOfDay phase)
-
-**New Scripts Created:**
-1. **SoundType.cs** (Enum):
-   - Defines all sound effect categories
-   - Used by AudioManager for sound routing
-
-2. **MusicType.cs** (Enum):
-   - Defines all background music tracks
-   - Used for phase-based music selection
-
-3. **AudioManager.cs** (Singleton):
-   - Centralized audio management for sound effects and music
-   - Multiple AudioSource components (sfxSource, uiSource, ambientSource)
-   - Sound dictionary for quick clip lookup
-   - Music dictionary for background track management
-   - Volume control methods for each category
-   - Public API: `PlaySound(SoundType)`, `PlayMusic(MusicType)`, `CrossfadeMusic(MusicType)`
-   - Coroutine-based volume fading for smooth transitions
-   - DontDestroyOnLoad for persistence across scenes
-
-**Code Integrations:**
-- **CheckoutCounter.cs** - Cash register sound on transaction
-- **Customer.cs** - Door bell on entry (removed redundant coin drop)
-- **DeliveryBox.cs** - Box open sound when opened
-- **Shelf.cs** - Restock sound when items placed
-- **OrderMenu.cs** - UI sounds for button interactions
-- **DayManager.cs** - Music transitions on phase changes (Morning → Business → Evening)
-
-**Technical Features:**
-- ✅ Concurrent sound playback (e.g., DoorBell + CashRegister simultaneously)
-- ✅ Category-based volume control (UI sounds quieter than gameplay)
-- ✅ Null-safe checks (won't crash if AudioManager or clips missing)
-- ✅ Inspector-friendly configuration (SoundMapping and MusicMapping lists)
-- ✅ Crossfade support with configurable duration (default: 2 seconds)
-- ✅ Automatic music looping
-- ✅ Volume fade coroutines for smooth transitions
-
-**Unity Editor Setup Required:**
-1. Create AudioManager GameObject in main scene
-2. Attach AudioManager.cs component
-3. AudioSources auto-created if not manually assigned
-4. Assign 8 sound effect AudioClips in Inspector (Sound Mappings)
-5. Assign 3 music AudioClips in Inspector (Music Mappings)
-6. Adjust fade duration if desired (default: 2s)
-
-**Audio Assets Needed:**
-- **Sound Effects**: 8 short clips (cash register, door bell, box open, etc.)
-- **Music Tracks**: 3 looping tracks (morning calm, business upbeat, evening relaxed)
-- **Sources**: Unity Asset Store, freesound.org, OpenGameArt.org, Incompetech.com
-
-**Design Benefits:**
-- Clear audio feedback for all major player actions
-- Phase-appropriate music enhances atmosphere
-- Professional audio experience with smooth transitions
-- Easy to extend with more sounds/music
-- Ready for future settings menu (volume sliders per category)
-
-**Files Created:**
-- `Assets/Scripts/SoundType.cs` - Sound effect enum
-- `Assets/Scripts/MusicType.cs` - Music track enum
-- `Assets/Scripts/Singletons/AudioManager.cs` - Audio management system
-
-**Files Modified:**
-- `Assets/Scripts/CheckoutCounter.cs` - Added cash register sound
-- `Assets/Scripts/Customer.cs` - Added door bell sound, removed coin drop
-- `Assets/Scripts/DeliveryBox.cs` - Added box open sound
-- `Assets/Scripts/Shelf.cs` - Added restock sound
-- `Assets/Scripts/OrderMenu.cs` - Added UI button sounds
-- `Assets/Scripts/Singletons/DayManager.cs` - Added music phase transitions
-
-**Testing Notes:**
-- Test with M/O/K keys to trigger phase changes and verify music crossfades
-- Verify multiple sounds play concurrently (customer enters while checkout happens)
-- Adjust volume levels in Inspector if needed
-
----
-
 ## Notes for Next Session
-
-### 🆕 Visual Polish Update: Customer Character Visuals (COMPLETE)
-
-**What Was Implemented:**
-
-**Visual System Refactor:**
-- **Random Character Prefabs**: Customers now spawn with random SPUM character models instead of simple sprite tints
-- **Prefab-Based System**: Customer.cs accepts array of visual prefabs and instantiates random one per customer
-- **48 Visual Variants**: Large pool of diverse character models for visual variety
-- **Parent-Child Architecture**: Visual prefabs spawn as children of customer GameObject
-
-**Code Changes:**
-1. **Customer.cs** (Assets/Scripts/Customer.cs):
-   - **Removed**: `spriteRenderer` field (no longer needed)
-   - **Added**: `visualParent` Transform field (where visual spawns)
-   - **Added**: `visualPrefabs` GameObject[] array (holds 48 SPUM prefab references)
-   - **Updated**: `Initialize()` method now randomly selects and instantiates visual prefab as child
-   - Visual spawns at local position (0,0,0) with identity rotation
-
-2. **CustomerTypeDataSO.cs** (Assets/Scripts/SOs/CustomerTypeDataSO.cs):
-   - **Removed**: `customerSprite` field (obsolete)
-   - **Removed**: `customerTint` field (obsolete)
-   - Customer types now differentiated by behavior only, not visual appearance
-
-3. **Customer.prefab** (Assets/Prefabs/Customer.prefab):
-   - **Removed**: "Capsule" child GameObject with SpriteRenderer
-   - **Added**: "VisualParent" empty child GameObject at (0,0,0)
-   - **Configured**: `visualPrefabs` array populated with 48 SPUM character prefabs from Assets/Prefabs/CustomerVisuals/
-   - **Linked**: `visualParent` field references VisualParent GameObject
-
-**Technical Benefits:**
-- **Visual Diversity**: No two customers look exactly alike with 48 variants
-- **Scalability**: Easy to add more character models by expanding prefab array
-- **Maintainability**: Visuals completely decoupled from customer type data
-- **Performance**: Visual instantiation only happens once per customer spawn
-- **No Singleton**: Simple array-based approach, configured in Inspector
-
-**Design Improvements:**
-- Customers feel more unique and alive with varied character models
-- Easier to identify individual customers in crowded shop
-- Supports future animations/character customization via prefab structure
-- Removes rigid color-coding system (green/blue/gold tints)
-
-**Known Limitations:**
-- SPUM prefabs have missing script references (harmless warnings)
-- Visual models don't currently animate (future enhancement)
-- All customers share same size/scale (could vary in future)
-
-**Files Modified:**
-- `Assets/Scripts/Customer.cs` - Visual system refactor
-- `Assets/Scripts/SOs/CustomerTypeDataSO.cs` - Removed obsolete fields
-- `Assets/Prefabs/Customer.prefab` - Updated structure and references
-
----
 
 ### 🆕 Phase 15: Restock UI System (TESTED & COMPLETE)
 
@@ -581,110 +419,3 @@ RestockItemButton (Button + Horizontal Layout Group)
 - `Assets/Scripts/Shelf.cs` - Added transform array, refactored initialization
 
 ---
-
-### 📋 Phase 13 & 14: Diverse Shelving System (COMPLETED)
-
-**What Was Implemented:**
-
-**New Architecture:**
-- **Item Size System**: 3-tier system (Small, Medium, Big) with configurable slot requirements
-- **Shelf Types**: Data-driven shelf configuration via ScriptableObjects
-- **Multi-Item Storage**: Shelves can now hold multiple different item types simultaneously
-- **Slot-Based System**: Each shelf has configurable slots, each slot holds up to N items of one type
-- **Single Size Per Shelf**: Each shelf type accepts only ONE item size (Phase 14)
-
-**New Scripts Created:**
-1. **ItemDataSO.cs** (Modified):
-   - Added `ItemSize` enum (Small, Medium, Big)
-   - Added `itemSize` and `slotsRequired` fields
-   - Auto-validation: slotsRequired updates based on itemSize
-
-2. **ShelfTypeDataSO.cs** (New):
-   - Configurable shelf properties (name, total slots, single allowed item size)
-   - Visual layout settings (slot spacing, slots per row, horizontal/vertical)
-   - Item display settings (offset, scale)
-   - Validates item size compatibility via `CanHoldItemSize(ItemSize)`
-
-3. **ShelfSlot.cs** (New):
-   - Individual storage slot component
-   - Holds multiple items of the same type (stacking)
-   - Visual stacking with slight offsets
-   - Automatic item type tracking
-
-4. **Shelf.cs** (Complete Rewrite):
-   - Slot-based multi-item storage system
-   - Size validation on restocking
-   - Auto-generates slots on Awake() based on ShelfTypeDataSO
-   - Smart item placement across available slots
-   - Methods: `RestockShelf(itemData, quantity)`, `TakeItem(preferredType)`, `GetRandomAvailableItemType()`
-
-5. **InventoryManager.cs** (Extended):
-   - Added `GetFirstAvailableItem()` helper method for quick restocking
-   - Added `currentInventoryDisplay` list for real-time Inspector viewing (debugging)
-   - Displays inventory contents in Unity Inspector during play mode
-
-6. **PlayerController.cs** (Updated):
-   - Fixed to work with new `RestockShelf(itemData, quantity)` signature
-   - Auto-selects first inventory item when pressing E (temporary - Phase 15 will add UI)
-
-7. **Customer.cs** (Updated):
-   - Now picks random item types from multi-item shelves
-   - Shows item name in debug logs when picking up
-
-**Design Benefits:**
-- **Flexibility**: Create unlimited shelf types with different size restrictions
-- **Realism**: Big items require appropriate display spaces (pedestals, floor displays)
-- **Scalability**: Easy to add new item sizes or shelf configurations
-- **Data-Driven**: All shelf behavior configured via ScriptableObjects
-
-**Architecture Patterns Used:**
-- Component-based design (Shelf → ShelfSlots → Items)
-- ScriptableObject configuration pattern
-- LINQ for collection queries
-- Event-driven inventory updates
-
-**Breaking Changes:**
-- `Shelf.RestockShelf()` signature changed from `(int quantity)` to `(ItemDataSO itemData, int quantity)`
-- Shelves now require `ShelfTypeDataSO` assignment in Inspector
-- `ShelfTypeDataSO.allowedItemSizes` (List) changed to `allowedItemSize` (single ItemSize) in Phase 14
-
-**Current Limitations:**
-- No visual indicators for shelf capacity or allowed sizes
-- Slot positions are procedurally generated (not manually placeable)
-- No slot reservation system (customers take first available)
-
-**Shelf Type Configuration (Phase 14)**:
-- **Wall Shelf**: Medium items only
-- **Display Case**: Small items only
-- **Floor Display**: Medium items only
-- **Pedestal**: Big items only
-
----
-
-### 📋 Previous Systems (Still Functional)
-
-- All core systems are implemented and working
-- Full gameplay loop is functional with customer variety and humor
-- **Customer System Features:**
-  - 3 distinct customer types with different behaviors (Quick Shopper, Browser, Big Spender)
-  - Multiple items per customer (1-4 items based on type)
-  - Patience system implemented (customers track patience while waiting)
-  - Visual dialogue bubbles follow customers with corporate evil humor
-  - Random character visuals (48 SPUM prefab variants)
-- **Technical Implementation:**
-  - CustomerTypeDataSO ScriptableObject system for data-driven design
-  - DialogueManager singleton with bubble prefab instantiation
-  - Screen space overlay canvas for dialogue UI
-  - Customers now browse multiple shelves based on item count
-  - Prefab-based visual system with parent-child architecture
-- 2D physics system with Dynamic Rigidbody2D using velocity-based movement
-- Player properly collides with walls (requires Player tag to be set)
-- Customer spawner supports configurable spawn point transform
-
-### 🎯 Next Steps:
-  - **Phase 16: Economy & Progression Balancing** - Add HUD with money/day counter, balance prices, add goals (RECOMMENDED)
-  - Alternative: Visual Polish & Juice - Better sprites, particles, sounds, animations
-  - Visual indicators for shelf capacity and allowed item sizes
-  - More customer dialogue variety and personality-based behaviors
-  - Customer returns system with absurd corporate policies
-  - Consider removing debug keys (M, K, I) after polish phase
