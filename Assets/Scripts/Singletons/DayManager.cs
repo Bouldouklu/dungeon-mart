@@ -143,6 +143,16 @@ public class DayManager : MonoBehaviour
                 Debug.Log($"DEBUG: Increased capacity for {shelves.Length} shelves by 2");
             }
         }
+
+        // Debug key for customer bonus testing
+        if (Input.GetKeyDown(KeyCode.F8))
+        {
+            if (CustomerSpawner.Instance != null)
+            {
+                CustomerSpawner.Instance.AddBonusCustomers(3);
+                Debug.Log($"DEBUG: Added 3 bonus customers. New total: {CustomerSpawner.Instance.CustomersPerDay} customers/day");
+            }
+        }
     }
 
     public void StartMorningPhase()

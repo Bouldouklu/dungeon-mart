@@ -14,8 +14,7 @@ public class CustomerSpawner : MonoBehaviour {
     [Header("Day Settings")]
     [SerializeField] private int baseCustomersPerDay = 6;
     [SerializeField] private float spawnInterval = 3f;
-
-    private int bonusCustomers = 0;
+    [SerializeField] private int bonusCustomers = 0;
     private int customersSpawned = 0;
     private int customersLeft = 0;
     private int totalCustomersForDay = 0;
