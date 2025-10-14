@@ -153,6 +153,18 @@ public class DayManager : MonoBehaviour
                 Debug.Log($"DEBUG: Added 3 bonus customers. New total: {CustomerSpawner.Instance.CustomersPerDay} customers/day");
             }
         }
+
+        // Debug key for rent contribution testing
+        if (Input.GetKeyDown(KeyCode.F9))
+        {
+            if (ShopSegmentManager.Instance != null)
+            {
+                int rent = ShopSegmentManager.Instance.GetRentContribution();
+                int unlockedCount = ShopSegmentManager.Instance.UnlockedSegmentCount;
+                Debug.Log($"DEBUG: Rent Contribution = ${rent} ({unlockedCount} segments unlocked)");
+                Debug.Log(ShopSegmentManager.Instance.GetSegmentStatusDebug());
+            }
+        }
     }
 
     public void StartMorningPhase()
