@@ -12,9 +12,10 @@ public class CustomerSpawner : MonoBehaviour {
     [SerializeField] private CustomerTypeDataSO[] customerTypes;
 
     [Header("Day Settings")]
-    [SerializeField] private int customersPerDay = 8;
+    [SerializeField] private int baseCustomersPerDay = 6;
     [SerializeField] private float spawnInterval = 3f;
 
+    private int bonusCustomers = 0;
     private int customersSpawned = 0;
     private int customersLeft = 0;
     private int totalCustomersForDay = 0;
@@ -23,6 +24,7 @@ public class CustomerSpawner : MonoBehaviour {
     public int CustomersSpawned => customersSpawned;
     public int CustomersLeft => customersLeft;
     public int TotalCustomersForDay => totalCustomersForDay;
+    public int CustomersPerDay => baseCustomersPerDay + bonusCustomers;
 
     private void Awake() {
         if (Instance != null && Instance != this) {
@@ -55,10 +57,19 @@ public class CustomerSpawner : MonoBehaviour {
         // Reset counters for new day
         customersSpawned = 0;
         customersLeft = 0;
-        totalCustomersForDay = customersPerDay;
+        totalCustomersForDay = CustomersPerDay;
 
-        Debug.Log($"Starting customer wave: {totalCustomersForDay} customers");
+        Debug.Log($"Starting customer wave: {totalCustomersForDay} customers (Base: {baseCustomersPerDay} + Bonus: {bonusCustomers})");
         StartCoroutine(SpawnWaveCoroutine());
+    }
+
+    /// <summary>
+    /// Adds bonus customers (called by UpgradeManager when Extended Hours upgrade is purchased).
+    /// </summary>
+    public void AddBonusCustomers(int count)
+    {
+        bonusCustomers += count;
+        Debug.Log($"Customer bonus increased by {count}. New total: {CustomersPerDay} customers/day");
     }
 
     private IEnumerator SpawnWaveCoroutine() {

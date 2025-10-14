@@ -107,4 +107,11 @@ public class ShelfSlot : MonoBehaviour {
         storedItems.Clear();
         itemType = null;
     }
+
+    /// <summary>
+    /// Updates the maximum capacity of this slot (called when shelf capacity upgrades are purchased).
+    /// </summary>
+    public void UpdateMaxCapacity(int newMaxCapacity) {
+        maxCapacityPerSlot = newMaxCapacity;
+    }
 }

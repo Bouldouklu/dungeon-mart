@@ -11,7 +11,8 @@ public class Shelf : MonoBehaviour {
     [SerializeField] private Transform[] slotPositions;
 
     [Header("Slot Settings")]
-    [SerializeField] private int itemsPerSlot = 5;
+    [SerializeField] private int baseItemsPerSlot = 5;
+    private int capacityBonus = 0;
 
     private List<ShelfSlot> slots = new List<ShelfSlot>();
     private bool isInitialized = false;
@@ -20,6 +21,7 @@ public class Shelf : MonoBehaviour {
     public bool IsEmpty => slots.All(slot => slot.IsEmpty);
     public bool IsFull => slots.All(slot => slot.IsFull);
     public int TotalItems => slots.Sum(slot => slot.ItemCount);
+    public int ItemsPerSlot => baseItemsPerSlot + capacityBonus;
 
     private void Awake() {
         if (!isInitialized) {
@@ -56,12 +58,27 @@ public class Shelf : MonoBehaviour {
                 slot = slotTransform.gameObject.AddComponent<ShelfSlot>();
             }
 
-            slot.Initialize(i, itemsPerSlot);
+            slot.Initialize(i, ItemsPerSlot);
             slots.Add(slot);
         }
 
         isInitialized = true;
         Debug.Log($"Initialized {shelfType.shelfTypeName} with {slots.Count} slots at custom positions");
+    }
+
+    /// <summary>
+    /// Increases the capacity of all slots on this shelf (called by UpgradeManager).
+    /// </summary>
+    public void IncreaseCapacity(int amount)
+    {
+        capacityBonus += amount;
+        Debug.Log($"{shelfType?.shelfTypeName ?? gameObject.name}: Capacity increased by {amount}. New capacity: {ItemsPerSlot} items/slot");
+
+        // Update existing slots with new capacity
+        foreach (ShelfSlot slot in slots)
+        {
+            slot.UpdateMaxCapacity(ItemsPerSlot);
+        }
     }
 
     /// <summary>
