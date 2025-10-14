@@ -13,5 +13,6 @@ public enum SoundType {
     UIClick,
     UIConfirm,
     UICancel,
-    UIError
+    UIError,
+    Purchase
 }

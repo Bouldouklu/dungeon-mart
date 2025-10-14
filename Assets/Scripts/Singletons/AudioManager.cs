@@ -136,6 +136,7 @@ public class AudioManager : MonoBehaviour {
             case SoundType.UIConfirm:
             case SoundType.UICancel:
             case SoundType.UIError:
+            case SoundType.Purchase:
                 return uiSource;
 
             case SoundType.CashRegister:
