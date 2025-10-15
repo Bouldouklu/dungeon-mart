@@ -111,7 +111,7 @@ public class OrderMenuItem : MonoBehaviour {
 
     private void AddToCart() {
         if (itemData != null) {
-            OrderManager.Instance.AddToOrder(itemData, currentQuantity);
+            SupplyChainManager.Instance.AddToOrder(itemData, currentQuantity);
             currentQuantity = 1;
             UpdateQuantityDisplay();
         }

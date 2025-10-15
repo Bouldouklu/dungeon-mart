@@ -36,12 +36,12 @@ public class OrderMenu : MonoBehaviour {
             clearCartButton.onClick.AddListener(OnClearCart);
         }
 
-        OrderManager.Instance.OnOrderChanged += UpdateOrderDisplay;
+        SupplyChainManager.Instance.OnOrderChanged += UpdateOrderDisplay;
     }
 
     private void OnDestroy() {
-        if (OrderManager.Instance != null) {
-            OrderManager.Instance.OnOrderChanged -= UpdateOrderDisplay;
+        if (SupplyChainManager.Instance != null) {
+            SupplyChainManager.Instance.OnOrderChanged -= UpdateOrderDisplay;
         }
     }
 
@@ -142,7 +142,7 @@ public class OrderMenu : MonoBehaviour {
         menuItems.Clear();
 
         // Create new items
-        foreach (ItemDataSO itemData in OrderManager.Instance.AvailableItems) {
+        foreach (ItemDataSO itemData in SupplyChainManager.Instance.AvailableItems) {
             if (itemData == null || orderMenuItemPrefab == null || itemListContainer == null) continue;
 
             GameObject itemObj = Instantiate(orderMenuItemPrefab, itemListContainer);
@@ -156,7 +156,7 @@ public class OrderMenu : MonoBehaviour {
     }
 
     private void UpdateOrderDisplay() {
-        int totalCost = OrderManager.Instance.GetTotalOrderCost();
+        int totalCost = SupplyChainManager.Instance.GetTotalOrderCost();
         int currentMoney = GameManager.Instance.CurrentMoney;
 
         if (totalCostText != null) {
@@ -169,7 +169,7 @@ public class OrderMenu : MonoBehaviour {
 
         // Update cart details
         if (cartDetailsText != null) {
-            var cart = OrderManager.Instance.GetCurrentOrder();
+            var cart = SupplyChainManager.Instance.GetCurrentOrder();
             if (cart.Count == 0) {
                 cartDetailsText.text = "Cart is empty";
             }
@@ -193,7 +193,7 @@ public class OrderMenu : MonoBehaviour {
     }
 
     private void OnConfirmOrder() {
-        bool success = OrderManager.Instance.ConfirmOrder();
+        bool success = SupplyChainManager.Instance.ConfirmOrder();
         if (success) {
             UpdateOrderDisplay();
             Debug.Log("Order placed successfully!");
@@ -211,7 +211,7 @@ public class OrderMenu : MonoBehaviour {
     }
 
     private void OnClearCart() {
-        OrderManager.Instance.ClearOrder();
+        SupplyChainManager.Instance.ClearOrder();
         UpdateOrderDisplay();
         Debug.Log("Cart cleared");
 

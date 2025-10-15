@@ -4375,53 +4375,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 468399683}
   m_CullTransparentMesh: 1
---- !u!1 &468857649
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 468857650}
-  - component: {fileID: 468857651}
-  m_Layer: 0
-  m_Name: OrderManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &468857650
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 468857649}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 2011736430}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &468857651
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 468857649}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 46d4ac867ad3a32498fad2c7293a9fd7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::OrderManager
-  availableItems:
-  - {fileID: 11400000, guid: 1c254825188b41b41b50ff00f093c8a8, type: 2}
-  - {fileID: 11400000, guid: 2cd8dae2f1552bc4faf94d8efa5c0e98, type: 2}
 --- !u!1 &486005561
 GameObject:
   m_ObjectHideFlags: 0
@@ -15152,57 +15105,6 @@ MonoBehaviour:
   phaseText: {fileID: 589862564}
   dayText: {fileID: 189324416}
   instructionText: {fileID: 1990248181}
---- !u!1 &1488516666
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1488516667}
-  - component: {fileID: 1488516668}
-  m_Layer: 0
-  m_Name: DeliveryManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1488516667
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1488516666}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 2011736430}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1488516668
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1488516666}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c8ba11679cd0bf54d9aeb8e5ce9e7e5b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::DeliveryManager
-  deliveryBoxPrefab: {fileID: 4524389661435240235, guid: 0be5163f4b418904cae85b8a91281807, type: 3}
-  deliverySpawnPoint: {fileID: 1827166923}
-  startingDelivery:
-  - item: {fileID: 11400000, guid: b299efb233711b043afe7e337b733d90, type: 2}
-    quantity: 3
-  - item: {fileID: 11400000, guid: 02714ab690beb7947b116fc2bbfac16e, type: 2}
-    quantity: 3
 --- !u!1 &1495151024
 GameObject:
   m_ObjectHideFlags: 0
@@ -17583,6 +17485,63 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1745279245}
   m_CullTransparentMesh: 1
+--- !u!1 &1748145484
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1748145485}
+  - component: {fileID: 1748145486}
+  m_Layer: 0
+  m_Name: SupplyChainManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1748145485
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1748145484}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2011736430}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1748145486
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1748145484}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba79c7780942abe43a6df9460c288104, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SupplyChainManager
+  availableItems:
+  - {fileID: 11400000, guid: e1a7d183ae41cb749a1f208b037cd70d, type: 2}
+  - {fileID: 11400000, guid: b8b0793fb1f32d0419c912585749c2f8, type: 2}
+  - {fileID: 11400000, guid: db5a57d9b293e664bbd054481113cb24, type: 2}
+  - {fileID: 11400000, guid: b299efb233711b043afe7e337b733d90, type: 2}
+  - {fileID: 11400000, guid: 1c254825188b41b41b50ff00f093c8a8, type: 2}
+  deliveryBoxPrefab: {fileID: 4524389661435240235, guid: 0be5163f4b418904cae85b8a91281807, type: 3}
+  deliverySpawnPoint: {fileID: 1827166923}
+  startingDelivery:
+  - item: {fileID: 11400000, guid: b299efb233711b043afe7e337b733d90, type: 2}
+    quantity: 3
+  - item: {fileID: 11400000, guid: 1c254825188b41b41b50ff00f093c8a8, type: 2}
+    quantity: 3
 --- !u!1 &1799121592
 GameObject:
   m_ObjectHideFlags: 0
@@ -20487,9 +20446,7 @@ Transform:
   - {fileID: 1691409141}
   - {fileID: 1380110041}
   - {fileID: 1622248660}
-  - {fileID: 468857650}
   - {fileID: 242823761}
-  - {fileID: 1488516667}
   - {fileID: 1656746642}
   - {fileID: 677308860}
   - {fileID: 1453197540}
@@ -20497,6 +20454,7 @@ Transform:
   - {fileID: 2020051142}
   - {fileID: 1847936846}
   - {fileID: 454270520}
+  - {fileID: 1748145485}
   - {fileID: 1663501481}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

@@ -66,9 +66,9 @@ public class DeliveryBox : MonoBehaviour {
         InventoryManager.Instance.AddToInventory(itemData, quantity);
         Debug.Log($"Opened delivery box: {quantity}x {itemData.itemName} added to inventory");
 
-        // Notify delivery manager
-        if (DeliveryManager.Instance != null) {
-            DeliveryManager.Instance.OnBoxOpened(this);
+        // Notify supply chain manager
+        if (SupplyChainManager.Instance != null) {
+            SupplyChainManager.Instance.OnBoxOpened(this);
         }
 
         // Destroy box
