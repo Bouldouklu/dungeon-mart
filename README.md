@@ -517,59 +517,27 @@ This iterative testing ensures we catch bugs early and validate design decisions
 
 ## Known Issues
 
-### 🐛 Game Over UI Input Blocking (HIGH PRIORITY)
+### 🐛 HIGH PRIORITY
 
-**Status**: Under Investigation
+**1. Game Over UI Input Blocking**
+- **Status**: Under Investigation
+- **Symptoms**: Game Over screen appears correctly but all input stops working, window loses fullscreen, buttons non-clickable
+- **Workaround**: None - must restart Unity play mode
+- **Files**: `GameOverUI.cs`, `FailStateManager.cs`, `LoanManager.cs`, `DayManager.cs`
 
-**Symptoms**:
-- Game Over screen appears visually correct
-- All UI elements properly configured and visible
-- Window loses fullscreen mode when Game Over triggers
-- Mouse/keyboard input completely stops working
-- All buttons non-clickable despite being `interactable=True` and `active=True`
-- Unity play mode continues running (doesn't crash)
-- Must manually stop play mode via Unity Editor
+### ⚠️ MEDIUM PRIORITY
 
-**Debug Evidence**:
-```
-✅ EventSystem found and enabled
-✅ EventSystem GameObject active
-✅ All buttons marked as interactable=True, active=True
-✅ Panel activated successfully
-✅ No exceptions or errors in console (after NullReferenceException fix)
-❌ Input processing completely blocked
-❌ Window loses fullscreen
-```
+**2. Upgrade Shop Filter Buttons Not Working**
+- **Status**: Deferred to next session
+- **Symptoms**: Category filter buttons (All/Shelves/Operations/CustomerFlow) don't filter upgrade cards
+- **Current Behavior**: Buttons respond visually but don't change displayed cards
+- **Files**: `UpgradeShopUI.cs` (SetFilter method)
 
-**What's Been Tried**:
-1. ~~Removed `PauseManager.PauseGame()` call (Time.timeScale = 0 blocking input)~~ - Didn't fix
-2. ~~Added button delay mechanism with coroutine~~ - Coroutine never completed
-3. ~~Fixed NullReferenceException when toggling EventSystem~~ - Fixed exception but input still blocked
-4. ~~Removed button delay entirely, made buttons immediately interactable~~ - Input still blocked
-5. ~~Added EventSystem.SetSelectedGameObject(null)~~ - Input still blocked
-
-**Potential Causes**:
-- Unity EventSystem input processing blocked during `Update()` chain execution
-- Canvas/GraphicRaycaster configuration issue
-- Multiple UI panels competing for input (RentPaymentUI, GameOverUI overlap)
-- Unity Input System vs Legacy Input conflict
-- Game window focus loss at OS level
-
-**Investigation Areas**:
-- Check Canvas render mode and sorting order settings in Unity Editor
-- Verify GraphicRaycaster component on Canvas
-- Check if multiple EventSystems exist in scene
-- Test triggering Game Over outside of DayManager.Update() chain
-- Check Unity Input System package configuration
-- Investigate if other UI modals (RentPaymentUI, LoanUI) are still active
-
-**Workaround**: None - Game Over state is unrecoverable, must restart Unity play mode
-
-**Files Involved**:
-- `Assets/Scripts/UI/GameOverUI.cs` - Main UI controller
-- `Assets/Scripts/Singletons/FailStateManager.cs` - Game over trigger
-- `Assets/Scripts/Singletons/LoanManager.cs` - Loan default trigger
-- `Assets/Scripts/Singletons/DayManager.cs` - Update loop where Game Over happens
+**3. Upgrade Effect Application Not Tested**
+- **Status**: Backend complete, testing deferred
+- **Risk**: Upgrades can be purchased but effects may not apply correctly in gameplay
+- **Needs Testing**: Segment unlocks, shelf capacity increases, customer bonuses, checkout speed
+- **Files**: `UpgradeManager.cs`, `ShopSegmentManager.cs`, `Shelf.cs`, `CustomerSpawner.cs`
 
 ---
 
@@ -596,7 +564,9 @@ This iterative testing ensures we catch bugs early and validate design decisions
 - ✅ **Visual Polish**: Customer visuals now use random SPUM character prefabs (48 variants)
 - ✅ **Sound System**: Multi-AudioSource sound effects with gameplay and UI sounds
 - ✅ **Music System**: Phase-based dynamic background music with smooth crossfades
-- ✅ **Shelf System Refactor**: Replace grid-calculated slot positioning with inspector-assigned transform array for maximum flexibility in shelf design.
+- ✅ **Shelf System Refactor**: Replace grid-calculated slot positioning with inspector-assigned transform array for maximum flexibility in shelf design
+- ✅ **Progression System**: Lifetime revenue tracking, tier-based milestones (5 tiers: Street Vendor → Tycoon), persistent progress UI
+- ✅ **Upgrade Shop System**: Card-based UI, purchase flow, tier-locked upgrades, dynamic rent contribution (8 upgrades for tiers 1-3)
 
 ### 🎮 Current Gameplay Loop
 1. **Morning:** Delivery boxes appear → Press E to open → Items to inventory → Restock shelves
@@ -617,11 +587,29 @@ This iterative testing ensures we catch bugs early and validate design decisions
 - **E** - Interact (open delivery boxes, toggle restock UI near shelves)
 
 ### 🐛 Debug Controls
-- **M** - Advance to next day (increments day counter and starts morning)
-- **O** - Open shop (morning → business)
-- **K** - Force end day (business → end of day)
-- **I** - Add debug inventory (testing only)
+
+**Day Management:**
+- **M** - Advance to next day (increments day counter, starts morning phase)
+- **O** - Open shop (force morning → business transition)
+- **K** - Force end day (force business → end of day transition)
 - **1/2/3/5** - Time scale controls (1x, 2x, 3x, 5x speed)
+
+**Money & Progression Testing:**
+- **7** - Add $500 (test tier 1 unlocks)
+- **8** - Add $1,500 (test tier 2 unlocks)
+- **9** - Add $5,000 (test tier 3+ unlocks)
+
+**Upgrade System Testing:**
+- **F4** - Unlock segment 1 (test shop expansion)
+- **F5** - Unlock segment 2 (test shop expansion)
+- **F6** - Unlock segment 3 (test shop expansion)
+- **F7** - Add +2 shelf capacity bonus (test Efficient Shelving upgrade)
+- **F8** - Add +2 bonus customers (test Extended Hours upgrade)
+- **F9** - Log rent contribution breakdown (debug rent calculation)
+- **F10** - Pay rent immediately (test rent payment system)
+
+**Inventory Testing:**
+- **I** - Add debug inventory items (general testing)
 
 ### 🛠️ CSV Item Importer Tool
 
@@ -678,171 +666,4 @@ Dragon Throne,200,130,Big,3
 - Script: `Assets/Scripts/Editor/ItemDataImporter.cs`
 - CSV: `Assets/DungeonMart_Economy_Balance.csv`
 - Output: `Assets/Resources/Items/*.asset`
-
----
-
-## Notes for Next Session
-
-### 🆕 Phase 15: Restock UI System (TESTED & COMPLETE)
-
-**What Was Implemented:**
-
-**New Features:**
-- **Interactive Item Selection**: Press E near shelf to open UI panel with filtered inventory
-- **Size-Based Filtering**: Only items matching shelf's allowed size are shown
-- **Visual Item Display**: Each button shows item icon, name, and quantity
-- **Click to Restock**: Click item button to restock shelf with 1 item
-- **Player Movement Control**: Movement disabled while UI is open
-- **E Key Toggle**: Press E to open/close UI (no need for separate close button)
-
-**New Scripts Created:**
-1. **RestockUIManager.cs** (Singleton):
-   - Manages restock UI panel visibility
-   - Filters inventory by shelf's allowed item size
-   - Dynamically spawns item buttons
-   - Disables/enables player movement
-   - Methods: `ShowRestockUI(shelf)`, `HideRestockUI()`, `IsUIOpen()`
-   - Uses `FindFirstObjectByType<PlayerController>()` for movement control
-
-2. **RestockItemButton.cs** (UI Component):
-   - Individual button for each inventory item
-   - Displays item icon (Image), name (TextMeshProUGUI), quantity (TextMeshProUGUI)
-   - Handles click events via callback pattern
-   - Method: `Setup(itemData, quantity, onClickCallback)`
-
-**Code Changes:**
-3. **PlayerController.cs** (Updated):
-   - Added `canMove` boolean flag
-   - Added `SetCanMove(bool)` public method for UI managers
-   - Movement input blocked when `canMove = false`
-   - E key now toggles UI (checks `IsUIOpen()` before opening)
-   - Velocity set to zero when movement disabled
-
-**UI Structure (Unity Editor):**
-```
-Canvas (Main UI Canvas)
-└── RestockPanel [disabled by default]
-    ├── TitleText (TextMeshProUGUI)
-    ├── ItemScrollView (Scroll View)
-    │   └── Viewport
-    │       └── Content (Vertical Layout Group + Content Size Fitter)
-    │           └── [RestockItemButton prefabs spawned here]
-    ├── CloseButton (Button)
-    └── MessageText (TextMeshProUGUI) [optional - "No compatible items"]
-```
-
-**RestockItemButton Prefab Structure:**
-```
-RestockItemButton (Button + Horizontal Layout Group)
-├── ItemIcon (Image)
-├── ItemNameText (TextMeshProUGUI)
-└── QuantityText (TextMeshProUGUI)
-```
-
-**User Experience Flow:**
-1. Player walks near shelf → Press E
-2. UI opens, shows only compatible items (filtered by size)
-3. Player clicks item → Shelf restocks, inventory decreases, UI closes
-4. OR player presses E again → UI closes without restocking
-5. OR player clicks Close button → UI closes
-
-**Technical Highlights:**
-- **TextMeshPro Support**: All UI text uses TMP for better rendering
-- **LINQ Filtering**: Uses `.Where()` to filter inventory by item size
-- **Event-Driven**: Callback pattern for button clicks
-- **Singleton Pattern**: Consistent with existing managers
-- **Movement Control**: PlayerController exposes public API for external control
-- **Auto-Cleanup**: Destroys spawned buttons on UI close
-
-**Design Benefits:**
-- **User Agency**: Players choose which item to restock (no auto-select)
-- **Clear Feedback**: Visual confirmation of available items and quantities
-- **Error Prevention**: Size filtering prevents invalid restock attempts
-- **Intuitive Controls**: E key toggles UI (consistent with "interact" pattern)
-- **Non-Blocking**: UI-only pause (doesn't stop entire game like pause menu)
-
-**UX Improvements Implemented:**
-- Player movement disabled while UI open (prevents accidental movement)
-- E key toggles UI (no need to click close button)
-- UI auto-closes on successful restock
-- Empty inventory shows message instead of blank screen
-
-**Tested Scenarios:**
-- ✅ Size filtering (Small/Medium/Big shelves show correct items)
-- ✅ Multiple item types in inventory
-- ✅ Empty inventory handling
-- ✅ Full shelf behavior
-- ✅ E key toggle open/close
-- ✅ Player movement disabled when UI open
-- ✅ Multiple shelves of same size
-- ✅ Inventory depletion (buttons disappear when quantity = 0)
-
----
-
-### 🔧 Shelf System Refactor: Transform-Based Positioning (COMPLETED)
-
-**What Was Changed:**
-
-**Goal**: Replace grid-calculated slot positioning with inspector-assigned transform array for maximum flexibility in shelf design.
-
-**Problem Solved:**
-- Previous system used procedural grid calculations (rows, columns, spacing)
-- All shelves forced into regular grid patterns (horizontal/vertical only)
-- No support for irregular shelf shapes (curved, diagonal, asymmetric displays)
-- Designer couldn't visually position slots without code changes
-
-**New Architecture:**
-- **Inspector-Assigned Transform Array**: Each shelf has explicit array of Transform references
-- **Visual Editor Workflow**: Designers create empty child GameObjects and position them where items should spawn
-- **Per-Shelf Customization**: Each shelf instance can have completely unique slot layouts
-- **Irregular Shape Support**: Corner shelves, curved displays, asymmetric arrangements fully supported
-
-**Code Changes:**
-
-1. **ShelfTypeDataSO.cs** (Simplified):
-   - **Removed**: `totalSlots`, `slotSpacing`, `slotsPerRow`, `horizontalLayout` fields
-   - **Removed**: `GetSlotPosition()` method (no longer needed)
-   - **Kept**: `allowedItemSize` for item size validation
-   - **Kept**: `itemScale` for display settings
-
-2. **Shelf.cs** (Refactored):
-   - **Added**: `Transform[] slotPositions` inspector array
-   - **Removed**: `slotsContainer` field (no longer needed)
-   - **Updated**: `InitializeShelf()` now loops through assigned transforms instead of creating new GameObjects
-   - Validates `slotPositions` array is populated
-   - Adds `ShelfSlot` components to existing transforms
-   - Handles null transforms gracefully with warnings
-
-3. **ShelfSlot.cs** (No Changes):
-   - Already used transform-based positioning
-   - Stacking system continues to work with local positions
-   - Fully compatible with new approach
-
-**Unity Editor Workflow:**
-1. Create empty child GameObjects under shelf (e.g., "SlotPos_0", "SlotPos_1")
-2. Position them visually where items should appear
-3. In Shelf component inspector, set array size and drag transforms into slots
-4. Visual and explicit - no hidden logic or naming conventions
-
-**Design Benefits:**
-- ✅ **Visual Freedom**: Create any shelf shape (curved, diagonal, irregular)
-- ✅ **Per-Shelf Customization**: Each shelf instance has unique layout
-- ✅ **Designer-Friendly**: No code changes needed for new designs
-- ✅ **Clear and Explicit**: Transform references visible in inspector
-- ✅ **Flexible Stacking**: Multiple items per slot still work perfectly
-
-**Breaking Changes:**
-- Existing shelves need slot position transforms created and assigned
-- ScriptableObject fields removed (totalSlots, slotSpacing, etc.)
-- Shelves without assigned transforms will log errors and fail to initialize
-
-**Backward Compatibility:**
-- ShelfSlot stacking behavior unchanged
-- RestockShelf() and TakeItem() APIs unchanged
-- Item size validation unchanged
-
-**Files Modified:**
-- `Assets/Scripts/SOs/ShelfTypeDataSO.cs` - Removed grid calculation fields
-- `Assets/Scripts/Shelf.cs` - Added transform array, refactored initialization
-
 ---
