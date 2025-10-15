@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb992d4db39e4bc4ab3f888f9035cb87, type: 3}
+  m_Name: BulkOrdering
+  m_EditorClassIdentifier: Assembly-CSharp::UpgradeDataSO
+  upgradeName: Bulk Ordering
+  upgradeID: Bulk Ordering
+  description: Negotiate volume discounts with suppliers. Order 5x items at once
+    with 10% off restock costs.
+  upgradeIcon: {fileID: 0}
+  cost: 400
+  tierRequirement: 1
+  prerequisites: []
+  category: 2
+  effectType: 4
+  effectValue: 5
+  targetSegmentIndex: -1
+  isRepeatable: 0
+  maxPurchases: 1

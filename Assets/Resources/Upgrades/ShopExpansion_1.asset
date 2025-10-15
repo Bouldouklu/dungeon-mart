@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb992d4db39e4bc4ab3f888f9035cb87, type: 3}
+  m_Name: ShopExpansion_1
+  m_EditorClassIdentifier: Assembly-CSharp::UpgradeDataSO
+  upgradeName: Shop Expansion 1
+  upgradeID: Shop Expansion 1
+  description: ' Unlock the second section of your shop. More space means more shelves
+    and more profit!'
+  upgradeIcon: {fileID: 0}
+  cost: 500
+  tierRequirement: 1
+  prerequisites: []
+  category: 0
+  effectType: 0
+  effectValue: 1
+  targetSegmentIndex: 1
+  isRepeatable: 0
+  maxPurchases: 1

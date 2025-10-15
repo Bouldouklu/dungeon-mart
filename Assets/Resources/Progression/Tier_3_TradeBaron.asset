@@ -17,4 +17,6 @@ MonoBehaviour:
   tierIcon: {fileID: 0}
   requiredLifetimeRevenue: 9000
   description: Your reputation as a merchant lord is spreading across the realm.
-  unlockedUpgrades: []
+  unlockedUpgrades:
+  - {fileID: 11400000, guid: 9816849c746f3744d985f91482fc61b5, type: 2}
+  - {fileID: 11400000, guid: 4013d7a6ce3dc17478a92e85d53c2ac2, type: 2}

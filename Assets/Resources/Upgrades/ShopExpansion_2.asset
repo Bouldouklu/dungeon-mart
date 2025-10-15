@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb992d4db39e4bc4ab3f888f9035cb87, type: 3}
+  m_Name: ShopExpansion_2
+  m_EditorClassIdentifier: Assembly-CSharp::UpgradeDataSO
+  upgradeName: Shop Expansion 2
+  upgradeID: Shop Expansion 2
+  description: Expand into the third wing of your building. Even more room for premium
+    merchandise!
+  upgradeIcon: {fileID: 0}
+  cost: 800
+  tierRequirement: 2
+  prerequisites:
+  - {fileID: 11400000, guid: a5d3f1557c57b054f9085b0aac797ed2, type: 2}
+  category: 0
+  effectType: 0
+  effectValue: 1
+  targetSegmentIndex: 2
+  isRepeatable: 0
+  maxPurchases: 1

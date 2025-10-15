@@ -9,7 +9,7 @@ public class ExpenseManager : MonoBehaviour
     public static ExpenseManager Instance;
 
     [Header("Rent Settings")]
-    [SerializeField] private int monthlyRentAmount = 500;
+    [SerializeField] private int baseRentAmount = 500;
     [SerializeField] private int daysPerMonth = 7;
 
     [Header("Current State")]
@@ -42,7 +42,23 @@ public class ExpenseManager : MonoBehaviour
     public event System.Action<int> OnRentCountdownChanged;
 
     // Properties
-    public int MonthlyRentAmount => monthlyRentAmount;
+    /// <summary>
+    /// Total monthly rent amount including base rent + shop segment contributions.
+    /// </summary>
+    public int MonthlyRentAmount
+    {
+        get
+        {
+            int segmentContribution = 0;
+            if (ShopSegmentManager.Instance != null)
+            {
+                segmentContribution = ShopSegmentManager.Instance.GetRentContribution();
+            }
+            return baseRentAmount + segmentContribution;
+        }
+    }
+
+    public int BaseRentAmount => baseRentAmount;
     public int DaysUntilRentDue => daysUntilRentDue;
     public int CurrentMonth => currentMonth;
     public bool RentIsDueNow => rentIsDueNow;
@@ -73,7 +89,7 @@ public class ExpenseManager : MonoBehaviour
             DayManager.Instance.OnDayEnded += OnDayEnded;
         }
 
-        Debug.Log($"ExpenseManager initialized: Rent ${monthlyRentAmount} due in {daysUntilRentDue} days");
+        Debug.Log($"ExpenseManager initialized: Rent ${MonthlyRentAmount} (Base: ${baseRentAmount} + Segments: ${MonthlyRentAmount - baseRentAmount}) due in {daysUntilRentDue} days");
     }
 
     private void OnDestroy()
@@ -114,8 +130,10 @@ public class ExpenseManager : MonoBehaviour
     private void TriggerRentDue()
     {
         rentIsDueNow = true;
-        Debug.Log($"Rent is due! Amount: ${monthlyRentAmount}");
-        OnRentDue?.Invoke(monthlyRentAmount, currentMonth);
+        int totalRent = MonthlyRentAmount;
+        int segmentContribution = totalRent - baseRentAmount;
+        Debug.Log($"💰 Rent is due! Total: ${totalRent} (Base: ${baseRentAmount} + Segments: ${segmentContribution})");
+        OnRentDue?.Invoke(totalRent, currentMonth);
     }
 
     /// <summary>
@@ -129,24 +147,27 @@ public class ExpenseManager : MonoBehaviour
             return false;
         }
 
+        int totalRent = MonthlyRentAmount;
+
         // Check if player has enough money
-        if (GameManager.Instance.CurrentMoney < monthlyRentAmount)
+        if (GameManager.Instance.CurrentMoney < totalRent)
         {
-            Debug.Log($"Cannot pay rent - insufficient funds. Need ${monthlyRentAmount}, have ${GameManager.Instance.CurrentMoney}");
-            OnRentFailed?.Invoke(monthlyRentAmount);
+            Debug.Log($"Cannot pay rent - insufficient funds. Need ${totalRent}, have ${GameManager.Instance.CurrentMoney}");
+            OnRentFailed?.Invoke(totalRent);
             return false;
         }
 
         // Deduct rent payment
-        bool success = GameManager.Instance.SpendMoney(monthlyRentAmount);
+        bool success = GameManager.Instance.SpendMoney(totalRent);
         if (success)
         {
             rentIsDueNow = false;
             currentMonth++;
             daysUntilRentDue = daysPerMonth; // Reset countdown
 
-            Debug.Log($"Rent paid! Starting month {currentMonth}. Next rent due in {daysUntilRentDue} days.");
-            OnRentPaid?.Invoke(monthlyRentAmount, currentMonth);
+            int segmentContribution = totalRent - baseRentAmount;
+            Debug.Log($"✅ Rent paid! Amount: ${totalRent} (Base: ${baseRentAmount} + Segments: ${segmentContribution}). Starting month {currentMonth}. Next rent due in {daysUntilRentDue} days.");
+            OnRentPaid?.Invoke(totalRent, currentMonth);
             OnRentCountdownChanged?.Invoke(daysUntilRentDue);
             return true;
         }
@@ -159,7 +180,7 @@ public class ExpenseManager : MonoBehaviour
     /// </summary>
     public bool CanAffordRent()
     {
-        return GameManager.Instance.CurrentMoney >= monthlyRentAmount;
+        return GameManager.Instance.CurrentMoney >= MonthlyRentAmount;
     }
 
     /// <summary>
@@ -168,7 +189,20 @@ public class ExpenseManager : MonoBehaviour
     /// </summary>
     public int GetRentShortfall()
     {
-        int shortfall = monthlyRentAmount - GameManager.Instance.CurrentMoney;
+        int shortfall = MonthlyRentAmount - GameManager.Instance.CurrentMoney;
         return Mathf.Max(0, shortfall);
+    }
+
+    /// <summary>
+    /// Gets a detailed breakdown of rent calculation for UI display.
+    /// </summary>
+    public string GetRentBreakdown()
+    {
+        int segmentContribution = MonthlyRentAmount - baseRentAmount;
+        if (segmentContribution > 0)
+        {
+            return $"Base Rent: ${baseRentAmount}\nShop Expansions: +${segmentContribution}\nTotal: ${MonthlyRentAmount}";
+        }
+        return $"Total Rent: ${MonthlyRentAmount}";
     }
 }

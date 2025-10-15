@@ -17,4 +17,7 @@ MonoBehaviour:
   tierIcon: {fileID: 0}
   requiredLifetimeRevenue: 4000
   description: Adventurers from distant lands seek your wares.
-  unlockedUpgrades: []
+  unlockedUpgrades:
+  - {fileID: 11400000, guid: 19c7af6b8f2b2aa478848ba929afa3e6, type: 2}
+  - {fileID: 11400000, guid: f83807f740274744e90c0cd28cc96db2, type: 2}
+  - {fileID: 11400000, guid: 22b93e9092b4cad4a9f231c26f7ad048, type: 2}

@@ -184,4 +184,17 @@ public class ProgressionManager : MonoBehaviour
         ProgressionDataSO currentTier = GetCurrentTier();
         return currentTier?.unlockedUpgrades ?? new UpgradeDataSO[0];
     }
+
+    /// <summary>
+    /// Gets tier data by index (for upgrade requirements).
+    /// Returns null if index is out of range.
+    /// </summary>
+    public ProgressionDataSO GetTierByIndex(int tierIndex)
+    {
+        if (progressionTiers == null || tierIndex < 0 || tierIndex >= progressionTiers.Length)
+        {
+            return null;
+        }
+        return progressionTiers[tierIndex];
+    }
 }

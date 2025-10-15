@@ -17,4 +17,7 @@ MonoBehaviour:
   tierIcon: {fileID: 0}
   requiredLifetimeRevenue: 1500
   description: Your shop is gaining recognition in the local market.
-  unlockedUpgrades: []
+  unlockedUpgrades:
+  - {fileID: 11400000, guid: cd2a618834e466d44832d87bd0edf572, type: 2}
+  - {fileID: 11400000, guid: 6fb45db3e18fbbf42ba60470ac7633ba, type: 2}
+  - {fileID: 11400000, guid: a5d3f1557c57b054f9085b0aac797ed2, type: 2}
