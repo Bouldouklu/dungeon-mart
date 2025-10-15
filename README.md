@@ -666,4 +666,64 @@ Dragon Throne,200,130,Big,3
 - Script: `Assets/Scripts/Editor/ItemDataImporter.cs`
 - CSV: `Assets/DungeonMart_Economy_Balance.csv`
 - Output: `Assets/Resources/Items/*.asset`
+
+---
+
+### 🔧 Manager Architecture Refactoring
+
+**Phase 1: Financial System Consolidation ✅ COMPLETE**
+
+**Goal:** Reduce manager complexity and improve maintainability by merging related systems
+
+**Changes Made:**
+- **Merged 3 Managers → 1 Unified Manager:**
+  - `ExpenseManager.cs` ❌ Deleted
+  - `LoanManager.cs` ❌ Deleted
+  - `FailStateManager.cs` ❌ Deleted
+  - `FinancialManager.cs` ✅ Created (518 lines)
+
+**FinancialManager Features:**
+- **Rent System:** Monthly rent tracking, dynamic rent with shop expansion contributions, rent payment flow with events
+- **Loan System:** Loan taking with 20% interest, automatic daily payments, loan default detection, loan repayment tracking
+- **Fail State System:** Game over triggers (rent unpaid, loan default, bankruptcy), statistics tracking, corporate humor messages
+- **Unified Events:** All financial events in one place for easier UI integration
+
+**Files Updated:**
+- `RentPaymentUI.cs` - Updated references to FinancialManager
+- `RentCountdownUI.cs` - Updated references to FinancialManager
+- `LoanUI.cs` - Updated references to FinancialManager
+- `LoanStatusUI.cs` - Updated references to FinancialManager
+- `GameOverUI.cs` - Updated references to FinancialManager
+- `EndOfDaySummaryUI.cs` - Updated references to FinancialManager
+- `DayManager.cs` - Updated debug keys (F10) to use FinancialManager
+
+**Benefits:**
+- **Reduced Complexity:** 3 managers → 1 manager (simpler mental model)
+- **Better Cohesion:** Related financial logic in one place
+- **Easier Testing:** Single source of truth for all financial operations
+- **Improved Maintainability:** Changes to financial system require editing only one file
+
+**Property Name Changes:**
+- `LoanManager.AmountRemaining` → `FinancialManager.LoanAmountRemaining`
+- `LoanManager.DaysUntilDue` → `FinancialManager.DaysUntilLoanDue`
+
+**GameOverReason Enum:**
+- Now defined in `FinancialManager.cs` (lines 6-11)
+- Values: `RentUnpaid`, `LoanDefault`, `Bankruptcy`
+
+**Testing Results:**
+- ✅ Compilation successful
+- ✅ All UI scripts updated and functional
+- ✅ Rent payment flow working
+- ✅ Loan system working
+- ✅ Game over triggers working
+
+**Phase 2: Supply Chain Consolidation (PENDING)**
+- Plan: Merge `OrderManager.cs` + `DeliveryManager.cs` → `SupplyChainManager.cs`
+- Status: Awaiting Phase 1 approval before starting
+
+**Phase 3: Debug Key Extraction (PENDING)**
+- Plan: Extract debug keys from `DayManager.cs` → `DebugInputManager.cs`
+- Status: Awaiting Phases 1-2 completion
+
 ---

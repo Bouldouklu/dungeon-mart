@@ -28,17 +28,17 @@ public class LoanStatusUI : MonoBehaviour
             loanStatusPanel.SetActive(false);
         }
 
-        // Subscribe to loan manager events
-        if (LoanManager.Instance != null)
+        // Subscribe to financial manager loan events
+        if (FinancialManager.Instance != null)
         {
-            LoanManager.Instance.OnLoanTaken += OnLoanTaken;
-            LoanManager.Instance.OnLoanPayment += OnLoanPayment;
-            LoanManager.Instance.OnLoanFullyRepaid += OnLoanFullyRepaid;
-            LoanManager.Instance.OnLoanDeadlineChanged += OnLoanDeadlineChanged;
+            FinancialManager.Instance.OnLoanTaken += OnLoanTaken;
+            FinancialManager.Instance.OnLoanPayment += OnLoanPayment;
+            FinancialManager.Instance.OnLoanFullyRepaid += OnLoanFullyRepaid;
+            FinancialManager.Instance.OnLoanDeadlineChanged += OnLoanDeadlineChanged;
         }
 
         // Initialize display if loan already active
-        if (LoanManager.Instance != null && LoanManager.Instance.HasActiveLoan)
+        if (FinancialManager.Instance != null && FinancialManager.Instance.HasActiveLoan)
         {
             UpdateDisplay();
         }
@@ -46,12 +46,12 @@ public class LoanStatusUI : MonoBehaviour
 
     private void OnDestroy()
     {
-        if (LoanManager.Instance != null)
+        if (FinancialManager.Instance != null)
         {
-            LoanManager.Instance.OnLoanTaken -= OnLoanTaken;
-            LoanManager.Instance.OnLoanPayment -= OnLoanPayment;
-            LoanManager.Instance.OnLoanFullyRepaid -= OnLoanFullyRepaid;
-            LoanManager.Instance.OnLoanDeadlineChanged -= OnLoanDeadlineChanged;
+            FinancialManager.Instance.OnLoanTaken -= OnLoanTaken;
+            FinancialManager.Instance.OnLoanPayment -= OnLoanPayment;
+            FinancialManager.Instance.OnLoanFullyRepaid -= OnLoanFullyRepaid;
+            FinancialManager.Instance.OnLoanDeadlineChanged -= OnLoanDeadlineChanged;
         }
     }
 
@@ -115,16 +115,16 @@ public class LoanStatusUI : MonoBehaviour
     /// </summary>
     private void UpdateDisplay()
     {
-        if (LoanManager.Instance == null || !LoanManager.Instance.HasActiveLoan)
+        if (FinancialManager.Instance == null || !FinancialManager.Instance.HasActiveLoan)
         {
             HideLoanStatus();
             return;
         }
 
-        int amountPaid = LoanManager.Instance.AmountPaid;
-        int totalOwed = LoanManager.Instance.TotalOwed;
-        int remaining = LoanManager.Instance.AmountRemaining;
-        int daysLeft = LoanManager.Instance.DaysUntilDue;
+        int amountPaid = FinancialManager.Instance.AmountPaid;
+        int totalOwed = FinancialManager.Instance.TotalOwed;
+        int remaining = FinancialManager.Instance.LoanAmountRemaining;
+        int daysLeft = FinancialManager.Instance.DaysUntilLoanDue;
 
         // Update balance text
         if (loanBalanceText != null)

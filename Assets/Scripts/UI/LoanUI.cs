@@ -34,17 +34,17 @@ public class LoanUI : MonoBehaviour
         }
 
         // Subscribe to loan taken event
-        if (LoanManager.Instance != null)
+        if (FinancialManager.Instance != null)
         {
-            LoanManager.Instance.OnLoanTaken += OnLoanTaken;
+            FinancialManager.Instance.OnLoanTaken += OnLoanTaken;
         }
     }
 
     private void OnDestroy()
     {
-        if (LoanManager.Instance != null)
+        if (FinancialManager.Instance != null)
         {
-            LoanManager.Instance.OnLoanTaken -= OnLoanTaken;
+            FinancialManager.Instance.OnLoanTaken -= OnLoanTaken;
         }
     }
 
@@ -61,7 +61,7 @@ public class LoanUI : MonoBehaviour
         }
 
         // Check if player can take a loan
-        if (LoanManager.Instance == null || !LoanManager.Instance.CanTakeLoan())
+        if (FinancialManager.Instance == null || !FinancialManager.Instance.CanTakeLoan())
         {
             Debug.LogWarning("Cannot take loan - already have active loan!");
             return;
@@ -84,9 +84,9 @@ public class LoanUI : MonoBehaviour
         }
 
         // Update interest rate display
-        if (interestRateText != null && LoanManager.Instance != null)
+        if (interestRateText != null && FinancialManager.Instance != null)
         {
-            float rate = LoanManager.Instance.InterestRate * 100f;
+            float rate = FinancialManager.Instance.InterestRate * 100f;
             interestRateText.text = $"Interest Rate: {rate}% (We're definitely not loan sharks!)";
         }
 
@@ -127,9 +127,9 @@ public class LoanUI : MonoBehaviour
         }
 
         // Create loan option buttons
-        if (LoanManager.Instance != null)
+        if (FinancialManager.Instance != null)
         {
-            int[] amounts = LoanManager.Instance.AvailableLoanAmounts;
+            int[] amounts = FinancialManager.Instance.AvailableLoanAmounts;
             foreach (int amount in amounts)
             {
                 CreateLoanOptionButton(amount);
@@ -146,7 +146,7 @@ public class LoanUI : MonoBehaviour
         Button button = buttonObj.GetComponent<Button>();
 
         // Calculate total with interest
-        int totalOwed = LoanManager.Instance.CalculateLoanWithInterest(loanAmount);
+        int totalOwed = FinancialManager.Instance.CalculateLoanWithInterest(loanAmount);
         int interestAmount = totalOwed - loanAmount;
 
         // Find text components (assuming button has TextMeshProUGUI children)
@@ -180,9 +180,9 @@ public class LoanUI : MonoBehaviour
     /// </summary>
     private void OnLoanAmountSelected(int amount)
     {
-        if (LoanManager.Instance != null)
+        if (FinancialManager.Instance != null)
         {
-            bool success = LoanManager.Instance.TakeLoan(amount);
+            bool success = FinancialManager.Instance.TakeLoan(amount);
             if (success)
             {
                 Debug.Log($"Loan taken: ${amount}");
@@ -203,9 +203,9 @@ public class LoanUI : MonoBehaviour
         CloseLoanPanel();
 
         // Try to pay rent automatically if that's why we took the loan
-        if (ExpenseManager.Instance != null && ExpenseManager.Instance.RentIsDueNow)
+        if (FinancialManager.Instance != null && FinancialManager.Instance.RentIsDueNow)
         {
-            bool rentPaid = ExpenseManager.Instance.PayRent();
+            bool rentPaid = FinancialManager.Instance.PayRent();
             if (rentPaid)
             {
                 Debug.Log("Rent automatically paid with loan funds!");

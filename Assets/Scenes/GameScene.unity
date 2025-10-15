@@ -2520,58 +2520,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 899093724}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &274516236
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 274516237}
-  - component: {fileID: 274516238}
-  m_Layer: 0
-  m_Name: LoanManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &274516237
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 274516236}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 2011736430}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &274516238
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 274516236}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 18f4ec0ef64f287498756447a67c14e3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::LoanManager
-  availableLoanAmounts: 2c010000f4010000e8030000
-  interestRate: 0.2
-  repaymentDays: 7
-  hasActiveLoan: 0
-  loanPrincipal: 0
-  totalOwed: 0
-  amountPaid: 0
-  daysUntilDue: 0
 --- !u!1 &279071788
 GameObject:
   m_ObjectHideFlags: 0
@@ -12232,53 +12180,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 12593961}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1145817594
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1145817595}
-  - component: {fileID: 1145817596}
-  m_Layer: 0
-  m_Name: FailStateManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1145817595
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1145817594}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 2011736430}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1145817596
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1145817594}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 90e99820551bcf64f9f8eb6df6b75105, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::FailStateManager
-  isGameOver: 0
-  gameOverReason: 0
-  amountOwed: 0
 --- !u!1 &1158833093
 GameObject:
   m_ObjectHideFlags: 0
@@ -15054,6 +14955,66 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1424907274}
   m_CullTransparentMesh: 1
+--- !u!1 &1453197539
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1453197540}
+  - component: {fileID: 1453197541}
+  m_Layer: 0
+  m_Name: FinancialManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1453197540
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1453197539}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2011736430}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1453197541
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1453197539}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18b8a5994048db24d9e4dd2ff66b8de5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FinancialManager
+  baseRentAmount: 500
+  daysPerMonth: 7
+  daysUntilRentDue: 7
+  currentMonth: 1
+  rentIsDueNow: 0
+  availableLoanAmounts: 2c010000f4010000e8030000
+  interestRate: 0.2
+  repaymentDays: 7
+  hasActiveLoan: 0
+  loanPrincipal: 0
+  totalOwed: 0
+  amountPaid: 0
+  daysUntilLoanDue: 0
+  isGameOver: 0
+  gameOverReason: 0
+  amountOwed: 0
 --- !u!1 &1455262063
 GameObject:
   m_ObjectHideFlags: 0
@@ -20531,9 +20492,7 @@ Transform:
   - {fileID: 1488516667}
   - {fileID: 1656746642}
   - {fileID: 677308860}
-  - {fileID: 2142286674}
-  - {fileID: 274516237}
-  - {fileID: 1145817595}
+  - {fileID: 1453197540}
   - {fileID: 1136253023}
   - {fileID: 2020051142}
   - {fileID: 1847936846}
@@ -21438,55 +21397,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2137790330}
   m_CullTransparentMesh: 1
---- !u!1 &2142286673
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2142286674}
-  - component: {fileID: 2142286675}
-  m_Layer: 0
-  m_Name: ExpenseManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2142286674
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2142286673}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 2011736430}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2142286675
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2142286673}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 90095e5da288f844781af456096217ae, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ExpenseManager
-  baseRentAmount: 500
-  daysPerMonth: 7
-  daysUntilRentDue: 7
-  currentMonth: 1
-  rentIsDueNow: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

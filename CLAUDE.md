@@ -66,12 +66,12 @@ Assets/
 
 ## Git Workflow
 - Feature branches for new functionality
+- Test locally before commiting and pushing
 - Commit frequently with descriptive messages
-- Test locally before pushing
 - Use conventional commit format
 
 ## Notes for Claude
-- Always test changes locally before committing
+- Always test changes locally before committing, ask permission before committing. 
 - Follow Unity best practices and component-based design
 - Maintain clean, readable code with proper documentation
 - Use the observer pattern for decoupled architecture

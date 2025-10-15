@@ -18,11 +18,11 @@ public class RentCountdownUI : MonoBehaviour
 
     private void Start()
     {
-        // Subscribe to expense manager events
-        if (ExpenseManager.Instance != null)
+        // Subscribe to financial manager events
+        if (FinancialManager.Instance != null)
         {
-            ExpenseManager.Instance.OnRentCountdownChanged += OnRentCountdownChanged;
-            ExpenseManager.Instance.OnRentPaid += OnRentPaid;
+            FinancialManager.Instance.OnRentCountdownChanged += OnRentCountdownChanged;
+            FinancialManager.Instance.OnRentPaid += OnRentPaid;
         }
 
         // Initialize display
@@ -31,10 +31,10 @@ public class RentCountdownUI : MonoBehaviour
 
     private void OnDestroy()
     {
-        if (ExpenseManager.Instance != null)
+        if (FinancialManager.Instance != null)
         {
-            ExpenseManager.Instance.OnRentCountdownChanged -= OnRentCountdownChanged;
-            ExpenseManager.Instance.OnRentPaid -= OnRentPaid;
+            FinancialManager.Instance.OnRentCountdownChanged -= OnRentCountdownChanged;
+            FinancialManager.Instance.OnRentPaid -= OnRentPaid;
         }
     }
 
@@ -59,14 +59,14 @@ public class RentCountdownUI : MonoBehaviour
     /// </summary>
     private void UpdateDisplay()
     {
-        if (ExpenseManager.Instance == null || rentCountdownText == null)
+        if (FinancialManager.Instance == null || rentCountdownText == null)
         {
             return;
         }
 
-        int daysLeft = ExpenseManager.Instance.DaysUntilRentDue;
-        int rentAmount = ExpenseManager.Instance.MonthlyRentAmount;
-        int currentMonth = ExpenseManager.Instance.CurrentMonth;
+        int daysLeft = FinancialManager.Instance.DaysUntilRentDue;
+        int rentAmount = FinancialManager.Instance.MonthlyRentAmount;
+        int currentMonth = FinancialManager.Instance.CurrentMonth;
 
         // Update text
         rentCountdownText.text = $"Rent Due: {daysLeft} days (${rentAmount})";

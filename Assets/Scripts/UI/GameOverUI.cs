@@ -33,9 +33,9 @@ public class GameOverUI : MonoBehaviour
         }
 
         // Subscribe to game over event
-        if (FailStateManager.Instance != null)
+        if (FinancialManager.Instance != null)
         {
-            FailStateManager.Instance.OnGameOver += OnGameOver;
+            FinancialManager.Instance.OnGameOver += OnGameOver;
         }
 
         // Wire up button events
@@ -57,9 +57,9 @@ public class GameOverUI : MonoBehaviour
 
     private void OnDestroy()
     {
-        if (FailStateManager.Instance != null)
+        if (FinancialManager.Instance != null)
         {
-            FailStateManager.Instance.OnGameOver -= OnGameOver;
+            FinancialManager.Instance.OnGameOver -= OnGameOver;
         }
     }
 
@@ -128,9 +128,9 @@ public class GameOverUI : MonoBehaviour
         }
 
         // Update reason text with corporate humor
-        if (reasonText != null && FailStateManager.Instance != null)
+        if (reasonText != null && FinancialManager.Instance != null)
         {
-            reasonText.text = FailStateManager.Instance.GetGameOverMessage();
+            reasonText.text = FinancialManager.Instance.GetGameOverMessage();
         }
 
         // Update statistics

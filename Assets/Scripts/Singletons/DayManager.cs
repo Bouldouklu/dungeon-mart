@@ -166,16 +166,16 @@ public class DayManager : MonoBehaviour
             }
         }
 
-        // Debug key for ExpenseManager status
+        // Debug key for FinancialManager rent status
         if (Input.GetKeyDown(KeyCode.F10))
         {
-            if (ExpenseManager.Instance != null)
+            if (FinancialManager.Instance != null)
             {
-                Debug.Log($"DEBUG: Rent Status - Due: {ExpenseManager.Instance.RentIsDueNow}, Days Until: {ExpenseManager.Instance.DaysUntilRentDue}, Month: {ExpenseManager.Instance.CurrentMonth}");
-                if (ExpenseManager.Instance.RentIsDueNow && ExpenseManager.Instance.CanAffordRent())
+                Debug.Log($"DEBUG: Rent Status - Due: {FinancialManager.Instance.RentIsDueNow}, Days Until: {FinancialManager.Instance.DaysUntilRentDue}, Month: {FinancialManager.Instance.CurrentMonth}");
+                if (FinancialManager.Instance.RentIsDueNow && FinancialManager.Instance.CanAffordRent())
                 {
                     Debug.Log("DEBUG: Attempting to pay rent...");
-                    ExpenseManager.Instance.PayRent();
+                    FinancialManager.Instance.PayRent();
                 }
             }
         }

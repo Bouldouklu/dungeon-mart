@@ -27,10 +27,10 @@ public class RentPaymentUI : MonoBehaviour
         }
 
         // Subscribe to rent due event
-        if (ExpenseManager.Instance != null)
+        if (FinancialManager.Instance != null)
         {
-            ExpenseManager.Instance.OnRentDue += OnRentDue;
-            ExpenseManager.Instance.OnRentPaid += OnRentPaid;
+            FinancialManager.Instance.OnRentDue += OnRentDue;
+            FinancialManager.Instance.OnRentPaid += OnRentPaid;
         }
 
         // Wire up button events
@@ -47,10 +47,10 @@ public class RentPaymentUI : MonoBehaviour
 
     private void OnDestroy()
     {
-        if (ExpenseManager.Instance != null)
+        if (FinancialManager.Instance != null)
         {
-            ExpenseManager.Instance.OnRentDue -= OnRentDue;
-            ExpenseManager.Instance.OnRentPaid -= OnRentPaid;
+            FinancialManager.Instance.OnRentDue -= OnRentDue;
+            FinancialManager.Instance.OnRentPaid -= OnRentPaid;
         }
     }
 
@@ -83,7 +83,7 @@ public class RentPaymentUI : MonoBehaviour
         }
 
         // Don't show rent panel if game is already over
-        if (FailStateManager.Instance != null && FailStateManager.Instance.IsGameOver)
+        if (FinancialManager.Instance != null && FinancialManager.Instance.IsGameOver)
         {
             Debug.Log("Rent due but game is already over - not showing rent panel");
             return;
@@ -130,7 +130,7 @@ public class RentPaymentUI : MonoBehaviour
         }
 
         // Show loan button only if player can take a loan
-        bool canTakeLoan = LoanManager.Instance != null && LoanManager.Instance.CanTakeLoan();
+        bool canTakeLoan = FinancialManager.Instance != null && FinancialManager.Instance.CanTakeLoan();
         if (takeLoanButton != null)
         {
             takeLoanButton.gameObject.SetActive(!canAfford && canTakeLoan);
@@ -151,9 +151,9 @@ public class RentPaymentUI : MonoBehaviour
                     warningText.text = "GAME OVER: Cannot pay rent!";
                     warningText.color = Color.red;
 
-                    // Don't trigger game over here - FailStateManager handles this automatically
-                    // when OnRentFailed event fires from ExpenseManager
-                    Debug.Log("Cannot pay rent and no loan available - waiting for FailStateManager");
+                    // Don't trigger game over here - FinancialManager handles this automatically
+                    // when OnRentFailed event fires internally
+                    Debug.Log("Cannot pay rent and no loan available - waiting for FinancialManager");
                 }
             }
             else
@@ -189,9 +189,9 @@ public class RentPaymentUI : MonoBehaviour
     /// </summary>
     private void OnPayRentClicked()
     {
-        if (ExpenseManager.Instance != null)
+        if (FinancialManager.Instance != null)
         {
-            bool success = ExpenseManager.Instance.PayRent();
+            bool success = FinancialManager.Instance.PayRent();
             if (success)
             {
                 Debug.Log("Rent paid successfully!");
@@ -215,8 +215,8 @@ public class RentPaymentUI : MonoBehaviour
         if (loanUI != null)
         {
             // Calculate how much is needed to pay rent
-            int rentAmount = ExpenseManager.Instance.MonthlyRentAmount;
-            int shortfall = ExpenseManager.Instance.GetRentShortfall();
+            int rentAmount = FinancialManager.Instance.MonthlyRentAmount;
+            int shortfall = FinancialManager.Instance.GetRentShortfall();
 
             loanUI.ShowLoanPanel(shortfall);
 

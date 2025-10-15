@@ -33,9 +33,9 @@ public class EndOfDaySummaryUI : MonoBehaviour
         }
 
         // Subscribe to rent paid event to show summary after rent is paid
-        if (ExpenseManager.Instance != null)
+        if (FinancialManager.Instance != null)
         {
-            ExpenseManager.Instance.OnRentPaid += OnRentPaid;
+            FinancialManager.Instance.OnRentPaid += OnRentPaid;
         }
 
         // Wire up button event
@@ -52,9 +52,9 @@ public class EndOfDaySummaryUI : MonoBehaviour
             DayManager.Instance.OnDayEnded -= OnDayEnded;
         }
 
-        if (ExpenseManager.Instance != null)
+        if (FinancialManager.Instance != null)
         {
-            ExpenseManager.Instance.OnRentPaid -= OnRentPaid;
+            FinancialManager.Instance.OnRentPaid -= OnRentPaid;
         }
     }
 
@@ -72,7 +72,7 @@ public class EndOfDaySummaryUI : MonoBehaviour
 
         // Check if rent is due - if so, don't show summary yet
         // It will be shown after rent is paid via OnRentPaid event
-        if (ExpenseManager.Instance != null && ExpenseManager.Instance.RentIsDueNow)
+        if (FinancialManager.Instance != null && FinancialManager.Instance.RentIsDueNow)
         {
             Debug.Log("EndOfDaySummaryUI: Rent is due - waiting for rent payment before showing summary");
             return;
@@ -116,10 +116,10 @@ public class EndOfDaySummaryUI : MonoBehaviour
         }
 
         // Update rent info
-        if (rentInfoText != null && ExpenseManager.Instance != null)
+        if (rentInfoText != null && FinancialManager.Instance != null)
         {
-            int daysUntilRent = ExpenseManager.Instance.DaysUntilRentDue;
-            int rentAmount = ExpenseManager.Instance.MonthlyRentAmount;
+            int daysUntilRent = FinancialManager.Instance.DaysUntilRentDue;
+            int rentAmount = FinancialManager.Instance.MonthlyRentAmount;
 
             if (daysUntilRent == 1)
             {
@@ -135,13 +135,13 @@ public class EndOfDaySummaryUI : MonoBehaviour
         }
 
         // Update loan payment info
-        if (loanPaymentText != null && LoanManager.Instance != null)
+        if (loanPaymentText != null && FinancialManager.Instance != null)
         {
-            if (LoanManager.Instance.HasActiveLoan)
+            if (FinancialManager.Instance.HasActiveLoan)
             {
-                int suggestedPayment = LoanManager.Instance.GetSuggestedDailyPayment();
-                int remaining = LoanManager.Instance.AmountRemaining;
-                int daysLeft = LoanManager.Instance.DaysUntilDue;
+                int suggestedPayment = FinancialManager.Instance.GetSuggestedDailyPayment();
+                int remaining = FinancialManager.Instance.LoanAmountRemaining;
+                int daysLeft = FinancialManager.Instance.DaysUntilLoanDue;
 
                 loanPaymentText.text = $"Loan Balance: ${remaining} (Due in {daysLeft} days)";
 
