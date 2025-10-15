@@ -73,10 +73,7 @@ public class PlayerController : MonoBehaviour {
             }
         }
 
-        // Debug key to add test inventory
-        if (Input.GetKeyDown(KeyCode.I)) {
-            InventoryManager.Instance.AddDebugInventory();
-        }
+        // Debug input handling has been moved to DebugInputManager.cs
     }
 
     /// <summary>

@@ -1,0 +1,261 @@
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+using UnityEngine;
+
+/// <summary>
+/// Centralized manager for all debug input keys.
+/// Wrapped in compilation directive to exclude from release builds.
+/// </summary>
+public class DebugInputManager : MonoBehaviour
+{
+    public static DebugInputManager Instance;
+
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
+    }
+
+    private void Update()
+    {
+        HandleDayControlKeys();
+        HandleTimeScaleKeys();
+        HandleMoneyKeys();
+        HandleUpgradeKeys();
+        HandleInventoryKeys();
+    }
+
+    #region Day Control Keys
+
+    /// <summary>
+    /// Handles debug keys for manual day and phase transitions.
+    /// M - Start next day
+    /// O - Open shop
+    /// K - End day
+    /// </summary>
+    private void HandleDayControlKeys()
+    {
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            if (DayManager.Instance != null)
+            {
+                DayManager.Instance.StartNextDay();
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            if (DayManager.Instance != null)
+            {
+                DayManager.Instance.OpenShop();
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            if (DayManager.Instance != null)
+            {
+                DayManager.Instance.EndDay();
+            }
+        }
+    }
+
+    #endregion
+
+    #region Time Scale Keys
+
+    /// <summary>
+    /// Handles debug keys for time scale adjustments.
+    /// 1 - Normal speed (1x)
+    /// 2 - Double speed (2x)
+    /// 3 - Triple speed (3x)
+    /// 5 - Quintuple speed (5x)
+    /// </summary>
+    private void HandleTimeScaleKeys()
+    {
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            Time.timeScale = 1f;
+            Debug.Log("DEBUG: Time scale set to 1x (Normal)");
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            Time.timeScale = 2f;
+            Debug.Log("DEBUG: Time scale set to 2x");
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            Time.timeScale = 3f;
+            Debug.Log("DEBUG: Time scale set to 3x");
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha5))
+        {
+            Time.timeScale = 5f;
+            Debug.Log("DEBUG: Time scale set to 5x");
+        }
+    }
+
+    #endregion
+
+    #region Money Keys
+
+    /// <summary>
+    /// Handles debug keys for adding money for progression testing.
+    /// 7 - Add $500
+    /// 8 - Add $1500 (Tier 1 threshold)
+    /// 9 - Add $5000
+    /// </summary>
+    private void HandleMoneyKeys()
+    {
+        if (Input.GetKeyDown(KeyCode.Alpha7))
+        {
+            if (GameManager.Instance != null)
+            {
+                GameManager.Instance.AddMoney(500);
+                Debug.Log("DEBUG: Added $500 for progression testing");
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha8))
+        {
+            if (GameManager.Instance != null)
+            {
+                GameManager.Instance.AddMoney(1500);
+                Debug.Log("DEBUG: Added $1500 for progression testing (Tier 1 threshold)");
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha9))
+        {
+            if (GameManager.Instance != null)
+            {
+                GameManager.Instance.AddMoney(5000);
+                Debug.Log("DEBUG: Added $5000 for progression testing");
+            }
+        }
+    }
+
+    #endregion
+
+    #region Upgrade Testing Keys
+
+    /// <summary>
+    /// Handles debug keys for testing shop upgrades and segments.
+    /// F4 - Unlock shop segment 1
+    /// F5 - Unlock shop segment 2
+    /// F6 - Unlock shop segment 3
+    /// F7 - Increase all shelf capacity by 2
+    /// F8 - Add 3 bonus customers
+    /// F9 - Log rent contribution debug info
+    /// F10 - Pay rent immediately (if due and affordable)
+    /// </summary>
+    private void HandleUpgradeKeys()
+    {
+        // Shop segment unlocks
+        if (Input.GetKeyDown(KeyCode.F4))
+        {
+            if (ShopSegmentManager.Instance != null)
+            {
+                ShopSegmentManager.Instance.UnlockSegment(1);
+                Debug.Log("DEBUG: Attempted to unlock Segment 1");
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.F5))
+        {
+            if (ShopSegmentManager.Instance != null)
+            {
+                ShopSegmentManager.Instance.UnlockSegment(2);
+                Debug.Log("DEBUG: Attempted to unlock Segment 2");
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.F6))
+        {
+            if (ShopSegmentManager.Instance != null)
+            {
+                ShopSegmentManager.Instance.UnlockSegment(3);
+                Debug.Log("DEBUG: Attempted to unlock Segment 3");
+            }
+        }
+
+        // Shelf capacity upgrade test
+        if (Input.GetKeyDown(KeyCode.F7))
+        {
+            if (UpgradeManager.Instance != null)
+            {
+                Shelf[] shelves = FindObjectsByType<Shelf>(FindObjectsSortMode.None);
+                foreach (Shelf shelf in shelves)
+                {
+                    shelf.IncreaseCapacity(2);
+                }
+                Debug.Log($"DEBUG: Increased capacity for {shelves.Length} shelves by 2");
+            }
+        }
+
+        // Customer bonus test
+        if (Input.GetKeyDown(KeyCode.F8))
+        {
+            if (CustomerSpawner.Instance != null)
+            {
+                CustomerSpawner.Instance.AddBonusCustomers(3);
+                Debug.Log($"DEBUG: Added 3 bonus customers. New total: {CustomerSpawner.Instance.CustomersPerDay} customers/day");
+            }
+        }
+
+        // Rent contribution debug info
+        if (Input.GetKeyDown(KeyCode.F9))
+        {
+            if (ShopSegmentManager.Instance != null)
+            {
+                int rent = ShopSegmentManager.Instance.GetRentContribution();
+                int unlockedCount = ShopSegmentManager.Instance.UnlockedSegmentCount;
+                Debug.Log($"DEBUG: Rent Contribution = ${rent} ({unlockedCount} segments unlocked)");
+                Debug.Log(ShopSegmentManager.Instance.GetSegmentStatusDebug());
+            }
+        }
+
+        // Force rent payment test
+        if (Input.GetKeyDown(KeyCode.F10))
+        {
+            if (FinancialManager.Instance != null)
+            {
+                Debug.Log($"DEBUG: Rent Status - Due: {FinancialManager.Instance.RentIsDueNow}, Days Until: {FinancialManager.Instance.DaysUntilRentDue}, Month: {FinancialManager.Instance.CurrentMonth}");
+                if (FinancialManager.Instance.RentIsDueNow && FinancialManager.Instance.CanAffordRent())
+                {
+                    Debug.Log("DEBUG: Attempting to pay rent...");
+                    FinancialManager.Instance.PayRent();
+                }
+            }
+        }
+    }
+
+    #endregion
+
+    #region Inventory Keys
+
+    /// <summary>
+    /// Handles debug keys for inventory testing.
+    /// I - Add debug inventory items
+    /// </summary>
+    private void HandleInventoryKeys()
+    {
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            if (InventoryManager.Instance != null)
+            {
+                InventoryManager.Instance.AddDebugInventory();
+                Debug.Log("DEBUG: Added debug inventory items");
+            }
+        }
+    }
+
+    #endregion
+}
+#endif

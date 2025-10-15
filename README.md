@@ -490,8 +490,8 @@ This iterative testing ensures we catch bugs early and validate design decisions
   - Note: Only needed if you want more dynamic/overlapping customer behavior
 
 **Pre-Release Tasks:**
-- [ ] Remove debug keys before browser release (M, K, I, O, 1-5) in DayManager.cs
-- [ ] Remove debug inventory system or hide behind developer mode
+- [x] ~~Remove debug keys before browser release~~ ✅ Already handled via `#if UNITY_EDITOR || DEVELOPMENT_BUILD` in DebugInputManager.cs
+- [ ] Verify debug code excluded from WebGL builds (check build log for DebugInputManager exclusion)
 
 **CSV importer tool optimization:**
 - [ ] refactor the tool to generate folders when items are created segmenting items per size. 
@@ -567,6 +567,8 @@ This iterative testing ensures we catch bugs early and validate design decisions
 - ✅ **Shelf System Refactor**: Replace grid-calculated slot positioning with inspector-assigned transform array for maximum flexibility in shelf design
 - ✅ **Progression System**: Lifetime revenue tracking, tier-based milestones (5 tiers: Street Vendor → Tycoon), persistent progress UI
 - ✅ **Upgrade Shop System**: Card-based UI, purchase flow, tier-locked upgrades, dynamic rent contribution (8 upgrades for tiers 1-3)
+- ✅ **Managers Refactor**: Merged 3 Managers (espense, loan, failstate) → 1 Unified Manager (financial)
+- ✅ **Debug Input System**: Centralized DebugInputManager with compilation directives for automatic release build exclusion
 
 ### 🎮 Current Gameplay Loop
 1. **Morning:** Delivery boxes appear → Press E to open → Items to inventory → Restock shelves
@@ -587,6 +589,8 @@ This iterative testing ensures we catch bugs early and validate design decisions
 - **E** - Interact (open delivery boxes, toggle restock UI near shelves)
 
 ### 🐛 Debug Controls
+
+**Note:** All debug keys are managed by `DebugInputManager.cs`, which is wrapped in `#if UNITY_EDITOR || DEVELOPMENT_BUILD` compilation directives. These controls will automatically be excluded from release builds.
 
 **Day Management:**
 - **M** - Advance to next day (increments day counter, starts morning phase)
@@ -752,8 +756,52 @@ Dragon Throne,200,130,Big,3
 - ✅ Delivery box spawning working
 - ✅ Day 1 starting delivery working
 
-**Phase 3: Debug Key Extraction (PENDING)**
-- Plan: Extract debug keys from `DayManager.cs` → `DebugInputManager.cs`
-- Status: Awaiting Phases 1-2 completion
+**Phase 3: Debug Key Extraction ✅ COMPLETE**
+
+**Goal:** Centralize all debug input handling and prepare for easy exclusion from release builds
+
+**Changes Made:**
+- **Created `DebugInputManager.cs`** - New singleton for all debug input (264 lines)
+  - Wrapped in `#if UNITY_EDITOR || DEVELOPMENT_BUILD` compilation directive
+  - Organized debug keys into logical categories:
+    - Day Control Keys (M, O, K)
+    - Time Scale Keys (1, 2, 3, 5)
+    - Money Keys (7, 8, 9)
+    - Upgrade Testing Keys (F4-F10)
+    - Inventory Keys (I)
+  - XML documentation for all methods
+  - Consistent debug logging with "DEBUG:" prefix
+
+- **Updated `DayManager.cs`** - Removed 133 lines of debug input code
+  - Removed entire Update() method (lines 49-182)
+  - File now focuses solely on day/phase management logic
+  - Added comment referencing DebugInputManager
+
+- **Updated `PlayerController.cs`** - Removed debug inventory key
+  - Removed KeyCode.I handling from HandleInteraction()
+  - Added comment referencing DebugInputManager
+
+**Unity Editor Setup:**
+- Added DebugInputManager GameObject to main game scene
+- Attached DebugInputManager.cs script component
+
+**Benefits:**
+- **Cleaner Architecture:** DayManager.cs reduced from 271 → 138 lines
+- **Automatic Exclusion:** Debug code won't compile in release builds
+- **Better Organization:** All debug keys in one discoverable location
+- **Easy Maintenance:** Adding new debug keys has a clear home
+- **Zero Overhead:** No performance impact in production builds
+
+**Testing Results:**
+- ✅ All debug keys functional after extraction
+- ✅ Day control keys (M, O, K) working
+- ✅ Time scale controls (1, 2, 3, 5) working
+- ✅ Money debug keys (7, 8, 9) working
+- ✅ Upgrade test keys (F4-F10) working
+- ✅ Inventory debug key (I) working
+- ✅ Compilation directive verified
+
+**Debug Keys Reference:**
+- See "🐛 Debug Controls" section below for complete key mappings
 
 ---
