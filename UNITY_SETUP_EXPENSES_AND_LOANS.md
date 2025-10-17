@@ -482,7 +482,7 @@ Before committing changes, verify:
 
 ## Congratulations!
 
-You've successfully implemented the Monthly Expenses and Loan System! Players now have meaningful financial pressure and ways to lose the game, making DungeonMart more challenging and strategic.
+You've successfully implemented the Monthly Expenses and Loan System! Players now have meaningful financial pressure and ways to lose the game, making DungeonMart3D more challenging and strategic.
 
 ### Next Steps:
 - Playtest and balance difficulty

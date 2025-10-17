@@ -1,12 +1,12 @@
-# DungeonMart - Claude Development Guide
+# DungeonMart3D - Claude Development Guide
 
 ## Project Overview
-DungeonMart is a Unity 6.2 game project. This file contains project-specific instructions and commands for Claude Code assistance.
+DungeonMart3D is a Unity 6.2 game project. This file contains project-specific instructions and commands for Claude Code assistance.
 
 ## Development Environment
 - **Unity Version**: 6.2
 - **Platform**: Windows
-- **Repository**: https://github.com/Bouldouklu/DungeonMart.git
+- **Repository**: https://github.com/Bouldouklu/DungeonMart3D.git
 
 ## Unity Project Structure
 ```
