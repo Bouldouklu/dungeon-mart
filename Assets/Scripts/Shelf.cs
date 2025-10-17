@@ -5,7 +5,6 @@ using UnityEngine;
 public class Shelf : MonoBehaviour {
     [Header("Shelf Configuration")]
     [SerializeField] private ShelfTypeDataSO shelfType;
-    [SerializeField] private GameObject itemPrefab;
 
     [Header("Slot Positions")]
     [SerializeField] private Transform[] slotPositions;
@@ -85,7 +84,7 @@ public class Shelf : MonoBehaviour {
     /// Restock shelf with specific item type
     /// </summary>
     public bool RestockShelf(ItemDataSO itemData, int quantity = 1) {
-        if (itemData == null || itemPrefab == null) return false;
+        if (itemData == null || itemData.itemPrefab == null) return false;
         if (shelfType == null) return false;
 
         // Check if shelf can hold this item size
@@ -121,7 +120,7 @@ public class Shelf : MonoBehaviour {
             int itemsForThisSlot = Mathf.Min(itemsToPlace, spaceInSlot);
 
             for (int i = 0; i < itemsForThisSlot; i++) {
-                GameObject itemObj = Instantiate(itemPrefab, slot.transform);
+                GameObject itemObj = Instantiate(itemData.itemPrefab, slot.transform);
                 Item item = itemObj.GetComponent<Item>();
 
                 if (item != null) {

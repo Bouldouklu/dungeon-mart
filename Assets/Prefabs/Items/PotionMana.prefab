@@ -135,5 +135,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01c6acdc24b9e8d4cafe4e74e987dff1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Item
-  itemData: {fileID: 11400000, guid: bd20155685ec94f4691a73850007d1cc, type: 2}
+  itemData: {fileID: 11400000, guid: 5767c36a3ec23bd40bc84313a8c3619f, type: 2}
   spriteRenderer: {fileID: 5115174206059392129}

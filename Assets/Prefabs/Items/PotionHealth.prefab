@@ -77,7 +77,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01c6acdc24b9e8d4cafe4e74e987dff1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Item
-  itemData: {fileID: 11400000, guid: 19b2155c9153d1944bf0f099c6008d48, type: 2}
+  itemData: {fileID: 11400000, guid: 88bda0047a1f5364480b215502760d0b, type: 2}
   spriteRenderer: {fileID: 0}
 --- !u!1001 &8669272156253850068
 PrefabInstance:

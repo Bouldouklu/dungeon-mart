@@ -10,6 +10,7 @@ public enum ItemSize {
 public class ItemDataSO : ScriptableObject {
     public string itemName;
     public Sprite itemSprite;
+    public GameObject itemPrefab;
     public int sellPrice = 10;
     public int restockCost = 5;
 
