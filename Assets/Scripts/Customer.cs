@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
+[RequireComponent(typeof(NavMeshAgent))]
 public class Customer : MonoBehaviour {
     [SerializeField] private Transform itemCarryPoint;
     [SerializeField] private Transform visualParent;
@@ -15,6 +17,7 @@ public class Customer : MonoBehaviour {
     private Vector3 targetPosition;
     private bool waitingForCheckout = false;
     private CheckoutCounter checkoutCounter;
+    private NavMeshAgent agent;
 
     public bool IsMoving => isMoving;
     public CustomerTypeDataSO CustomerType => customerType;
@@ -27,6 +30,23 @@ public class Customer : MonoBehaviour {
             Debug.LogError("Customer initialized without CustomerTypeDataSO!");
             Destroy(gameObject);
             return;
+        }
+
+        // Initialize NavMeshAgent
+        agent = GetComponent<NavMeshAgent>();
+        if (agent != null)
+        {
+            agent.speed = customerType.moveSpeed;
+            agent.angularSpeed = 120f;
+            agent.acceleration = 8f;
+            agent.stoppingDistance = 0.5f;
+            agent.autoBraking = true;
+            agent.radius = 0.3f;
+            agent.height = 2.0f;
+        }
+        else
+        {
+            Debug.LogError("Customer missing NavMeshAgent component!");
         }
 
         // Spawn random visual prefab
@@ -75,8 +95,8 @@ public class Customer : MonoBehaviour {
             // Pick a random shelf
             Shelf targetShelf = shelves[Random.Range(0, shelves.Length)];
 
-            // Move to shelf
-            Vector3 shelfPos = targetShelf.transform.position + new Vector3(0, -1f, 0);
+            // Move to shelf (adjust offset for 3D - use Z instead of Y)
+            Vector3 shelfPos = targetShelf.transform.position + new Vector3(0, 0, -1f);
             MoveToPosition(shelfPos);
             while (isMoving) {
                 yield return null;
@@ -211,14 +231,23 @@ public class Customer : MonoBehaviour {
 
     private void MoveToPosition(Vector3 target) {
         targetPosition = target;
-        isMoving = true;
+        if (agent != null && agent.isOnNavMesh)
+        {
+            agent.SetDestination(target);
+            isMoving = true;
+        }
+        else
+        {
+            Debug.LogWarning("Customer NavMeshAgent is not on NavMesh!");
+            isMoving = false;
+        }
     }
 
     private void Update() {
-        if (isMoving && customerType != null) {
-            transform.position = Vector3.MoveTowards(transform.position, targetPosition, customerType.moveSpeed * Time.deltaTime);
-
-            if (Vector3.Distance(transform.position, targetPosition) < 0.1f) {
+        if (isMoving && agent != null && agent.isOnNavMesh) {
+            // Check if NavMeshAgent reached destination
+            if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance)
+            {
                 isMoving = false;
             }
         }

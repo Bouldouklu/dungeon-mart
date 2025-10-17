@@ -1,25 +1,27 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(Rigidbody))]
 public class PlayerController : MonoBehaviour {
     [SerializeField] private float moveSpeed = 5f;
     [SerializeField] private float interactionRange = 1.5f;
 
-    private Rigidbody2D rb2d;
+    private Rigidbody rb;
     private Vector2 moveInput;
     private Shelf nearestShelf;
     private bool canMove = true;
 
     private void Awake() {
-        rb2d = GetComponent<Rigidbody2D>();
+        rb = GetComponent<Rigidbody>();
 
-        // Enforce proper Rigidbody2D settings for collision detection
-        rb2d.bodyType = RigidbodyType2D.Dynamic;
-        rb2d.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
-        rb2d.gravityScale = 0f;
-        rb2d.constraints = RigidbodyConstraints2D.FreezeRotation;
+        // Enforce proper Rigidbody settings for 3D top-down collision detection
+        // Note: 3D Rigidbody is dynamic by default (no bodyType property)
+        rb.collisionDetectionMode = CollisionDetectionMode.Continuous;
+        rb.useGravity = false; // No gravity for top-down
+        rb.constraints = RigidbodyConstraints.FreezeRotationX |
+                         RigidbodyConstraints.FreezeRotationZ |
+                         RigidbodyConstraints.FreezePositionY; // Lock to ground plane
 
-        Debug.Log("PlayerController: Rigidbody2D configured for collision detection");
+        Debug.Log("PlayerController: Rigidbody configured for 3D collision detection");
     }
 
     private void Update() {
@@ -31,7 +33,7 @@ public class PlayerController : MonoBehaviour {
     private void HandleMovement() {
         if (!canMove) {
             // Stop movement when player cannot move (e.g., UI is open)
-            rb2d.linearVelocity = Vector2.zero;
+            rb.linearVelocity = Vector3.zero;
             return;
         }
 
@@ -39,8 +41,11 @@ public class PlayerController : MonoBehaviour {
         moveInput.y = Input.GetAxisRaw("Vertical");
         moveInput.Normalize();
 
-        // Use velocity for Dynamic Rigidbody2D
-        rb2d.linearVelocity = moveInput * moveSpeed;
+        // Convert 2D input to 3D movement (XZ plane for top-down)
+        Vector3 moveInput3D = new Vector3(moveInput.x, 0, moveInput.y);
+
+        // Use velocity for Dynamic Rigidbody
+        rb.linearVelocity = moveInput3D * moveSpeed;
     }
 
     private void FindNearestShelf() {
@@ -83,7 +88,7 @@ public class PlayerController : MonoBehaviour {
         this.canMove = canMove;
     }
 
-    private void OnCollisionEnter2D(Collision2D collision) {
+    private void OnCollisionEnter(Collision collision) {
         Debug.Log("Collision detected with: " + collision.gameObject.name);
     }
 }

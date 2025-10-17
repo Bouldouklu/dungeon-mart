@@ -10,7 +10,7 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private GameObject dialogueBubblePrefab;
     [SerializeField] private Canvas dialogueCanvas;
     [SerializeField] private float dialogueDuration = 2.5f;
-    [SerializeField] private Vector3 bubbleOffset = new Vector3(0, 1.5f, 0);
+    [SerializeField] private Vector3 bubbleOffset = new Vector3(0, 2.5f, 0); // Updated for 3D character height
 
     private static DialogueManager instance;
     public static DialogueManager Instance => instance;

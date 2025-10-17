@@ -23,16 +23,18 @@ Run a retail store supplying evil customers with weapons, minions, and dungeon e
 
 ## 🎥 Camera & Visual Style
 
-### **Camera View**: Angled Top-Down (Moonlighter Style)
-- **Angle**: tilt toward player for comfortable viewing
-- **Type**: Orthographic camera for clean 2D sprite rendering
-- **Benefits**: Clear customer expressions, obvious store layout, simple implementation
+### **Camera View**: Angled Top-Down 3D (Moonlighter Style)
+- **Angle**: 50° tilt toward player for comfortable viewing
+- **Type**: Perspective camera with 3D models and environment
+- **Position**: Elevated behind player (Y: 12, Z: -8)
+- **Benefits**: Clear spatial awareness, intuitive depth perception, smooth NavMesh-based customer movement
 
-### **Art Style**: 
+### **Art Style**:
 - Corporate retail meets fantasy dungeon aesthetic
 - Clean modern store design with awkwardly integrated evil elements
-- Fluorescent lighting, corporate signage with fantasy items
-- 2D sprites in angled top-down perspective
+- 3D low-poly models with stylized textures (Synty-style assets)
+- Dynamic lighting with warm ambiance
+- 3D environment with angled top-down camera perspective
 
 ---
 
@@ -142,22 +144,26 @@ Run a retail store supplying evil customers with weapons, minions, and dungeon e
 ## 🛠️ Technical Requirements
 
 ### **Unity Setup**:
-- **2D Sprite-based** rendering with angled top-down camera
-- **Orthographic camera** at 45° angle for Moonlighter-style view
-- **Simple coordinate system** - no complex isometric math required
-- **Sprite sorting** based on Y-position for proper depth
+- **3D Model-based** rendering with angled top-down perspective camera
+- **Perspective camera** at 50° angle positioned (Y: 12, Z: -8) for Moonlighter-style view
+- **Unity Navigation System** - NavMesh for customer AI pathfinding
+- **3D Physics** - Rigidbody and Collider components for player movement and collision
+- **URP Forward Renderer** - Optimized 3D rendering pipeline
 
 ### **Browser Optimization**:
-- Target **60fps** performance in WebGL
+- Target **30-60fps** performance in WebGL
+- **Brotli compression** for smaller build sizes (<150MB)
 - **Local save system** (no server required)
-- **Mobile-friendly UI** scaling for broader accessibility
-- **Quick load times** (<10 seconds to playable)
+- **Optimized rendering**: Disabled shadows, medium texture quality, static batching
+- **Quick load times** (<30 seconds to playable)
 
 ### **Asset Requirements**:
-- Store layout background and tile sprites
-- 5-8 customer character types with basic animations
-- 20+ inventory item sprites (weapons, armor, potions, etc.)
-- UI elements for checkout, underground ordering, business management
+- 3D environment models (ground planes, walls, floors)
+- 3D furniture models (shelves, displays, checkout counter)
+- 5-15 customer 3D character models with NavMesh agents
+- 20+ inventory item 3D models (weapons, armor, potions, etc.)
+- UI elements for checkout, ordering, business management
+- Synty low-poly asset packs (Fantasy Kingdom, Polygon style)
 
 ---
 
