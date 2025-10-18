@@ -34,7 +34,8 @@ public class UpgradeShopUI : MonoBehaviour
     [SerializeField] private List<UpgradeDataSO> availableUpgrades = new List<UpgradeDataSO>();
 
     private List<GameObject> spawnedCards = new List<GameObject>();
-    private UpgradeCategory currentFilter = UpgradeCategory.ShopExpansion; // Show all by default
+    private UpgradeCategory currentFilter = UpgradeCategory.ShopExpansion;
+    private bool showAllCategories = true; // Show all categories by default
     private UpgradeDataSO pendingPurchase = null;
 
     private void Awake()
@@ -222,12 +223,9 @@ public class UpgradeShopUI : MonoBehaviour
     {
         Debug.Log($"🔘 SetFilter called: category={category}, showAll={showAll}");
 
-        if (showAll)
-        {
-            // Show all upgrades (no filter)
-            currentFilter = UpgradeCategory.ShopExpansion;
-        }
-        else
+        showAllCategories = showAll;
+
+        if (!showAll)
         {
             currentFilter = category;
         }
@@ -275,9 +273,14 @@ public class UpgradeShopUI : MonoBehaviour
         List<UpgradeDataSO> filtered = new List<UpgradeDataSO>(availableUpgrades);
 
         // Apply category filter (if not showing all)
-        if (filterAllButton == null || !filterAllButton.interactable)
+        if (!showAllCategories)
         {
             filtered = filtered.Where(u => u.category == currentFilter).ToList();
+            Debug.Log($"📋 Filtering by category: {currentFilter}, found {filtered.Count} upgrades");
+        }
+        else
+        {
+            Debug.Log($"📋 Showing all categories, found {filtered.Count} upgrades");
         }
 
         return filtered;

@@ -72,7 +72,7 @@ This iterative testing ensures we catch bugs early and validate design decisions
 - ✅ Price color logic: Green (affordable), Red (can't afford), Gray (tier-locked)
 - ✅ Click detection fixed (raycast target + interactable logic)
 - ✅ Tier requirement validation working correctly
-- ⚠️ **Known Issue**: Filter buttons not functional (deferred to next session)
+- ✅ Filter buttons fixed and functional (All/Shelves/Operations/CustomerFlow)
 
 **Testing Results:**
 - ✅ Cards display correctly with proper state colors
@@ -87,11 +87,10 @@ This iterative testing ensures we catch bugs early and validate design decisions
 
 ## 📝 Next Session Priorities
 
-1. **Fix Filter System** - Category filter buttons not working
-2. **Test Upgrade Effects** - Verify actual gameplay impact of purchases
-3. **Full Integration Test** - Purchase → Effect → Gameplay loop
-4. **Polish** - Add purchase success feedback (animation/sound)
-5. **Consider** - Tier-up celebration modal
+1. **Test Upgrade Effects** - Verify actual gameplay impact of purchases
+2. **Full Integration Test** - Purchase → Effect → Gameplay loop
+3. **Polish** - Add purchase success feedback (animation/sound)
+4. **Consider** - Tier-up celebration modal
 
 ---
 
@@ -527,13 +526,7 @@ This iterative testing ensures we catch bugs early and validate design decisions
 
 ### ⚠️ MEDIUM PRIORITY
 
-**2. Upgrade Shop Filter Buttons Not Working**
-- **Status**: Deferred to next session
-- **Symptoms**: Category filter buttons (All/Shelves/Operations/CustomerFlow) don't filter upgrade cards
-- **Current Behavior**: Buttons respond visually but don't change displayed cards
-- **Files**: `UpgradeShopUI.cs` (SetFilter method)
-
-**3. Upgrade Effect Application Not Tested**
+**2. Upgrade Effect Application Not Tested**
 - **Status**: Backend complete, testing deferred
 - **Risk**: Upgrades can be purchased but effects may not apply correctly in gameplay
 - **Needs Testing**: Segment unlocks, shelf capacity increases, customer bonuses, checkout speed
