@@ -10,13 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e1fbf7af2747a1345a2497ae11e76a71, type: 3}
-  m_Name: PedestalL
+  m_Name: BigPedestalL
   m_EditorClassIdentifier: Assembly-CSharp::ShelfTypeDataSO
-  shelfTypeName: Pedestral L
-  totalSlots: 1
+  shelfTypeName: Big Pedestral L
   allowedItemSize: 2
-  slotSpacing: {x: 0, y: 0}
-  slotsPerRow: 1
-  horizontalLayout: 1
-  itemDisplayOffset: {x: 0, y: 0, z: 0}
   itemScale: 1

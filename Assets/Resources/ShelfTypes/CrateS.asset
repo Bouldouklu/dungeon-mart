@@ -10,13 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e1fbf7af2747a1345a2497ae11e76a71, type: 3}
-  m_Name: FloorDisplayM
+  m_Name: CrateS
   m_EditorClassIdentifier: Assembly-CSharp::ShelfTypeDataSO
-  shelfTypeName: Floor Display M
-  totalSlots: 2
-  allowedItemSize: 1
-  slotSpacing: {x: 0.8, y: 0.8}
-  slotsPerRow: 2
-  horizontalLayout: 1
-  itemDisplayOffset: {x: 0, y: 0, z: 0}
+  shelfTypeName: Crate S
+  allowedItemSize: 0
   itemScale: 1

@@ -10,13 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e1fbf7af2747a1345a2497ae11e76a71, type: 3}
-  m_Name: DisplayCaseS
+  m_Name: MediumPedestralM
   m_EditorClassIdentifier: Assembly-CSharp::ShelfTypeDataSO
-  shelfTypeName: Display Case S
-  totalSlots: 4
-  allowedItemSize: 0
-  slotSpacing: {x: 0.3, y: 0.3}
-  slotsPerRow: 2
-  horizontalLayout: 1
-  itemDisplayOffset: {x: 0, y: 0, z: 0}
+  shelfTypeName: Medium Pedestral M
+  allowedItemSize: 1
   itemScale: 1
