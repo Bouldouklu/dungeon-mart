@@ -19,7 +19,7 @@ public class UpgradeShopUI : MonoBehaviour
     [SerializeField] private Button closeButton;
 
     [Header("Filter UI")]
-    [SerializeField] private Button filterAllButton;
+    [SerializeField] private Button filterShopExpansionButton;
     [SerializeField] private Button filterShelvesButton;
     [SerializeField] private Button filterOperationsButton;
     [SerializeField] private Button filterCustomerFlowButton;
@@ -35,7 +35,6 @@ public class UpgradeShopUI : MonoBehaviour
 
     private List<GameObject> spawnedCards = new List<GameObject>();
     private UpgradeCategory currentFilter = UpgradeCategory.ShopExpansion;
-    private bool showAllCategories = true; // Show all categories by default
     private UpgradeDataSO pendingPurchase = null;
 
     private void Awake()
@@ -107,10 +106,10 @@ public class UpgradeShopUI : MonoBehaviour
             Debug.Log("✅ Close button listener added");
         }
 
-        if (filterAllButton != null)
+        if (filterShopExpansionButton != null)
         {
-            filterAllButton.onClick.AddListener(() => SetFilter(UpgradeCategory.ShopExpansion, true));
-            Debug.Log("✅ FilterAll button listener added");
+            filterShopExpansionButton.onClick.AddListener(() => SetFilter(UpgradeCategory.ShopExpansion));
+            Debug.Log("✅ FilterShopExpansion button listener added");
         }
 
         if (filterShelvesButton != null)
@@ -147,7 +146,7 @@ public class UpgradeShopUI : MonoBehaviour
     private void CleanupButtonListeners()
     {
         if (closeButton != null) closeButton.onClick.RemoveAllListeners();
-        if (filterAllButton != null) filterAllButton.onClick.RemoveAllListeners();
+        if (filterShopExpansionButton != null) filterShopExpansionButton.onClick.RemoveAllListeners();
         if (filterShelvesButton != null) filterShelvesButton.onClick.RemoveAllListeners();
         if (filterOperationsButton != null) filterOperationsButton.onClick.RemoveAllListeners();
         if (filterCustomerFlowButton != null) filterCustomerFlowButton.onClick.RemoveAllListeners();
@@ -219,17 +218,11 @@ public class UpgradeShopUI : MonoBehaviour
     /// <summary>
     /// Sets the category filter and refreshes the UI.
     /// </summary>
-    private void SetFilter(UpgradeCategory category, bool showAll = false)
+    private void SetFilter(UpgradeCategory category)
     {
-        Debug.Log($"🔘 SetFilter called: category={category}, showAll={showAll}");
+        Debug.Log($"🔘 SetFilter called: category={category}");
 
-        showAllCategories = showAll;
-
-        if (!showAll)
-        {
-            currentFilter = category;
-        }
-
+        currentFilter = category;
         RefreshUpgradeCards();
     }
 
@@ -270,18 +263,11 @@ public class UpgradeShopUI : MonoBehaviour
     /// </summary>
     private List<UpgradeDataSO> GetFilteredUpgrades()
     {
-        List<UpgradeDataSO> filtered = new List<UpgradeDataSO>(availableUpgrades);
+        List<UpgradeDataSO> filtered = availableUpgrades
+            .Where(u => u.category == currentFilter)
+            .ToList();
 
-        // Apply category filter (if not showing all)
-        if (!showAllCategories)
-        {
-            filtered = filtered.Where(u => u.category == currentFilter).ToList();
-            Debug.Log($"📋 Filtering by category: {currentFilter}, found {filtered.Count} upgrades");
-        }
-        else
-        {
-            Debug.Log($"📋 Showing all categories, found {filtered.Count} upgrades");
-        }
+        Debug.Log($"📋 Filtering by category: {currentFilter}, found {filtered.Count} upgrades");
 
         return filtered;
     }

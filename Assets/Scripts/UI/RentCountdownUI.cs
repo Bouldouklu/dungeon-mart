@@ -25,6 +25,12 @@ public class RentCountdownUI : MonoBehaviour
             FinancialManager.Instance.OnRentPaid += OnRentPaid;
         }
 
+        // Subscribe to shop segment manager events (for rent contribution changes)
+        if (ShopSegmentManager.Instance != null)
+        {
+            ShopSegmentManager.Instance.OnSegmentUnlocked += OnSegmentUnlocked;
+        }
+
         // Initialize display
         UpdateDisplay();
     }
@@ -35,6 +41,11 @@ public class RentCountdownUI : MonoBehaviour
         {
             FinancialManager.Instance.OnRentCountdownChanged -= OnRentCountdownChanged;
             FinancialManager.Instance.OnRentPaid -= OnRentPaid;
+        }
+
+        if (ShopSegmentManager.Instance != null)
+        {
+            ShopSegmentManager.Instance.OnSegmentUnlocked -= OnSegmentUnlocked;
         }
     }
 
@@ -52,6 +63,15 @@ public class RentCountdownUI : MonoBehaviour
     private void OnRentPaid(int amountPaid, int newMonth)
     {
         UpdateDisplay();
+    }
+
+    /// <summary>
+    /// Called when a shop segment is unlocked (rent contribution changes).
+    /// </summary>
+    private void OnSegmentUnlocked(int segmentIndex, string segmentName)
+    {
+        UpdateDisplay();
+        Debug.Log($"RentCountdownUI: Rent updated due to segment unlock ({segmentName})");
     }
 
     /// <summary>

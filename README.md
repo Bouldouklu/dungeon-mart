@@ -85,200 +85,27 @@ This iterative testing ensures we catch bugs early and validate design decisions
 
 ---
 
-## 📝 Phase 1.3: Upgrade System Testing Plan 🧪 PENDING
+### 1.3: Upgrade System Testing ✅ COMPLETE
 
 **Goal:** Verify all upgrade effects work correctly in gameplay and provide tangible benefits
 
-### Testing Approach
+**Testing Results:**
+- ✅ **Test 1: Shop Segment Unlocking** - Segments unlock correctly, become visible in scene, shelves become usable
+- ✅ **Test 2: Shelf Capacity Increases** - Capacity bonuses apply globally, effects stack correctly, shelves accept more items
+- ✅ **Test 3: Customer Count Bonuses** - More customers spawn, bonuses persist across days, effects stack correctly
+- ✅ **Test 4: Rent Contribution System** - Rent increases correctly when segments unlock, breakdown displays properly
+- ✅ **Test 5: Integration Testing** - Full purchase flow works end-to-end, effects apply immediately, upgrades persist
+- ✅ **Test 6: Edge Cases & Error Handling** - Tier locks work, insufficient funds handled, non-repeatable protection works, max limits enforced
 
-**Testing Environment:**
-- Use debug keys (F4-F10) for rapid testing
-- Test each upgrade type systematically
-- Document any bugs or unexpected behavior
-- Verify UI state matches backend state
+**Bug Fixes:**
+- ✅ **Rent UI Update Bug** - Fixed rent countdown UI not updating immediately when segments unlock (added OnSegmentUnlocked event subscription)
 
----
-
-### Test 1: Shop Segment Unlocking ✅ HIGH PRIORITY
-
-**What to Test:**
-- Segment visibility toggling (segments appear/disappear in scene)
-- Shelf slots in unlocked segments become available for restocking
-- Rent contribution increases correctly when segments unlock
-
-**Test Steps:**
-1. [ ] Start game in Unity play mode
-2. [ ] Press **F4** → Verify Segment 1 visually appears in scene
-3. [ ] Press **F5** → Verify Segment 2 visually appears in scene
-4. [ ] Press **F6** → Verify Segment 3 visually appears in scene
-5. [ ] Press **F9** → Check console logs for rent contribution breakdown
-6. [ ] Try restocking shelves in newly unlocked segments
-7. [ ] Purchase shop expansion upgrade through UI → Verify segment unlocks
-
-**Expected Results:**
-- ✅ Segment GameObjects activate on unlock
-- ✅ Rent increases by $100 per segment (logged in console)
-- ✅ Shelves in unlocked segments accept items
-
-**Files Involved:**
-- `ShopSegmentManager.cs:99-135` (UnlockSegment method)
-- `UpgradeManager.cs:181-190` (Shop segment effect application)
+**UI Improvements:**
+- ✅ **Filter System** - Replaced "All" filter with "Shop Expansion" category filter for better organization (4 filters: Shop Expansion, Shelves, Operations, Customer Flow)
 
 ---
 
-### Test 2: Shelf Capacity Increases ✅ HIGH PRIORITY
-
-**What to Test:**
-- Shelves accept more items per slot after upgrade
-- Capacity bonus persists across game phases
-- Multiple capacity upgrades stack correctly
-
-**Test Steps:**
-1. [ ] Start game, note current shelf capacity (baseItemsPerSlot = 5)
-2. [ ] Restock a shelf to full capacity → Count items
-3. [ ] Press **F7** → Add +2 shelf capacity bonus
-4. [ ] Check console log: "Capacity increased by 2. New capacity: 7 items/slot"
-5. [ ] Restock same shelf → Verify it now holds 7 items per slot
-6. [ ] Press **F7** again → Verify capacity increases to 9 items/slot
-7. [ ] Purchase "Efficient Shelving Lv1" upgrade through UI → Verify effect
-
-**Expected Results:**
-- ✅ Shelves hold more items after capacity upgrade
-- ✅ Console logs show capacity increase for each shelf
-- ✅ Capacity bonus applies to all shelves in scene
-
-**Files Involved:**
-- `Shelf.cs:71-81` (IncreaseCapacity method)
-- `UpgradeManager.cs:192-194` (Shelf capacity effect application)
-- `UpgradeManager.cs:231-239` (IncreaseAllShelfCapacity helper)
-
----
-
-### Test 3: Customer Count Bonuses ✅ HIGH PRIORITY
-
-**What to Test:**
-- More customers spawn when bonus is applied
-- Customer count persists across days
-- UI displays correct total customer count
-
-**Test Steps:**
-1. [ ] Start game, advance to business phase (Press **O**)
-2. [ ] Note customer spawn count in console: "Starting customer wave: X customers"
-3. [ ] Wait for all customers to spawn and leave
-4. [ ] Press **M** to advance to next day
-5. [ ] Press **F8** → Add +2 bonus customers
-6. [ ] Check console log: "Customer bonus increased by 2. New total: X customers/day"
-7. [ ] Press **O** → Observe business phase
-8. [ ] Verify console shows increased customer count
-9. [ ] Count actual customers that spawn (should be +2 more)
-10. [ ] Purchase "Extended Hours" upgrade through UI → Verify effect
-
-**Expected Results:**
-- ✅ Customer spawn count increases by 2
-- ✅ All customers spawn successfully (no errors)
-- ✅ Day ends correctly after all customers leave
-
-**Files Involved:**
-- `CustomerSpawner.cs:68-72` (AddBonusCustomers method)
-- `CustomerSpawner.cs:55-63` (StartSpawningWave method)
-- `UpgradeManager.cs:196-205` (Customer count effect application)
-
----
-
-### Test 4: Rent Contribution System ✅ MEDIUM PRIORITY
-
-**What to Test:**
-- Rent increases when segments are unlocked
-- Rent breakdown displays correctly
-- FinancialManager calculates rent correctly
-
-**Test Steps:**
-1. [ ] Start game, check initial rent (should be $500 base)
-2. [ ] Press **F9** → Check console logs for rent breakdown
-3. [ ] Expected: "Base Rent: $500, Segment Contribution: $0, Total: $500"
-4. [ ] Press **F4** → Unlock Segment 1
-5. [ ] Press **F9** → Verify rent breakdown shows segment contribution
-6. [ ] Expected: "Base Rent: $500, Segment Contribution: $100, Total: $600"
-7. [ ] Press **F5** and **F6** → Unlock Segments 2 & 3
-8. [ ] Press **F9** → Verify total rent is $800 ($500 + $300)
-9. [ ] Press **F10** → Pay rent and verify correct amount deducted
-
-**Expected Results:**
-- ✅ Rent increases by $100 per unlocked segment (excluding first)
-- ✅ Console logs show correct rent breakdown
-- ✅ RentPaymentUI displays correct total rent
-
-**Files Involved:**
-- `ShopSegmentManager.cs:177-183` (GetRentContribution method)
-- `FinancialManager.cs` (rent calculation with segment contribution)
-
----
-
-### Test 5: Integration Testing ✅ HIGH PRIORITY
-
-**What to Test:**
-- Full upgrade purchase flow works end-to-end
-- Upgrades persist across day cycles
-- Multiple upgrades work together correctly
-
-**Test Steps:**
-1. [ ] Start new game
-2. [ ] Press **7** → Add $500 for testing
-3. [ ] Open upgrade shop UI (if accessible)
-4. [ ] Purchase "Efficient Shelving Lv1" ($300)
-5. [ ] Verify money deducted correctly
-6. [ ] Verify shelf capacity increased
-7. [ ] Restock shelves to confirm capacity change
-8. [ ] Press **M** → Advance to next day
-9. [ ] Verify shelf capacity still increased (persistence test)
-10. [ ] Press **8** → Add $1500 to unlock Tier 2
-11. [ ] Purchase "Extended Hours" upgrade ($700)
-12. [ ] Press **O** → Verify more customers spawn
-13. [ ] Complete full day cycle
-14. [ ] Verify owned upgrades remain owned
-
-**Expected Results:**
-- ✅ Purchase flow: Click → Confirm → Money deducted → Effect applied
-- ✅ Upgrades persist across days
-- ✅ Multiple upgrades stack correctly (capacity + customers)
-- ✅ Owned upgrades show "Owned" or "Maxed" state in UI
-
-**Files Involved:**
-- `UpgradeManager.cs:127-172` (PurchaseUpgrade method)
-- `UpgradeManager.cs:177-226` (ApplyUpgradeEffect method)
-- `UpgradeShopUI.cs` (purchase flow UI)
-
----
-
-### Test 6: Edge Cases & Error Handling 🔍 MEDIUM PRIORITY
-
-**What to Test:**
-- Invalid upgrade purchases are blocked
-- Tier locks work correctly
-- Repeatable upgrades respect max purchase limits
-
-**Test Steps:**
-1. [ ] Start game at Tier 0
-2. [ ] Try purchasing Tier 2 upgrade → Should be blocked ("Requires Tier 2")
-3. [ ] Purchase non-repeatable upgrade once
-4. [ ] Try purchasing same upgrade again → Should show "Owned" state
-5. [ ] Purchase repeatable upgrade (Extended Hours) max times
-6. [ ] Verify upgrade shows "Maxed" state after max purchases
-7. [ ] Try purchasing upgrade without enough money → Should fail gracefully
-
-**Expected Results:**
-- ✅ Tier-locked upgrades cannot be purchased
-- ✅ Non-repeatable upgrades show "Owned" after purchase
-- ✅ Repeatable upgrades show "Maxed" at purchase limit
-- ✅ Insufficient funds prevent purchase with clear message
-
-**Files Involved:**
-- `UpgradeManager.cs:59-122` (CanPurchaseUpgrade validation)
-- `UpgradeManager.cs:284-312` (GetUpgradeState method)
-
----
-
-### Test 7: Not Yet Implemented Effects ⚠️ INFO ONLY
+### Test Not Yet Implemented Effects ⚠️ INFO ONLY
 
 **These upgrade effects have TODO placeholders and will NOT work yet:**
 
@@ -298,47 +125,6 @@ This iterative testing ensures we catch bugs early and validate design decisions
    - Requires: DeliveryManager/SupplyChainManager modifications
 
 **Action Required:** Skip testing these effects for now, mark as "PENDING IMPLEMENTATION"
-
----
-
-### Testing Checklist Summary
-
-**Before Testing:**
-- [ ] Open Unity Editor
-- [ ] Load GameScene
-- [ ] Enter Play Mode
-- [ ] Have console visible for debug logs
-
-**Core Tests (Must Pass):**
-- [ ] Test 1: Shop Segment Unlocking
-- [ ] Test 2: Shelf Capacity Increases
-- [ ] Test 3: Customer Count Bonuses
-- [ ] Test 4: Rent Contribution System
-- [ ] Test 5: Integration Testing
-- [ ] Test 6: Edge Cases & Error Handling
-
-**Documentation:**
-- [ ] Record any bugs found
-- [ ] Note any unexpected behavior
-- [ ] Document test results in README
-- [ ] Update Phase 1.2 status based on results
-
----
-
-### Success Criteria
-
-**Phase 1.3 is COMPLETE when:**
-1. ✅ All implemented upgrade effects work correctly
-2. ✅ Upgrades persist across day cycles
-3. ✅ Rent contribution system calculates correctly
-4. ✅ No critical bugs found
-5. ✅ Edge cases handled gracefully
-
-**If bugs are found:**
-- Document bug in "Known Issues" section
-- Create fix in code
-- Re-test affected functionality
-- Mark test as passed after fix confirmed
 
 ---
 
@@ -774,11 +560,11 @@ This iterative testing ensures we catch bugs early and validate design decisions
 
 ### ⚠️ MEDIUM PRIORITY
 
-**2. Upgrade Effect Application Not Tested**
-- **Status**: Backend complete, testing deferred
-- **Risk**: Upgrades can be purchased but effects may not apply correctly in gameplay
-- **Needs Testing**: Segment unlocks, shelf capacity increases, customer bonuses, checkout speed
-- **Files**: `UpgradeManager.cs`, `ShopSegmentManager.cs`, `Shelf.cs`, `CustomerSpawner.cs`
+**2. Not Yet Implemented Upgrade Effects**
+- **Status**: Placeholder TODOs in UpgradeManager.cs
+- **Pending Implementation**: Checkout speed decrease, bulk ordering, auto-restock
+- **Implemented & Tested**: Shop segment unlocking ✅, shelf capacity increases ✅, customer count bonuses ✅
+- **Files**: `UpgradeManager.cs:207-220`
 
 ---
 
@@ -808,7 +594,10 @@ This iterative testing ensures we catch bugs early and validate design decisions
 - ✅ **Shelf System Refactor**: Replace grid-calculated slot positioning with inspector-assigned transform array for maximum flexibility in shelf design
 - ✅ **Progression System**: Lifetime revenue tracking, tier-based milestones (5 tiers: Street Vendor → Tycoon), persistent progress UI
 - ✅ **Upgrade Shop System**: Card-based UI, purchase flow, tier-locked upgrades, dynamic rent contribution (8 upgrades for tiers 1-3)
-- ✅ **Managers Refactor**: Merged 3 Managers (espense, loan, failstate) → 1 Unified Manager (financial)
+- ✅ **Upgrade System Testing (Phase 1.3)**: All upgrade effects verified and working - shop segment unlocking, shelf capacity increases, customer count bonuses, rent contribution system, full integration testing, edge case handling
+- ✅ **Rent UI Dynamic Updates**: RentCountdownUI now subscribes to OnSegmentUnlocked event for immediate rent display updates when shop expands
+- ✅ **Category Filter System**: Upgrade shop now has 4 category filters (Shop Expansion, Shelves, Operations, Customer Flow) for better organization
+- ✅ **Managers Refactor**: Merged 3 Managers (expense, loan, failstate) → 1 Unified Manager (financial)
 - ✅ **Debug Input System**: Centralized DebugInputManager with compilation directives for automatic release build exclusion
 - ✅ **2D to 3D Conversion**: Complete transformation from 2D orthographic to 3D perspective top-down gameplay with NavMesh pathfinding, WebGL-optimized rendering
 - ✅ **Item System Refactor**: Converted from 2D sprites to 3D models - ItemDataSO now carries prefab reference (data-driven design), Item.cs simplified to pure data container, visual setup handled by prefab structure
