@@ -58,6 +58,12 @@ public class ShelfSlot : MonoBehaviour {
 
         storedItems.Add(item);
 
+        // Disable colliders on items to prevent raycast interference with shelf clicking
+        Collider itemCollider = item.GetComponent<Collider>();
+        if (itemCollider != null) {
+            itemCollider.enabled = false;
+        }
+
         // Only show the first item visually, hide all others
         if (storedItems.Count == 1) {
             // First item - make it visible
