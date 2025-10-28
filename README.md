@@ -601,9 +601,10 @@ This iterative testing ensures we catch bugs early and validate design decisions
 - ✅ **Upgrade System Testing (Phase 1.3)**: All upgrade effects verified and working - shop segment unlocking, shelf capacity increases, customer count bonuses, rent contribution system, full integration testing, edge case handling
 - ✅ **Rent UI Dynamic Updates**: RentCountdownUI now subscribes to OnSegmentUnlocked event for immediate rent display updates when shop expands
 - ✅ **Category Filter System**: Upgrade shop now has 4 category filters (Shop Expansion, Shelves, Operations, Customer Flow) for better organization
+- ✅ **Mouse-Based Interaction System**: Transitioned from WASD keyboard controls to fully mouse-based point-and-click gameplay - click shelves to restock, click delivery boxes to open, hover feedback with pink (#FF6B9D) outline and scale pulse effect
 
 ### 🎮 Current Gameplay Loop
-1. **Morning:** Delivery boxes appear → Press E to open → Items to inventory → Restock shelves
+1. **Morning:** Delivery boxes appear → Click boxes to open → Items to inventory → Click shelves to restock
 2. **Business:** Press O → Different customer types spawn with unique behaviors → Browse shelves → Show dialogue → Collect 1-4 items → Checkout → Day auto-ends when done
 3. **End of Day:** Summary panel shows stats → Click "Continue" → Press Tab → Order stock for tomorrow → Press M to advance
 4. **Next Morning:** Repeat cycle (Day 2, 3, 4...)
@@ -615,10 +616,10 @@ This iterative testing ensures we catch bugs early and validate design decisions
 - **Visual Variety**: Each customer spawns with a random SPUM character model (48 unique variants)
 
 ### 🔧 Controls
-- **WASD/Arrow Keys** - Move player on XZ plane (3D top-down movement, blocked by walls and colliders, disabled when UI open)
+- **Mouse Click** - Interact with objects (click shelves to restock, click delivery boxes to open)
+- **Mouse Hover** - Visual feedback on interactive objects (pink outline with subtle pulse animation)
 - **ESC** - Pause/unpause game (opens pause menu)
 - **Tab** - Open order menu (end of day only)
-- **E** - Interact (open delivery boxes, toggle restock UI near shelves)
 
 ### 🐛 Debug Controls
 
