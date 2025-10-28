@@ -602,6 +602,7 @@ This iterative testing ensures we catch bugs early and validate design decisions
 - ✅ **Rent UI Dynamic Updates**: RentCountdownUI now subscribes to OnSegmentUnlocked event for immediate rent display updates when shop expands
 - ✅ **Category Filter System**: Upgrade shop now has 4 category filters (Shop Expansion, Shelves, Operations, Customer Flow) for better organization
 - ✅ **Mouse-Based Interaction System**: Transitioned from WASD keyboard controls to fully mouse-based point-and-click gameplay - click shelves to restock, click delivery boxes to open, hover feedback with pink (#FF6B9D) outline and scale pulse effect
+- ✅ **Customer Animation System**: Component-based animation controller for customer walk/idle states - attaches to visual prefabs, automatically finds NavMeshAgent in parent hierarchy, velocity-based animation switching with configurable threshold
 
 ### 🎮 Current Gameplay Loop
 1. **Morning:** Delivery boxes appear → Click boxes to open → Items to inventory → Click shelves to restock
