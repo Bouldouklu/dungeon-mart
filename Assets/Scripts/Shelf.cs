@@ -17,6 +17,12 @@ public class Shelf : MonoBehaviour, IInteractable {
     [SerializeField] private int baseItemsPerSlot = 5;
     [SerializeField] private int capacityBonus = 0;
 
+    [Header("Quantity Badge UI")]
+    [SerializeField] private GameObject quantityBadgePrefab;
+    [SerializeField] private Vector3 badgeOffset = new Vector3(0, 0.5f, 0);
+
+    private Canvas badgeCanvas; // Auto-found at runtime
+
     [Header("Interaction Visual Feedback")]
     [SerializeField] private OutlineEffect outlineEffect;
 
@@ -49,6 +55,14 @@ public class Shelf : MonoBehaviour, IInteractable {
             return;
         }
 
+        // Auto-find canvas in scene for quantity badges
+        if (badgeCanvas == null && quantityBadgePrefab != null) {
+            badgeCanvas = FindFirstObjectByType<Canvas>();
+            if (badgeCanvas == null) {
+                Debug.LogWarning($"Shelf {gameObject.name}: No Canvas found in scene. Quantity badges will not be created.");
+            }
+        }
+
         // Create ShelfSlot components at each assigned transform position
         for (int i = 0; i < slotPositions.Length; i++) {
             Transform slotTransform = slotPositions[i];
@@ -64,7 +78,21 @@ public class Shelf : MonoBehaviour, IInteractable {
                 slot = slotTransform.gameObject.AddComponent<ShelfSlot>();
             }
 
-            slot.Initialize(i, ItemsPerSlot);
+            // Create quantity badge for this slot if prefab and canvas are assigned
+            QuantityBadge badge = null;
+            if (quantityBadgePrefab != null && badgeCanvas != null) {
+                GameObject badgeObj = Instantiate(quantityBadgePrefab, badgeCanvas.transform);
+                badge = badgeObj.GetComponent<QuantityBadge>();
+
+                if (badge != null) {
+                    badge.Initialize(slotTransform, badgeOffset);
+                } else {
+                    Debug.LogWarning($"Shelf {gameObject.name}: Quantity badge prefab missing QuantityBadge component!");
+                    Destroy(badgeObj);
+                }
+            }
+
+            slot.Initialize(i, ItemsPerSlot, badge);
             slots.Add(slot);
         }
 

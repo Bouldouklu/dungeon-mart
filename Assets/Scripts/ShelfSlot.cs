@@ -2,7 +2,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// Represents a storage slot on a shelf that can hold multiple items of the same type
+/// Represents a storage slot on a shelf that can hold multiple items of the same type.
+/// Uses a quantity badge to display count instead of visual stacking.
 /// </summary>
 public class ShelfSlot : MonoBehaviour {
     [SerializeField] private Transform itemContainer;
@@ -11,6 +12,8 @@ public class ShelfSlot : MonoBehaviour {
     private List<Item> storedItems = new List<Item>();
     private int maxCapacityPerSlot = 5;
     private int slotIndex;
+    private QuantityBadge quantityBadge;
+    private Item displayedItem; // The single visual item shown in the slot
 
     public bool IsEmpty => storedItems.Count == 0;
     public bool IsFull => storedItems.Count >= maxCapacityPerSlot;
@@ -21,9 +24,11 @@ public class ShelfSlot : MonoBehaviour {
     /// <summary>
     /// Initialize this slot with its index and capacity
     /// </summary>
-    public void Initialize(int index, int maxCapacity) {
+    public void Initialize(int index, int maxCapacity, QuantityBadge badge = null) {
         slotIndex = index;
         maxCapacityPerSlot = maxCapacity;
+        quantityBadge = badge;
+
         if (itemContainer == null) {
             itemContainer = transform;
         }
@@ -52,10 +57,21 @@ public class ShelfSlot : MonoBehaviour {
         }
 
         storedItems.Add(item);
-        item.transform.SetParent(itemContainer);
-        item.transform.localPosition = GetItemStackPosition(storedItems.Count - 1);
-        item.transform.localScale = Vector3.one;
 
+        // Only show the first item visually, hide all others
+        if (storedItems.Count == 1) {
+            // First item - make it visible
+            displayedItem = item;
+            item.transform.SetParent(itemContainer);
+            item.transform.localPosition = Vector3.zero; // No offset needed
+            item.transform.localScale = Vector3.one;
+        } else {
+            // Additional items - hide them but keep in list for inventory tracking
+            item.gameObject.SetActive(false);
+            item.transform.SetParent(itemContainer);
+        }
+
+        UpdateQuantityDisplay();
         return true;
     }
 
@@ -68,24 +84,34 @@ public class ShelfSlot : MonoBehaviour {
         Item item = storedItems[storedItems.Count - 1];
         storedItems.RemoveAt(storedItems.Count - 1);
 
+        // If we took the displayed item, make the next one visible
+        if (item == displayedItem) {
+            displayedItem = null;
+            if (!IsEmpty) {
+                // Show the next item
+                displayedItem = storedItems[storedItems.Count - 1];
+                displayedItem.gameObject.SetActive(true);
+                displayedItem.transform.localPosition = Vector3.zero;
+            }
+        }
+
         // Clear item type if slot is now empty
         if (IsEmpty) {
             itemType = null;
         }
 
+        UpdateQuantityDisplay();
         return item;
     }
 
     /// <summary>
-    /// Get the local position for an item based on its stack index
+    /// Updates the quantity badge display based on current item count.
+    /// Shows badge only when count > 1.
     /// </summary>
-    private Vector3 GetItemStackPosition(int stackIndex) {
-        // Stack items slightly offset to show depth
-        return new Vector3(
-            stackIndex * 0.02f,  // Slight horizontal offset
-            stackIndex * 0.05f,  // Slight vertical offset to show stacking
-            -stackIndex * 0.01f  // Z-offset for depth
-        );
+    private void UpdateQuantityDisplay() {
+        if (quantityBadge != null) {
+            quantityBadge.UpdateQuantity(storedItems.Count);
+        }
     }
 
     /// <summary>
@@ -106,6 +132,8 @@ public class ShelfSlot : MonoBehaviour {
         }
         storedItems.Clear();
         itemType = null;
+        displayedItem = null;
+        UpdateQuantityDisplay();
     }
 
     /// <summary>
