@@ -1,54 +1,22 @@
 using UnityEngine;
 
-public class DeliveryBox : MonoBehaviour {
+/// <summary>
+/// Delivery box that contains items for the player's inventory.
+/// Implements IInteractable to allow mouse-click based opening.
+/// </summary>
+public class DeliveryBox : MonoBehaviour, IInteractable {
     [Header("Box Contents")]
     private ItemDataSO itemData;
 
     private int quantity;
 
-    [Header("Interaction")]
-    [SerializeField] private float interactionRange = 1.5f;
-
-    [SerializeField] private GameObject promptUI;
-
-    private Transform playerTransform;
-    private bool playerNearby = false;
-
-    private void Start() {
-        // Find player
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
-        if (player != null) {
-            playerTransform = player.transform;
-        }
-
-        // Hide prompt initially
-        if (promptUI != null) {
-            promptUI.SetActive(false);
-        }
-    }
+    [Header("Interaction Visual Feedback")]
+    [SerializeField] private OutlineEffect outlineEffect;
 
     public void Initialize(ItemDataSO data, int qty) {
         itemData = data;
         quantity = qty;
         Debug.Log($"Delivery box initialized: {quantity}x {itemData.itemName}");
-    }
-
-    private void Update() {
-        if (playerTransform == null) return;
-
-        // Check if player is nearby
-        float distance = Vector3.Distance(transform.position, playerTransform.position);
-        playerNearby = distance <= interactionRange;
-
-        // Show/hide prompt
-        if (promptUI != null) {
-            promptUI.SetActive(playerNearby);
-        }
-
-        // Handle interaction
-        if (playerNearby && Input.GetKeyDown(KeyCode.E)) {
-            OpenBox();
-        }
     }
 
     private void OpenBox() {
@@ -75,9 +43,49 @@ public class DeliveryBox : MonoBehaviour {
         Destroy(gameObject);
     }
 
-    private void OnDrawGizmosSelected() {
-        // Visualize interaction range in editor
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, interactionRange);
+    #region IInteractable Implementation
+
+    /// <summary>
+    /// Called when mouse cursor hovers over the delivery box.
+    /// Shows visual feedback via outline effect.
+    /// </summary>
+    public void OnHoverEnter()
+    {
+        if (outlineEffect != null)
+        {
+            outlineEffect.ShowOutline();
+        }
     }
+
+    /// <summary>
+    /// Called when mouse cursor leaves the delivery box.
+    /// Hides visual feedback.
+    /// </summary>
+    public void OnHoverExit()
+    {
+        if (outlineEffect != null)
+        {
+            outlineEffect.HideOutline();
+        }
+    }
+
+    /// <summary>
+    /// Called when the delivery box is clicked.
+    /// Opens the box and adds items to inventory.
+    /// </summary>
+    public void OnClick()
+    {
+        OpenBox();
+    }
+
+    /// <summary>
+    /// Returns the GameObject this interactable is attached to.
+    /// Required by IInteractable interface.
+    /// </summary>
+    public GameObject GetGameObject()
+    {
+        return gameObject;
+    }
+
+    #endregion
 }

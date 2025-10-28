@@ -39,7 +39,8 @@ public class RestockUIManager : MonoBehaviour {
     }
 
     /// <summary>
-    /// Show the restock UI for a specific shelf, filtered by compatible items
+    /// Show the restock UI for a specific shelf, filtered by compatible items.
+    /// Triggered by clicking on a shelf in the game world.
     /// </summary>
     public void ShowRestockUI(Shelf shelf) {
         if (shelf == null || restockPanel == null || itemButtonContainer == null) {
@@ -83,7 +84,7 @@ public class RestockUIManager : MonoBehaviour {
         // Show the panel
         restockPanel.SetActive(true);
 
-        // Disable player movement while UI is open
+        // Disable player interactions while UI is open (backwards compatible with old movement system)
         DisablePlayerMovement();
     }
 

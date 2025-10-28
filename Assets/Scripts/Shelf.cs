@@ -2,7 +2,11 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class Shelf : MonoBehaviour {
+/// <summary>
+/// Shelf component that holds items for sale.
+/// Implements IInteractable to allow mouse-click based restocking.
+/// </summary>
+public class Shelf : MonoBehaviour, IInteractable {
     [Header("Shelf Configuration")]
     [SerializeField] private ShelfTypeDataSO shelfType;
 
@@ -12,6 +16,9 @@ public class Shelf : MonoBehaviour {
     [Header("Slot Settings")]
     [SerializeField] private int baseItemsPerSlot = 5;
     [SerializeField] private int capacityBonus = 0;
+
+    [Header("Interaction Visual Feedback")]
+    [SerializeField] private OutlineEffect outlineEffect;
 
     private List<ShelfSlot> slots = new List<ShelfSlot>();
     private bool isInitialized = false;
@@ -209,4 +216,66 @@ public class Shelf : MonoBehaviour {
             .Where(slot => slot.ItemType == itemData)
             .Sum(slot => slot.ItemCount);
     }
+
+    #region IInteractable Implementation
+
+    /// <summary>
+    /// Called when mouse cursor hovers over the shelf.
+    /// Shows visual feedback via outline effect.
+    /// </summary>
+    public void OnHoverEnter()
+    {
+        if (outlineEffect != null)
+        {
+            outlineEffect.ShowOutline();
+        }
+    }
+
+    /// <summary>
+    /// Called when mouse cursor leaves the shelf.
+    /// Hides visual feedback.
+    /// </summary>
+    public void OnHoverExit()
+    {
+        if (outlineEffect != null)
+        {
+            outlineEffect.HideOutline();
+        }
+    }
+
+    /// <summary>
+    /// Called when the shelf is clicked.
+    /// Opens the restock UI for this shelf.
+    /// </summary>
+    public void OnClick()
+    {
+        if (RestockUIManager.Instance != null)
+        {
+            // If UI is already open for this shelf, close it
+            if (RestockUIManager.Instance.IsUIOpen())
+            {
+                RestockUIManager.Instance.HideRestockUI();
+            }
+            else
+            {
+                // Open restock UI for this shelf
+                RestockUIManager.Instance.ShowRestockUI(this);
+            }
+        }
+        else
+        {
+            Debug.LogError("RestockUIManager instance not found!");
+        }
+    }
+
+    /// <summary>
+    /// Returns the GameObject this interactable is attached to.
+    /// Required by IInteractable interface.
+    /// </summary>
+    public GameObject GetGameObject()
+    {
+        return gameObject;
+    }
+
+    #endregion
 }
