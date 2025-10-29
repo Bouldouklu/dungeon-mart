@@ -8,7 +8,8 @@ public enum UpgradeCategory
     ShopExpansion,   // Unlock new shop segments
     ShelfCapacity,   // Increase items per shelf slot
     Operations,      // Efficiency improvements (bulk ordering, auto-restock)
-    CustomerFlow     // More/faster customers
+    CustomerFlow,    // More/faster customers
+    Licenses         // Item category unlock permits (weapons, armor, traps, etc.)
 }
 
 /// <summary>
@@ -21,7 +22,8 @@ public enum UpgradeEffectType
     IncreaseCustomerCount, // Add customers per day
     DecreaseCheckoutTime,  // Speed up checkout process
     EnableBulkOrdering,    // Allow 5x orders with discount
-    EnableAutoRestock      // Auto-fill shelves in morning
+    EnableAutoRestock,     // Auto-fill shelves in morning
+    UnlockItemCategory     // Unlock a new item category for ordering
 }
 
 /// <summary>
@@ -69,6 +71,10 @@ public class UpgradeDataSO : ScriptableObject
     [Tooltip("For UnlockShopSegment: which segment index to unlock")]
     public int targetSegmentIndex = -1;
 
+    [Header("Item Category Settings")]
+    [Tooltip("For UnlockItemCategory: which item category to unlock")]
+    public ItemCategory categoryToUnlock = ItemCategory.Weapons;
+
     [Header("Repeatability")]
     [Tooltip("Can this upgrade be purchased multiple times?")]
     public bool isRepeatable = false;
@@ -111,6 +117,7 @@ public class UpgradeDataSO : ScriptableObject
             UpgradeEffectType.DecreaseCheckoutTime => $"{effectValue}% faster checkout",
             UpgradeEffectType.EnableBulkOrdering => "Order 5x items with 10% discount",
             UpgradeEffectType.EnableAutoRestock => "Auto-fill shelves each morning",
+            UpgradeEffectType.UnlockItemCategory => $"Unlock {categoryToUnlock} items",
             _ => "Unknown effect"
         };
     }

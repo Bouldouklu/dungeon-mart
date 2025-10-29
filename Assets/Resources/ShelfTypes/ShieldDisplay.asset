@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: ShieldDisplay
   m_EditorClassIdentifier: Assembly-CSharp::ShelfTypeDataSO
   shelfTypeName: ShieldDisplay
-  allowedItemSize: 1
+  allowedCategories:
+  - 1
   itemScale: 1

@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: PotionsShelf
   m_EditorClassIdentifier: Assembly-CSharp::ShelfTypeDataSO
   shelfTypeName: Potion Shelf
-  allowedItemSize: 0
+  allowedCategories:
+  - 2
   itemScale: 1

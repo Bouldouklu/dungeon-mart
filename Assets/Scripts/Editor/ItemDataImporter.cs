@@ -169,8 +169,9 @@ public class ItemDataImporter : EditorWindow {
         int nameIdx = FindColumnIndex(headers, "ItemName", "Name", "Item Name");
         int sellPriceIdx = FindColumnIndex(headers, "SellPrice", "Sell Price");
         int restockCostIdx = FindColumnIndex(headers, "RestockCost", "Restock Cost");
-        int sizeIdx = FindColumnIndex(headers, "ItemSize", "Size");
-        int slotsIdx = FindColumnIndex(headers, "SlotsRequired", "Slots Required", "Slots");
+        int categoryIdx = FindColumnIndex(headers, "ItemCategory", "Category");
+        int tierIdx = FindColumnIndex(headers, "RequiredTier", "Tier", "Required Tier");
+        int unlockedIdx = FindColumnIndex(headers, "IsUnlockedByDefault", "Unlocked By Default", "Default Unlocked");
 
         // Parse data rows (skip header)
         for (int i = 1; i < lines.Length; i++) {
@@ -184,8 +185,9 @@ public class ItemDataImporter : EditorWindow {
                     itemName = GetValue(values, nameIdx).Trim(),
                     sellPrice = ParseInt(GetValue(values, sellPriceIdx), 10),
                     restockCost = ParseInt(GetValue(values, restockCostIdx), 5),
-                    itemSize = ParseItemSize(GetValue(values, sizeIdx)),
-                    slotsRequired = ParseInt(GetValue(values, slotsIdx), 1)
+                    itemCategory = ParseItemCategory(GetValue(values, categoryIdx)),
+                    requiredTier = ParseInt(GetValue(values, tierIdx), 0),
+                    isUnlockedByDefault = ParseBool(GetValue(values, unlockedIdx), false)
                 };
 
                 if (!string.IsNullOrEmpty(item.itemName)) {
@@ -223,22 +225,33 @@ public class ItemDataImporter : EditorWindow {
         return defaultValue;
     }
 
-    private ItemSize ParseItemSize(string value) {
-        if (string.IsNullOrEmpty(value)) return ItemSize.Small;
+    private bool ParseBool(string value, bool defaultValue) {
+        if (string.IsNullOrEmpty(value)) return defaultValue;
+
+        value = value.Trim().ToLower();
+        if (value == "true" || value == "1" || value == "yes") return true;
+        if (value == "false" || value == "0" || value == "no") return false;
+
+        return defaultValue;
+    }
+
+    private ItemCategory ParseItemCategory(string value) {
+        if (string.IsNullOrEmpty(value)) return ItemCategory.Weapons;
 
         value = value.Trim();
-        if (System.Enum.TryParse<ItemSize>(value, true, out ItemSize result)) {
+        if (System.Enum.TryParse<ItemCategory>(value, true, out ItemCategory result)) {
             return result;
         }
-        return ItemSize.Small;
+        return ItemCategory.Weapons;
     }
 
     private void UpdateItemData(ItemDataSO asset, ItemDataCSV data) {
         asset.itemName = data.itemName;
         asset.sellPrice = data.sellPrice;
         asset.restockCost = data.restockCost;
-        asset.itemSize = data.itemSize;
-        asset.slotsRequired = data.slotsRequired;
+        asset.itemCategory = data.itemCategory;
+        asset.requiredTier = data.requiredTier;
+        asset.isUnlockedByDefault = data.isUnlockedByDefault;
     }
 
     private string ConvertToPascalCase(string text) {
@@ -258,7 +271,8 @@ public class ItemDataImporter : EditorWindow {
         public string itemName;
         public int sellPrice;
         public int restockCost;
-        public ItemSize itemSize;
-        public int slotsRequired;
+        public ItemCategory itemCategory;
+        public int requiredTier;
+        public bool isUnlockedByDefault;
     }
 }

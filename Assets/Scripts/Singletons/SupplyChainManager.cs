@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 /// <summary>
@@ -14,6 +15,7 @@ public class StartingDeliveryItem
 /// <summary>
 /// Unified supply chain management system handling ordering and deliveries.
 /// Manages the full cycle: order placement → delivery scheduling → box spawning.
+/// Handles item category unlocking and progression-based item availability.
 /// </summary>
 public class SupplyChainManager : MonoBehaviour
 {
@@ -21,8 +23,9 @@ public class SupplyChainManager : MonoBehaviour
 
     #region Order System
     [Header("Order System")]
-    [SerializeField] private List<ItemDataSO> availableItems = new List<ItemDataSO>();
+    [SerializeField] private List<ItemDataSO> allItems = new List<ItemDataSO>();
 
+    private HashSet<ItemCategory> unlockedCategories = new HashSet<ItemCategory>();
     private Dictionary<ItemDataSO, int> currentOrder = new Dictionary<ItemDataSO, int>();
 
     /// <summary>
@@ -30,8 +33,32 @@ public class SupplyChainManager : MonoBehaviour
     /// </summary>
     public event System.Action OnOrderChanged;
 
-    // Properties
-    public List<ItemDataSO> AvailableItems => availableItems;
+    /// <summary>
+    /// Event triggered when a new item category is unlocked.
+    /// </summary>
+    public event System.Action<ItemCategory> OnCategoryUnlocked;
+
+    /// <summary>
+    /// Returns list of items available based on unlocked categories and player progression tier.
+    /// </summary>
+    public List<ItemDataSO> AvailableItems
+    {
+        get
+        {
+            int currentTier = ProgressionManager.Instance != null ? ProgressionManager.Instance.CurrentTierIndex : 0;
+
+            return allItems.Where(item =>
+            {
+                // Check if unlocked by default OR category is unlocked
+                bool categoryUnlocked = item.isUnlockedByDefault || unlockedCategories.Contains(item.itemCategory);
+
+                // Check if player meets tier requirement
+                bool tierMet = currentTier >= item.requiredTier;
+
+                return categoryUnlocked && tierMet;
+            }).ToList();
+        }
+    }
     #endregion
 
     #region Delivery System
@@ -55,6 +82,9 @@ public class SupplyChainManager : MonoBehaviour
         }
 
         Instance = this;
+
+        // Initialize starting categories (Weapons, Shields, Potions)
+        InitializeStartingCategories();
     }
 
     private void Start()
@@ -72,6 +102,18 @@ public class SupplyChainManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Initialize the categories that are unlocked from the start of the game.
+    /// </summary>
+    private void InitializeStartingCategories()
+    {
+        unlockedCategories.Add(ItemCategory.Weapons);
+        unlockedCategories.Add(ItemCategory.Shields);
+        unlockedCategories.Add(ItemCategory.Potions);
+
+        Debug.Log("Starting categories unlocked: Weapons, Shields, Potions");
+    }
+
     private void OnDestroy()
     {
         if (DayManager.Instance != null)
@@ -79,6 +121,42 @@ public class SupplyChainManager : MonoBehaviour
             DayManager.Instance.OnPhaseChanged -= OnPhaseChanged;
         }
     }
+
+    #region Category Unlock System
+    /// <summary>
+    /// Unlocks a new item category, making all items in that category available for ordering.
+    /// </summary>
+    public void UnlockCategory(ItemCategory category)
+    {
+        if (unlockedCategories.Contains(category))
+        {
+            Debug.LogWarning($"Category {category} is already unlocked!");
+            return;
+        }
+
+        unlockedCategories.Add(category);
+        Debug.Log($"Unlocked item category: {category}");
+
+        OnCategoryUnlocked?.Invoke(category);
+        OnOrderChanged?.Invoke(); // Refresh order menu to show new items
+    }
+
+    /// <summary>
+    /// Checks if a specific category is unlocked.
+    /// </summary>
+    public bool IsCategoryUnlocked(ItemCategory category)
+    {
+        return unlockedCategories.Contains(category);
+    }
+
+    /// <summary>
+    /// Gets all currently unlocked categories.
+    /// </summary>
+    public HashSet<ItemCategory> GetUnlockedCategories()
+    {
+        return new HashSet<ItemCategory>(unlockedCategories);
+    }
+    #endregion
 
     #region Phase Management
     /// <summary>

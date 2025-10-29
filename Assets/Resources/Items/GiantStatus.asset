@@ -17,5 +17,6 @@ MonoBehaviour:
   itemPrefab: {fileID: 7885202154269465711, guid: 2b7d1a3261cab4b4b97ab8bf4bc05cbf, type: 3}
   sellPrice: 25
   restockCost: 12
-  itemSize: 2
-  slotsRequired: 3
+  itemCategory: 5
+  requiredTier: 2
+  isUnlockedByDefault: 0

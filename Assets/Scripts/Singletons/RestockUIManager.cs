@@ -55,20 +55,22 @@ public class RestockUIManager : MonoBehaviour {
 
         // Get filtered inventory items
         Dictionary<ItemDataSO, int> inventory = InventoryManager.Instance.GetAllInventory();
-        ItemSize allowedSize = shelf.ShelfType.allowedItemSize;
+        var allowedCategories = shelf.ShelfType.allowedCategories;
 
-        // Filter items by shelf's allowed size
+        // Filter items by shelf's allowed categories
         var compatibleItems = inventory
-            .Where(kvp => kvp.Key.itemSize == allowedSize && kvp.Value > 0)
+            .Where(kvp => allowedCategories.Contains(kvp.Key.itemCategory) && kvp.Value > 0)
             .ToList();
 
         if (compatibleItems.Count == 0) {
             // No compatible items - show message or just close
             if (messageText != null) {
-                messageText.text = $"No {allowedSize} items in inventory";
+                string categoriesStr = string.Join(", ", allowedCategories);
+                messageText.text = $"No {categoriesStr} items in inventory";
                 messageText.gameObject.SetActive(true);
             }
-            Debug.Log($"No {allowedSize} items available for {shelf.ShelfType.shelfTypeName}");
+            string categoriesLog = string.Join(", ", allowedCategories);
+            Debug.Log($"No {categoriesLog} items available for {shelf.ShelfType.shelfTypeName}");
         } else {
             // Hide message if exists
             if (messageText != null) {

@@ -1,5 +1,44 @@
 # DungeonMart3D - TODO List
 
+## ✅ Tracking of implementation:
+- ✅ Core inventory system
+- ✅ Ordering system with UI
+- ✅ Day/Night cycle with three phases
+- ✅ Customer wave system (fixed spawns per day)
+- ✅ Delivery system (boxes spawn, player opens them)
+- ✅ Phase restrictions (order menu only at end of day)
+- ✅ Starting delivery boxes on Day 1 & proper day progression
+- ✅ Main Menu Scene with Play, Settings (TBD), and Quit buttons
+- ✅ Pause System with ESC key, pause menu overlay, and all buttons
+- ✅ End of Day Summary Panel with statistics and continue button
+- ✅ 3D Physics with NavMesh pathfinding (player movement on XZ plane, customer AI navigation, configurable spawn points)
+- ✅ Customer Types & Corporate Humor (3 types, dialogue system, visual bubbles)
+- ✅ Diverse Shelving System with item sizes and multi-item support
+- ✅ Single Item Size Per Shelf Type restriction
+- ✅ Restock UI System with item selection and size filtering
+- ✅ CSV Item Importer Tool: Automated ItemDataSO generation from Excel/CSV spreadsheet
+- ✅ Monthly Expenses System: Rent tracking, loan system with interest, fail states (KNOWN BUG: Game Over UI input blocked)
+- ✅ Visual Polish**: Customer visuals now use random SPUM character prefabs (48 variants)
+- ✅ Sound System**: Multi-AudioSource sound effects with gameplay and UI sounds
+- ✅ Music System**: Phase-based dynamic background music with smooth crossfades
+- ✅ Shelf System Refactor**: Replace grid-calculated slot positioning with inspector-assigned transform array for maximum flexibility in shelf design
+- ✅ Managers Refactor: Merged 3 Managers (expense, loan, failstate) → 1 Unified Manager (financial)
+- ✅ Debug Input System: Centralized DebugInputManager with compilation directives for automatic release build exclusion
+- ✅ 2D to 3D Conversion: Complete transformation from 2D orthographic to 3D perspective top-down gameplay with NavMesh pathfinding, WebGL-optimized rendering
+- ✅ Item System Refactor: Converted from 2D sprites to 3D models - ItemDataSO now carries prefab reference (data-driven design), Item.cs simplified to pure data container, visual setup handled by prefab structure
+- ✅ Progression System: Lifetime revenue tracking, tier-based milestones (5 tiers: Street Vendor → Tycoon), persistent progress UI
+- ✅ Upgrade Shop System: Card-based UI, purchase flow, tier-locked upgrades, dynamic rent contribution (8 upgrades for tiers 1-3)
+- ✅ Upgrade System Testing (Phase 1.3): All upgrade effects verified and working - shop segment unlocking, shelf capacity increases, customer count bonuses, rent contribution system, full integration testing, edge case handling
+- ✅ Rent UI Dynamic Updates: RentCountdownUI now subscribes to OnSegmentUnlocked event for immediate rent display updates when shop expands
+- ✅ Category Filter System: Upgrade shop now has 5 category filters (Shop Expansion, Shelves, Operations, Customer Flow, Licenses) for better organization
+- ✅ Item Category System: Replaced size-based item system (Small/Medium/Big) with flexible category system (Weapons, Shields, Potions, Armor & Apparel, Traps, Magic Items) - supports multiple categories per shelf, hybrid unlock system (category unlocks via upgrades + tier-based item gating), starting categories (Weapons, Shields, Potions) unlocked by default
+- ✅ License Upgrade System: Added "Licenses" category to upgrade shop with 3 license upgrades (Armor & Apparel License $300/Tier 1, Trap Merchant Permit $500/Tier 2, Arcane Items Certification $800/Tier 3) - purchasing licenses unlocks new item categories in order menu
+- ✅ Mouse-Based Interaction System: Transitioned from WASD keyboard controls to fully mouse-based point-and-click gameplay - click shelves to restock, click delivery boxes to open, hover feedback with pink (#FF6B9D) outline and scale pulse effect
+- ✅ Customer Animation System: Component-based animation controller for customer walk/idle states - attaches to visual prefabs, automatically finds NavMeshAgent in parent hierarchy, velocity-based animation switching with configurable threshold
+- ✅ Quantity Badge System: Replaced visual item stacking with quantity badges - single item display per slot with badge overlay showing "x2", "x3", etc. for multiple items, badge auto-hides when count ≤ 1, follows DialogueBubble pattern with world-to-screen space conversion, auto-finds canvas at runtime (no manual inspector assignment needed)
+- ✅ HUD Button System: Transitioned from keyboard-only to clickable HUD buttons for orders and upgrades - HUDButtonManager manages phase-based button enabling (both buttons only active during EndOfDay), buttons positioned in bottom-right corner with visual feedback (grayed out when disabled), removed Tab key shortcut for orders, removed ESC menu access to upgrades, singleton pattern added to OrderMenu for external access
+
+
 ## 🎯 ACTIVE IMPLEMENTATION: Growth/Tycoon Progression System
 
 ### **Game Design Foundation**
@@ -570,41 +609,6 @@ This iterative testing ensures we catch bugs early and validate design decisions
 
 ## Current Status
 
-### ✅ Tracking of implementation:
-- ✅ Core inventory system
-- ✅ Ordering system with UI
-- ✅ Day/Night cycle with three phases
-- ✅ Customer wave system (fixed spawns per day)
-- ✅ Delivery system (boxes spawn, player opens them)
-- ✅ Phase restrictions (order menu only at end of day)
-- ✅ Starting delivery boxes on Day 1 & proper day progression
-- ✅ Main Menu Scene with Play, Settings (TBD), and Quit buttons
-- ✅ Pause System with ESC key, pause menu overlay, and all buttons
-- ✅ End of Day Summary Panel with statistics and continue button
-- ✅ 3D Physics with NavMesh pathfinding (player movement on XZ plane, customer AI navigation, configurable spawn points)
-- ✅ Customer Types & Corporate Humor (3 types, dialogue system, visual bubbles)
-- ✅ Diverse Shelving System with item sizes and multi-item support
-- ✅ Single Item Size Per Shelf Type restriction
-- ✅ Restock UI System with item selection and size filtering
-- ✅ **CSV Item Importer Tool**: Automated ItemDataSO generation from Excel/CSV spreadsheet
-- ✅ **Monthly Expenses System**: Rent tracking, loan system with interest, fail states (KNOWN BUG: Game Over UI input blocked)
-- ✅ **Visual Polish**: Customer visuals now use random SPUM character prefabs (48 variants)
-- ✅ **Sound System**: Multi-AudioSource sound effects with gameplay and UI sounds
-- ✅ **Music System**: Phase-based dynamic background music with smooth crossfades
-- ✅ **Shelf System Refactor**: Replace grid-calculated slot positioning with inspector-assigned transform array for maximum flexibility in shelf design
-- ✅ **Managers Refactor**: Merged 3 Managers (expense, loan, failstate) → 1 Unified Manager (financial)
-- ✅ **Debug Input System**: Centralized DebugInputManager with compilation directives for automatic release build exclusion
-- ✅ **2D to 3D Conversion**: Complete transformation from 2D orthographic to 3D perspective top-down gameplay with NavMesh pathfinding, WebGL-optimized rendering
-- ✅ **Item System Refactor**: Converted from 2D sprites to 3D models - ItemDataSO now carries prefab reference (data-driven design), Item.cs simplified to pure data container, visual setup handled by prefab structure
-- ✅ **Progression System**: Lifetime revenue tracking, tier-based milestones (5 tiers: Street Vendor → Tycoon), persistent progress UI
-- ✅ **Upgrade Shop System**: Card-based UI, purchase flow, tier-locked upgrades, dynamic rent contribution (8 upgrades for tiers 1-3)
-- ✅ **Upgrade System Testing (Phase 1.3)**: All upgrade effects verified and working - shop segment unlocking, shelf capacity increases, customer count bonuses, rent contribution system, full integration testing, edge case handling
-- ✅ **Rent UI Dynamic Updates**: RentCountdownUI now subscribes to OnSegmentUnlocked event for immediate rent display updates when shop expands
-- ✅ **Category Filter System**: Upgrade shop now has 4 category filters (Shop Expansion, Shelves, Operations, Customer Flow) for better organization
-- ✅ **Mouse-Based Interaction System**: Transitioned from WASD keyboard controls to fully mouse-based point-and-click gameplay - click shelves to restock, click delivery boxes to open, hover feedback with pink (#FF6B9D) outline and scale pulse effect
-- ✅ **Customer Animation System**: Component-based animation controller for customer walk/idle states - attaches to visual prefabs, automatically finds NavMeshAgent in parent hierarchy, velocity-based animation switching with configurable threshold
-- ✅ **Quantity Badge System**: Replaced visual item stacking with quantity badges - single item display per slot with badge overlay showing "x2", "x3", etc. for multiple items, badge auto-hides when count ≤ 1, follows DialogueBubble pattern with world-to-screen space conversion, auto-finds canvas at runtime (no manual inspector assignment needed)
-- ✅ **HUD Button System**: Transitioned from keyboard-only to clickable HUD buttons for orders and upgrades - HUDButtonManager manages phase-based button enabling (both buttons only active during EndOfDay), buttons positioned in bottom-right corner with visual feedback (grayed out when disabled), removed Tab key shortcut for orders, removed ESC menu access to upgrades, singleton pattern added to OrderMenu for external access
 
 ### 🎮 Current Gameplay Loop
 1. **Morning:** Delivery boxes appear → Click boxes to open → Items to inventory → Click shelves to restock

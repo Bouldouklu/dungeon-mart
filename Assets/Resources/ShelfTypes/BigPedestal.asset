@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e1fbf7af2747a1345a2497ae11e76a71, type: 3}
-  m_Name: BigPedestalL
+  m_Name: BigPedestal
   m_EditorClassIdentifier: Assembly-CSharp::ShelfTypeDataSO
-  shelfTypeName: Big Pedestral L
-  allowedItemSize: 2
+  shelfTypeName: Big Pedestral
+  allowedCategories: 0300000005000000
   itemScale: 1

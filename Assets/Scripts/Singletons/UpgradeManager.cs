@@ -219,6 +219,17 @@ public class UpgradeManager : MonoBehaviour
                 // Will be implemented when DeliveryManager modifications are added
                 break;
 
+            case UpgradeEffectType.UnlockItemCategory:
+                if (SupplyChainManager.Instance != null)
+                {
+                    SupplyChainManager.Instance.UnlockCategory(upgrade.categoryToUnlock);
+                }
+                else
+                {
+                    Debug.LogError("SupplyChainManager not found!");
+                }
+                break;
+
             default:
                 Debug.LogWarning($"Unknown upgrade effect type: {upgrade.effectType}");
                 break;

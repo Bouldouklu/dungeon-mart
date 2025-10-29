@@ -122,9 +122,9 @@ public class Shelf : MonoBehaviour, IInteractable {
         if (itemData == null || itemData.itemPrefab == null) return false;
         if (shelfType == null) return false;
 
-        // Check if shelf can hold this item size
-        if (!shelfType.CanHoldItemSize(itemData.itemSize)) {
-            Debug.Log($"Shelf type {shelfType.shelfTypeName} cannot hold {itemData.itemSize} items!");
+        // Check if shelf can hold this item category
+        if (!shelfType.CanHoldCategory(itemData.itemCategory)) {
+            Debug.Log($"Shelf type {shelfType.shelfTypeName} cannot hold {itemData.itemCategory} items!");
             return false;
         }
 
