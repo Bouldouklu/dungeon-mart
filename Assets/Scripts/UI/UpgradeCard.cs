@@ -178,15 +178,18 @@ public class UpgradeCard : MonoBehaviour
     /// </summary>
     private UpgradeCardState GetCardState()
     {
-        if (UpgradeManager.Instance == null || ProgressionManager.Instance == null)
+        if (UpgradeManager.Instance == null)
         {
             return UpgradeCardState.Locked;
         }
 
-        // Check if locked by tier requirement
-        if (ProgressionManager.Instance.CurrentTierIndex < upgradeData.tierRequirement)
+        // Check if locked by objective requirement
+        if (upgradeData.requiredObjective != null)
         {
-            return UpgradeCardState.Locked;
+            if (ObjectiveManager.Instance == null || !ObjectiveManager.Instance.IsObjectiveCompleted(upgradeData.requiredObjective))
+            {
+                return UpgradeCardState.Locked;
+            }
         }
 
         // Check if locked by prerequisites
@@ -292,17 +295,18 @@ public class UpgradeCard : MonoBehaviour
     /// </summary>
     private string GetLockReason()
     {
-        if (ProgressionManager.Instance == null || UpgradeManager.Instance == null)
+        if (UpgradeManager.Instance == null)
         {
             return "LOCKED";
         }
 
-        // Check tier requirement
-        if (ProgressionManager.Instance.CurrentTierIndex < upgradeData.tierRequirement)
+        // Check objective requirement
+        if (upgradeData.requiredObjective != null)
         {
-            ProgressionDataSO requiredTier = ProgressionManager.Instance.GetTierByIndex(upgradeData.tierRequirement);
-            string tierName = requiredTier != null ? requiredTier.tierName : $"Tier {upgradeData.tierRequirement}";
-            return $"Requires {tierName}";
+            if (ObjectiveManager.Instance == null || !ObjectiveManager.Instance.IsObjectiveCompleted(upgradeData.requiredObjective))
+            {
+                return $"Requires: {upgradeData.requiredObjective.objectiveName}";
+            }
         }
 
         // Check prerequisites

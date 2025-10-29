@@ -209,10 +209,23 @@ public class Customer : MonoBehaviour {
 
         // Process payment for all carried items
         int totalPrice = 0;
+        Dictionary<ItemDataSO, int> itemCounts = new Dictionary<ItemDataSO, int>();
+
         foreach (Item item in carriedItems) {
             if (item != null) {
                 int salePrice = item.GetSellPrice();
                 totalPrice += salePrice;
+
+                // Track items sold by type for objectives
+                ItemDataSO itemData = item.GetItemData();
+                if (itemData != null) {
+                    if (itemCounts.ContainsKey(itemData)) {
+                        itemCounts[itemData]++;
+                    } else {
+                        itemCounts[itemData] = 1;
+                    }
+                }
+
                 Destroy(item.gameObject);
             }
         }
@@ -221,6 +234,13 @@ public class Customer : MonoBehaviour {
             GameManager.Instance.AddMoney(totalPrice);
             DayManager.Instance?.RecordCustomerSale(totalPrice);
             Debug.Log($"Transaction complete: ${totalPrice} for {carriedItems.Count} items");
+
+            // Report items sold to CheckoutCounter for objective tracking
+            if (CheckoutCounter.Instance != null) {
+                foreach (var kvp in itemCounts) {
+                    CheckoutCounter.Instance.ReportItemSold(kvp.Key, kvp.Value);
+                }
+            }
         }
 
         carriedItems.Clear();

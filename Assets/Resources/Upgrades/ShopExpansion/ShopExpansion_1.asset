@@ -18,11 +18,12 @@ MonoBehaviour:
     and more profit!'
   upgradeIcon: {fileID: 0}
   cost: 500
-  tierRequirement: 1
+  requiredObjective: {fileID: 11400000, guid: 58431afc33c6d344d9a4845f58020ba2, type: 2}
   prerequisites: []
   category: 0
   effectType: 0
   effectValue: 1
   targetSegmentIndex: 1
+  categoryToUnlock: 0
   isRepeatable: 0
   maxPurchases: 1

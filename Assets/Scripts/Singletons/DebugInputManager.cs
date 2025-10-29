@@ -1,4 +1,5 @@
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
+using System.Linq;
 using UnityEngine;
 
 /// <summary>
@@ -154,6 +155,8 @@ public class DebugInputManager : MonoBehaviour
     /// F8 - Add 3 bonus customers
     /// F9 - Log rent contribution debug info
     /// F10 - Pay rent immediately (if due and affordable)
+    /// F11 - Complete next incomplete objective
+    /// F12 - Add 10 items sold to random category
     /// </summary>
     private void HandleUpgradeKeys()
     {
@@ -232,6 +235,35 @@ public class DebugInputManager : MonoBehaviour
                     Debug.Log("DEBUG: Attempting to pay rent...");
                     FinancialManager.Instance.PayRent();
                 }
+            }
+        }
+
+        // F11 - Complete next incomplete objective
+        if (Input.GetKeyDown(KeyCode.F11))
+        {
+            if (ObjectiveManager.Instance != null)
+            {
+                var visibleObjectives = ObjectiveManager.Instance.GetVisibleObjectives();
+                var incompleteObjective = visibleObjectives.FirstOrDefault(obj => !ObjectiveManager.Instance.IsObjectiveCompleted(obj));
+
+                if (incompleteObjective != null)
+                {
+                    ObjectiveManager.Instance.DebugCompleteObjective(incompleteObjective);
+                    Debug.Log($"DEBUG: Completed objective '{incompleteObjective.objectiveName}'");
+                }
+                else
+                {
+                    Debug.Log("DEBUG: No incomplete objectives found!");
+                }
+            }
+        }
+
+        // F12 - Add 10 items sold to random category
+        if (Input.GetKeyDown(KeyCode.F12))
+        {
+            if (ObjectiveManager.Instance != null)
+            {
+                ObjectiveManager.Instance.DebugAddItemsSold(10);
             }
         }
     }

@@ -37,6 +37,7 @@
 - ✅ Category Filter System: Upgrade shop now has 5 category filters (Shop Expansion, Shelves, Operations, Customer Flow, Licenses) for better organization
 - ✅ Item Category System: Replaced size-based item system (Small/Medium/Big) with flexible category system (Weapons, Shields, Potions, Armor & Apparel, Traps, Magic Items) - supports multiple categories per shelf, hybrid unlock system (category unlocks via upgrades + tier-based item gating), starting categories (Weapons, Shields, Potions) unlocked by default
 - ✅ License Upgrade System: Added "Licenses" category to upgrade shop with 3 license upgrades (Armor & Apparel License $300/Tier 1, Trap Merchant Permit $500/Tier 2, Arcane Items Certification $800/Tier 3) - purchasing licenses unlocks new item categories in order menu
+- ✅ Objective-Based Progression System: Completely replaced tier-based progression with parallel objective tracking - 5 objective types (Revenue, CustomersServed, ItemsSold, DaysPlayed, Hybrid), category-specific item tracking, prerequisite system for objectives and upgrades, reveal conditions (AlwaysVisible, AfterObjectiveCount, AfterSpecificObjective), dark humor completion messages, debug keys F11/F12 for testing, ItemCategory.None added for non-filtered objectives
 
 
 ## 🎯 ACTIVE IMPLEMENTATION: Growth/Tycoon Progression System

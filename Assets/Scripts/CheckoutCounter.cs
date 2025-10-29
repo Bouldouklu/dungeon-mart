@@ -1,14 +1,29 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class CheckoutCounter : MonoBehaviour {
+    public static CheckoutCounter Instance { get; private set; }
+
     [SerializeField] private float transactionTime = 2f;
     [SerializeField] private Transform checkoutPosition;
 
     private Queue<Customer> customerQueue = new Queue<Customer>();
     private Customer currentCustomer = null;
     private bool isProcessing = false;
+
+    // Event fired when items are sold (for objective tracking)
+    public event Action<ItemDataSO, int> OnItemSold;
+
+    private void Awake() {
+        // Singleton pattern
+        if (Instance != null && Instance != this) {
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
+    }
 
     public void JoinQueue(Customer customer) {
         customerQueue.Enqueue(customer);
@@ -69,5 +84,14 @@ public class CheckoutCounter : MonoBehaviour {
 
     public bool IsProcessing() {
         return currentCustomer != null;
+    }
+
+    /// <summary>
+    /// Report items sold for objective tracking
+    /// </summary>
+    public void ReportItemSold(ItemDataSO itemData, int quantity) {
+        if (itemData != null) {
+            OnItemSold?.Invoke(itemData, quantity);
+        }
     }
 }

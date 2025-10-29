@@ -18,12 +18,13 @@ MonoBehaviour:
     empire.
   upgradeIcon: {fileID: 0}
   cost: 1200
-  tierRequirement: 3
+  requiredObjective: {fileID: 11400000, guid: 2e9b05f88d40ab04083bc896e5fbfd31, type: 2}
   prerequisites:
   - {fileID: 11400000, guid: 19c7af6b8f2b2aa478848ba929afa3e6, type: 2}
   category: 0
   effectType: 0
   effectValue: 1
   targetSegmentIndex: 3
+  categoryToUnlock: 0
   isRepeatable: 0
   maxPurchases: 1

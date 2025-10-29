@@ -17,12 +17,13 @@ MonoBehaviour:
   description: Master-level organization maximizes every inch of shelf space.
   upgradeIcon: {fileID: 0}
   cost: 500
-  tierRequirement: 2
+  requiredObjective: {fileID: 11400000, guid: 4fb236a9036785c46a1e3169720c4e8c, type: 2}
   prerequisites:
   - {fileID: 11400000, guid: cd2a618834e466d44832d87bd0edf572, type: 2}
   category: 1
   effectType: 1
   effectValue: 2
   targetSegmentIndex: -1
+  categoryToUnlock: 0
   isRepeatable: 0
   maxPurchases: 1

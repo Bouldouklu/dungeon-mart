@@ -7,6 +7,7 @@ using System;
 [Serializable]
 public enum ItemCategory
 {
+    None = -1,           // No category filter (for objectives that don't filter by category)
     Weapons = 0,
     Shields = 1,
     Potions = 2,

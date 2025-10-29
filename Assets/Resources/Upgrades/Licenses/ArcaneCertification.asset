@@ -18,7 +18,7 @@ MonoBehaviour:
     items. The most profitable and dangerous category of goods.
   upgradeIcon: {fileID: 0}
   cost: 800
-  tierRequirement: 3
+  requiredObjective: {fileID: 11400000, guid: 09f6faedef71cd2478b21abd31448e1b, type: 2}
   prerequisites:
   - {fileID: 11400000, guid: 9816849c746f3744d985f91482fc61b5, type: 2}
   category: 4

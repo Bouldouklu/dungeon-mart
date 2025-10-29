@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb03b0bf9e1aac044900238527659a92, type: 3}
+  m_Name: AlchemyEnthusiast
+  m_EditorClassIdentifier: Assembly-CSharp::ObjectiveDataSO
+  objectiveName: Alchemy Enthusiast
+  objectiveID: AlchemyEnthusiast
+  description: Complete this objective to unlock rewards.
+  objectiveIcon: {fileID: 0}
+  objectiveType: 2
+  targetValue: 80
+  categoryFilter: 2
+  requiredRevenue: 0
+  requiredCustomers: 0
+  requiredItemsSold: 0
+  requiredDays: 0
+  hybridCategoryFilter: -1
+  prerequisiteObjectives: []
+  prerequisiteUpgrades: []
+  revealCondition: 1
+  revealThreshold: 3
+  revealAfterObjective: {fileID: 11400000, guid: ce30498bc2e784e4980e6b0d31e518b7, type: 2}
+  unlocksUpgrade: {fileID: 11400000, guid: fcf60969ea86a0d42b2982e7a15fe18a, type: 2}
+  darkHumorText: 80 potions! Breaking Bad has nothing on you.

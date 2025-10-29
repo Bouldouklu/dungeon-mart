@@ -17,11 +17,12 @@ MonoBehaviour:
   description: Stay open longer to serve more adventurers throughout the day.
   upgradeIcon: {fileID: 0}
   cost: 600
-  tierRequirement: 2
+  requiredObjective: {fileID: 11400000, guid: a0e1c125c2f016d42860784b9b2983ad, type: 2}
   prerequisites: []
   category: 3
   effectType: 2
   effectValue: 3
   targetSegmentIndex: -1
+  categoryToUnlock: 0
   isRepeatable: 1
   maxPurchases: 2

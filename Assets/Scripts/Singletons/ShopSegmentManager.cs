@@ -21,9 +21,6 @@ public class ShopSegment
     [Tooltip("Cost to unlock this segment")]
     public int unlockCost;
 
-    [Tooltip("Minimum tier required to unlock")]
-    public int tierRequirement;
-
     [Tooltip("Is this segment currently unlocked?")]
     public bool isUnlocked = false;
 }

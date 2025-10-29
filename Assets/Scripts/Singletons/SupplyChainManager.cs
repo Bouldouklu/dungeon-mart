@@ -39,21 +39,19 @@ public class SupplyChainManager : MonoBehaviour
     public event System.Action<ItemCategory> OnCategoryUnlocked;
 
     /// <summary>
-    /// Returns list of items available based on unlocked categories and player progression tier.
+    /// Returns list of items available based on unlocked categories.
     /// </summary>
     public List<ItemDataSO> AvailableItems
     {
         get
         {
-            int currentTier = ProgressionManager.Instance != null ? ProgressionManager.Instance.CurrentTierIndex : 0;
-
             return allItems.Where(item =>
             {
                 // Check if unlocked by default OR category is unlocked
                 bool categoryUnlocked = item.isUnlockedByDefault || unlockedCategories.Contains(item.itemCategory);
 
-                // Check if player meets tier requirement
-                bool tierMet = currentTier >= item.requiredTier;
+                // Check if player meets tier requirement (items have their own tier requirements)
+                bool tierMet = item.requiredTier <= 0; // No tier system - only category unlocks matter now
 
                 return categoryUnlocked && tierMet;
             }).ToList();

@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb03b0bf9e1aac044900238527659a92, type: 3}
+  m_Name: PeoplePersonSortOf
+  m_EditorClassIdentifier: Assembly-CSharp::ObjectiveDataSO
+  objectiveName: People Person Sort Of
+  objectiveID: PeoplePersonSortOf
+  description: Complete this objective to unlock rewards.
+  objectiveIcon: {fileID: 0}
+  objectiveType: 1
+  targetValue: 30
+  requiredRevenue: 0
+  requiredCustomers: 0
+  requiredItemsSold: 0
+  requiredDays: 0
+  prerequisiteObjectives: []
+  prerequisiteUpgrades: []
+  revealCondition: 0
+  revealThreshold: 0
+  revealAfterObjective: {fileID: 0}
+  unlocksUpgrade: {fileID: 11400000, guid: cd2a618834e466d44832d87bd0edf572, type: 2}
+  darkHumorText: 30 customers served! You're practically running a sweatshop... I
+    mean, successful business!

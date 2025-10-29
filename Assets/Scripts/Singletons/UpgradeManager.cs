@@ -84,13 +84,20 @@ public class UpgradeManager : MonoBehaviour
             }
         }
 
-        // Check tier requirement
-        if (ProgressionManager.Instance != null)
+        // Check objective requirement
+        if (upgrade.requiredObjective != null)
         {
-            int currentTier = ProgressionManager.Instance.CurrentTierIndex;
-            if (currentTier < upgrade.tierRequirement)
+            if (ObjectiveManager.Instance != null)
             {
-                reason = $"Requires Tier {upgrade.tierRequirement}";
+                if (!ObjectiveManager.Instance.IsObjectiveCompleted(upgrade.requiredObjective))
+                {
+                    reason = $"Requires: {upgrade.requiredObjective.objectiveName}";
+                    return false;
+                }
+            }
+            else
+            {
+                reason = "Objective system not initialized";
                 return false;
             }
         }
@@ -266,16 +273,13 @@ public class UpgradeManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Gets all upgrades available at the current tier (including owned).
+    /// Gets all upgrades (objective system handles unlocking via CanPurchaseUpgrade).
     /// </summary>
     public List<UpgradeDataSO> GetAvailableUpgrades()
     {
-        if (ProgressionManager.Instance == null) return new List<UpgradeDataSO>();
-
-        int currentTier = ProgressionManager.Instance.CurrentTierIndex;
-
+        // Return all upgrades - filtering by objective completion happens in CanPurchaseUpgrade
         return availableUpgrades
-            .Where(u => u != null && u.tierRequirement <= currentTier)
+            .Where(u => u != null)
             .ToList();
     }
 

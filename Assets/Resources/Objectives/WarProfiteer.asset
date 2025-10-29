@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb03b0bf9e1aac044900238527659a92, type: 3}
+  m_Name: WarProfiteer
+  m_EditorClassIdentifier: Assembly-CSharp::ObjectiveDataSO
+  objectiveName: War Profiteer
+  objectiveID: WarProfiteer
+  description: Complete this objective to unlock rewards.
+  objectiveIcon: {fileID: 0}
+  objectiveType: 4
+  targetValue: 100
+  categoryFilter: -1
+  requiredRevenue: 2500
+  requiredCustomers: 0
+  requiredItemsSold: 50
+  requiredDays: 0
+  hybridCategoryFilter: 0
+  prerequisiteObjectives: []
+  prerequisiteUpgrades: []
+  revealCondition: 1
+  revealThreshold: 3
+  revealAfterObjective: {fileID: 11400000, guid: 2ac7c8289031a0b4ca66097a06d7f5bd, type: 2}
+  unlocksUpgrade: {fileID: 11400000, guid: 679c1a8aacefbe04992b203697804bb8, type: 2}
+  darkHumorText: Profiting from war! You'd make a great defense contractor.

@@ -18,7 +18,7 @@ MonoBehaviour:
     Adventurers love their dungeon-crawling gear!
   upgradeIcon: {fileID: 0}
   cost: 500
-  tierRequirement: 2
+  requiredObjective: {fileID: 11400000, guid: c0c6eca369135ba45b4fafd888de9a57, type: 2}
   prerequisites:
   - {fileID: 11400000, guid: 19c7af6b8f2b2aa478848ba929afa3e6, type: 2}
   category: 4

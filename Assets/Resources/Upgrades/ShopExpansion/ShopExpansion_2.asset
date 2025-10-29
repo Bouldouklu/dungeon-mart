@@ -18,12 +18,13 @@ MonoBehaviour:
     merchandise!
   upgradeIcon: {fileID: 0}
   cost: 800
-  tierRequirement: 2
+  requiredObjective: {fileID: 11400000, guid: 513a39c3f2fa5314487b041a8ee8ace4, type: 2}
   prerequisites:
   - {fileID: 11400000, guid: a5d3f1557c57b054f9085b0aac797ed2, type: 2}
   category: 0
   effectType: 0
   effectValue: 1
   targetSegmentIndex: 2
+  categoryToUnlock: 0
   isRepeatable: 0
   maxPurchases: 1

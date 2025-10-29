@@ -18,7 +18,7 @@ MonoBehaviour:
     access to helmets, chest plates, boots, and decorative furniture.
   upgradeIcon: {fileID: 0}
   cost: 300
-  tierRequirement: 1
+  requiredObjective: {fileID: 11400000, guid: 85569221a5aff944494f2cf4a98543d4, type: 2}
   prerequisites:
   - {fileID: 11400000, guid: a5d3f1557c57b054f9085b0aac797ed2, type: 2}
   category: 4

@@ -51,8 +51,8 @@ public class UpgradeDataSO : ScriptableObject
     [Tooltip("Gold cost to purchase")]
     public int cost;
 
-    [Tooltip("Minimum tier index required (0 = Street Vendor, 1 = Shop Owner, etc.)")]
-    public int tierRequirement;
+    [Tooltip("Objective that must be completed to unlock this upgrade")]
+    public ObjectiveDataSO requiredObjective;
 
     [Tooltip("Other upgrades that must be owned before this can be purchased")]
     public UpgradeDataSO[] prerequisites;

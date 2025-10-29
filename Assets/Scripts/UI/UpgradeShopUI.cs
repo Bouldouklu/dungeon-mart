@@ -65,10 +65,10 @@ public class UpgradeShopUI : MonoBehaviour
 
     private void Start()
     {
-        // Subscribe to progression events to refresh available upgrades
-        if (ProgressionManager.Instance != null)
+        // Subscribe to objective events to refresh available upgrades
+        if (ObjectiveManager.Instance != null)
         {
-            ProgressionManager.Instance.OnTierReached += OnTierReached;
+            ObjectiveManager.Instance.OnObjectiveCompleted += OnObjectiveCompleted;
         }
 
         // Subscribe to upgrade events to refresh UI
@@ -80,9 +80,9 @@ public class UpgradeShopUI : MonoBehaviour
 
     private void OnDestroy()
     {
-        if (ProgressionManager.Instance != null)
+        if (ObjectiveManager.Instance != null)
         {
-            ProgressionManager.Instance.OnTierReached -= OnTierReached;
+            ObjectiveManager.Instance.OnObjectiveCompleted -= OnObjectiveCompleted;
         }
 
         if (UpgradeManager.Instance != null)
@@ -242,9 +242,9 @@ public class UpgradeShopUI : MonoBehaviour
         Debug.Log("📋 RefreshUpgradeCards called");
         ClearUpgradeCards();
 
-        if (UpgradeManager.Instance == null || ProgressionManager.Instance == null)
+        if (UpgradeManager.Instance == null)
         {
-            Debug.LogWarning("UpgradeShopUI: UpgradeManager or ProgressionManager not found!");
+            Debug.LogWarning("UpgradeShopUI: UpgradeManager not found!");
             return;
         }
 
@@ -417,17 +417,23 @@ public class UpgradeShopUI : MonoBehaviour
     /// </summary>
     private string GetPurchaseFailureReason(UpgradeDataSO upgrade)
     {
-        if (UpgradeManager.Instance == null || ProgressionManager.Instance == null)
+        if (UpgradeManager.Instance == null)
         {
             return "System error";
         }
 
-        // Check tier requirement
-        if (ProgressionManager.Instance.CurrentTierIndex < upgrade.tierRequirement)
+        // Check objective requirement
+        if (upgrade.requiredObjective != null)
         {
-            ProgressionDataSO requiredTier = ProgressionManager.Instance.GetTierByIndex(upgrade.tierRequirement);
-            string tierName = requiredTier != null ? requiredTier.tierName : $"Tier {upgrade.tierRequirement}";
-            return $"Requires {tierName}";
+            if (ObjectiveManager.Instance == null)
+            {
+                return "System error";
+            }
+
+            if (!ObjectiveManager.Instance.IsObjectiveCompleted(upgrade.requiredObjective))
+            {
+                return $"Requires: {upgrade.requiredObjective.objectiveName}";
+            }
         }
 
         // Check prerequisites
@@ -464,9 +470,9 @@ public class UpgradeShopUI : MonoBehaviour
     }
 
     /// <summary>
-    /// Called when player reaches a new tier.
+    /// Called when player completes an objective.
     /// </summary>
-    private void OnTierReached(ProgressionDataSO newTier, int newTierIndex)
+    private void OnObjectiveCompleted(ObjectiveDataSO completedObjective)
     {
         // Refresh UI to show newly unlocked upgrades
         if (IsShopOpen())
