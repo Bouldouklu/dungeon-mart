@@ -12,12 +12,14 @@ namespace DungeonMart3D
         [Header("Button References")]
         [SerializeField] private Button orderButton;
         [SerializeField] private Button upgradesButton;
+        [SerializeField] private Button objectivesButton;
 
         [Header("Visual Feedback Settings")]
         [SerializeField] private float disabledAlpha = 0.5f;
 
         private CanvasGroup orderButtonCanvasGroup;
         private CanvasGroup upgradesButtonCanvasGroup;
+        private CanvasGroup objectivesButtonCanvasGroup;
 
         private void Awake()
         {
@@ -41,6 +43,15 @@ namespace DungeonMart3D
             else
             {
                 Debug.LogError("HUDButtonManager: Upgrades button reference is missing!");
+            }
+
+            if (objectivesButton != null)
+            {
+                objectivesButton.onClick.AddListener(OnObjectivesButtonClicked);
+            }
+            else
+            {
+                Debug.LogError("HUDButtonManager: Objectives button reference is missing!");
             }
 
             // Set initial state to disabled
@@ -81,6 +92,11 @@ namespace DungeonMart3D
             {
                 upgradesButton.onClick.RemoveListener(OnUpgradesButtonClicked);
             }
+
+            if (objectivesButton != null)
+            {
+                objectivesButton.onClick.RemoveListener(OnObjectivesButtonClicked);
+            }
         }
 
         private void SetupCanvasGroups()
@@ -104,6 +120,16 @@ namespace DungeonMart3D
                     upgradesButtonCanvasGroup = upgradesButton.gameObject.AddComponent<CanvasGroup>();
                 }
             }
+
+            // Add or get CanvasGroup for objectives button
+            if (objectivesButton != null)
+            {
+                objectivesButtonCanvasGroup = objectivesButton.GetComponent<CanvasGroup>();
+                if (objectivesButtonCanvasGroup == null)
+                {
+                    objectivesButtonCanvasGroup = objectivesButton.gameObject.AddComponent<CanvasGroup>();
+                }
+            }
         }
 
         private void OnPhaseChanged(GamePhase newPhase)
@@ -117,6 +143,9 @@ namespace DungeonMart3D
 
             SetButtonState(orderButton, orderButtonCanvasGroup, shouldEnableButtons);
             SetButtonState(upgradesButton, upgradesButtonCanvasGroup, shouldEnableButtons);
+
+            // Objectives button is always enabled (not phase-restricted)
+            SetButtonState(objectivesButton, objectivesButtonCanvasGroup, true);
         }
 
         private void SetButtonState(Button button, CanvasGroup canvasGroup, bool enabled)
@@ -152,6 +181,20 @@ namespace DungeonMart3D
             else
             {
                 Debug.LogError("HUDButtonManager: UpgradeShopUI instance not found!");
+            }
+        }
+
+        private void OnObjectivesButtonClicked()
+        {
+            // Find ObjectivesPanelUI in scene and toggle it
+            ObjectivesPanelUI objectivesPanel = FindFirstObjectByType<ObjectivesPanelUI>();
+            if (objectivesPanel != null)
+            {
+                objectivesPanel.TogglePanel();
+            }
+            else
+            {
+                Debug.LogError("HUDButtonManager: ObjectivesPanelUI not found in scene!");
             }
         }
     }

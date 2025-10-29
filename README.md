@@ -38,6 +38,7 @@
 - ✅ Item Category System: Replaced size-based item system (Small/Medium/Big) with flexible category system (Weapons, Shields, Potions, Armor & Apparel, Traps, Magic Items) - supports multiple categories per shelf, hybrid unlock system (category unlocks via upgrades + tier-based item gating), starting categories (Weapons, Shields, Potions) unlocked by default
 - ✅ License Upgrade System: Added "Licenses" category to upgrade shop with 3 license upgrades (Armor & Apparel License $300/Tier 1, Trap Merchant Permit $500/Tier 2, Arcane Items Certification $800/Tier 3) - purchasing licenses unlocks new item categories in order menu
 - ✅ Objective-Based Progression System: Completely replaced tier-based progression with parallel objective tracking - 5 objective types (Revenue, CustomersServed, ItemsSold, DaysPlayed, Hybrid), category-specific item tracking, prerequisite system for objectives and upgrades, reveal conditions (AlwaysVisible, AfterObjectiveCount, AfterSpecificObjective), dark humor completion messages, debug keys F11/F12 for testing, ItemCategory.None added for non-filtered objectives
+- ✅ Objectives Panel UI System: Full-featured objectives panel with ObjectivesPanelUI managing display/filtering, ObjectiveCard prefab for individual objective display with progress bars and completion states, 3 filter buttons (All/InProgress/Completed), HUD integration with always-enabled Objectives button, dynamic progress text formatting by objective type (Revenue shows $X/$Y, CustomersServed shows X/Y Customers, ItemsSold shows X/Y [Category] Sold), color-coded states (gray for in-progress, dark green for completed), gold checkmark badge for completed objectives, "Unlocks: [upgrade]" text display - UI scripts complete and ready for Unity Editor setup
 
 
 ## 🎯 ACTIVE IMPLEMENTATION: Growth/Tycoon Progression System
@@ -653,6 +654,10 @@ This iterative testing ensures we catch bugs early and validate design decisions
 - **F8** - Add +2 bonus customers (test Extended Hours upgrade)
 - **F9** - Log rent contribution breakdown (debug rent calculation)
 - **F10** - Pay rent immediately (test rent payment system)
+
+**Objective System Testing:**
+- **F11** - Complete next incomplete objective (test objective completion flow)
+- **F12** - Add 10 items sold to random category (test item tracking)
 
 **Inventory Testing:**
 - **I** - Add debug inventory items (general testing)
