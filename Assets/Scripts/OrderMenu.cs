@@ -4,6 +4,8 @@ using TMPro;
 using System.Collections.Generic;
 
 public class OrderMenu : MonoBehaviour {
+    public static OrderMenu Instance { get; private set; }
+
     [Header("UI References")]
     [SerializeField] private GameObject menuPanel;
 
@@ -18,6 +20,18 @@ public class OrderMenu : MonoBehaviour {
 
     private List<OrderMenuItem> menuItems = new List<OrderMenuItem>();
     private bool isMenuOpen = false;
+
+    private void Awake() {
+        // Singleton pattern
+        if (Instance == null) {
+            Instance = this;
+        }
+        else {
+            Debug.LogWarning("Multiple OrderMenu instances detected. Destroying duplicate.");
+            Destroy(gameObject);
+            return;
+        }
+    }
 
     private void Start() {
         if (menuPanel != null) {
@@ -40,15 +54,12 @@ public class OrderMenu : MonoBehaviour {
     }
 
     private void OnDestroy() {
+        if (Instance == this) {
+            Instance = null;
+        }
+
         if (SupplyChainManager.Instance != null) {
             SupplyChainManager.Instance.OnOrderChanged -= UpdateOrderDisplay;
-        }
-    }
-
-    private void Update() {
-        if (Input.GetKeyDown(KeyCode.Tab)) {
-            Debug.Log("Tab key pressed - toggling menu");
-            ToggleMenu();
         }
     }
 

@@ -202,7 +202,7 @@ public class EndOfDaySummaryUI : MonoBehaviour
             summaryPanel.SetActive(false);
         }
 
-        // Note: Player can now open order menu with Tab key
-        Debug.Log("You can now press Tab to open the order menu");
+        // Note: Player can now open order menu and upgrades via HUD buttons
+        Debug.Log("You can now use the HUD buttons to place orders and purchase upgrades");
     }
 }

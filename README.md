@@ -604,11 +604,12 @@ This iterative testing ensures we catch bugs early and validate design decisions
 - ✅ **Mouse-Based Interaction System**: Transitioned from WASD keyboard controls to fully mouse-based point-and-click gameplay - click shelves to restock, click delivery boxes to open, hover feedback with pink (#FF6B9D) outline and scale pulse effect
 - ✅ **Customer Animation System**: Component-based animation controller for customer walk/idle states - attaches to visual prefabs, automatically finds NavMeshAgent in parent hierarchy, velocity-based animation switching with configurable threshold
 - ✅ **Quantity Badge System**: Replaced visual item stacking with quantity badges - single item display per slot with badge overlay showing "x2", "x3", etc. for multiple items, badge auto-hides when count ≤ 1, follows DialogueBubble pattern with world-to-screen space conversion, auto-finds canvas at runtime (no manual inspector assignment needed)
+- ✅ **HUD Button System**: Transitioned from keyboard-only to clickable HUD buttons for orders and upgrades - HUDButtonManager manages phase-based button enabling (both buttons only active during EndOfDay), buttons positioned in bottom-right corner with visual feedback (grayed out when disabled), removed Tab key shortcut for orders, removed ESC menu access to upgrades, singleton pattern added to OrderMenu for external access
 
 ### 🎮 Current Gameplay Loop
 1. **Morning:** Delivery boxes appear → Click boxes to open → Items to inventory → Click shelves to restock
 2. **Business:** Press O → Different customer types spawn with unique behaviors → Browse shelves → Show dialogue → Collect 1-4 items → Checkout → Day auto-ends when done
-3. **End of Day:** Summary panel shows stats → Click "Continue" → Press Tab → Order stock for tomorrow → Press M to advance
+3. **End of Day:** Summary panel shows stats → Click "Continue" → Click "Orders" button to place orders → Click "Upgrades" button to purchase upgrades → Press M to advance
 4. **Next Morning:** Repeat cycle (Day 2, 3, 4...)
 
 ### 👥 Customer Types
@@ -618,10 +619,11 @@ This iterative testing ensures we catch bugs early and validate design decisions
 - **Visual Variety**: Each customer spawns with a random SPUM character model (48 unique variants)
 
 ### 🔧 Controls
-- **Mouse Click** - Interact with objects (click shelves to restock, click delivery boxes to open)
+- **Mouse Click** - Interact with objects (click shelves to restock, click delivery boxes to open, click HUD buttons)
 - **Mouse Hover** - Visual feedback on interactive objects (pink outline with subtle pulse animation)
-- **ESC** - Pause/unpause game (opens pause menu)
-- **Tab** - Open order menu (end of day only)
+- **ESC** - Pause/unpause game (opens pause menu with Resume, Return to Main Menu, and Quit options)
+- **Orders Button** - Click to open order menu (visible always, only clickable during end of day phase)
+- **Upgrades Button** - Click to open upgrades shop (visible always, only clickable during end of day phase)
 
 ### 🐛 Debug Controls
 

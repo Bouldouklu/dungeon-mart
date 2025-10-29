@@ -13,7 +13,8 @@ public class PauseMenuUI : MonoBehaviour
     [Header("UI References")]
     [SerializeField] private GameObject pauseMenuPanel;
     [SerializeField] private Button resumeButton;
-    [SerializeField] private Button settingsButton;
+    // Settings button removed - upgrades are now accessed via HUD button
+    // [SerializeField] private Button settingsButton;
     [SerializeField] private Button returnToMainMenuButton;
     [SerializeField] private Button quitButton;
 
@@ -36,10 +37,11 @@ public class PauseMenuUI : MonoBehaviour
             resumeButton.onClick.AddListener(OnResumeClicked);
         }
 
-        if (settingsButton != null)
-        {
-            settingsButton.onClick.AddListener(OnSettingsClicked);
-        }
+        // Settings button removed - upgrades are now accessed via HUD button
+        // if (settingsButton != null)
+        // {
+        //     settingsButton.onClick.AddListener(OnSettingsClicked);
+        // }
 
         if (returnToMainMenuButton != null)
         {
@@ -112,14 +114,15 @@ public class PauseMenuUI : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Settings button callback - placeholder for future implementation.
-    /// </summary>
-    private void OnSettingsClicked()
-    {
-        Debug.Log("Settings menu - TBD (To Be Determined)");
-        // TODO: Implement settings menu in future iteration
-    }
+    // Settings button callback removed - upgrades are now accessed via HUD button during EndOfDay phase
+    // /// <summary>
+    // /// Settings button callback - placeholder for future implementation.
+    // /// </summary>
+    // private void OnSettingsClicked()
+    // {
+    //     Debug.Log("Settings menu - TBD (To Be Determined)");
+    //     // TODO: Implement settings menu in future iteration
+    // }
 
     /// <summary>
     /// Return to Main Menu button callback - loads main menu scene.
