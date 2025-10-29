@@ -102,3 +102,4 @@ Assets/
 3. You perform the Unity Editor work (creating GameObjects, assigning references,
    configuring components, etc.)
 4. Claude can read scene/prefab files to verify setup or understand the current state
+- Tracking of implementation of the @README.md file is in chronological order. Every new entree has to be put at the bottom of the list

@@ -1,6 +1,6 @@
 # DungeonMart3D - TODO List
 
-## ✅ Tracking of implementation:
+## ✅ Tracking of implementation, chronological order
 - ✅ Core inventory system
 - ✅ Ordering system with UI
 - ✅ Day/Night cycle with three phases
@@ -30,13 +30,13 @@
 - ✅ Upgrade Shop System: Card-based UI, purchase flow, tier-locked upgrades, dynamic rent contribution (8 upgrades for tiers 1-3)
 - ✅ Upgrade System Testing (Phase 1.3): All upgrade effects verified and working - shop segment unlocking, shelf capacity increases, customer count bonuses, rent contribution system, full integration testing, edge case handling
 - ✅ Rent UI Dynamic Updates: RentCountdownUI now subscribes to OnSegmentUnlocked event for immediate rent display updates when shop expands
-- ✅ Category Filter System: Upgrade shop now has 5 category filters (Shop Expansion, Shelves, Operations, Customer Flow, Licenses) for better organization
-- ✅ Item Category System: Replaced size-based item system (Small/Medium/Big) with flexible category system (Weapons, Shields, Potions, Armor & Apparel, Traps, Magic Items) - supports multiple categories per shelf, hybrid unlock system (category unlocks via upgrades + tier-based item gating), starting categories (Weapons, Shields, Potions) unlocked by default
-- ✅ License Upgrade System: Added "Licenses" category to upgrade shop with 3 license upgrades (Armor & Apparel License $300/Tier 1, Trap Merchant Permit $500/Tier 2, Arcane Items Certification $800/Tier 3) - purchasing licenses unlocks new item categories in order menu
 - ✅ Mouse-Based Interaction System: Transitioned from WASD keyboard controls to fully mouse-based point-and-click gameplay - click shelves to restock, click delivery boxes to open, hover feedback with pink (#FF6B9D) outline and scale pulse effect
 - ✅ Customer Animation System: Component-based animation controller for customer walk/idle states - attaches to visual prefabs, automatically finds NavMeshAgent in parent hierarchy, velocity-based animation switching with configurable threshold
 - ✅ Quantity Badge System: Replaced visual item stacking with quantity badges - single item display per slot with badge overlay showing "x2", "x3", etc. for multiple items, badge auto-hides when count ≤ 1, follows DialogueBubble pattern with world-to-screen space conversion, auto-finds canvas at runtime (no manual inspector assignment needed)
 - ✅ HUD Button System: Transitioned from keyboard-only to clickable HUD buttons for orders and upgrades - HUDButtonManager manages phase-based button enabling (both buttons only active during EndOfDay), buttons positioned in bottom-right corner with visual feedback (grayed out when disabled), removed Tab key shortcut for orders, removed ESC menu access to upgrades, singleton pattern added to OrderMenu for external access
+- ✅ Category Filter System: Upgrade shop now has 5 category filters (Shop Expansion, Shelves, Operations, Customer Flow, Licenses) for better organization
+- ✅ Item Category System: Replaced size-based item system (Small/Medium/Big) with flexible category system (Weapons, Shields, Potions, Armor & Apparel, Traps, Magic Items) - supports multiple categories per shelf, hybrid unlock system (category unlocks via upgrades + tier-based item gating), starting categories (Weapons, Shields, Potions) unlocked by default
+- ✅ License Upgrade System: Added "Licenses" category to upgrade shop with 3 license upgrades (Armor & Apparel License $300/Tier 1, Trap Merchant Permit $500/Tier 2, Arcane Items Certification $800/Tier 3) - purchasing licenses unlocks new item categories in order menu
 
 
 ## 🎯 ACTIVE IMPLEMENTATION: Growth/Tycoon Progression System
