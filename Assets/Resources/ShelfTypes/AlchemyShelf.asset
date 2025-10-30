@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ShelfTypeDataSO
   shelfTypeName: Alchemy Shelf
   allowedCategories: 02000000
-  itemScale: 1
+  itemScale: 0.3

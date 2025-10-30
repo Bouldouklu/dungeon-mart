@@ -91,7 +91,7 @@ MonoBehaviour:
   baseItemsPerSlot: 5
   capacityBonus: 0
   quantityBadgePrefab: {fileID: 9035280196464585729, guid: 39967fd38ddf901478de942438df242b, type: 3}
-  badgeOffset: {x: 0.2, y: 0.6, z: 0}
+  badgeOffset: {x: 0.2, y: 0.2, z: 0}
   outlineEffect: {fileID: 9133053548782982092}
 --- !u!65 &4901804947084972464
 BoxCollider:
