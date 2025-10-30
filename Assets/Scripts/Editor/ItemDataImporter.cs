@@ -10,8 +10,9 @@ using System.Text.RegularExpressions;
 /// Preserves existing sprites while updating item data.
 /// </summary>
 public class ItemDataImporter : EditorWindow {
-    private const string CSV_FILE_PATH = "Assets/DungeonMart_Economy_Balance.csv";
+    private const string CSV_FILE_PATH = "Assets/DungeonMart_Items_v2.csv";
     private const string ITEMS_FOLDER = "Assets/Resources/Items";
+    private const string PREFABS_FOLDER = "Assets/Prefabs/Items";
 
     private string csvPath = CSV_FILE_PATH;
     private string outputFolder = ITEMS_FOLDER;
@@ -170,8 +171,9 @@ public class ItemDataImporter : EditorWindow {
         int sellPriceIdx = FindColumnIndex(headers, "SellPrice", "Sell Price");
         int restockCostIdx = FindColumnIndex(headers, "RestockCost", "Restock Cost");
         int categoryIdx = FindColumnIndex(headers, "ItemCategory", "Category");
-        int tierIdx = FindColumnIndex(headers, "RequiredTier", "Tier", "Required Tier");
-        int unlockedIdx = FindColumnIndex(headers, "IsUnlockedByDefault", "Unlocked By Default", "Default Unlocked");
+        int unlockedIdx = FindColumnIndex(headers, "IsUnlockedByDefault", "UnlockedByDefault", "Unlocked By Default", "Default Unlocked");
+        int prefabNameIdx = FindColumnIndex(headers, "PrefabName", "Prefab Name", "Prefab");
+        int descriptionIdx = FindColumnIndex(headers, "Description", "Desc");
 
         // Parse data rows (skip header)
         for (int i = 1; i < lines.Length; i++) {
@@ -186,8 +188,9 @@ public class ItemDataImporter : EditorWindow {
                     sellPrice = ParseInt(GetValue(values, sellPriceIdx), 10),
                     restockCost = ParseInt(GetValue(values, restockCostIdx), 5),
                     itemCategory = ParseItemCategory(GetValue(values, categoryIdx)),
-                    requiredTier = ParseInt(GetValue(values, tierIdx), 0),
-                    isUnlockedByDefault = ParseBool(GetValue(values, unlockedIdx), false)
+                    isUnlockedByDefault = ParseBool(GetValue(values, unlockedIdx), false),
+                    prefabName = GetValue(values, prefabNameIdx).Trim(),
+                    description = GetValue(values, descriptionIdx).Trim()
                 };
 
                 if (!string.IsNullOrEmpty(item.itemName)) {
@@ -250,8 +253,21 @@ public class ItemDataImporter : EditorWindow {
         asset.sellPrice = data.sellPrice;
         asset.restockCost = data.restockCost;
         asset.itemCategory = data.itemCategory;
-        asset.requiredTier = data.requiredTier;
+        asset.requiredTier = 0; // Always 0 for now (future: customer AI tier system)
         asset.isUnlockedByDefault = data.isUnlockedByDefault;
+        asset.description = data.description;
+
+        // Try to load prefab if prefabName is provided
+        if (!string.IsNullOrEmpty(data.prefabName)) {
+            string prefabPath = $"{PREFABS_FOLDER}/{data.prefabName}.prefab";
+            GameObject prefab = AssetDatabase.LoadAssetAtPath<GameObject>(prefabPath);
+
+            if (prefab != null) {
+                asset.itemPrefab = prefab;
+            } else {
+                Debug.LogWarning($"Prefab not found for {data.itemName}: {prefabPath}");
+            }
+        }
     }
 
     private string ConvertToPascalCase(string text) {
@@ -272,7 +288,8 @@ public class ItemDataImporter : EditorWindow {
         public int sellPrice;
         public int restockCost;
         public ItemCategory itemCategory;
-        public int requiredTier;
         public bool isUnlockedByDefault;
+        public string prefabName;
+        public string description;
     }
 }

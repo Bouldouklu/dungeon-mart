@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 134c7a884d0cef04e9ba73c7d5a58a6d, type: 3}
+  m_Name: RustyDagger
+  m_EditorClassIdentifier: Assembly-CSharp::ItemDataSO
+  itemName: Rusty Dagger
+  itemSprite: {fileID: 0}
+  itemPrefab: {fileID: 3854796525763737719, guid: b4bb41fdd6229264b9015b70dbc649c0, type: 3}
+  sellPrice: 5
+  restockCost: 3
+  itemCategory: 0
+  requiredTier: 0
+  isUnlockedByDefault: 1
+  description: Barely sharp but it's a start

@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: ManaPotion
   m_EditorClassIdentifier: Assembly-CSharp::ItemDataSO
   itemName: Mana Potion
-  itemSprite: {fileID: -284845202, guid: e5451acd36b9e2f44bb4826f38bcce15, type: 3}
-  itemPrefab: {fileID: 7885202154269465711, guid: af24ebb28fabc0041b08335fabc3a7c0, type: 3}
-  sellPrice: 5
-  restockCost: 3
+  itemSprite: {fileID: 0}
+  itemPrefab: {fileID: 9034824421284408144, guid: 4817bf2f4c54106449156a779df6c282, type: 3}
+  sellPrice: 15
+  restockCost: 9
   itemCategory: 2
   requiredTier: 0
   isUnlockedByDefault: 1
+  description: Blue raspberry flavor

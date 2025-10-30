@@ -18,8 +18,13 @@ public class ItemDataSO : ScriptableObject {
     public ItemCategory itemCategory = ItemCategory.Weapons;
 
     [Tooltip("Minimum progression tier required to unlock this item (0 = available from start)")]
-    public int requiredTier = 0;
+    public int requiredTier = 0; // TODO: Future feature - customer AI shopping behavior based on tier
 
     [Tooltip("If true, this item is available from the beginning regardless of category unlock status")]
     public bool isUnlockedByDefault = false;
+
+    [Header("Flavor & Description")]
+    [Tooltip("Item description/lore shown in UI")]
+    [TextArea(2, 3)]
+    public string description = "";
 }

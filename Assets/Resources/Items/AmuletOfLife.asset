@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 134c7a884d0cef04e9ba73c7d5a58a6d, type: 3}
+  m_Name: AmuletOfLife
+  m_EditorClassIdentifier: Assembly-CSharp::ItemDataSO
+  itemName: Amulet of Life
+  itemSprite: {fileID: 0}
+  itemPrefab: {fileID: 1149854840062662285, guid: dac10a8cf16341c47be7371da76f5c9a, type: 3}
+  sellPrice: 80
+  restockCost: 48
+  itemCategory: 5
+  requiredTier: 0
+  isUnlockedByDefault: 0
+  description: Extra life insurance

@@ -1,4 +1,16 @@
-# DungeonMart3D - README
+# Dungeon Mart 3D - README
+
+## **Game Design Foundation**
+
+**Core Design Questions Answered:**
+
+1. **What is the player doing?** TO BE ANSWERED
+
+2. **What is stopping them?** TO BE ANSWERED
+
+3. **Why are they doing it?** TO BE ANSWERED
+
+---
 
 ## ✅ Tracking of implementation, chronological order
 - ✅ Core inventory system
@@ -39,85 +51,21 @@
 - ✅ License Upgrade System: Added "Licenses" category to upgrade shop with 3 license upgrades (Armor & Apparel License $300/Tier 1, Trap Merchant Permit $500/Tier 2, Arcane Items Certification $800/Tier 3) - purchasing licenses unlocks new item categories in order menu
 - ✅ Objective-Based Progression System: Completely replaced tier-based progression with parallel objective tracking - 5 objective types (Revenue, CustomersServed, ItemsSold, DaysPlayed, Hybrid), category-specific item tracking, prerequisite system for objectives and upgrades, reveal conditions (AlwaysVisible, AfterObjectiveCount, AfterSpecificObjective), dark humor completion messages, debug keys F11/F12 for testing, ItemCategory.None added for non-filtered objectives
 - ✅ Objectives Panel UI System: Full-featured objectives panel with ObjectivesPanelUI managing display/filtering, ObjectiveCard prefab for individual objective display with progress bars and completion states, 3 filter buttons (All/InProgress/Completed), HUD integration with always-enabled Objectives button, dynamic progress text formatting by objective type (Revenue shows $X/$Y, CustomersServed shows X/Y Customers, ItemsSold shows X/Y [Category] Sold), color-coded states (gray for in-progress, dark green for completed), gold checkmark badge for completed objectives, "Unlocks: [upgrade]" text display - UI scripts complete and ready for Unity Editor setup
-- ✅ Prototype Phase 1: Active Restocking & Fast Pacing - Eliminated dead time during business phase by compressing duration from 3-5 minutes to 90-120 seconds: customer spawn interval reduced from 3s→1.5s, checkout time reduced from 2s→1s, browse time reduced to 0.5-1s random (full shelves) and 0.25-0.5s (empty shelves); Shelf.cs enhanced with CapacityPercentage property and urgency events (OnLowStock <30%, OnStockNormal, OnShelfEmpty) for real-time feedback; ShelfUrgencyVisual.cs component provides red glow material feedback on low stock shelves; SoundType.ShelfEmpty audio alert when shelves empty; NavMeshAgent obstacle avoidance disabled (NoObstacleAvoidance) allowing customers to walk through each other without blocking while still respecting NavMesh-baked static obstacles; active restocking enabled during business phase with no phase restrictions
-
-
-## 🎯 ACTIVE IMPLEMENTATION: Growth/Tycoon Progression System
-
-### **Game Design Foundation**
-
-**Core Design Questions Answered:**
-
-1. **What is the player doing?** TO BE ANSWERED
-
-2. **What is stopping them?** TO BE ANSWERED
-
-3. **Why are they doing it?** TO BE ANSWERED
-
+- ✅ Active Restocking & Fast Pacing: - Eliminated dead time during business phase by compressing duration from 3-5 minutes to 90-120 seconds: customer spawn interval reduced from 3s→1.5s, checkout time reduced from 2s→1s, browse time reduced to 0.5-1s random (full shelves) and 0.25-0.5s (empty shelves); Shelf.cs enhanced with CapacityPercentage property and urgency events (OnLowStock <30%, OnStockNormal, OnShelfEmpty) for real-time feedback; ShelfUrgencyVisual.cs component provides red glow material feedback on low stock shelves; SoundType.ShelfEmpty audio alert when shelves empty; NavMeshAgent obstacle avoidance disabled (NoObstacleAvoidance) allowing customers to walk through each other without blocking while still respecting NavMesh-baked static obstacles; active restocking enabled during business phase with no phase restrictions
+- ✅ Item Database & Shelf System Expansion: Created comprehensive 35-item database across 6 categories with balanced 3-tier pricing (Early $5-25, Mid $30-75, Late $80-150) and 40% profit margins; Updated CSV importer tool (DungeonMart_Items_v2.csv format) with description field support and prefab auto-linking; Created PlaceholderItemGenerator editor tool for color-coded primitive prefabs (Red=Weapons, Blue=Shields, Green=Potions, Orange=Armor, Purple=Traps, Cyan=Magic); Designed 6 shelf types including multi-category shelves (DefenseWall holds Shields+Armor, GeneralShelf holds Weapons+Shields+Potions); Category-based unlocking system with 18 starting items (Weapons/Shields/Potions) and 17 license-locked items (Armor $300, Traps $500, Magic $800); Reserved requiredTier field for future customer AI shopping behavior system
 
 ---
 
-## 📋 Implementation Roadmap
+## Planned Implementation - Additional Features
 
-### ⚠️ **CRITICAL WORKFLOW: TEST AFTER EACH PHASE**
+### Add Progression Juice (Celebration System)
+**Solution:** Add celebration modals, particles, and feedback
 
-**DO NOT** proceed to the next phase until the current phase is:
-1. ✅ Fully implemented
-2. ✅ Tested in Unity play mode
-3. ✅ Working as expected
-4. ✅ Approved for next phase
+### Balance for 15-20 Min Completion
+**Solution:** Aggressive rebalancing for quick prototype testing
 
-This iterative testing ensures we catch bugs early and validate design decisions before building on top of them.
-
----
-
-## Phase 1: Core Progression Framework ✅ COMPLETE
-
-**Goal:** Give players clear milestones and track their empire growth
-
----
-
-## Phase 2: Economy Balancing 💰 PENDING
-
-**Goal:** Ensure the game economy supports progression and feels fair
-
----
-
-## Phase 3: UI/UX Enhancements 🎨 PENDING
-
-**Goal:** Provide clear progression feedback and celebrate player achievements
-
----
-
-## Phase 4: Content Creation 📦 PENDING
-
-**Goal:** Define progression tiers and create upgrade definitions
-
----
-
-## Phase 5: Final Testing 🧪 PENDING
-
-**Goal:** Playtest the full progression system and iterate on balance
-
-
-## 📊 Expected Outcomes
-
-### Player Experience Goals:
-- ✅ **Clear "Why":** Players chase tier promotions and upgrades (positive motivation, not just survival)
-- ✅ **Visible Progress:** Every sale contributes to visible visual feedback (dopamine loop)
-- ✅ **Celebration Moments:** Objectives and upgrades feel like achievements (emotional peaks)
-- ✅ **Replayability:** Different upgrade paths = different playstyles
-
-### Design Success Metrics:
-- [ ] Player can articulate their current goal ("I'm 67% to Merchant rank!")
-- [ ] Player makes deliberate upgrade choices (not random purchases)
-- [ ] Player feels progression even on "bad" days (slow but steady progress bar)
-- [ ] Player excited to reach next tier (anticipation of unlocks)
-- [ ] Player replays to try different upgrade strategies
-
----
-
-## Future Implementation - Additional Features
+### Victory Screen
+**Solution:** Victory modal on all objectives completed
 
 ### Code Quality & Optimization Tasks (From Architecture Review)
 
@@ -243,11 +191,12 @@ This iterative testing ensures we catch bugs early and validate design decisions
 
 **Tool Features:**
 - **Unity Editor Window**: Tools → DungeonMart → Import Items from CSV
-- **CSV Parsing**: Reads `DungeonMart_Economy_Balance.csv` from Assets folder
+- **CSV Parsing**: Reads `DungeonMart_Items_v2.csv` from Assets folder
 - **Smart Updates**: Updates existing SOs without overwriting sprites
 - **PascalCase Filenames**: "Health Potion" → `HealthPotion.asset`
 - **Flexible Column Names**: Supports "Item Name", "ItemName", "Name", etc.
-- **Batch Processing**: Imports all 23 items in seconds
+- **Prefab Auto-Linking**: Automatically links prefabs from Assets/Prefabs/Items/
+- **Batch Processing**: Imports all 35 items in seconds
 - **Import Log**: Detailed feedback on created/updated items
 
 **Technical Implementation:**
@@ -260,23 +209,27 @@ This iterative testing ensures we catch bugs early and validate design decisions
 
 **CSV Format:**
 ```csv
-Item Name,Sell Price,Restock Cost,Size,Slots Required
-Health Potion,5,3,Small,1
-Iron Sword,25,15,Medium,2
-Dragon Throne,200,130,Big,3
+ItemName,Category,SellPrice,RestockCost,UnlockedByDefault,PrefabName,Description
+Health Potion,Potions,5,3,TRUE,HealthPotion,The classic red juice
+Iron Sword,Weapons,25,15,TRUE,IronSword,Classic adventurer's choice
+Crown of Kings,ArmorApparel,150,90,FALSE,CrownOfKings,Assert dominance
 ```
 
 **Workflow:**
 1. Edit Excel spreadsheet with balance changes
-2. Export as CSV to `Assets/DungeonMart_Economy_Balance.csv`
-3. In Unity: Tools → DungeonMart → Import Items from CSV
-4. All items created/updated automatically
-5. Add sprites manually in Inspector (preserved on re-import)
+2. Export as CSV to `Assets/DungeonMart_Items_v2.csv`
+3. In Unity: Tools → DungeonMart → Generate Placeholder Item Prefabs (first time only)
+4. In Unity: Tools → DungeonMart → Import Items from CSV
+5. All items created/updated automatically with prefabs linked
+6. Add custom 3D models later (optional - placeholders work for prototyping)
 
-**Items Created (23 Total):**
-- **Small Items (9)**: Health Potion, Mana Potion, Antidote Vial, Energy Drink, Cursed Ring, Lucky Amulet, Poison Dagger, Diamond Ring, Spell Scroll
-- **Medium Items (8)**: Iron Sword, Wooden Shield, Crossbow, Leather Armor, Chainmail Vest, Steel Helmet, Enchanted Bow, Magic Staff
-- **Big Items (6)**: Bear Trap, Wooden Throne, Spike Trap Kit, Demonic Statue, Dragon Skull, Golden Throne
+**Items Created (35 Total):**
+- **Weapons (7)**: Rusty Dagger, Wooden Staff, Iron Sword, Steel Axe, Crossbow, Enchanted Blade, Legendary Warhammer
+- **Shields (5)**: Wooden Buckler, Iron Shield, Tower Shield, Enchanted Shield, Dragon Scale Shield
+- **Potions (6)**: Minor Health Potion, Minor Mana Potion, Health Potion, Mana Potion, Greater Health Potion, Elixir of Power
+- **Armor & Apparel (6)**: Leather Tunic, Iron Helmet, Chainmail Vest, Plate Armor, Enchanted Robes, Crown of Kings
+- **Traps (5)**: Spike Trap, Net Trap, Bear Trap, Poison Gas Trap, Death Trap
+- **Magic Items (6)**: Scroll of Fireball, Ring of Protection, Amulet of Life, Crystal Ball, Staff of Power, Dragon Egg
 
 **Benefits:**
 - Rapid iteration on game economy
@@ -286,8 +239,9 @@ Dragon Throne,200,130,Big,3
 - Sprite assignment workflow preserved
 
 **Location:**
-- Script: `Assets/Scripts/Editor/ItemDataImporter.cs`
-- CSV: `Assets/DungeonMart_Economy_Balance.csv`
-- Output: `Assets/Resources/Items/*.asset`
+- Scripts: `Assets/Scripts/Editor/ItemDataImporter.cs`, `Assets/Scripts/Editor/PlaceholderItemGenerator.cs`
+- CSV: `Assets/DungeonMart_Items_v2.csv`
+- Output: `Assets/Resources/Items/*.asset` (ItemDataSO files)
+- Prefabs: `Assets/Prefabs/Items/*.prefab` (35 color-coded placeholder prefabs)
 
 ---

@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1fbf7af2747a1345a2497ae11e76a71, type: 3}
   m_Name: WeaponRack
   m_EditorClassIdentifier: Assembly-CSharp::ShelfTypeDataSO
-  shelfTypeName: WeaponRack
-  allowedCategories:
-  - 0
+  shelfTypeName: Weapon Rack
+  allowedCategories: 00000000
   itemScale: 1
