@@ -170,6 +170,11 @@ Assets/Imported/
 # Project imported Asset
 Assets/Admurin's Pixel Items/
 Assets/SPUM/
+Assets/Feel/
+Assets/Audio/
+Assets/Plugins/
+Assets/TextMesh Pro/
+Assets/ThirdParty/
 
 # Claude Code local settings (user-specific)
 .claude/settings.local.json

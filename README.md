@@ -75,27 +75,6 @@ This iterative testing ensures we catch bugs early and validate design decisions
 
 **Goal:** Give players clear milestones and track their empire growth
 
-### Test Not Yet Implemented Effects ⚠️ INFO ONLY
-
-**These upgrade effects have TODO placeholders and will NOT work yet:**
-
-1. **Checkout Speed Decrease** (`DecreaseCheckoutTime`)
-   - File: `UpgradeManager.cs:207-210`
-   - TODO: Implement checkout speed modifications
-   - Requires: CheckoutCounter modifications
-
-2. **Bulk Ordering** (`EnableBulkOrdering`)
-   - File: `UpgradeManager.cs:212-215`
-   - TODO: Implement bulk ordering feature
-   - Requires: OrderManager/SupplyChainManager modifications
-
-3. **Auto-Restock** (`EnableAutoRestock`)
-   - File: `UpgradeManager.cs:217-220`
-   - TODO: Implement auto-restock feature
-   - Requires: DeliveryManager/SupplyChainManager modifications
-
-**Action Required:** Skip testing these effects for now, mark as "PENDING IMPLEMENTATION"
-
 ---
 
 ## Phase 2: Economy Balancing 💰 PENDING
@@ -202,6 +181,10 @@ This iterative testing ensures we catch bugs early and validate design decisions
 - **Pending Implementation**: Checkout speed decrease, bulk ordering, auto-restock
 - **Implemented & Tested**: Shop segment unlocking ✅, shelf capacity increases ✅, customer count bonuses ✅
 - **Files**: `UpgradeManager.cs:207-220`
+
+**3. Sound alert when shelf becomes empty**
+- **Status**: not working as intended. No sound is generated. 
+- **todo**: analysis and correct issue
 
 ---
 
