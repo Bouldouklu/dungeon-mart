@@ -1,4 +1,4 @@
-# DungeonMart3D - TODO List
+# DungeonMart3D - README
 
 ## ✅ Tracking of implementation, chronological order
 - ✅ Core inventory system
@@ -39,6 +39,7 @@
 - ✅ License Upgrade System: Added "Licenses" category to upgrade shop with 3 license upgrades (Armor & Apparel License $300/Tier 1, Trap Merchant Permit $500/Tier 2, Arcane Items Certification $800/Tier 3) - purchasing licenses unlocks new item categories in order menu
 - ✅ Objective-Based Progression System: Completely replaced tier-based progression with parallel objective tracking - 5 objective types (Revenue, CustomersServed, ItemsSold, DaysPlayed, Hybrid), category-specific item tracking, prerequisite system for objectives and upgrades, reveal conditions (AlwaysVisible, AfterObjectiveCount, AfterSpecificObjective), dark humor completion messages, debug keys F11/F12 for testing, ItemCategory.None added for non-filtered objectives
 - ✅ Objectives Panel UI System: Full-featured objectives panel with ObjectivesPanelUI managing display/filtering, ObjectiveCard prefab for individual objective display with progress bars and completion states, 3 filter buttons (All/InProgress/Completed), HUD integration with always-enabled Objectives button, dynamic progress text formatting by objective type (Revenue shows $X/$Y, CustomersServed shows X/Y Customers, ItemsSold shows X/Y [Category] Sold), color-coded states (gray for in-progress, dark green for completed), gold checkmark badge for completed objectives, "Unlocks: [upgrade]" text display - UI scripts complete and ready for Unity Editor setup
+- ✅ Prototype Phase 1: Active Restocking & Fast Pacing - Eliminated dead time during business phase by compressing duration from 3-5 minutes to 90-120 seconds: customer spawn interval reduced from 3s→1.5s, checkout time reduced from 2s→1s, browse time reduced to 0.5-1s random (full shelves) and 0.25-0.5s (empty shelves); Shelf.cs enhanced with CapacityPercentage property and urgency events (OnLowStock <30%, OnStockNormal, OnShelfEmpty) for real-time feedback; ShelfUrgencyVisual.cs component provides red glow material feedback on low stock shelves; SoundType.ShelfEmpty audio alert when shelves empty; NavMeshAgent obstacle avoidance disabled (NoObstacleAvoidance) allowing customers to walk through each other without blocking while still respecting NavMesh-baked static obstacles; active restocking enabled during business phase with no phase restrictions
 
 
 ## 🎯 ACTIVE IMPLEMENTATION: Growth/Tycoon Progression System
@@ -47,22 +48,12 @@
 
 **Core Design Questions Answered:**
 
-1. **What is the player doing?**
-   - Running a fantasy shop: receiving deliveries → restocking shelves → serving customers → collecting money
-   - Making economic decisions (ordering stock, managing cash flow)
-   - Balancing time-sensitive operations
+1. **What is the player doing?** TO BE ANSWERED
 
-2. **What is stopping them?**
-   - Economic pressure (monthly rent $500 every 7 days)
-   - Inventory scarcity (limited starting money)
-   - Time pressure (fixed customer waves)
-   - Spatial constraints (shelf capacity, item sizes)
-   - Fail states: Cannot pay rent or default on loans
+2. **What is stopping them?** TO BE ANSWERED
 
-3. **Why are they doing it?** ⚠️ **CURRENT WEAKNESS - NEEDS FIXING**
-   - Current: Only survival ("don't go bankrupt") - negative motivation
-   - **NEW GOAL: Build a thriving business empire** - positive motivation
-   - Transform from survival game → empire-building tycoon game
+3. **Why are they doing it?** TO BE ANSWERED
+
 
 ---
 
@@ -83,68 +74,6 @@ This iterative testing ensures we catch bugs early and validate design decisions
 ## Phase 1: Core Progression Framework ✅ COMPLETE
 
 **Goal:** Give players clear milestones and track their empire growth
-
-### 1.1 Revenue Goal System ✅ COMPLETE
-
-**Implementation:**
-- Created `ProgressionManager.cs` to track lifetime revenue and tier progression
-- Created `ProgressionDataSO.cs` for tier definitions (5 tiers: Street Vendor → Tycoon)
-- Created `ProgressionUI.cs` for persistent progress bar display
-- Milestone tracking: $0, $1,500, $4,000, $8,000, $15,000
-- Events: OnTierReached, OnLifetimeRevenueChanged
-
-**Testing:** All core functionality tested and working ✅
-
----
-
-### 1.2 Shop Upgrade System ✅ COMPLETE
-
-**Backend Implementation:**
-- Created `UpgradeDataSO.cs`, `UpgradeManager.cs`, `ShopSegmentManager.cs`
-- Created `UpgradeShopUI.cs` and `UpgradeCard.cs` for upgrade shop interface
-- Integrated rent contribution into `ExpenseManager` (base + segment costs)
-- Modified `Shelf.cs`, `CustomerSpawner.cs` for dynamic upgrades
-- Created 8 UpgradeDataSO assets for tiers 1-3
-
-**UI Implementation (Current Session):**
-- ✅ Card-based upgrade shop with ScrollView layout
-- ✅ Purchase confirmation dialog
-- ✅ Visual states: Locked (gray), Available (green), Owned (blue), Maxed (gold)
-- ✅ Price color logic: Green (affordable), Red (can't afford), Gray (tier-locked)
-- ✅ Click detection fixed (raycast target + interactable logic)
-- ✅ Tier requirement validation working correctly
-- ✅ Filter buttons fixed and functional (All/Shelves/Operations/CustomerFlow)
-
-**Testing Results:**
-- ✅ Cards display correctly with proper state colors
-- ✅ Tier locks prevent premature purchases
-- ✅ Purchase flow functional (click → confirm → money deducted)
-- ✅ Rent contribution integrated and tested
-- ⚠️ Upgrade effect application NOT yet tested (next session)
-
-**Debug Keys:** F4-F10 for upgrade testing
-
----
-
-### 1.3: Upgrade System Testing ✅ COMPLETE
-
-**Goal:** Verify all upgrade effects work correctly in gameplay and provide tangible benefits
-
-**Testing Results:**
-- ✅ **Test 1: Shop Segment Unlocking** - Segments unlock correctly, become visible in scene, shelves become usable
-- ✅ **Test 2: Shelf Capacity Increases** - Capacity bonuses apply globally, effects stack correctly, shelves accept more items
-- ✅ **Test 3: Customer Count Bonuses** - More customers spawn, bonuses persist across days, effects stack correctly
-- ✅ **Test 4: Rent Contribution System** - Rent increases correctly when segments unlock, breakdown displays properly
-- ✅ **Test 5: Integration Testing** - Full purchase flow works end-to-end, effects apply immediately, upgrades persist
-- ✅ **Test 6: Edge Cases & Error Handling** - Tier locks work, insufficient funds handled, non-repeatable protection works, max limits enforced
-
-**Bug Fixes:**
-- ✅ **Rent UI Update Bug** - Fixed rent countdown UI not updating immediately when segments unlock (added OnSegmentUnlocked event subscription)
-
-**UI Improvements:**
-- ✅ **Filter System** - Replaced "All" filter with "Shop Expansion" category filter for better organization (4 filters: Shop Expansion, Shelves, Operations, Customer Flow)
-
----
 
 ### Test Not Yet Implemented Effects ⚠️ INFO ONLY
 
@@ -173,143 +102,11 @@ This iterative testing ensures we catch bugs early and validate design decisions
 
 **Goal:** Ensure the game economy supports progression and feels fair
 
-### 2.1 Starting Balance Adjustments
-
-**Current Issues:**
-- Starting money ($500) = exactly 1 month rent (no buffer, impossible to survive)
-- Item profit margins unclear (need consistent margins across item types)
-- No clear daily revenue targets (players don't know if they're doing well)
-
-**Changes to Make:**
-- [ ] **Increase starting money** in `GameManager.cs` to **$800-1000**
-  - Allows Day 1 ordering with rent buffer
-  - Test: Can player afford initial stock + survive until first revenue?
-
-- [ ] **Balance item profit margins** via CSV update:
-  - Small items: 50-80% profit margin (sell $5, restock $3 = $2 profit)
-  - Medium items: 60-100% profit margin (sell $25, restock $15 = $10 profit)
-  - Big items: 70-120% profit margin (sell $200, restock $130 = $70 profit)
-  - Update `DungeonMart_Economy_Balance.csv` and re-import
-
-- [ ] **Set daily revenue target**: $100-150/day minimum
-  - Covers rent ($500/7 days = ~$71/day) + growth buffer
-  - Test: Can player achieve this with 6-8 customers?
-
-**Testing Checklist:**
-- [ ] Full 7-day playthrough test:
-  - [ ] Day 1: Order stock, restock shelves, serve customers
-  - [ ] Days 2-6: Maintain stock, serve customers, earn profit
-  - [ ] Day 7: Pay rent successfully with money left over
-  - [ ] Track daily revenue and verify it meets $100-150 target
-- [ ] Calculate profit per customer (should be $15-25 average)
-- [ ] Verify player has enough money for rent + next week's orders
-
----
-
-### 2.2 Dynamic Difficulty Scaling
-
-**Goal:** Make progression feel rewarding but challenging
-
-**Changes to Make:**
-- [ ] **Modify `CustomerSpawner.cs`** - Base customer count on progression tier
-  - Tier 1 (Street Vendor): 6 customers/day
-  - Tier 2 (Shop Owner): 8 customers/day
-  - Tier 3 (Merchant): 10 customers/day (requires "Extended Hours" upgrade)
-  - Tier 4+ (Trade Baron): 12+ customers/day
-  - Hook into `ProgressionManager.CurrentTier` property
-
-- [ ] **Modify `ExpenseManager.cs`** - Scale rent based on shop size
-  - Base rent: $500
-  - +$100 per additional shelf unlocked (via upgrades)
-  - Show rent breakdown in RentPaymentUI: "Base: $500, Expansions: +$200 = $700"
-  - Hook into `UpgradeManager.OwnedUpgrades` count
-
-**Integration Points:**
-- [ ] `CustomerSpawner.CalculateCustomerCount()` method
-  - Check `ProgressionManager.Instance.CurrentTier`
-  - Check `UpgradeManager.Instance.HasUpgrade("ExtendedHours")`
-  - Return adjusted customer count
-
-- [ ] `ExpenseManager.CalculateRent()` method
-  - Base rent + (shelf expansion upgrades * $100)
-  - Cache result until next rent cycle
-
-**Testing Checklist:**
-- [ ] Customer count increases when reaching Tier 2
-- [ ] Extended Hours upgrade adds +2 customers
-- [ ] Rent increases when purchasing shelf expansions
-- [ ] Rent breakdown UI displays correctly
-- [ ] Balance check: Higher rent is offset by higher revenue from more customers
-
 ---
 
 ## Phase 3: UI/UX Enhancements 🎨 PENDING
 
 **Goal:** Provide clear progression feedback and celebrate player achievements
-
-### 3.1 Progression Feedback
-
-**New UI Elements to Create:**
-- [ ] **Persistent Progression Bar** (always visible, top-left corner)
-  - Tier icon + tier name
-  - Progress bar with percentage (67% to next tier)
-  - Hover tooltip: "Lifetime Revenue: $2,347 / $3,000 | Days Played: 12 | Current Tier: Shop Owner"
-
-- [ ] **Tier-Up Celebration Modal**
-  - Full-screen overlay (semi-transparent dark background)
-  - Large tier icon with glow effect
-  - Title: "🎉 Congratulations! You've reached [Tier Name]!"
-  - Subtitle: "You've unlocked new upgrades and opportunities"
-  - List of newly unlocked upgrades (icons + names)
-  - "Continue" button to close modal
-  - Particle effect (confetti or sparkles)
-  - Sound effect (fanfare, success jingle)
-
-- [ ] **Enhanced End-of-Day Summary**
-  - Add "Lifetime Revenue" stat
-  - Add "Progress to next tier" stat
-  - Highlight if player unlocked something today (NEW badge)
-  - Show tier-up achievement if applicable
-
-**Unity Editor Setup Instructions:**
-- Create TierUpCelebrationUI panel (full-screen, disabled by default)
-- Add particle system prefab (confetti emitter)
-- Add TextMeshProUGUI components for title, subtitle, unlocks list
-- Create animation: fade in + scale up for celebration modal
-- Link sound effect to AudioManager trigger
-
-**Testing Checklist:**
-- [ ] Progress bar updates smoothly when earning money
-- [ ] Tier-up celebration triggers at exact milestone
-- [ ] Celebration modal displays correct tier info
-- [ ] Unlocked upgrades list is accurate
-- [ ] Particle effects and sound play correctly
-- [ ] Modal can be dismissed with "Continue" button
-- [ ] End-of-day summary shows lifetime revenue
-- [ ] NEW badge appears for fresh unlocks
-
----
-
-### 3.2 Upgrade Shop UI Polish
-
-**Design Improvements:**
-- [ ] Card-based layout with visual hierarchy
-- [ ] Color-coded states:
-  - Locked (gray, requires higher tier)
-  - Available (green, can purchase now)
-  - Owned (blue, already purchased)
-  - Maxed Out (gold, repeatable upgrade at max level)
-- [ ] Purchase confirmation dialog: "Buy [Upgrade Name] for $[Cost]? This will leave you with $[RemainingMoney]."
-- [ ] Tooltips show detailed effect descriptions
-- [ ] Visual feedback on purchase (sound, animation, success message)
-
-**Testing Checklist:**
-- [ ] Upgrade cards display correct colors for each state
-- [ ] Tooltips appear on hover with full descriptions
-- [ ] Purchase confirmation prevents accidental buys
-- [ ] Success animation plays on purchase
-- [ ] Sound effect plays on purchase
-- [ ] Upgrade shop closes after purchase (or stays open with updated UI)
 
 ---
 
@@ -317,180 +114,12 @@ This iterative testing ensures we catch bugs early and validate design decisions
 
 **Goal:** Define progression tiers and create upgrade definitions
 
-### 4.1 Define Progression Tiers (ScriptableObjects)
-
-**Create 5 ProgressionDataSO assets:**
-1. [ ] **Street Vendor** (Tier 0 - Starting Tier)
-   - Required Revenue: $0 (starting state)
-   - Description: "A humble beginning. Start building your merchant empire!"
-   - Unlocks: Basic operations only
-
-2. [ ] **Shop Owner** (Tier 1)
-   - Required Revenue: $1,500
-   - Description: "Your shop is gaining recognition in the local market."
-   - Unlocks: Shelf Expansion Pack, Bulk Deals, Efficient Shelving Lv1
-
-3. [ ] **Merchant** (Tier 2)
-   - Required Revenue: $4,000
-   - Description: "Adventurers from distant lands seek your wares."
-   - Unlocks: Extended Hours, Efficient Shelving Lv2, Express Checkout Lv1
-
-4. [ ] **Trade Baron** (Tier 3)
-   - Required Revenue: $8,000
-   - Description: "Your reputation as a merchant lord is spreading across the realm."
-   - Unlocks: Auto-Restock Robot, Express Checkout Lv2, Premium Displays
-
-5. [ ] **Tycoon** (Tier 4 - End-game)
-   - Required Revenue: $15,000
-   - Description: "You are the undisputed master of dungeon commerce!"
-   - Unlocks: Second Floor Expansion, Exclusive Items, Legendary Status
-
-**Unity Editor Setup:**
-- Create folder: `Assets/Resources/Progression/`
-- Create 5 ProgressionDataSO assets
-- Assign tier icons (crown, star, diamond sprites)
-- Write flavor text descriptions
-- Link to UpgradeDataSO assets that unlock at each tier
-
----
-
-### 4.2 Create Upgrade Definitions (ScriptableObjects)
-
-**Create UpgradeDataSO assets (examples):**
-
-1. [ ] **Shelf Expansion Pack** - $400
-   - Category: Shelves
-   - Effect: Unlock 2 new shelf slots
-   - Tier Requirement: Shop Owner (Tier 1)
-   - Repeatable: Yes (max 3 times)
-   - Description: "Add more display space to your shop floor."
-
-2. [ ] **Efficient Shelving Lv1** - $300
-   - Category: Shelves
-   - Effect: +2 items per shelf slot (from 5 to 7)
-   - Tier Requirement: Shop Owner (Tier 1)
-   - Repeatable: No
-   - Description: "Clever stacking techniques allow more items per shelf."
-
-3. [ ] **Efficient Shelving Lv2** - $600
-   - Category: Shelves
-   - Effect: +2 items per shelf slot (from 7 to 9)
-   - Tier Requirement: Merchant (Tier 2)
-   - Repeatable: No
-   - Description: "Master-level organization maximizes shelf capacity."
-
-4. [ ] **Express Checkout Lv1** - $500
-   - Category: Operations
-   - Effect: Customers move 25% faster at checkout
-   - Tier Requirement: Merchant (Tier 2)
-   - Repeatable: No
-   - Description: "Streamlined payment process speeds up transactions."
-
-5. [ ] **Express Checkout Lv2** - $800
-   - Category: Operations
-   - Effect: Customers move 50% faster at checkout (cumulative)
-   - Tier Requirement: Trade Baron (Tier 3)
-   - Repeatable: No
-   - Description: "Instant payment magic shortens queues dramatically."
-
-6. [ ] **Bulk Deals** - $600
-   - Category: Operations
-   - Effect: Order 5x items at once, 10% discount on restock cost
-   - Tier Requirement: Shop Owner (Tier 1)
-   - Repeatable: No
-   - Description: "Volume discounts from suppliers reduce costs."
-
-7. [ ] **Extended Hours** - $700
-   - Category: CustomerFlow
-   - Effect: +2 customers per day
-   - Tier Requirement: Merchant (Tier 2)
-   - Repeatable: Yes (max 2 times, +4 total)
-   - Description: "Stay open longer to serve more adventurers."
-
-8. [ ] **Auto-Restock Robot** - $1,200
-   - Category: Operations
-   - Effect: Morning deliveries automatically fill empty shelves
-   - Tier Requirement: Trade Baron (Tier 3)
-   - Repeatable: No
-   - Description: "A magical construct handles tedious restocking for you."
-
-**Unity Editor Setup:**
-- Create folder: `Assets/Resources/Upgrades/`
-- Create 8+ UpgradeDataSO assets
-- Assign upgrade icons (sprites for each upgrade type)
-- Write clear descriptions with exact numeric effects
-- Set tier requirements correctly
-
 ---
 
 ## Phase 5: Testing & Balancing 🧪 PENDING
 
 **Goal:** Playtest the full progression system and iterate on balance
 
-### 5.1 Full Playthrough Test Scenarios
-
-**Test 1: Sprint to Tier 2 (Target: 7-10 days)**
-- [ ] Start new game with $800 starting money
-- [ ] Play optimally: order wisely, restock efficiently, serve all customers
-- [ ] Track daily revenue and expenses
-- [ ] Goal: Reach Shop Owner (Tier 1, $1,500) within 7 days
-- [ ] Goal: Reach Merchant (Tier 2, $4,000) within 10 days
-- [ ] Verify rent payments don't block progression
-
-**Test 2: Economic Viability Check**
-- [ ] Can player afford rent on Day 7 without taking a loan?
-- [ ] Can player afford first upgrade (Shelf Expansion $400) by Day 10?
-- [ ] Does purchasing upgrades feel rewarding (tangible benefit)?
-- [ ] Are upgrade costs balanced (not too cheap/expensive)?
-
-**Test 3: Difficulty Curve Check**
-- [ ] Tier 1 (6 customers): Easy, manageable, allows learning
-- [ ] Tier 2 (8 customers): Moderate challenge, requires efficiency
-- [ ] Tier 3 (10 customers): Hard, requires upgrades to handle demand
-- [ ] Are shelves too full or too empty? Adjust spawn rates/capacity
-
-**Test 4: Upgrade Impact Validation**
-- [ ] Test each upgrade individually:
-  - Shelf capacity increase: Can see more items on shelves?
-  - Customer count increase: More customers spawn?
-  - Checkout speed: Customers move faster at counter?
-  - Bulk ordering: Can order 5x items at once with discount?
-  - Auto-restock: Shelves auto-fill in morning phase?
-- [ ] Verify upgrades feel impactful and worth the cost
-
-**Test 5: Edge Cases**
-- [ ] What happens if player takes loan at Tier 0? (Should be viable)
-- [ ] Can player afford both loan payments AND upgrades?
-- [ ] What if player ignores upgrades? (Should be harder but possible)
-- [ ] Can player reach Tier 4 (Tycoon) within 30 days? (Target: 25-35 days)
-
----
-
-### 5.2 Balance Iteration Points
-
-**If progression feels too slow:**
-- [ ] Reduce tier revenue requirements by 20%
-- [ ] Increase item profit margins by 10-15%
-- [ ] Increase starting money to $1000
-- [ ] Reduce upgrade costs by 20%
-
-**If progression feels too fast:**
-- [ ] Increase tier revenue requirements by 20%
-- [ ] Decrease item profit margins by 10%
-- [ ] Increase upgrade costs by 30%
-- [ ] Add more tiers (split Tier 2 into 2a and 2b)
-
-**If upgrades feel weak:**
-- [ ] Increase effect values (e.g., +3 items instead of +2)
-- [ ] Reduce costs to encourage experimentation
-- [ ] Add visual feedback for upgrade effects
-
-**If difficulty spikes too hard:**
-- [ ] Smooth customer count increases (6 → 7 → 8 instead of 6 → 8)
-- [ ] Make early upgrades cheaper ($200 instead of $400)
-- [ ] Increase grace period before rent scaling kicks in
-
----
 
 ## 📊 Expected Outcomes
 
@@ -511,32 +140,6 @@ This iterative testing ensures we catch bugs early and validate design decisions
 
 ---
 
-## 📁 Files to Create (Summary)
-
-### Scripts:
-- [ ] `Assets/Scripts/Singletons/ProgressionManager.cs`
-- [ ] `Assets/Scripts/Singletons/UpgradeManager.cs`
-- [ ] `Assets/Scripts/SOs/ProgressionDataSO.cs`
-- [ ] `Assets/Scripts/SOs/UpgradeDataSO.cs`
-- [ ] `Assets/Scripts/UI/ProgressionUI.cs`
-- [ ] `Assets/Scripts/UI/UpgradeShopUI.cs`
-- [ ] `Assets/Scripts/UI/TierUpCelebrationUI.cs`
-
-### ScriptableObject Assets:
-- [ ] 5 ProgressionDataSO assets (Tiers 0-4)
-- [ ] 8+ UpgradeDataSO assets (upgrades for each tier)
-
-### Files to Modify:
-- [ ] `Assets/Scripts/Singletons/GameManager.cs` - Add lifetime revenue tracking
-- [ ] `Assets/Scripts/Singletons/DayManager.cs` - Hook for tier celebration timing
-- [ ] `Assets/Scripts/Singletons/ExpenseManager.cs` - Dynamic rent scaling
-- [ ] `Assets/Scripts/Singletons/CustomerSpawner.cs` - Accept variable customer count
-- [ ] `Assets/Scripts/Shelf.cs` - Support capacity upgrades
-- [ ] `Assets/Scripts/Singletons/OrderManager.cs` - Support bulk ordering upgrades
-- [ ] `Assets/Scripts/CheckoutCounter.cs` - Support checkout speed upgrades
-
----
-
 ## Future Implementation - Additional Features
 
 ### Code Quality & Optimization Tasks (From Architecture Review)
@@ -552,19 +155,12 @@ This iterative testing ensures we catch bugs early and validate design decisions
   - Better: Add `[SerializeField] private PlayerController player;` and link in Inspector
   - Impact: More robust, less fragile (doesn't depend on tag being set)
 
-**Optimizations to Consider (Low Priority):**
-- [ ] **Shelf.cs:42-50** - Pre-generate slots in editor instead of procedural generation
-  - Current: Slots created at runtime in Awake()
-  - Benefit: Visual tweaking in editor, see slot layout before play mode
-  - Note: Current approach works fine, this is polish only
-
 - [ ] **Customer.cs:56-146** - Consider parallel customer behavior system
   - Current: Sequential shopping coroutine (works great!)
   - Future: Multiple customers browsing simultaneously (more realistic)
   - Note: Only needed if you want more dynamic/overlapping customer behavior
 
 **Pre-Release Tasks:**
-- [x] ~~Remove debug keys before browser release~~ ✅ Already handled via `#if UNITY_EDITOR || DEVELOPMENT_BUILD` in DebugInputManager.cs
 - [ ] Verify debug code excluded from WebGL builds (check build log for DebugInputManager exclusion)
 
 **CSV importer tool optimization:**
@@ -610,7 +206,6 @@ This iterative testing ensures we catch bugs early and validate design decisions
 ---
 
 ## Current Status
-
 
 ### 🎮 Current Gameplay Loop
 1. **Morning:** Delivery boxes appear → Click boxes to open → Items to inventory → Click shelves to restock
@@ -717,138 +312,5 @@ Dragon Throne,200,130,Big,3
 - Script: `Assets/Scripts/Editor/ItemDataImporter.cs`
 - CSV: `Assets/DungeonMart_Economy_Balance.csv`
 - Output: `Assets/Resources/Items/*.asset`
-
----
-
-### 🔧 Manager Architecture Refactoring
-
-**Phase 1: Financial System Consolidation ✅ COMPLETE**
-
-**Goal:** Reduce manager complexity and improve maintainability by merging related systems
-
-**Changes Made:**
-- **Merged 3 Managers → 1 Unified Manager:**
-  - `ExpenseManager.cs` ❌ Deleted
-  - `LoanManager.cs` ❌ Deleted
-  - `FailStateManager.cs` ❌ Deleted
-  - `FinancialManager.cs` ✅ Created (518 lines)
-
-**FinancialManager Features:**
-- **Rent System:** Monthly rent tracking, dynamic rent with shop expansion contributions, rent payment flow with events
-- **Loan System:** Loan taking with 20% interest, automatic daily payments, loan default detection, loan repayment tracking
-- **Fail State System:** Game over triggers (rent unpaid, loan default, bankruptcy), statistics tracking, corporate humor messages
-- **Unified Events:** All financial events in one place for easier UI integration
-
-**Files Updated:**
-- `RentPaymentUI.cs` - Updated references to FinancialManager
-- `RentCountdownUI.cs` - Updated references to FinancialManager
-- `LoanUI.cs` - Updated references to FinancialManager
-- `LoanStatusUI.cs` - Updated references to FinancialManager
-- `GameOverUI.cs` - Updated references to FinancialManager
-- `EndOfDaySummaryUI.cs` - Updated references to FinancialManager
-- `DayManager.cs` - Updated debug keys (F10) to use FinancialManager
-
-**Benefits:**
-- **Reduced Complexity:** 3 managers → 1 manager (simpler mental model)
-- **Better Cohesion:** Related financial logic in one place
-- **Easier Testing:** Single source of truth for all financial operations
-- **Improved Maintainability:** Changes to financial system require editing only one file
-
-**Property Name Changes:**
-- `LoanManager.AmountRemaining` → `FinancialManager.LoanAmountRemaining`
-- `LoanManager.DaysUntilDue` → `FinancialManager.DaysUntilLoanDue`
-
-**GameOverReason Enum:**
-- Now defined in `FinancialManager.cs` (lines 6-11)
-- Values: `RentUnpaid`, `LoanDefault`, `Bankruptcy`
-
-**Testing Results:**
-- ✅ Compilation successful
-- ✅ All UI scripts updated and functional
-- ✅ Rent payment flow working
-- ✅ Loan system working
-- ✅ Game over triggers working
-
-**Phase 2: Supply Chain Consolidation ✅ COMPLETE**
-
-**Goal:** Unify ordering and delivery systems for better cohesion
-
-**Changes Made:**
-- **Merged 2 Managers → 1 Unified Manager:**
-  - `OrderManager.cs` ❌ Deleted
-  - `DeliveryManager.cs` ❌ Deleted
-  - `SupplyChainManager.cs` ✅ Created (303 lines)
-
-**SupplyChainManager Features:**
-- **Order System:** Current order tracking, item addition/removal, order cost calculation, order confirmation with payment
-- **Delivery System:** Pending delivery scheduling, delivery box spawning on morning phase, Day 1 starting delivery configuration
-- **Unified Workflow:** Complete supply chain from ordering → payment → delivery → box spawning
-- **Moved Classes:** `StartingDeliveryItem` helper class now in SupplyChainManager.cs
-
-**Files Updated:**
-- `OrderMenu.cs` - Updated 6 references to SupplyChainManager
-- `OrderMenuItem.cs` - Updated AddToCart to use SupplyChainManager
-- `DeliveryBox.cs` - Updated OnBoxOpened notification to SupplyChainManager
-
-**Benefits:**
-- **Better Cohesion:** Order and delivery are naturally connected - now in one place
-- **Simplified Flow:** Order confirmation directly schedules delivery (no intermediate manager needed)
-- **Easier Maintenance:** Changes to supply chain require editing only one file
-- **Clear Responsibility:** Single manager owns entire order → delivery cycle
-
-**Testing Results:**
-- ✅ Compilation successful
-- ✅ Order menu functional
-- ✅ Order placement working
-- ✅ Delivery box spawning working
-- ✅ Day 1 starting delivery working
-
-**Phase 3: Debug Key Extraction ✅ COMPLETE**
-
-**Goal:** Centralize all debug input handling and prepare for easy exclusion from release builds
-
-**Changes Made:**
-- **Created `DebugInputManager.cs`** - New singleton for all debug input (264 lines)
-  - Wrapped in `#if UNITY_EDITOR || DEVELOPMENT_BUILD` compilation directive
-  - Organized debug keys into logical categories:
-    - Day Control Keys (M, O, K)
-    - Time Scale Keys (1, 2, 3, 5)
-    - Money Keys (7, 8, 9)
-    - Upgrade Testing Keys (F4-F10)
-    - Inventory Keys (I)
-  - XML documentation for all methods
-  - Consistent debug logging with "DEBUG:" prefix
-
-- **Updated `DayManager.cs`** - Removed 133 lines of debug input code
-  - Removed entire Update() method (lines 49-182)
-  - File now focuses solely on day/phase management logic
-  - Added comment referencing DebugInputManager
-
-- **Updated `PlayerController.cs`** - Removed debug inventory key
-  - Removed KeyCode.I handling from HandleInteraction()
-  - Added comment referencing DebugInputManager
-
-**Unity Editor Setup:**
-- Added DebugInputManager GameObject to main game scene
-- Attached DebugInputManager.cs script component
-
-**Benefits:**
-- **Cleaner Architecture:** DayManager.cs reduced from 271 → 138 lines
-- **Automatic Exclusion:** Debug code won't compile in release builds
-- **Better Organization:** All debug keys in one discoverable location
-- **Easy Maintenance:** Adding new debug keys has a clear home
-- **Zero Overhead:** No performance impact in production builds
-
-**Testing Results:**
-- ✅ All debug keys functional after extraction
-- ✅ Day control keys (M, O, K) working
-- ✅ Time scale controls (1, 2, 3, 5) working
-- ✅ Money debug keys (7, 8, 9) working
-- ✅ Upgrade test keys (F4-F10) working
-- ✅ Inventory debug key (I) working
-- ✅ Compilation directive verified
-
-**Debug Keys Reference:**
-- See "🐛 Debug Controls" section below for complete key mappings
 
 ---

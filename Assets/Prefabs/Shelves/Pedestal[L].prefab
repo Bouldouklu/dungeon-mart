@@ -14,7 +14,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1042182866229508750
 Transform:
@@ -49,7 +49,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 7422848464349959988, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &7969131322872650769
 Transform:
@@ -82,7 +82,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &2857927742449878930
 Transform:
@@ -118,6 +118,8 @@ MonoBehaviour:
   - {fileID: 7969131322872650769}
   baseItemsPerSlot: 5
   capacityBonus: 0
+  quantityBadgePrefab: {fileID: 0}
+  badgeOffset: {x: 0, y: 0.5, z: 0}
   outlineEffect: {fileID: 3513107901612188829}
 --- !u!65 &5821323970977052361
 BoxCollider:
@@ -151,6 +153,10 @@ PrefabInstance:
     - target: {fileID: 172200, guid: b0eb8fcfe34bfa54d86e8fcc58f9ea64, type: 3}
       propertyPath: m_Name
       value: SM_Prop_Crate_Metal_03 (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 172200, guid: b0eb8fcfe34bfa54d86e8fcc58f9ea64, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 416344, guid: b0eb8fcfe34bfa54d86e8fcc58f9ea64, type: 3}
       propertyPath: m_LocalPosition.x
@@ -244,6 +250,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Prop_Crate_Metal_03 (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 172200, guid: b0eb8fcfe34bfa54d86e8fcc58f9ea64, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 416344, guid: b0eb8fcfe34bfa54d86e8fcc58f9ea64, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.5
@@ -336,6 +346,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Prop_Crate_Metal_03 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 172200, guid: b0eb8fcfe34bfa54d86e8fcc58f9ea64, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 416344, guid: b0eb8fcfe34bfa54d86e8fcc58f9ea64, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.5
@@ -427,6 +441,10 @@ PrefabInstance:
     - target: {fileID: 172200, guid: b0eb8fcfe34bfa54d86e8fcc58f9ea64, type: 3}
       propertyPath: m_Name
       value: SM_Prop_Crate_Metal_03
+      objectReference: {fileID: 0}
+    - target: {fileID: 172200, guid: b0eb8fcfe34bfa54d86e8fcc58f9ea64, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 416344, guid: b0eb8fcfe34bfa54d86e8fcc58f9ea64, type: 3}
       propertyPath: m_LocalPosition.x

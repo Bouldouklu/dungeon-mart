@@ -1931,6 +1931,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Prop_Crate_Wood_05
       objectReference: {fileID: 0}
+    - target: {fileID: 159436, guid: 8bb2d7195ef956c439f151bb60ae257a, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 469718, guid: 8bb2d7195ef956c439f151bb60ae257a, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.1
@@ -9633,6 +9637,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tablecloth
       objectReference: {fileID: 0}
+    - target: {fileID: 7798774026976757551, guid: e43423a1e63d4684693454c35112be14, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -9865,6 +9873,10 @@ PrefabInstance:
     - target: {fileID: 159436, guid: 8bb2d7195ef956c439f151bb60ae257a, type: 3}
       propertyPath: m_Name
       value: SM_Prop_Crate_Wood_05 (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 159436, guid: 8bb2d7195ef956c439f151bb60ae257a, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 469718, guid: 8bb2d7195ef956c439f151bb60ae257a, type: 3}
       propertyPath: m_LocalScale.x
@@ -10826,6 +10838,14 @@ PrefabInstance:
     - target: {fileID: 144976, guid: 045cc9e875b3f1f48b4774837b97b949, type: 3}
       propertyPath: m_Name
       value: SM_Prop_Chest_03
+      objectReference: {fileID: 0}
+    - target: {fileID: 144976, guid: 045cc9e875b3f1f48b4774837b97b949, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 167976, guid: 045cc9e875b3f1f48b4774837b97b949, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 493996, guid: 045cc9e875b3f1f48b4774837b97b949, type: 3}
       propertyPath: m_LocalScale.x
@@ -12611,6 +12631,8 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 0cc917b4b209aa54a8ec84998e996de9, type: 3}
   - soundType: 7
     clip: {fileID: 8300000, guid: 0cc917b4b209aa54a8ec84998e996de9, type: 3}
+  - soundType: 4
+    clip: {fileID: 8300000, guid: 157f41db8ed74e14fb2523b2f4cf9c04, type: 3}
   musicMappings:
   - musicType: 0
     clip: {fileID: 8300000, guid: bea93a38b71b64b598109b3a3b1a0048, type: 3}
@@ -14984,7 +15006,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!65 &1355168951
 BoxCollider:
@@ -15019,7 +15041,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19d2e122a1df7354c903b7b94684d8bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CheckoutCounter
-  transactionTime: 2
+  transactionTime: 1
   checkoutPosition: {fileID: 1436304318}
 --- !u!4 &1355168953
 Transform:
@@ -16158,7 +16180,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 3306451490063965843, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1436304318
 Transform:
@@ -17974,6 +17996,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tablecloth (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 7798774026976757551, guid: e43423a1e63d4684693454c35112be14, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -18197,7 +18223,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: ee8aa288b634bcf4a9e4692defbe3c2f, type: 2}
   - {fileID: 11400000, guid: 8b10e23703cc0204196b328c29d588cf, type: 2}
   baseCustomersPerDay: 6
-  spawnInterval: 10
+  spawnInterval: 1.5
   bonusCustomers: 0
 --- !u!4 &1656746642
 Transform:
@@ -20551,6 +20577,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Prop_Crate_Wood_05 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 159436, guid: 8bb2d7195ef956c439f151bb60ae257a, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 469718, guid: 8bb2d7195ef956c439f151bb60ae257a, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.1
@@ -22288,16 +22318,16 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1691409141}
+  - {fileID: 1136253023}
   - {fileID: 1632872736}
   - {fileID: 1115614892}
-  - {fileID: 1691409141}
   - {fileID: 1380110041}
   - {fileID: 1622248660}
   - {fileID: 242823761}
   - {fileID: 1656746642}
   - {fileID: 677308860}
   - {fileID: 1453197540}
-  - {fileID: 1136253023}
   - {fileID: 1847936846}
   - {fileID: 454270520}
   - {fileID: 1748145485}

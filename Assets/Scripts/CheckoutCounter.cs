@@ -6,7 +6,7 @@ using UnityEngine;
 public class CheckoutCounter : MonoBehaviour {
     public static CheckoutCounter Instance { get; private set; }
 
-    [SerializeField] private float transactionTime = 2f;
+    [SerializeField] private float transactionTime = 1f; // Phase 1: Reduced from 2s to compress business phase
     [SerializeField] private Transform checkoutPosition;
 
     private Queue<Customer> customerQueue = new Queue<Customer>();

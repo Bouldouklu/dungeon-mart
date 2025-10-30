@@ -43,6 +43,8 @@ public class Customer : MonoBehaviour {
             agent.autoBraking = true;
             agent.radius = 0.3f;
             agent.height = 2.0f;
+            // Phase 1: Disable obstacle avoidance so customers can walk through each other
+            agent.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
         }
         else
         {
@@ -108,7 +110,8 @@ public class Customer : MonoBehaviour {
                 if (DialogueManager.Instance != null && customerType.browsingDialogues.Length > 0) {
                     DialogueManager.Instance.ShowRandomDialogue(customerType.browsingDialogues, transform);
                 }
-                yield return new WaitForSeconds(customerType.browseTime);
+                // Phase 1: Reduced browse time from customerType.browseTime to 0.5-1s for faster pacing
+                yield return new WaitForSeconds(Random.Range(0.5f, 1f));
 
                 // Take item (randomly choose from available item types)
                 ItemDataSO randomItemType = targetShelf.GetRandomAvailableItemType();
@@ -128,7 +131,8 @@ public class Customer : MonoBehaviour {
                     DialogueManager.Instance.ShowRandomDialogue(customerType.disappointedDialogues, transform);
                 }
                 Debug.Log($"Customer found empty shelf - no items to browse");
-                yield return new WaitForSeconds(customerType.browseTime * 0.5f); // Shorter wait for empty shelf
+                // Phase 1: Shorter wait for empty shelf (0.25-0.5s)
+                yield return new WaitForSeconds(Random.Range(0.25f, 0.5f));
             }
         }
 

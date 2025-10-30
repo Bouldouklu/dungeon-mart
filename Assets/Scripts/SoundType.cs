@@ -8,6 +8,7 @@ public enum SoundType {
     DoorBell,
     BoxOpen,
     ShelfRestock,
+    ShelfEmpty, // Phase 1: Alert sound when shelf becomes empty
 
     // UI Sounds
     UIClick,
