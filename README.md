@@ -95,7 +95,7 @@ This iterative testing ensures we catch bugs early and validate design decisions
 
 ---
 
-## Phase 5: Testing & Balancing 🧪 PENDING
+## Phase 5: Final Testing 🧪 PENDING
 
 **Goal:** Playtest the full progression system and iterate on balance
 
@@ -103,12 +103,10 @@ This iterative testing ensures we catch bugs early and validate design decisions
 ## 📊 Expected Outcomes
 
 ### Player Experience Goals:
-✅ **Clear "Why":** Players chase tier promotions and upgrades (positive motivation, not just survival)
-✅ **Visible Progress:** Every sale contributes to visible progress bar (dopamine loop)
-✅ **Strategic Depth:** Upgrade choices create meaningful trade-offs (capacity vs speed vs automation)
-✅ **Celebration Moments:** Tier-ups feel like achievements (emotional peaks)
-✅ **Replayability:** Different upgrade paths = different playstyles
-✅ **Long-term Engagement:** 5 tiers × 4-7 days per tier = 20-35 hours of content
+- ✅ **Clear "Why":** Players chase tier promotions and upgrades (positive motivation, not just survival)
+- ✅ **Visible Progress:** Every sale contributes to visible visual feedback (dopamine loop)
+- ✅ **Celebration Moments:** Objectives and upgrades feel like achievements (emotional peaks)
+- ✅ **Replayability:** Different upgrade paths = different playstyles
 
 ### Design Success Metrics:
 - [ ] Player can articulate their current goal ("I'm 67% to Merchant rank!")
@@ -153,14 +151,10 @@ This iterative testing ensures we catch bugs early and validate design decisions
     - [ ] Contextual hints based on phase
 
 - [ ] **Settings Menu:**
-  - [ ] Audio volume controls
   - [ ] Key binding remapping
   - [ ] Graphics settings
   - [ ] Save/load settings
 
-- [ ] **Multiple item types:** Add more items (potions, armor, etc.)
-- [ ] **Shop upgrades:** Additional shelves, faster checkout, more floors, auto-restocking, etc.
-- [ ] **Difficulty progression:** More customers per day as game progresses
 - [ ] **Customer patience system:** Customers leave if waiting too long
 - [ ] **Special orders:** Customers request specific items, that can't be ordered, put in inventory but not shown in the shop. Customers will come back after a few days and ask for it at the checkout counter
 

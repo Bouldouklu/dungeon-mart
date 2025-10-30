@@ -7,33 +7,7 @@ Transform DungeonMart3D into a **15-20 minute engaging browser prototype** with 
 
 ## 📋 Implementation Phases
 
-### **Phase 1: Fix Dead Time (Active Restocking System)** 🔥 CRITICAL
-**Problem:** Business phase is 3-5 minutes of pure spectating
-**Solution:** Hybrid approach - active restocking + speed up automation
-
-**Changes:**
-1. **Enable shelf restocking during business phase**
-   - Remove phase restriction from RestockUIManager
-   - Allow clicking shelves anytime after morning phase
-   - Shelves deplete as customers buy items
-
-2. **Speed up customer flow**
-   - Reduce spawn interval: 3s → 1.5s
-   - Reduce checkout time: 2s → 1s
-   - Reduce browse time per shelf: variable → 0.5-1s
-   - **Result:** Business phase compressed from 3-5min to ~90-120 seconds
-
-3. **Add visual urgency feedback**
-   - Shelves glow red when below 30% capacity
-   - Sound alert when shelf becomes empty
-   - Customer shows "disappointed" bubble if shelf is empty
-
-**Files to modify:**
-- `RestockUIManager.cs` - Remove EndOfDay phase check
-- `CustomerSpawner.cs` - Reduce spawnInterval from 3s to 1.5s
-- `CheckoutCounter.cs` - Reduce checkoutTime from 2s to 1s
-- `Customer.cs` - Reduce browseTime ranges
-- `Shelf.cs` - Add CapacityPercentage property + event for low stock
+### **Phase 1: Fix Dead Time (Active Restocking System)** DONE
 
 ---
 
