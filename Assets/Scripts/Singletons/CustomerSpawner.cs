@@ -22,6 +22,7 @@ public class CustomerSpawner : MonoBehaviour {
     private int customersLeft = 0;
     private int totalCustomersForDay = 0;
     private bool isSpawning = false;
+    private Coroutine spawnCoroutine;
 
     public int CustomersSpawned => customersSpawned;
     public int CustomersLeft => customersLeft;
@@ -62,7 +63,7 @@ public class CustomerSpawner : MonoBehaviour {
         totalCustomersForDay = CustomersPerDay;
 
         Debug.Log($"Starting customer wave: {totalCustomersForDay} customers (Base: {baseCustomersPerDay} + Bonus: {bonusCustomers})");
-        StartCoroutine(SpawnWaveCoroutine());
+        spawnCoroutine = StartCoroutine(SpawnWaveCoroutine());
     }
 
     /// <summary>
@@ -89,6 +90,7 @@ public class CustomerSpawner : MonoBehaviour {
         }
 
         isSpawning = false;
+        spawnCoroutine = null;
         Debug.Log($"Wave complete: {customersSpawned} customers spawned");
     }
 
@@ -142,5 +144,27 @@ public class CustomerSpawner : MonoBehaviour {
                 DayManager.Instance.EndDay();
             }
         }
+    }
+
+    /// <summary>
+    /// Stops spawning new customers immediately (used for manual shop closure).
+    /// </summary>
+    public void StopSpawning()
+    {
+        if (isSpawning && spawnCoroutine != null)
+        {
+            StopCoroutine(spawnCoroutine);
+            spawnCoroutine = null;
+            isSpawning = false;
+            Debug.Log($"Customer spawning stopped early. Spawned {customersSpawned}/{totalCustomersForDay} customers.");
+        }
+    }
+
+    /// <summary>
+    /// Checks if all spawned customers have left the shop.
+    /// </summary>
+    public bool AreAllCustomersGone()
+    {
+        return customersLeft >= customersSpawned;
     }
 }

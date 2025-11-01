@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public enum GamePhase
@@ -120,6 +121,53 @@ public class DayManager : MonoBehaviour
 
         currentDay++;
         StartMorningPhase();
+    }
+
+    /// <summary>
+    /// Progresses to the next phase intelligently based on current phase.
+    /// Morning → Opens shop | Business → Closes shop (waits for customers) | EndOfDay → Next day
+    /// </summary>
+    public void ProgressToNextPhase()
+    {
+        StartCoroutine(ProgressToNextPhaseCoroutine());
+    }
+
+    private System.Collections.IEnumerator ProgressToNextPhaseCoroutine()
+    {
+        switch (currentPhase)
+        {
+            case GamePhase.Morning:
+                Debug.Log("Progress button: Opening shop...");
+                OpenShop();
+                break;
+
+            case GamePhase.OpenForBusiness:
+                Debug.Log("Progress button: Closing shop...");
+
+                // Stop new customers from spawning
+                if (CustomerSpawner.Instance != null)
+                {
+                    CustomerSpawner.Instance.StopSpawning();
+                }
+
+                // Wait for all active customers to finish checkout
+                if (CustomerSpawner.Instance != null)
+                {
+                    while (!CustomerSpawner.Instance.AreAllCustomersGone())
+                    {
+                        yield return new WaitForSeconds(0.5f);
+                    }
+                }
+
+                Debug.Log("All customers have left. Ending day...");
+                EndDay();
+                break;
+
+            case GamePhase.EndOfDay:
+                Debug.Log("Progress button: Starting next day...");
+                StartNextDay();
+                break;
+        }
     }
 
     public void RecordCustomerSale(int saleAmount)

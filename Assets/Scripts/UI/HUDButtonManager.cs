@@ -1,10 +1,11 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace DungeonMart3D
 {
     /// <summary>
-    /// Manages HUD buttons for Order and Upgrades panels.
+    /// Manages HUD buttons for Order, Upgrades, Objectives, and Phase Progression.
     /// Enables/disables buttons based on the current game phase.
     /// </summary>
     public class HUDButtonManager : MonoBehaviour
@@ -13,6 +14,10 @@ namespace DungeonMart3D
         [SerializeField] private Button orderButton;
         [SerializeField] private Button upgradesButton;
         [SerializeField] private Button objectivesButton;
+        [SerializeField] private Button progressButton;
+
+        [Header("Progress Button Settings")]
+        [SerializeField] private TextMeshProUGUI progressButtonText;
 
         [Header("Visual Feedback Settings")]
         [SerializeField] private float disabledAlpha = 0.5f;
@@ -20,6 +25,7 @@ namespace DungeonMart3D
         private CanvasGroup orderButtonCanvasGroup;
         private CanvasGroup upgradesButtonCanvasGroup;
         private CanvasGroup objectivesButtonCanvasGroup;
+        private CanvasGroup progressButtonCanvasGroup;
 
         private void Awake()
         {
@@ -52,6 +58,15 @@ namespace DungeonMart3D
             else
             {
                 Debug.LogError("HUDButtonManager: Objectives button reference is missing!");
+            }
+
+            if (progressButton != null)
+            {
+                progressButton.onClick.AddListener(OnProgressButtonClicked);
+            }
+            else
+            {
+                Debug.LogError("HUDButtonManager: Progress button reference is missing!");
             }
 
             // Set initial state to disabled
@@ -97,6 +112,11 @@ namespace DungeonMart3D
             {
                 objectivesButton.onClick.RemoveListener(OnObjectivesButtonClicked);
             }
+
+            if (progressButton != null)
+            {
+                progressButton.onClick.RemoveListener(OnProgressButtonClicked);
+            }
         }
 
         private void SetupCanvasGroups()
@@ -130,6 +150,16 @@ namespace DungeonMart3D
                     objectivesButtonCanvasGroup = objectivesButton.gameObject.AddComponent<CanvasGroup>();
                 }
             }
+
+            // Add or get CanvasGroup for progress button
+            if (progressButton != null)
+            {
+                progressButtonCanvasGroup = progressButton.GetComponent<CanvasGroup>();
+                if (progressButtonCanvasGroup == null)
+                {
+                    progressButtonCanvasGroup = progressButton.gameObject.AddComponent<CanvasGroup>();
+                }
+            }
         }
 
         private void OnPhaseChanged(GamePhase newPhase)
@@ -144,8 +174,12 @@ namespace DungeonMart3D
             SetButtonState(orderButton, orderButtonCanvasGroup, shouldEnableButtons);
             SetButtonState(upgradesButton, upgradesButtonCanvasGroup, shouldEnableButtons);
 
-            // Objectives button is always enabled (not phase-restricted)
+            // Objectives and Progress buttons are always enabled (not phase-restricted)
             SetButtonState(objectivesButton, objectivesButtonCanvasGroup, true);
+            SetButtonState(progressButton, progressButtonCanvasGroup, true);
+
+            // Update progress button text based on current phase
+            UpdateProgressButtonText(currentPhase);
         }
 
         private void SetButtonState(Button button, CanvasGroup canvasGroup, bool enabled)
@@ -195,6 +229,39 @@ namespace DungeonMart3D
             else
             {
                 Debug.LogError("HUDButtonManager: ObjectivesPanelUI not found in scene!");
+            }
+        }
+
+        private void OnProgressButtonClicked()
+        {
+            if (DayManager.Instance != null)
+            {
+                DayManager.Instance.ProgressToNextPhase();
+            }
+            else
+            {
+                Debug.LogError("HUDButtonManager: DayManager instance not found!");
+            }
+        }
+
+        /// <summary>
+        /// Updates the progress button text based on the current game phase.
+        /// </summary>
+        private void UpdateProgressButtonText(GamePhase phase)
+        {
+            if (progressButtonText == null) return;
+
+            switch (phase)
+            {
+                case GamePhase.Morning:
+                    progressButtonText.text = "Open Shop";
+                    break;
+                case GamePhase.OpenForBusiness:
+                    progressButtonText.text = "Close Shop";
+                    break;
+                case GamePhase.EndOfDay:
+                    progressButtonText.text = "Next Day";
+                    break;
             }
         }
     }
