@@ -73,11 +73,19 @@ public class Shelf : MonoBehaviour, IInteractable {
             return;
         }
 
-        // Auto-find canvas in scene for quantity badges
+        // Auto-find WorldSpaceUICanvas in scene for quantity badges
         if (badgeCanvas == null && quantityBadgePrefab != null) {
-            badgeCanvas = FindFirstObjectByType<Canvas>();
+            // Find canvas with name starting with "WorldSpaceUICanvas" (supports hyphens like WorldSpaceUICanvas----)
+            Canvas[] allCanvases = FindObjectsByType<Canvas>(FindObjectsSortMode.None);
+            foreach (Canvas canvas in allCanvases) {
+                if (canvas.gameObject.name.StartsWith("WorldSpaceUICanvas")) {
+                    badgeCanvas = canvas;
+                    break;
+                }
+            }
+
             if (badgeCanvas == null) {
-                Debug.LogWarning($"Shelf {gameObject.name}: No Canvas found in scene. Quantity badges will not be created.");
+                Debug.LogWarning($"Shelf {gameObject.name}: No canvas starting with 'WorldSpaceUICanvas' found in scene. Quantity badges will not be created.");
             }
         }
 

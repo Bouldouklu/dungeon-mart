@@ -128,6 +128,12 @@
 - **Status**: not working as intended. No sound is generated. 
 - **todo**: analysis and correct issue
 
+
+**4. Delay between customer spawn is too constant**
+
+**5. Restocking mechanic and game play should be redone. There is no way to say where we want to restock. The player has to click through it and can't come back if he went too far.**
+
+
 ---
 
 ## Current Status
