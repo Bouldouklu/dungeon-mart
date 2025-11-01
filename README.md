@@ -53,6 +53,10 @@
 - ✅ Objectives Panel UI System: Full-featured objectives panel with ObjectivesPanelUI managing display/filtering, ObjectiveCard prefab for individual objective display with progress bars and completion states, 3 filter buttons (All/InProgress/Completed), HUD integration with always-enabled Objectives button, dynamic progress text formatting by objective type (Revenue shows $X/$Y, CustomersServed shows X/Y Customers, ItemsSold shows X/Y [Category] Sold), color-coded states (gray for in-progress, dark green for completed), gold checkmark badge for completed objectives, "Unlocks: [upgrade]" text display - UI scripts complete and ready for Unity Editor setup
 - ✅ Active Restocking & Fast Pacing: - Eliminated dead time during business phase by compressing duration from 3-5 minutes to 90-120 seconds: customer spawn interval reduced from 3s→1.5s, checkout time reduced from 2s→1s, browse time reduced to 0.5-1s random (full shelves) and 0.25-0.5s (empty shelves); Shelf.cs enhanced with CapacityPercentage property and urgency events (OnLowStock <30%, OnStockNormal, OnShelfEmpty) for real-time feedback; ShelfUrgencyVisual.cs component provides red glow material feedback on low stock shelves; SoundType.ShelfEmpty audio alert when shelves empty; NavMeshAgent obstacle avoidance disabled (NoObstacleAvoidance) allowing customers to walk through each other without blocking while still respecting NavMesh-baked static obstacles; active restocking enabled during business phase with no phase restrictions
 - ✅ Item Database & Shelf System Expansion: Created comprehensive 35-item database across 6 categories with balanced 3-tier pricing (Early $5-25, Mid $30-75, Late $80-150) and 40% profit margins; Updated CSV importer tool (DungeonMart_Items_v2.csv format) with description field support and prefab auto-linking; Created PlaceholderItemGenerator editor tool for color-coded primitive prefabs (Red=Weapons, Blue=Shields, Green=Potions, Orange=Armor, Purple=Traps, Cyan=Magic); Designed 6 shelf types including multi-category shelves (DefenseWall holds Shields+Armor, GeneralShelf holds Weapons+Shields+Potions); Category-based unlocking system with 18 starting items (Weapons/Shields/Potions) and 17 license-locked items (Armor $300, Traps $500, Magic $800); Reserved requiredTier field for future customer AI shopping behavior system
+- ✅ Asset Organization & Shelf Prefabs: Reorganized item assets into category-based folder structure for better project management, added new shelf type prefabs
+- ✅ UI Layering Fix: Corrected render order so dialogue bubbles and quantity badges now properly render behind UI panels (pause menu, order menu)
+- ✅ Dynamic Customer Spawn Intervals: Added configurable min/max spawn interval range (1.0s-2.0s default) with randomization for more natural customer flow
+- ✅ Phase Progression Button: Added always-visible HUD button with dynamic text ("Open Shop"/"Close Shop"/"Next Day") that intelligently progresses through game phases - stops customer spawning during business phase and waits for all customers to finish before ending day, enabling complete mouse-only gameplay
 
 ---
 
@@ -125,10 +129,10 @@
 - **Files**: `UpgradeManager.cs:207-220`
 
 **3. Sound alert when shelf becomes empty**
-- **Status**: not working as intended. No sound is generated. 
+- **Status**: not working as intended. No sound is generated.
 - **todo**: analysis and correct issue
 
-**5. Restocking mechanic and game play should be redone. There is no way to say where we want to restock. The player has to click through it and can't come back if he went too far.**
+**4. Restocking mechanic and game play should be redone. There is no way to say where we want to restock. The player has to click through it and can't come back if he went too far.**
 
 
 ---
@@ -136,9 +140,9 @@
 ## Current Status
 
 ### 🎮 Current Gameplay Loop
-1. **Morning:** Delivery boxes appear → Click boxes to open → Items to inventory → Click shelves to restock
-2. **Business:** Press O → Different customer types spawn with unique behaviors → Browse shelves → Show dialogue → Collect 1-4 items → Checkout → Day auto-ends when done
-3. **End of Day:** Summary panel shows stats → Click "Continue" → Click "Orders" button to place orders → Click "Upgrades" button to purchase upgrades → Press M to advance
+1. **Morning:** Delivery boxes appear → Click boxes to open → Items to inventory → Click shelves to restock → Click "Open Shop" button
+2. **Business:** Different customer types spawn with unique behaviors → Browse shelves → Show dialogue → Collect 1-4 items → Checkout → Click "Close Shop" button when ready (stops new customers, waits for existing to finish)
+3. **End of Day:** Summary panel shows stats → Click "Continue" → Click "Orders" button to place orders → Click "Upgrades" button to purchase upgrades → Click "Next Day" button
 4. **Next Morning:** Repeat cycle (Day 2, 3, 4...)
 
 ### 👥 Customer Types
@@ -151,8 +155,10 @@
 - **Mouse Click** - Interact with objects (click shelves to restock, click delivery boxes to open, click HUD buttons)
 - **Mouse Hover** - Visual feedback on interactive objects (pink outline with subtle pulse animation)
 - **ESC** - Pause/unpause game (opens pause menu with Resume, Return to Main Menu, and Quit options)
+- **Phase Progress Button** - Click to progress through day phases (shows "Open Shop"/"Close Shop"/"Next Day" based on current phase, always enabled)
 - **Orders Button** - Click to open order menu (visible always, only clickable during end of day phase)
 - **Upgrades Button** - Click to open upgrades shop (visible always, only clickable during end of day phase)
+- **Objectives Button** - Click to open objectives panel (always enabled)
 
 ### 🐛 Debug Controls
 
