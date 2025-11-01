@@ -1904,7 +1904,7 @@ MonoBehaviour:
   upgradesButton: {fileID: 1221849438}
   objectivesButton: {fileID: 1732884860}
   progressButton: {fileID: 115397802}
-  progressButtonText: {fileID: 0}
+  progressButtonText: {fileID: 987909540}
   disabledAlpha: 0.5
 --- !u!1 &181375438
 GameObject:
