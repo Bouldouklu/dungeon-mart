@@ -13,7 +13,10 @@ public class CustomerSpawner : MonoBehaviour {
 
     [Header("Day Settings")]
     [SerializeField] private int baseCustomersPerDay = 6;
-    [SerializeField] private float spawnInterval = 1.5f; // Phase 1: Reduced from 3s to compress business phase
+    [SerializeField, Tooltip("Minimum time between customer spawns (seconds)")]
+    private float minSpawnInterval = 1.0f;
+    [SerializeField, Tooltip("Maximum time between customer spawns (seconds)")]
+    private float maxSpawnInterval = 2.0f;
     [SerializeField] private int bonusCustomers = 0;
     private int customersSpawned = 0;
     private int customersLeft = 0;
@@ -80,7 +83,8 @@ public class CustomerSpawner : MonoBehaviour {
 
             // Wait before spawning next customer (except for last one)
             if (i < totalCustomersForDay - 1) {
-                yield return new WaitForSeconds(spawnInterval);
+                float randomDelay = Random.Range(minSpawnInterval, maxSpawnInterval);
+                yield return new WaitForSeconds(randomDelay);
             }
         }
 
