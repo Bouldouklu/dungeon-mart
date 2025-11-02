@@ -4,7 +4,6 @@ using TMPro;
 public class PhaseIndicatorUI : MonoBehaviour {
     [SerializeField] private TextMeshProUGUI phaseText;
     [SerializeField] private TextMeshProUGUI dayText;
-    [SerializeField] private TextMeshProUGUI instructionText;
 
     private void Start() {
         if (DayManager.Instance != null) {
@@ -42,22 +41,19 @@ public class PhaseIndicatorUI : MonoBehaviour {
             dayText.text = $"Day {day}";
         }
 
-        // Update phase text and instructions
-        if (phaseText != null && instructionText != null) {
+        // Update phase text
+        if (phaseText != null) {
             switch (phase) {
                 case GamePhase.Morning:
                     phaseText.text = "MORNING";
-                    instructionText.text = "Open delivery boxes (E)\nRestock shelves (E)\nPress O to open shop";
                     break;
 
                 case GamePhase.OpenForBusiness:
                     phaseText.text = "OPEN FOR BUSINESS";
-                    instructionText.text = "Serve customers and keep shelves stocked!\nDebug: Press K to end day";
                     break;
 
                 case GamePhase.EndOfDay:
                     phaseText.text = "DAY COMPLETE";
-                    instructionText.text = "Press Tab to place orders\nDebug: Press M for next morning";
                     break;
             }
         }

@@ -19,6 +19,11 @@ public class Customer : MonoBehaviour {
     private CheckoutCounter checkoutCounter;
     private NavMeshAgent agent;
 
+    // Dialogue system - only show one dialogue per customer visit
+    private enum DialoguePhase { Entry, Browsing, Checkout }
+    private DialoguePhase selectedDialoguePhase;
+    private bool hasShownDialogue = false;
+
     public bool IsMoving => isMoving;
     public CustomerTypeDataSO CustomerType => customerType;
 
@@ -68,12 +73,16 @@ public class Customer : MonoBehaviour {
         desiredItemCount = customerType.GetRandomItemCount();
         currentPatience = customerType.initialPatience;
 
+        // Randomly select one phase to show dialogue (33% chance each)
+        selectedDialoguePhase = (DialoguePhase)Random.Range(0, 3);
+
         Debug.Log($"Customer spawned: {customerType.customerTypeName} wants {desiredItemCount} items");
 
-        // Show entry dialogue
-        if (DialogueManager.Instance != null)
+        // Show entry dialogue (only if this was randomly selected as the dialogue phase)
+        if (DialogueManager.Instance != null && !hasShownDialogue && selectedDialoguePhase == DialoguePhase.Entry)
         {
             DialogueManager.Instance.ShowRandomDialogue(customerType.entryDialogues, transform);
+            hasShownDialogue = true;
         }
 
         // Play door bell sound when customer enters
@@ -106,9 +115,10 @@ public class Customer : MonoBehaviour {
 
             // Check if shelf has items FIRST, then show appropriate dialogue
             if (targetShelf != null && !targetShelf.IsEmpty) {
-                // Shelf has items - show browsing dialogue
-                if (DialogueManager.Instance != null && customerType.browsingDialogues.Length > 0) {
+                // Shelf has items - show browsing dialogue (only if this was randomly selected as the dialogue phase)
+                if (DialogueManager.Instance != null && customerType.browsingDialogues.Length > 0 && !hasShownDialogue && selectedDialoguePhase == DialoguePhase.Browsing) {
                     DialogueManager.Instance.ShowRandomDialogue(customerType.browsingDialogues, transform);
+                    hasShownDialogue = true;
                 }
                 // Phase 1: Reduced browse time from customerType.browseTime to 0.5-1s for faster pacing
                 yield return new WaitForSeconds(Random.Range(0.5f, 1f));
@@ -161,8 +171,10 @@ public class Customer : MonoBehaviour {
         checkoutCounter = FindFirstObjectByType<CheckoutCounter>();
         if (checkoutCounter != null) {
             Debug.Log($"Customer heading to checkout with {carriedItems.Count} items");
-            if (DialogueManager.Instance != null) {
+            // Show checkout dialogue (only if this was randomly selected as the dialogue phase)
+            if (DialogueManager.Instance != null && !hasShownDialogue && selectedDialoguePhase == DialoguePhase.Checkout) {
                 DialogueManager.Instance.ShowRandomDialogue(customerType.checkoutDialogues, transform);
+                hasShownDialogue = true;
             }
 
             waitingForCheckout = true;
@@ -185,13 +197,8 @@ public class Customer : MonoBehaviour {
             Debug.LogWarning("No CheckoutCounter found in scene!");
         }
 
-        // Show exit dialogue
-        if (DialogueManager.Instance != null) {
-            DialogueManager.Instance.ShowRandomDialogue(customerType.exitDialogues, transform);
-        }
-
         // Leave store
-        yield return new WaitForSeconds(1f); // Brief delay to show exit dialogue
+        yield return new WaitForSeconds(1f);
         NotifySpawnerAndLeave();
     }
 
