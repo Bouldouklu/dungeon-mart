@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -9,20 +10,23 @@ public class Customer : MonoBehaviour {
     [SerializeField] private Transform visualParent;
     [SerializeField] private GameObject[] visualPrefabs;
 
+    [Header("Demand Bubble System")]
+    [SerializeField] private GameObject demandBubblePrefab;
+    [SerializeField] private Canvas demandBubbleCanvas;
+    [SerializeField] private Vector3 bubbleOffset = new Vector3(0, 2.5f, 0);
+    [SerializeField] private float bubbleDuration = 2.5f;
+
     private CustomerTypeDataSO customerType;
     private List<Item> carriedItems = new List<Item>();
     private int desiredItemCount;
+    private List<ItemDataSO> specificItemRequests = new List<ItemDataSO>(); // Trending items customer wants
+    private int randomItemCount; // Remaining slots for random browsing
     private float currentPatience;
     private bool isMoving = false;
     private Vector3 targetPosition;
     private bool waitingForCheckout = false;
     private CheckoutCounter checkoutCounter;
     private NavMeshAgent agent;
-
-    // Dialogue system - only show one dialogue per customer visit
-    private enum DialoguePhase { Entry, Browsing, Checkout }
-    private DialoguePhase selectedDialoguePhase;
-    private bool hasShownDialogue = false;
 
     public bool IsMoving => isMoving;
     public CustomerTypeDataSO CustomerType => customerType;
@@ -73,16 +77,32 @@ public class Customer : MonoBehaviour {
         desiredItemCount = customerType.GetRandomItemCount();
         currentPatience = customerType.initialPatience;
 
-        // Randomly select one phase to show dialogue (33% chance each)
-        selectedDialoguePhase = (DialoguePhase)Random.Range(0, 3);
+        // Generate specific item requests based on specificItemRatio
+        GenerateSpecificItemRequests();
 
-        Debug.Log($"Customer spawned: {customerType.customerTypeName} wants {desiredItemCount} items");
+        // Calculate remaining slots for random browsing
+        randomItemCount = desiredItemCount - specificItemRequests.Count;
 
-        // Show entry dialogue (only if this was randomly selected as the dialogue phase)
-        if (DialogueManager.Instance != null && !hasShownDialogue && selectedDialoguePhase == DialoguePhase.Entry)
+        Debug.Log($"Customer spawned: {customerType.customerTypeName} wants {desiredItemCount} items ({specificItemRequests.Count} specific, {randomItemCount} random)");
+
+        // Auto-find demand bubble canvas if not assigned
+        if (demandBubbleCanvas == null)
         {
-            DialogueManager.Instance.ShowRandomDialogue(customerType.entryDialogues, transform);
-            hasShownDialogue = true;
+            // Find WorldSpaceUICanvas (supports hyphens like WorldSpaceUICanvas----)
+            Canvas[] allCanvases = FindObjectsByType<Canvas>(FindObjectsSortMode.None);
+            foreach (Canvas canvas in allCanvases)
+            {
+                if (canvas.gameObject.name.StartsWith("WorldSpaceUICanvas"))
+                {
+                    demandBubbleCanvas = canvas;
+                    break;
+                }
+            }
+
+            if (demandBubbleCanvas == null)
+            {
+                Debug.LogWarning("Customer: No canvas starting with 'WorldSpaceUICanvas' found in scene. Demand bubbles will not work.");
+            }
         }
 
         // Play door bell sound when customer enters
@@ -93,39 +113,103 @@ public class Customer : MonoBehaviour {
         StartCoroutine(ShoppingRoutine());
     }
 
+    /// <summary>
+    /// Generates specific item requests from trending items based on customer type's specificItemRatio.
+    /// Falls back to random browsing if TrendManager is not available.
+    /// </summary>
+    private void GenerateSpecificItemRequests()
+    {
+        specificItemRequests.Clear();
+
+        // Safety check: If TrendManager not in scene, skip specific requests (fall back to random browsing)
+        if (TrendManager.Instance == null)
+        {
+            Debug.LogWarning("TrendManager not found - customer will browse randomly (demand system disabled)");
+            return;
+        }
+
+        // Calculate how many items should be specific requests
+        int specificCount = Mathf.RoundToInt(desiredItemCount * customerType.specificItemRatio);
+        specificCount = Mathf.Clamp(specificCount, 0, desiredItemCount);
+
+        List<ItemDataSO> trendingItems = TrendManager.Instance.GetTrendingItems();
+
+        if (trendingItems == null || trendingItems.Count == 0)
+        {
+            Debug.LogWarning("No trending items available - customer will browse randomly");
+            return;
+        }
+
+        // Randomly select specific items from trending items (allow duplicates)
+        for (int i = 0; i < specificCount; i++)
+        {
+            ItemDataSO randomTrendingItem = trendingItems[Random.Range(0, trendingItems.Count)];
+            specificItemRequests.Add(randomTrendingItem);
+
+            // Record demand for this item (optional - skip if DemandTracker not available)
+            if (DemandTracker.Instance != null)
+            {
+                DemandTracker.Instance.RecordItemWanted(randomTrendingItem);
+            }
+        }
+
+        if (specificItemRequests.Count > 0)
+        {
+            Debug.Log($"Customer wants specific items: {string.Join(", ", specificItemRequests.Select(item => item.itemName))}");
+        }
+    }
+
     private IEnumerator ShoppingRoutine() {
         // Wait before starting shopping
         yield return new WaitForSeconds(0.5f);
 
         Shelf[] shelves = FindObjectsByType<Shelf>(FindObjectsSortMode.None);
 
-        // Try to collect desired number of items
-        for (int i = 0; i < desiredItemCount; i++) {
+        if (shelves == null || shelves.Length == 0)
+        {
+            Debug.LogWarning("Customer: No shelves found in scene!");
+            yield break;
+        }
+
+        // ===== PHASE A: Search for Specific Items =====
+        for (int i = 0; i < specificItemRequests.Count; i++) {
             if (shelves.Length == 0) break;
 
-            // Pick a random shelf
-            Shelf targetShelf = shelves[Random.Range(0, shelves.Length)];
+            ItemDataSO wantedItem = specificItemRequests[i];
+            if (wantedItem == null) continue;
 
-            // Move to shelf (adjust offset for 3D - use Z instead of Y)
+            // Show demand bubble with wanted item icon
+            ShowDemandBubble(wantedItem.itemSprite, DemandBubble.BubbleState.Wanted);
+
+            // Find shelves that have this specific item
+            List<Shelf> shelvesWithItem = shelves
+                .Where(shelf => shelf.HasItemType(wantedItem))
+                .ToList();
+
+            Shelf targetShelf = null;
+
+            if (shelvesWithItem.Count > 0) {
+                // Found shelves with the item - pick one randomly
+                targetShelf = shelvesWithItem[Random.Range(0, shelvesWithItem.Count)];
+            } else {
+                // Item not on any shelf - pick random shelf to check anyway
+                targetShelf = shelves[Random.Range(0, shelves.Length)];
+            }
+
+            // Move to shelf
             Vector3 shelfPos = targetShelf.transform.position + new Vector3(0, 0, -1f);
             MoveToPosition(shelfPos);
             while (isMoving) {
                 yield return null;
             }
 
-            // Check if shelf has items FIRST, then show appropriate dialogue
-            if (targetShelf != null && !targetShelf.IsEmpty) {
-                // Shelf has items - show browsing dialogue (only if this was randomly selected as the dialogue phase)
-                if (DialogueManager.Instance != null && customerType.browsingDialogues.Length > 0 && !hasShownDialogue && selectedDialoguePhase == DialoguePhase.Browsing) {
-                    DialogueManager.Instance.ShowRandomDialogue(customerType.browsingDialogues, transform);
-                    hasShownDialogue = true;
-                }
-                // Phase 1: Reduced browse time from customerType.browseTime to 0.5-1s for faster pacing
+            // Check if shelf has the wanted item
+            if (targetShelf.HasItemType(wantedItem)) {
+                // Browse shelf
                 yield return new WaitForSeconds(Random.Range(0.5f, 1f));
 
-                // Take item (randomly choose from available item types)
-                ItemDataSO randomItemType = targetShelf.GetRandomAvailableItemType();
-                Item item = targetShelf.TakeItem(randomItemType);
+                // Take the specific item
+                Item item = targetShelf.TakeItem(wantedItem);
                 if (item != null) {
                     carriedItems.Add(item);
                     // Position items in carry point (stack them slightly offset)
@@ -133,15 +217,56 @@ public class Customer : MonoBehaviour {
                         item.transform.SetParent(itemCarryPoint);
                         item.transform.localPosition = new Vector3(0, carriedItems.Count * 0.1f, 0);
                     }
-                    Debug.Log($"Customer picked up {item.GetItemName()} - item {i + 1}/{desiredItemCount}");
+
+                    // Show positive bubble (got the item!)
+                    ShowDemandBubble(wantedItem.itemSprite, DemandBubble.BubbleState.Positive);
+
+                    Debug.Log($"Customer found wanted item: {item.GetItemName()} ({i + 1}/{specificItemRequests.Count} specific items)");
                 }
             } else {
-                // Shelf is empty - show disappointed dialogue immediately
-                if (DialogueManager.Instance != null && customerType.disappointedDialogues != null && customerType.disappointedDialogues.Length > 0) {
-                    DialogueManager.Instance.ShowRandomDialogue(customerType.disappointedDialogues, transform);
+                // Shelf doesn't have wanted item - show negative bubble
+                ShowDemandBubble(wantedItem.itemSprite, DemandBubble.BubbleState.Negative);
+                Debug.Log($"Customer couldn't find wanted item: {wantedItem.itemName}");
+
+                // Short disappointed pause
+                yield return new WaitForSeconds(Random.Range(0.5f, 1f));
+            }
+        }
+
+        // ===== PHASE B: Fill Remaining Basket with Random Browsing =====
+        for (int i = 0; i < randomItemCount; i++) {
+            if (shelves.Length == 0) break;
+
+            // Pick a random shelf
+            Shelf targetShelf = shelves[Random.Range(0, shelves.Length)];
+
+            // Move to shelf
+            Vector3 shelfPos = targetShelf.transform.position + new Vector3(0, 0, -1f);
+            MoveToPosition(shelfPos);
+            while (isMoving) {
+                yield return null;
+            }
+
+            // Check if shelf has items
+            if (targetShelf != null && !targetShelf.IsEmpty) {
+                // Browse shelf
+                yield return new WaitForSeconds(Random.Range(0.5f, 1f));
+
+                // Take random item from shelf
+                ItemDataSO randomItemType = targetShelf.GetRandomAvailableItemType();
+                Item item = targetShelf.TakeItem(randomItemType);
+                if (item != null) {
+                    carriedItems.Add(item);
+                    // Position items in carry point
+                    if (itemCarryPoint != null) {
+                        item.transform.SetParent(itemCarryPoint);
+                        item.transform.localPosition = new Vector3(0, carriedItems.Count * 0.1f, 0);
+                    }
+                    Debug.Log($"Customer randomly picked up {item.GetItemName()} ({carriedItems.Count}/{desiredItemCount} total items)");
                 }
-                Debug.Log($"Customer found empty shelf - no items to browse");
-                // Phase 1: Shorter wait for empty shelf (0.25-0.5s)
+            } else {
+                // Shelf is empty - short pause
+                Debug.Log($"Customer found empty shelf during random browsing");
                 yield return new WaitForSeconds(Random.Range(0.25f, 0.5f));
             }
         }
@@ -149,20 +274,8 @@ public class Customer : MonoBehaviour {
         // If didn't get any items, leave disappointed
         if (carriedItems.Count == 0) {
             Debug.Log($"Customer leaving disappointed - no items found in entire store!");
-
-            // Validate disappointed dialogues exist
-            if (customerType.disappointedDialogues == null || customerType.disappointedDialogues.Length == 0) {
-                Debug.LogWarning($"CustomerTypeDataSO '{customerType.customerTypeName}' has no disappointed dialogues configured!");
-            }
-
-            // Show final disappointed dialogue when leaving (they already complained at each empty shelf)
-            // This serves as a "giving up" message
-            if (DialogueManager.Instance != null && customerType.disappointedDialogues != null && customerType.disappointedDialogues.Length > 0) {
-                DialogueManager.Instance.ShowRandomDialogue(customerType.disappointedDialogues, transform);
-            }
-
             DayManager.Instance?.RecordCustomerLeft();
-            yield return new WaitForSeconds(2f); // Wait to show dialogue
+            yield return new WaitForSeconds(2f);
             NotifySpawnerAndLeave();
             yield break;
         }
@@ -171,11 +284,6 @@ public class Customer : MonoBehaviour {
         checkoutCounter = FindFirstObjectByType<CheckoutCounter>();
         if (checkoutCounter != null) {
             Debug.Log($"Customer heading to checkout with {carriedItems.Count} items");
-            // Show checkout dialogue (only if this was randomly selected as the dialogue phase)
-            if (DialogueManager.Instance != null && !hasShownDialogue && selectedDialoguePhase == DialoguePhase.Checkout) {
-                DialogueManager.Instance.ShowRandomDialogue(customerType.checkoutDialogues, transform);
-                hasShownDialogue = true;
-            }
 
             waitingForCheckout = true;
             checkoutCounter.JoinQueue(this);
@@ -271,6 +379,38 @@ public class Customer : MonoBehaviour {
         {
             Debug.LogWarning("Customer NavMeshAgent is not on NavMesh!");
             isMoving = false;
+        }
+    }
+
+    /// <summary>
+    /// Shows a demand bubble above the customer with the specified item icon and state.
+    /// </summary>
+    private void ShowDemandBubble(Sprite itemSprite, DemandBubble.BubbleState state)
+    {
+        if (demandBubblePrefab == null || demandBubbleCanvas == null)
+        {
+            Debug.LogWarning("DemandBubble prefab or canvas not assigned on Customer!");
+            return;
+        }
+
+        if (itemSprite == null)
+        {
+            Debug.LogWarning("Cannot show demand bubble - item sprite is null!");
+            return;
+        }
+
+        // Instantiate demand bubble as child of canvas
+        GameObject bubbleObj = Instantiate(demandBubblePrefab, demandBubbleCanvas.transform);
+        DemandBubble bubble = bubbleObj.GetComponent<DemandBubble>();
+
+        if (bubble != null)
+        {
+            bubble.Initialize(itemSprite, state, transform, bubbleOffset, bubbleDuration);
+        }
+        else
+        {
+            Debug.LogWarning("DemandBubble component not found on prefab!");
+            Destroy(bubbleObj);
         }
     }
 

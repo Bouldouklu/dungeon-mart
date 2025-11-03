@@ -64,6 +64,10 @@ MonoBehaviour:
   - {fileID: 1547369703441942, guid: aa4de824abd97724da42ffc9d2b3c275, type: 3}
   - {fileID: 1624536181693422, guid: 807c1226359007646905397056134019, type: 3}
   - {fileID: 1877307886535162, guid: fda5edc93819a5946901f75bc534ac54, type: 3}
+  demandBubblePrefab: {fileID: 1778419828606703135, guid: 17a6d03ee80493647b4912f3d7d059dc, type: 3}
+  demandBubbleCanvas: {fileID: 0}
+  bubbleOffset: {x: 0, y: 2.5, z: 0}
+  bubbleDuration: 2.5
 --- !u!195 &2054530449731843414
 NavMeshAgent:
   m_ObjectHideFlags: 0

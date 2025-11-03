@@ -31,6 +31,11 @@ public class CustomerTypeDataSO : ScriptableObject {
     [Tooltip("Patience drain rate per second while waiting")]
     public float patienceDrainRate = 5f;
 
+    [Header("Demand System")]
+    [Tooltip("Ratio of basket filled with specific trending items (0.0 = all random, 1.0 = all specific). Quick Shopper = 1.0, Browser = 0.3, Big Spender = 0.6")]
+    [Range(0f, 1f)]
+    public float specificItemRatio = 0.5f;
+
     [Header("Corporate Humor Dialogues")]
     [Tooltip("Dialogue shown when entering the store")]
     [TextArea(2, 3)]

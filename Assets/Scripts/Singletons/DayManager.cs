@@ -16,6 +16,10 @@ public class DayManager : MonoBehaviour
     [SerializeField] private int currentDay = 1;
     [SerializeField] private GamePhase currentPhase = GamePhase.Morning;
 
+    [Header("Week Tracking")]
+    [SerializeField] private int currentWeek = 1;
+    [SerializeField] private int dayOfWeek = 1; // 1-7 (Monday-Sunday)
+
     [Header("Day Statistics")]
     [SerializeField] private int customersServedToday = 0;
     [SerializeField] private int dailyRevenue = 0;
@@ -24,10 +28,13 @@ public class DayManager : MonoBehaviour
     public event System.Action<GamePhase> OnPhaseChanged;
     public event System.Action<int> OnDayStarted;
     public event System.Action<int, int, int> OnDayEnded; // day, customers served, revenue
+    public event System.Action<int> OnWeekChanged; // week number
 
     // Properties
     public GamePhase CurrentPhase => currentPhase;
     public int CurrentDay => currentDay;
+    public int CurrentWeek => currentWeek;
+    public int DayOfWeek => dayOfWeek;
     public int CustomersServedToday => customersServedToday;
     public int DailyRevenue => dailyRevenue;
 
@@ -43,6 +50,10 @@ public class DayManager : MonoBehaviour
 
     private void Start()
     {
+        // Ensure game is not paused on start (safety fix)
+        Time.timeScale = 1f;
+        Debug.Log("DayManager.Start(): Set Time.timeScale = 1");
+
         // Start first day in morning phase
         StartMorningPhase();
     }
@@ -52,12 +63,25 @@ public class DayManager : MonoBehaviour
     public void StartMorningPhase()
     {
         currentPhase = GamePhase.Morning;
-        Debug.Log($"=== DAY {currentDay} - MORNING PHASE ===");
+
+        // Calculate week and day of week
+        int previousWeek = currentWeek;
+        currentWeek = (currentDay - 1) / 7 + 1;
+        dayOfWeek = ((currentDay - 1) % 7) + 1; // 1-7 (Monday=1, Sunday=7)
+
+        Debug.Log($"=== DAY {currentDay} (Week {currentWeek}, Day {dayOfWeek}) - MORNING PHASE ===");
         Debug.Log("Open delivery boxes and restock shelves. Press O to open shop.");
 
         // Reset daily stats
         customersServedToday = 0;
         dailyRevenue = 0;
+
+        // Fire week changed event if we entered a new week
+        if (currentWeek != previousWeek)
+        {
+            Debug.Log($"*** NEW WEEK {currentWeek} STARTED ***");
+            OnWeekChanged?.Invoke(currentWeek);
+        }
 
         // Play morning music
         if (AudioManager.Instance != null) {

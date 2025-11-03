@@ -20,6 +20,7 @@ MonoBehaviour:
   maxItemCount: 4
   initialPatience: 100
   patienceDrainRate: 10
+  specificItemRatio: 0.6
   entryDialogues:
   - I expect premium service!
   - Show me your finest evil merchandise
@@ -39,5 +40,3 @@ MonoBehaviour:
   - I'll recommend this to my villain associates
   disappointedDialogues:
   - THIS IS UNACCEPTABLE! I demand to speak to a manager!
-  customerSprite: {fileID: 0}
-  customerTint: {r: 1, g: 0.9, b: 0.5, a: 1}

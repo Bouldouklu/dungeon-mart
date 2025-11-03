@@ -20,6 +20,7 @@ MonoBehaviour:
   maxItemCount: 3
   initialPatience: 120
   patienceDrainRate: 3
+  specificItemRatio: 0
   entryDialogues:
   - 'Ooh, let me browse a bit...
 
@@ -41,5 +42,3 @@ MonoBehaviour:
   - I'll be back for more!
   disappointedDialogues:
   - Empty shelves? What kind of evil business is this?
-  customerSprite: {fileID: 0}
-  customerTint: {r: 0.8, g: 0.9, b: 1, a: 1}

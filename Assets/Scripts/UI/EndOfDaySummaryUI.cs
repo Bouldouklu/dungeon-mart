@@ -18,6 +18,11 @@ public class EndOfDaySummaryUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI loanPaymentText;
     [SerializeField] private Button continueButton;
 
+    [Header("Demand Report Section")]
+    [SerializeField] private GameObject demandReportContainer;
+    [SerializeField] private Transform demandItemListContainer;
+    [SerializeField] private GameObject demandItemRowPrefab;
+
     private void Start()
     {
         // Hide summary panel on start
@@ -166,10 +171,113 @@ public class EndOfDaySummaryUI : MonoBehaviour
             }
         }
 
+        // Populate demand report
+        PopulateDemandReport();
+
         // Show the panel
         summaryPanel.SetActive(true);
 
         Debug.Log($"End of Day Summary displayed for Day {day}");
+    }
+
+    /// <summary>
+    /// Populates the demand report section with trending item statistics.
+    /// Shows wanted/sold/missed for each trending item, highlighting missed opportunities.
+    /// </summary>
+    private void PopulateDemandReport()
+    {
+        // Hide demand report container if references not assigned
+        if (demandReportContainer == null || demandItemListContainer == null || demandItemRowPrefab == null)
+        {
+            if (demandReportContainer != null)
+            {
+                demandReportContainer.SetActive(false);
+            }
+            return;
+        }
+
+        // Check if we have demand tracking data
+        if (DemandTracker.Instance == null || TrendManager.Instance == null)
+        {
+            demandReportContainer.SetActive(false);
+            return;
+        }
+
+        // Clear existing demand items
+        foreach (Transform child in demandItemListContainer)
+        {
+            Destroy(child.gameObject);
+        }
+
+        // Get trending item demand stats
+        var trendingDemand = DemandTracker.Instance.GetTrendingItemDemand();
+
+        if (trendingDemand.Count == 0)
+        {
+            demandReportContainer.SetActive(false);
+            return;
+        }
+
+        // Create rows for each trending item
+        foreach (var kvp in trendingDemand)
+        {
+            ItemDataSO item = kvp.Key;
+            DemandStats stats = kvp.Value;
+
+            if (item == null) continue;
+
+            GameObject rowObj = Instantiate(demandItemRowPrefab, demandItemListContainer);
+            DemandItemRow row = rowObj.GetComponent<DemandItemRow>();
+
+            if (row != null)
+            {
+                // Highlight missed opportunities (wanted > sold)
+                bool missedOpportunity = stats.Missed > 0;
+                row.Initialize(item, stats.wanted, stats.sold, stats.Missed, missedOpportunity);
+            }
+            else
+            {
+                // Fallback: manually set UI elements if DemandItemRow component doesn't exist
+                Image iconImage = rowObj.transform.Find("Icon")?.GetComponent<Image>();
+                TextMeshProUGUI nameText = rowObj.transform.Find("ItemName")?.GetComponent<TextMeshProUGUI>();
+                TextMeshProUGUI wantedText = rowObj.transform.Find("Wanted")?.GetComponent<TextMeshProUGUI>();
+                TextMeshProUGUI soldText = rowObj.transform.Find("Sold")?.GetComponent<TextMeshProUGUI>();
+                TextMeshProUGUI missedText = rowObj.transform.Find("Missed")?.GetComponent<TextMeshProUGUI>();
+
+                if (iconImage != null && item.itemSprite != null)
+                {
+                    iconImage.sprite = item.itemSprite;
+                }
+
+                if (nameText != null)
+                {
+                    nameText.text = item.itemName;
+                }
+
+                if (wantedText != null)
+                {
+                    wantedText.text = $"Wanted: {stats.wanted}";
+                }
+
+                if (soldText != null)
+                {
+                    soldText.text = $"Sold: {stats.sold}";
+                }
+
+                if (missedText != null)
+                {
+                    missedText.text = $"Missed: {stats.Missed}";
+                    // Highlight missed opportunities in red
+                    if (stats.Missed > 0)
+                    {
+                        missedText.color = Color.red;
+                    }
+                }
+            }
+        }
+
+        // Show demand report container
+        demandReportContainer.SetActive(true);
     }
 
     /// <summary>

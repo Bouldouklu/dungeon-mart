@@ -20,6 +20,7 @@ MonoBehaviour:
   maxItemCount: 1
   initialPatience: 80
   patienceDrainRate: 8
+  specificItemRatio: 1
   entryDialogues:
   - Just need a cursed dagger, in and out!
   - Quick trip for some evil supplies
@@ -35,5 +36,3 @@ MonoBehaviour:
   - Efficient service, nice!
   disappointedDialogues:
   - Out of stock? Unbelievable! I'm going to Hell-Mart!
-  customerSprite: {fileID: 0}
-  customerTint: {r: 0.8, g: 1, b: 0.8, a: 1}
