@@ -15,7 +15,7 @@ MonoBehaviour:
   objectiveName: Week One Survivor
   objectiveID: WeekOneSurvivor
   description: Complete this objective to unlock rewards.
-  objectiveIcon: {fileID: 0}
+  objectiveIcon: {fileID: 288257225, guid: 6a05029d94c91b74b9d28ee3e3444182, type: 3}
   objectiveType: 3
   targetValue: 7
   categoryFilter: -1
@@ -30,4 +30,5 @@ MonoBehaviour:
   revealThreshold: 0
   revealAfterObjective: {fileID: 0}
   unlocksUpgrade: {fileID: 11400000, guid: 22b93e9092b4cad4a9f231c26f7ad048, type: 2}
+  unlocksTier: 0
   darkHumorText: One week down! Only 51 more weeks until retirement... in 40 years.

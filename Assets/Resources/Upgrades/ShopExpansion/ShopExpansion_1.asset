@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeDataSO
   upgradeName: Shop Expansion 1
   upgradeID: Shop Expansion 1
-  description: ' Unlock the second section of your shop. More space means more shelves
-    and more profit!'
+  description: Unlock the second section of your shop and gain the ability to sell
+    Armor & Apparel! More space and new items mean more profit!
   upgradeIcon: {fileID: 0}
   cost: 500
   requiredObjective: {fileID: 11400000, guid: 58431afc33c6d344d9a4845f58020ba2, type: 2}
@@ -24,6 +24,6 @@ MonoBehaviour:
   effectType: 0
   effectValue: 1
   targetSegmentIndex: 1
-  categoryToUnlock: 0
+  categoryToUnlock: 3
   isRepeatable: 0
   maxPurchases: 1

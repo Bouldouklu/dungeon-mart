@@ -15,7 +15,7 @@ MonoBehaviour:
   objectiveName: Dungeon Commerce Overlord
   objectiveID: DungeonCommerceOverlord
   description: Complete this objective to unlock rewards.
-  objectiveIcon: {fileID: 0}
+  objectiveIcon: {fileID: -595320739, guid: 6a05029d94c91b74b9d28ee3e3444182, type: 3}
   objectiveType: 4
   targetValue: 100
   categoryFilter: -1
@@ -30,5 +30,6 @@ MonoBehaviour:
   revealThreshold: 8
   revealAfterObjective: {fileID: 0}
   unlocksUpgrade: {fileID: 0}
+  unlocksTier: 0
   darkHumorText: OVERLORD status unlocked! You now own the souls of... I mean, loyal
     patronage of  hundreds!

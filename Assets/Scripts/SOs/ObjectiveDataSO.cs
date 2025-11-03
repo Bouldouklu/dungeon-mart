@@ -89,6 +89,10 @@ public class ObjectiveDataSO : ScriptableObject
     [Tooltip("Upgrade unlocked when this objective is completed")]
     public UpgradeDataSO unlocksUpgrade;
 
+    [Tooltip("Item tier unlocked when completed (0 = no tier unlock, 1-3 = unlocks that tier)")]
+    [Range(0, 3)]
+    public int unlocksTier = 0;
+
     [Header("Flavor")]
     [Tooltip("Dark humor text shown on objective completion")]
     [TextArea(2, 3)]

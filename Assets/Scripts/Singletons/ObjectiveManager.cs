@@ -395,6 +395,22 @@ public class ObjectiveManager : MonoBehaviour
         completedObjectives.Add(objective.ObjectiveID);
         OnObjectiveCompleted?.Invoke(objective);
 
+        // Check if this objective unlocks a tier
+        if (objective.unlocksTier > 0)
+        {
+            if (SupplyChainManager.Instance != null)
+            {
+                SupplyChainManager.Instance.UnlockTier(objective.unlocksTier);
+
+                if (showDebugLogs)
+                    Debug.Log($"[ObjectiveManager] <color=cyan>Tier {objective.unlocksTier} Unlocked!</color> New supplier items available.");
+            }
+            else
+            {
+                Debug.LogError("[ObjectiveManager] Cannot unlock tier - SupplyChainManager.Instance is null!");
+            }
+        }
+
         if (showDebugLogs)
         {
             Debug.Log($"[ObjectiveManager] <color=green>Objective Completed:</color> {objective.objectiveName}");

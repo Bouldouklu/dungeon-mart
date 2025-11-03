@@ -23,7 +23,6 @@ public class UpgradeShopUI : MonoBehaviour
     [SerializeField] private Button filterShelvesButton;
     [SerializeField] private Button filterOperationsButton;
     [SerializeField] private Button filterCustomerFlowButton;
-    [SerializeField] private Button filterLicensesButton;
 
     [Header("Confirmation Dialog")]
     [SerializeField] private GameObject confirmationDialog;
@@ -131,12 +130,6 @@ public class UpgradeShopUI : MonoBehaviour
             Debug.Log("✅ FilterCustomerFlow button listener added");
         }
 
-        if (filterLicensesButton != null)
-        {
-            filterLicensesButton.onClick.AddListener(() => SetFilter(UpgradeCategory.Licenses));
-            Debug.Log("✅ FilterLicenses button listener added");
-        }
-
         if (confirmYesButton != null)
         {
             confirmYesButton.onClick.AddListener(ConfirmPurchase);
@@ -157,7 +150,6 @@ public class UpgradeShopUI : MonoBehaviour
         if (filterShelvesButton != null) filterShelvesButton.onClick.RemoveAllListeners();
         if (filterOperationsButton != null) filterOperationsButton.onClick.RemoveAllListeners();
         if (filterCustomerFlowButton != null) filterCustomerFlowButton.onClick.RemoveAllListeners();
-        if (filterLicensesButton != null) filterLicensesButton.onClick.RemoveAllListeners();
         if (confirmYesButton != null) confirmYesButton.onClick.RemoveAllListeners();
         if (confirmNoButton != null) confirmNoButton.onClick.RemoveAllListeners();
     }

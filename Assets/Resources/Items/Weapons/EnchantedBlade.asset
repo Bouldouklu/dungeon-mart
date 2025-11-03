@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: EnchantedBlade
   m_EditorClassIdentifier: Assembly-CSharp::ItemDataSO
   itemName: Enchanted Blade
-  itemSprite: {fileID: 0}
-  itemPrefab: {fileID: 8207893088240970847, guid: 30b0f81572ad8b147acb53fc6cbddaad, type: 3}
+  itemSprite: {fileID: 21300000, guid: b851557a18d3bb34ebd18ad004e2fbf0, type: 3}
+  itemPrefab: {fileID: 8207893088240970847, guid: db618a8bfd932624a89c5a89ca601f00, type: 3}
   sellPrice: 95
   restockCost: 58
   itemCategory: 0
-  requiredTier: 0
+  tier: 3
   isUnlockedByDefault: 1
   description: Glows ominously in the dark

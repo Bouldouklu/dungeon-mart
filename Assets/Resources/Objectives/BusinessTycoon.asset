@@ -15,7 +15,7 @@ MonoBehaviour:
   objectiveName: Business Tycoon
   objectiveID: BusinessTycoon
   description: Complete this objective to unlock rewards.
-  objectiveIcon: {fileID: 0}
+  objectiveIcon: {fileID: -701247471, guid: 6a05029d94c91b74b9d28ee3e3444182, type: 3}
   objectiveType: 4
   targetValue: 100
   categoryFilter: -1
@@ -30,4 +30,5 @@ MonoBehaviour:
   revealThreshold: 6
   revealAfterObjective: {fileID: 0}
   unlocksUpgrade: {fileID: 11400000, guid: 9816849c746f3744d985f91482fc61b5, type: 2}
+  unlocksTier: 0
   darkHumorText: Business tycoon status achieved! Time to crush smaller competitors.

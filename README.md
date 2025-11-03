@@ -46,17 +46,18 @@
 - ✅ Customer Animation System: Component-based animation controller for customer walk/idle states - attaches to visual prefabs, automatically finds NavMeshAgent in parent hierarchy, velocity-based animation switching with configurable threshold
 - ✅ Quantity Badge System: Replaced visual item stacking with quantity badges - single item display per slot with badge overlay showing "x2", "x3", etc. for multiple items, badge auto-hides when count ≤ 1, follows DialogueBubble pattern with world-to-screen space conversion, auto-finds canvas at runtime (no manual inspector assignment needed)
 - ✅ HUD Button System: Transitioned from keyboard-only to clickable HUD buttons for orders and upgrades - HUDButtonManager manages phase-based button enabling (both buttons only active during EndOfDay), buttons positioned in bottom-right corner with visual feedback (grayed out when disabled), removed Tab key shortcut for orders, removed ESC menu access to upgrades, singleton pattern added to OrderMenu for external access
-- ✅ Category Filter System: Upgrade shop now has 5 category filters (Shop Expansion, Shelves, Operations, Customer Flow, Licenses) for better organization
+- ✅ Category Filter System: Upgrade shop now has 4 category filters (Shop Expansion, Shelves, Operations, Customer Flow) for better organization
 - ✅ Item Category System: Replaced size-based item system (Small/Medium/Big) with flexible category system (Weapons, Shields, Potions, Armor & Apparel, Traps, Magic Items) - supports multiple categories per shelf, hybrid unlock system (category unlocks via upgrades + tier-based item gating), starting categories (Weapons, Shields, Potions) unlocked by default
-- ✅ License Upgrade System: Added "Licenses" category to upgrade shop with 3 license upgrades (Armor & Apparel License $300/Tier 1, Trap Merchant Permit $500/Tier 2, Arcane Items Certification $800/Tier 3) - purchasing licenses unlocks new item categories in order menu
+- ✅ ~~License Upgrade System~~ (REMOVED): Previously had "Licenses" category with 3 license upgrades - replaced by objective-based progression where category unlocks now happen through completing objectives instead of purchasing upgrades
 - ✅ Objective-Based Progression System: Completely replaced tier-based progression with parallel objective tracking - 5 objective types (Revenue, CustomersServed, ItemsSold, DaysPlayed, Hybrid), category-specific item tracking, prerequisite system for objectives and upgrades, reveal conditions (AlwaysVisible, AfterObjectiveCount, AfterSpecificObjective), dark humor completion messages, debug keys F11/F12 for testing, ItemCategory.None added for non-filtered objectives
 - ✅ Objectives Panel UI System: Full-featured objectives panel with ObjectivesPanelUI managing display/filtering, ObjectiveCard prefab for individual objective display with progress bars and completion states, 3 filter buttons (All/InProgress/Completed), HUD integration with always-enabled Objectives button, dynamic progress text formatting by objective type (Revenue shows $X/$Y, CustomersServed shows X/Y Customers, ItemsSold shows X/Y [Category] Sold), color-coded states (gray for in-progress, dark green for completed), gold checkmark badge for completed objectives, "Unlocks: [upgrade]" text display - UI scripts complete and ready for Unity Editor setup
-- ✅ Active Restocking & Fast Pacing: - Eliminated dead time during business phase by compressing duration from 3-5 minutes to 90-120 seconds: customer spawn interval reduced from 3s→1.5s, checkout time reduced from 2s→1s, browse time reduced to 0.5-1s random (full shelves) and 0.25-0.5s (empty shelves); Shelf.cs enhanced with CapacityPercentage property and urgency events (OnLowStock <30%, OnStockNormal, OnShelfEmpty) for real-time feedback; ShelfUrgencyVisual.cs component provides red glow material feedback on low stock shelves; SoundType.ShelfEmpty audio alert when shelves empty; NavMeshAgent obstacle avoidance disabled (NoObstacleAvoidance) allowing customers to walk through each other without blocking while still respecting NavMesh-baked static obstacles; active restocking enabled during business phase with no phase restrictions
-- ✅ Item Database & Shelf System Expansion: Created comprehensive 35-item database across 6 categories with balanced 3-tier pricing (Early $5-25, Mid $30-75, Late $80-150) and 40% profit margins; Updated CSV importer tool (DungeonMart_Items_v2.csv format) with description field support and prefab auto-linking; Created PlaceholderItemGenerator editor tool for color-coded primitive prefabs (Red=Weapons, Blue=Shields, Green=Potions, Orange=Armor, Purple=Traps, Cyan=Magic); Designed 6 shelf types including multi-category shelves (DefenseWall holds Shields+Armor, GeneralShelf holds Weapons+Shields+Potions); Category-based unlocking system with 18 starting items (Weapons/Shields/Potions) and 17 license-locked items (Armor $300, Traps $500, Magic $800); Reserved requiredTier field for future customer AI shopping behavior system
+- ✅ Active Restocking & Fast Pacing: Eliminated dead time during business phase by compressing duration from 3-5 minutes to 90-120 seconds: customer spawn interval reduced from 3s→1.5s, checkout time reduced from 2s→1s, browse time reduced to 0.5-1s random (full shelves) and 0.25-0.5s (empty shelves); NavMeshAgent obstacle avoidance disabled (NoObstacleAvoidance) allowing customers to walk through each other without blocking while still respecting NavMesh-baked static obstacles; active restocking enabled during business phase with no phase restrictions
+- ✅ Item Database & Shelf System Expansion: Created comprehensive 35-item database across 6 categories with balanced 3-tier pricing (Early $5-25, Mid $30-75, Late $80-150) and 40% profit margins; Updated CSV importer tool (DungeonMart_Items_v2.csv format) with description field support and prefab auto-linking; Created PlaceholderItemGenerator editor tool for color-coded primitive prefabs (Red=Weapons, Blue=Shields, Green=Potions, Orange=Armor, Purple=Traps, Cyan=Magic); Designed 6 shelf types including multi-category shelves (DefenseWall holds Shields+Armor, GeneralShelf holds Weapons+Shields+Potions); Category-based unlocking system with 18 starting items (Weapons/Shields/Potions) and 17 objective-unlocked items (Armor/Traps/Magic categories unlocked through progression)
 - ✅ Asset Organization & Shelf Prefabs: Reorganized item assets into category-based folder structure for better project management, added new shelf type prefabs
 - ✅ UI Layering Fix: Corrected render order so dialogue bubbles and quantity badges now properly render behind UI panels (pause menu, order menu)
 - ✅ Dynamic Customer Spawn Intervals: Added configurable min/max spawn interval range (1.0s-2.0s default) with randomization for more natural customer flow
 - ✅ Phase Progression Button: Added always-visible HUD button with dynamic text ("Open Shop"/"Close Shop"/"Next Day") that intelligently progresses through game phases - stops customer spawning during business phase and waits for all customers to finish before ending day, enabling complete mouse-only gameplay
+- ✅ Item Tier System: Implemented 3-tier quality progression system (Tier 1: $1-29 Cheap/Starting, Tier 2: $30-79 Normal/Mid-game, Tier 3: $80+ Premium/Late-game) - tiers unlock via objectives independent of category unlocks, creating hybrid progression where items require both category AND tier unlock; ItemDataSO.tier field with auto-assignment based on sell price; SupplyChainManager tracks currentUnlockedTier with filtering in AvailableItems; ObjectiveDataSO.unlocksTier field (0-3) triggers SupplyChainManager.UnlockTier() on completion; ItemTierAssigner editor tool (Tools → DungeonMart → Assign Item Tiers) batch-updates all items; Debug key U unlocks next tier for testing; combines with objective-based category unlocking for dual-gate item progression
 
 ---
 
@@ -128,11 +129,7 @@
 - **Implemented & Tested**: Shop segment unlocking ✅, shelf capacity increases ✅, customer count bonuses ✅
 - **Files**: `UpgradeManager.cs:207-220`
 
-**3. Sound alert when shelf becomes empty**
-- **Status**: not working as intended. No sound is generated.
-- **todo**: analysis and correct issue
-
-**4. Restocking mechanic and game play should be redone. There is no way to say where we want to restock. The player has to click through it and can't come back if he went too far.**
+**3. Restocking mechanic and game play should be redone. There is no way to say where we want to restock. The player has to click through it and can't come back if he went too far.**
 
 
 ---
@@ -187,6 +184,9 @@
 **Objective System Testing:**
 - **F11** - Complete next incomplete objective (test objective completion flow)
 - **F12** - Add 10 items sold to random category (test item tracking)
+
+**Item Tier Testing:**
+- **U** - Unlock next tier (cycles 1→2→3, test tier progression)
 
 **Inventory Testing:**
 - **I** - Add debug inventory items (general testing)

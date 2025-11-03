@@ -25,6 +25,7 @@ public class DebugInputManager : MonoBehaviour
         HandleDayControlKeys();
         HandleTimeScaleKeys();
         HandleMoneyKeys();
+        HandleTierKeys();
         HandleUpgradeKeys();
         HandleInventoryKeys();
     }
@@ -138,6 +139,61 @@ public class DebugInputManager : MonoBehaviour
             {
                 GameManager.Instance.AddMoney(5000);
                 Debug.Log("DEBUG: Added $5000 for progression testing");
+            }
+        }
+    }
+
+    #endregion
+
+    #region Tier Testing Keys
+
+    /// <summary>
+    /// Handles debug keys for testing item tier unlocking.
+    /// U - Unlock next tier (cycles 1→2→3)
+    /// Shift+U - Reset to Tier 1
+    /// </summary>
+    private void HandleTierKeys()
+    {
+        if (Input.GetKeyDown(KeyCode.U))
+        {
+            if (SupplyChainManager.Instance != null)
+            {
+                // Check if Shift is held - reset to Tier 1
+                if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
+                {
+                    // Manually reset tier (direct assignment since there's no reset method)
+                    int currentTier = SupplyChainManager.Instance.CurrentTier;
+                    if (currentTier > 1)
+                    {
+                        // Unlock tier 1 to reset
+                        Debug.Log($"DEBUG: Reset tier from {currentTier} to 1 (NOT SUPPORTED - tiers only go up!)");
+                        Debug.LogWarning("Tier reset not supported in current implementation. Restart scene to reset tiers.");
+                    }
+                    else
+                    {
+                        Debug.Log("DEBUG: Already at Tier 1");
+                    }
+                }
+                else
+                {
+                    // Unlock next tier
+                    int currentTier = SupplyChainManager.Instance.CurrentTier;
+                    int nextTier = currentTier + 1;
+
+                    if (nextTier <= 3)
+                    {
+                        SupplyChainManager.Instance.UnlockTier(nextTier);
+                        Debug.Log($"DEBUG: Unlocked Tier {nextTier}! Items up to tier {nextTier} now available.");
+                    }
+                    else
+                    {
+                        Debug.Log("DEBUG: Already at maximum tier (3)!");
+                    }
+                }
+            }
+            else
+            {
+                Debug.LogError("DEBUG: SupplyChainManager.Instance is null!");
             }
         }
     }

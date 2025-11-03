@@ -253,7 +253,6 @@ public class ItemDataImporter : EditorWindow {
         asset.sellPrice = data.sellPrice;
         asset.restockCost = data.restockCost;
         asset.itemCategory = data.itemCategory;
-        asset.requiredTier = 0; // Always 0 for now (future: customer AI tier system)
         asset.isUnlockedByDefault = data.isUnlockedByDefault;
         asset.description = data.description;
 

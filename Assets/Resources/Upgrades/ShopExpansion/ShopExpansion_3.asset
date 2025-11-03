@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeDataSO
   upgradeName: Shop Expansion 3
   upgradeID: Shop Expansion 3
-  description: Take over the entire building! Maximum shop space for your growing
-    empire.
+  description: Take over the entire building and unlock powerful Magic Items! Maximum
+    shop space for your growing arcane empire.
   upgradeIcon: {fileID: 0}
   cost: 1200
   requiredObjective: {fileID: 11400000, guid: 2e9b05f88d40ab04083bc896e5fbfd31, type: 2}
@@ -25,6 +25,6 @@ MonoBehaviour:
   effectType: 0
   effectValue: 1
   targetSegmentIndex: 3
-  categoryToUnlock: 0
+  categoryToUnlock: 5
   isRepeatable: 0
   maxPurchases: 1

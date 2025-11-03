@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeDataSO
   upgradeName: Shop Expansion 2
   upgradeID: Shop Expansion 2
-  description: Expand into the third wing of your building. Even more room for premium
-    merchandise!
+  description: Expand into the third wing and unlock dangerous Traps for sale! More
+    room for merchandise (that may or may not be cursed).
   upgradeIcon: {fileID: 0}
   cost: 800
   requiredObjective: {fileID: 11400000, guid: 513a39c3f2fa5314487b041a8ee8ace4, type: 2}
@@ -25,6 +25,6 @@ MonoBehaviour:
   effectType: 0
   effectValue: 1
   targetSegmentIndex: 2
-  categoryToUnlock: 0
+  categoryToUnlock: 4
   isRepeatable: 0
   maxPurchases: 1

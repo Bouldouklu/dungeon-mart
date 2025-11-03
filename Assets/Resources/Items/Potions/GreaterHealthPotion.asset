@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: GreaterHealthPotion
   m_EditorClassIdentifier: Assembly-CSharp::ItemDataSO
   itemName: Greater Health Potion
-  itemSprite: {fileID: 0}
+  itemSprite: {fileID: 21300000, guid: 026e5e1f3bb51d3479c6f7629672b964, type: 3}
   itemPrefab: {fileID: 3487541461403465175, guid: a5b3275a498693c408fa5c4204fedd7b, type: 3}
   sellPrice: 40
   restockCost: 24
   itemCategory: 2
-  requiredTier: 0
+  tier: 2
   isUnlockedByDefault: 1
   description: Industrial strength healing

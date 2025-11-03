@@ -15,7 +15,7 @@ MonoBehaviour:
   objectiveName: Expansion Mogul
   objectiveID: ExpansionMogul
   description: Complete this objective to unlock rewards.
-  objectiveIcon: {fileID: 0}
+  objectiveIcon: {fileID: -1566786115, guid: 6a05029d94c91b74b9d28ee3e3444182, type: 3}
   objectiveType: 4
   targetValue: 0
   categoryFilter: -1
@@ -31,4 +31,5 @@ MonoBehaviour:
   revealThreshold: 0
   revealAfterObjective: {fileID: 11400000, guid: 58431afc33c6d344d9a4845f58020ba2, type: 2}
   unlocksUpgrade: {fileID: 11400000, guid: 19c7af6b8f2b2aa478848ba929afa3e6, type: 2}
+  unlocksTier: 0
   darkHumorText: Expanding your empire! Gentrification starts with one small shop.

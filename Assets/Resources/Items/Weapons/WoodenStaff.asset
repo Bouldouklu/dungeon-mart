@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: WoodenStaff
   m_EditorClassIdentifier: Assembly-CSharp::ItemDataSO
   itemName: Wooden Staff
-  itemSprite: {fileID: 0}
+  itemSprite: {fileID: 21300000, guid: 475c32232321143489c292eb87f52178, type: 3}
   itemPrefab: {fileID: 7639250017113960022, guid: 35bfcac28edb35845899c58b80d4d773, type: 3}
   sellPrice: 8
   restockCost: 5
   itemCategory: 0
-  requiredTier: 0
+  tier: 1
   isUnlockedByDefault: 1
   description: Sturdy oak good for whacking

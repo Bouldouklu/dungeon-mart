@@ -1,0 +1,503 @@
+fileFormatVersion: 2
+guid: 6a05029d94c91b74b9d28ee3e3444182
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -2232622256047494381
+    second: i_am_making_a_video_game_and_have_some_objectives_within_the_game_i_want_an_icon_for_each_objective_8fcwmcshq2eq6wq8e7h7_8_0
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Alchemy Enthusiast
+      rect:
+        serializedVersion: 2
+        x: 41
+        y: 777
+        width: 224
+        height: 206
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 31b68a613e12401e0800000000000000
+      internalID: -2232622256047494381
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Arcane Merchant
+      rect:
+        serializedVersion: 2
+        x: 279
+        y: 777
+        width: 224
+        height: 206
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eacd75959eb82ec4d9c9deb4693c4bab
+      internalID: 1485410752
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Business Tycoon
+      rect:
+        serializedVersion: 2
+        x: 517
+        y: 777
+        width: 224
+        height: 206
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 90a9d5a9cd5fb90468d9f4bd669331e9
+      internalID: -701247471
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Customer Satisfaction Guru
+      rect:
+        serializedVersion: 2
+        x: 755
+        y: 777
+        width: 224
+        height: 206
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 57a1441b69f0fdf489ae3af5d3d5ee32
+      internalID: 667061754
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dungeon Commerce Overlord
+      rect:
+        serializedVersion: 2
+        x: 41
+        y: 533
+        width: 224
+        height: 206
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8f514335fc79dc940b6b8e752472e2ab
+      internalID: -595320739
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Expansion Mogul
+      rect:
+        serializedVersion: 2
+        x: 279
+        y: 533
+        width: 224
+        height: 206
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ed8d9fef3496cfd43b41c8be7757b1ee
+      internalID: -1566786115
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: First Blood Money
+      rect:
+        serializedVersion: 2
+        x: 517
+        y: 533
+        width: 224
+        height: 206
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1675ede9bde804b459a6c5f94b845058
+      internalID: -758506341
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: People Person Sort Of
+      rect:
+        serializedVersion: 2
+        x: 755
+        y: 533
+        width: 224
+        height: 206
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 509bd3d779bce474a9d03f6d84121082
+      internalID: -1879868996
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: i_am_making_a_video_game_and_have_some_objectives_within_the_game_i_want_an_icon_for_each_objective_8fcwmcshq2eq6wq8e7h7_8_8
+      rect:
+        serializedVersion: 2
+        x: 41
+        y: 289
+        width: 224
+        height: 206
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c1e80d05c85667d49947cf41bafd1b0e
+      internalID: -1814684018
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: War Profiteer
+      rect:
+        serializedVersion: 2
+        x: 279
+        y: 289
+        width: 224
+        height: 206
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 71aaee49c4131d5479f562adc35b3b0f
+      internalID: -602493312
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: i_am_making_a_video_game_and_have_some_objectives_within_the_game_i_want_an_icon_for_each_objective_8fcwmcshq2eq6wq8e7h7_8_10
+      rect:
+        serializedVersion: 2
+        x: 517
+        y: 289
+        width: 224
+        height: 206
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8c1ca12a62711a64587f6ddaca5ace98
+      internalID: 1085030587
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: i_am_making_a_video_game_and_have_some_objectives_within_the_game_i_want_an_icon_for_each_objective_8fcwmcshq2eq6wq8e7h7_8_11
+      rect:
+        serializedVersion: 2
+        x: 755
+        y: 289
+        width: 224
+        height: 206
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0b099b4978d4b524a967bc46ab712a96
+      internalID: -914869529
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Potion Pusher
+      rect:
+        serializedVersion: 2
+        x: 41
+        y: 45
+        width: 224
+        height: 206
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8f81dd97b35a9694dab4a29cdf17cf1f
+      internalID: 520633247
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: i_am_making_a_video_game_and_have_some_objectives_within_the_game_i_want_an_icon_for_each_objective_8fcwmcshq2eq6wq8e7h7_8_13
+      rect:
+        serializedVersion: 2
+        x: 279
+        y: 45
+        width: 224
+        height: 206
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2637f72004ad651498cdda79a6359e87
+      internalID: -292622763
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Weapons Dealer
+      rect:
+        serializedVersion: 2
+        x: 517
+        y: 45
+        width: 224
+        height: 206
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ba9584ec5443ef34bbde337cbe0aa3a7
+      internalID: -599085202
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Week One Survivor
+      rect:
+        serializedVersion: 2
+        x: 755
+        y: 45
+        width: 224
+        height: 206
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a2193752eeebf8c4aa4b3f0d7b13a9bd
+      internalID: 288257225
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: aff5fabcdae0a1b4294f5203b5839cfa
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":224.0,"y":206.0},"gridSpriteOffset":{"x":41.0,"y":41.0},"gridSpritePadding":{"x":14.0,"y":38.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
+    nameFileIdTable:
+      Alchemy Enthusiast: -2232622256047494381
+      Arcane Merchant: 1485410752
+      Business Tycoon: -701247471
+      Customer Satisfaction Guru: 667061754
+      Dungeon Commerce Overlord: -595320739
+      Expansion Mogul: -1566786115
+      First Blood Money: -758506341
+      People Person Sort Of: -1879868996
+      Potion Pusher: 520633247
+      War Profiteer: -602493312
+      Weapons Dealer: -599085202
+      Week One Survivor: 288257225
+      i_am_making_a_video_game_and_have_some_objectives_within_the_game_i_want_an_icon_for_each_objective_8fcwmcshq2eq6wq8e7h7_8_10: 1085030587
+      i_am_making_a_video_game_and_have_some_objectives_within_the_game_i_want_an_icon_for_each_objective_8fcwmcshq2eq6wq8e7h7_8_11: -914869529
+      i_am_making_a_video_game_and_have_some_objectives_within_the_game_i_want_an_icon_for_each_objective_8fcwmcshq2eq6wq8e7h7_8_13: -292622763
+      i_am_making_a_video_game_and_have_some_objectives_within_the_game_i_want_an_icon_for_each_objective_8fcwmcshq2eq6wq8e7h7_8_8: -1814684018
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

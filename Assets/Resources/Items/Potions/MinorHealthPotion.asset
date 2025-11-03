@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: MinorHealthPotion
   m_EditorClassIdentifier: Assembly-CSharp::ItemDataSO
   itemName: Minor Health Potion
-  itemSprite: {fileID: 0}
+  itemSprite: {fileID: 21300000, guid: 57d61e9db6da75048a35d2c08bd54d7f, type: 3}
   itemPrefab: {fileID: 9114246954244831024, guid: 402b894ced818754aadf77f46410d311, type: 3}
   sellPrice: 5
   restockCost: 3
   itemCategory: 2
-  requiredTier: 0
+  tier: 1
   isUnlockedByDefault: 1
   description: Heals papercuts

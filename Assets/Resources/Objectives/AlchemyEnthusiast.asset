@@ -15,7 +15,7 @@ MonoBehaviour:
   objectiveName: Alchemy Enthusiast
   objectiveID: AlchemyEnthusiast
   description: Complete this objective to unlock rewards.
-  objectiveIcon: {fileID: 0}
+  objectiveIcon: {fileID: -2232622256047494381, guid: 6a05029d94c91b74b9d28ee3e3444182, type: 3}
   objectiveType: 2
   targetValue: 80
   categoryFilter: 2
@@ -29,5 +29,6 @@ MonoBehaviour:
   revealCondition: 1
   revealThreshold: 3
   revealAfterObjective: {fileID: 11400000, guid: ce30498bc2e784e4980e6b0d31e518b7, type: 2}
-  unlocksUpgrade: {fileID: 11400000, guid: fcf60969ea86a0d42b2982e7a15fe18a, type: 2}
+  unlocksUpgrade: {fileID: 0}
+  unlocksTier: 0
   darkHumorText: 80 potions! Breaking Bad has nothing on you.

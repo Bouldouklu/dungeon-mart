@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: IronShield
   m_EditorClassIdentifier: Assembly-CSharp::ItemDataSO
   itemName: Iron Shield
-  itemSprite: {fileID: 0}
+  itemSprite: {fileID: 21300000, guid: 7fe0af61f737f5e45b95366de85eb5cf, type: 3}
   itemPrefab: {fileID: 6287160600974893493, guid: 2a42bababaf799645a62e94dcc2e1093, type: 3}
   sellPrice: 22
   restockCost: 13
   itemCategory: 1
-  requiredTier: 0
+  tier: 1
   isUnlockedByDefault: 1
   description: Standard issue protection

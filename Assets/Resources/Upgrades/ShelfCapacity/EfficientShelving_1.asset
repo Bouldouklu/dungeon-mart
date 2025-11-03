@@ -16,7 +16,7 @@ MonoBehaviour:
   upgradeID: Efficient Shelving 1
   description: Clever stacking techniques allow you to fit more items per shelf slot.
   upgradeIcon: {fileID: 0}
-  cost: 300
+  cost: 250
   requiredObjective: {fileID: 11400000, guid: 48c8fc587ed2e53478a1d5329afa1b26, type: 2}
   prerequisites: []
   category: 1

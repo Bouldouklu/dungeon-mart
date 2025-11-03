@@ -194,6 +194,22 @@ public class UpgradeManager : MonoBehaviour
                 {
                     Debug.LogError("ShopSegmentManager not found!");
                 }
+
+                // Shop expansions also unlock item categories (if specified)
+                // Only unlock non-starting categories (ArmorApparel, Traps, MagicItems)
+                if (upgrade.categoryToUnlock == ItemCategory.ArmorApparel ||
+                    upgrade.categoryToUnlock == ItemCategory.Traps ||
+                    upgrade.categoryToUnlock == ItemCategory.MagicItems)
+                {
+                    if (SupplyChainManager.Instance != null)
+                    {
+                        SupplyChainManager.Instance.UnlockCategory(upgrade.categoryToUnlock);
+                    }
+                    else
+                    {
+                        Debug.LogError("SupplyChainManager not found!");
+                    }
+                }
                 break;
 
             case UpgradeEffectType.IncreaseShelfCapacity:

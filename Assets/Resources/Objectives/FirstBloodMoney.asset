@@ -15,18 +15,21 @@ MonoBehaviour:
   objectiveName: First Blood Money
   objectiveID: FirstBloodMoney
   description: Complete this objective to unlock rewards.
-  objectiveIcon: {fileID: 0}
+  objectiveIcon: {fileID: -758506341, guid: 6a05029d94c91b74b9d28ee3e3444182, type: 3}
   objectiveType: 0
   targetValue: 1000
+  categoryFilter: -1
   requiredRevenue: 0
   requiredCustomers: 0
   requiredItemsSold: 0
   requiredDays: 0
+  hybridCategoryFilter: -1
   prerequisiteObjectives: []
   prerequisiteUpgrades: []
   revealCondition: 0
   revealThreshold: 0
   revealAfterObjective: {fileID: 0}
   unlocksUpgrade: {fileID: 11400000, guid: a5d3f1557c57b054f9085b0aac797ed2, type: 2}
+  unlocksTier: 0
   darkHumorText: Your first thousand in blood money! The guild is proud... of your
     tax contributions.

@@ -27,6 +27,7 @@ public class SupplyChainManager : MonoBehaviour
 
     private HashSet<ItemCategory> unlockedCategories = new HashSet<ItemCategory>();
     private Dictionary<ItemDataSO, int> currentOrder = new Dictionary<ItemDataSO, int>();
+    private int currentUnlockedTier = 1; // Start with Tier 1 unlocked
 
     /// <summary>
     /// Event triggered when the current order is modified (item added/removed).
@@ -39,7 +40,17 @@ public class SupplyChainManager : MonoBehaviour
     public event System.Action<ItemCategory> OnCategoryUnlocked;
 
     /// <summary>
-    /// Returns list of items available based on unlocked categories.
+    /// Event triggered when a new tier is unlocked.
+    /// </summary>
+    public event System.Action<int> OnTierUnlocked;
+
+    /// <summary>
+    /// Gets the current unlocked tier (1, 2, or 3).
+    /// </summary>
+    public int CurrentTier => currentUnlockedTier;
+
+    /// <summary>
+    /// Returns list of items available based on unlocked categories and tier progression.
     /// </summary>
     public List<ItemDataSO> AvailableItems
     {
@@ -50,10 +61,10 @@ public class SupplyChainManager : MonoBehaviour
                 // Check if unlocked by default OR category is unlocked
                 bool categoryUnlocked = item.isUnlockedByDefault || unlockedCategories.Contains(item.itemCategory);
 
-                // Check if player meets tier requirement (items have their own tier requirements)
-                bool tierMet = item.requiredTier <= 0; // No tier system - only category unlocks matter now
+                // Check if player has unlocked this item's quality tier
+                bool tierUnlocked = item.tier <= currentUnlockedTier;
 
-                return categoryUnlocked && tierMet;
+                return categoryUnlocked && tierUnlocked;
             }).ToList();
         }
     }
@@ -63,6 +74,18 @@ public class SupplyChainManager : MonoBehaviour
     [Header("Delivery System")]
     [SerializeField] private GameObject deliveryBoxPrefab;
     [SerializeField] private Transform deliverySpawnPoint;
+
+    [Header("Box Grid Layout")]
+    [Tooltip("Number of boxes per row before wrapping to next row")]
+    [SerializeField] private int boxesPerRow = 4;
+    [Tooltip("Horizontal spacing between boxes")]
+    [SerializeField] private float boxSpacingX = 0.8f;
+    [Tooltip("Vertical spacing between rows (Z-axis in world space)")]
+    [SerializeField] private float boxSpacingZ = 0.8f;
+    [Tooltip("Number of boxes per layer before stacking vertically")]
+    [SerializeField] private int boxesPerLayer = 10;
+    [Tooltip("Height offset for stacked boxes (Y-axis)")]
+    [SerializeField] private float stackHeightY = 1.0f;
 
     [Header("Starting Delivery (Day 1)")]
     [SerializeField] private List<StartingDeliveryItem> startingDelivery = new List<StartingDeliveryItem>();
@@ -153,6 +176,40 @@ public class SupplyChainManager : MonoBehaviour
     public HashSet<ItemCategory> GetUnlockedCategories()
     {
         return new HashSet<ItemCategory>(unlockedCategories);
+    }
+    #endregion
+
+    #region Tier Unlock System
+    /// <summary>
+    /// Unlocks a new quality tier, making all items of that tier or lower available for ordering.
+    /// </summary>
+    public void UnlockTier(int tier)
+    {
+        if (tier < 1 || tier > 3)
+        {
+            Debug.LogError($"Invalid tier {tier}. Tier must be between 1 and 3.");
+            return;
+        }
+
+        if (currentUnlockedTier >= tier)
+        {
+            Debug.LogWarning($"Tier {tier} is already unlocked (current tier: {currentUnlockedTier})!");
+            return;
+        }
+
+        currentUnlockedTier = tier;
+        Debug.Log($"Unlocked item tier: {tier}");
+
+        OnTierUnlocked?.Invoke(tier);
+        OnOrderChanged?.Invoke(); // Refresh order menu to show new items
+    }
+
+    /// <summary>
+    /// Checks if a specific tier is unlocked.
+    /// </summary>
+    public bool IsTierUnlocked(int tier)
+    {
+        return tier <= currentUnlockedTier;
     }
     #endregion
 
@@ -329,7 +386,7 @@ public class SupplyChainManager : MonoBehaviour
             return;
         }
 
-        // Spawn a box for each item type
+        // Spawn boxes in a 3D grid layout with vertical stacking
         Vector3 spawnPos = deliverySpawnPoint != null ? deliverySpawnPoint.position : Vector3.zero;
         int boxIndex = 0;
 
@@ -337,8 +394,23 @@ public class SupplyChainManager : MonoBehaviour
         {
             if (deliveryBoxPrefab == null) continue;
 
-            // Offset boxes slightly so they don't overlap
-            Vector3 offset = new Vector3(boxIndex * 1.5f, 0, 0);
+            // Calculate which layer (vertical stack level) this box is on
+            int layer = boxIndex / boxesPerLayer;
+
+            // Calculate position within this layer
+            int positionInLayer = boxIndex % boxesPerLayer;
+            int column = positionInLayer % boxesPerRow;
+            int row = positionInLayer / boxesPerRow;
+
+            // Calculate 3D offset for grid layout
+            // X-axis: columns (left to right)
+            // Y-axis: layers (ground to top)
+            // Z-axis: rows (back to front, negative to spawn towards camera)
+            Vector3 offset = new Vector3(
+                column * boxSpacingX,
+                layer * stackHeightY,
+                -row * boxSpacingZ
+            );
             GameObject boxObj = Instantiate(deliveryBoxPrefab, spawnPos + offset, Quaternion.identity);
 
             DeliveryBox box = boxObj.GetComponent<DeliveryBox>();
@@ -351,6 +423,9 @@ public class SupplyChainManager : MonoBehaviour
         }
 
         Debug.Log($"Spawned {activeBoxes.Count} delivery boxes");
+
+        // Clear pending delivery after spawning to prevent re-spawning on next day
+        pendingDelivery.Clear();
     }
 
     /// <summary>
@@ -364,7 +439,6 @@ public class SupplyChainManager : MonoBehaviour
         if (activeBoxes.Count == 0)
         {
             Debug.Log("All delivery boxes opened!");
-            pendingDelivery.Clear();
         }
     }
 

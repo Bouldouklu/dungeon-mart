@@ -29,29 +29,12 @@ public class Shelf : MonoBehaviour, IInteractable {
 
     private List<ShelfSlot> slots = new List<ShelfSlot>();
     private bool isInitialized = false;
-    private bool wasLowStock = false; // Track previous low stock state to prevent spam
-
-    // Phase 1: Events for visual urgency feedback
-    public event Action OnLowStock;  // Fired when capacity drops below 30%
-    public event Action OnStockNormal; // Fired when capacity returns above 30%
-    public event Action OnShelfEmpty; // Fired when shelf becomes completely empty
 
     public ShelfTypeDataSO ShelfType => shelfType;
     public bool IsEmpty => slots.All(slot => slot.IsEmpty);
     public bool IsFull => slots.All(slot => slot.IsFull);
     public int TotalItems => slots.Sum(slot => slot.ItemCount);
     public int ItemsPerSlot => baseItemsPerSlot + capacityBonus;
-
-    /// <summary>
-    /// Phase 1: Returns current capacity as percentage (0-100%)
-    /// </summary>
-    public float CapacityPercentage {
-        get {
-            int totalCapacity = slots.Count * ItemsPerSlot;
-            if (totalCapacity == 0) return 0f;
-            return (TotalItems / (float)totalCapacity) * 100f;
-        }
-    }
 
     private void Awake() {
         if (!isInitialized) {
@@ -206,9 +189,6 @@ public class Shelf : MonoBehaviour, IInteractable {
                 AudioManager.Instance.PlaySound(SoundType.ShelfRestock);
             }
 
-            // Phase 1: Check capacity after restocking
-            CheckCapacityAndTriggerEvents();
-
             return true;
         }
 
@@ -226,8 +206,6 @@ public class Shelf : MonoBehaviour, IInteractable {
 
             if (preferredSlot != null) {
                 Item item = preferredSlot.TakeItem();
-                // Phase 1: Check capacity after taking item
-                CheckCapacityAndTriggerEvents();
                 return item;
             }
         }
@@ -235,11 +213,6 @@ public class Shelf : MonoBehaviour, IInteractable {
         // Otherwise take from any non-empty slot
         ShelfSlot availableSlot = slots.FirstOrDefault(slot => !slot.IsEmpty);
         Item takenItem = availableSlot?.TakeItem();
-
-        // Phase 1: Check capacity after taking item
-        if (takenItem != null) {
-            CheckCapacityAndTriggerEvents();
-        }
 
         return takenItem;
     }
@@ -282,40 +255,6 @@ public class Shelf : MonoBehaviour, IInteractable {
         return slots
             .Where(slot => slot.ItemType == itemData)
             .Sum(slot => slot.ItemCount);
-    }
-
-    /// <summary>
-    /// Phase 1: Check shelf capacity and trigger appropriate events for visual feedback
-    /// </summary>
-    private void CheckCapacityAndTriggerEvents() {
-        float capacity = CapacityPercentage;
-        bool isCurrentlyLowStock = capacity < 30f && capacity > 0f;
-        bool isCurrentlyEmpty = IsEmpty;
-
-        // Trigger empty event first (highest priority)
-        if (isCurrentlyEmpty) {
-            OnShelfEmpty?.Invoke();
-
-            // Play empty shelf sound
-            if (AudioManager.Instance != null) {
-                AudioManager.Instance.PlaySound(SoundType.ShelfEmpty);
-            }
-
-            Debug.Log($"{shelfType?.shelfTypeName ?? gameObject.name} is now EMPTY!");
-            wasLowStock = false; // Reset low stock tracking when empty
-            return;
-        }
-
-        // Trigger low stock events (only when state changes to prevent spam)
-        if (isCurrentlyLowStock && !wasLowStock) {
-            OnLowStock?.Invoke();
-            Debug.Log($"{shelfType?.shelfTypeName ?? gameObject.name} is LOW on stock ({capacity:F1}%)");
-            wasLowStock = true;
-        } else if (!isCurrentlyLowStock && wasLowStock) {
-            OnStockNormal?.Invoke();
-            Debug.Log($"{shelfType?.shelfTypeName ?? gameObject.name} stock is normal ({capacity:F1}%)");
-            wasLowStock = false;
-        }
     }
 
     #region IInteractable Implementation

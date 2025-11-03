@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: LegendaryWarhammer
   m_EditorClassIdentifier: Assembly-CSharp::ItemDataSO
   itemName: Legendary Warhammer
-  itemSprite: {fileID: 0}
+  itemSprite: {fileID: 21300000, guid: e787223828a03bd49998f260213e42cb, type: 3}
   itemPrefab: {fileID: 2892655500247234421, guid: 921dbcdbb84ee7a4daabde19c1ca9315, type: 3}
   sellPrice: 140
   restockCost: 85
   itemCategory: 0
-  requiredTier: 0
+  tier: 3
   isUnlockedByDefault: 1
   description: For discerning barbarians

@@ -14,19 +14,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ObjectiveDataSO
   objectiveName: People Person Sort Of
   objectiveID: PeoplePersonSortOf
-  description: Complete this objective to unlock rewards.
-  objectiveIcon: {fileID: 0}
+  description: Complete this objective to unlock Tiers 2 items to order!
+  objectiveIcon: {fileID: -1879868996, guid: 6a05029d94c91b74b9d28ee3e3444182, type: 3}
   objectiveType: 1
   targetValue: 30
+  categoryFilter: -1
   requiredRevenue: 0
   requiredCustomers: 0
   requiredItemsSold: 0
   requiredDays: 0
+  hybridCategoryFilter: -1
   prerequisiteObjectives: []
   prerequisiteUpgrades: []
   revealCondition: 0
   revealThreshold: 0
   revealAfterObjective: {fileID: 0}
-  unlocksUpgrade: {fileID: 11400000, guid: cd2a618834e466d44832d87bd0edf572, type: 2}
+  unlocksUpgrade: {fileID: 0}
+  unlocksTier: 2
   darkHumorText: 30 customers served! You're practically running a sweatshop... I
     mean, successful business!

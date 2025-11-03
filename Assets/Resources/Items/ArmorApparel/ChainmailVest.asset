@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: ChainmailVest
   m_EditorClassIdentifier: Assembly-CSharp::ItemDataSO
   itemName: Chainmail Vest
-  itemSprite: {fileID: 0}
+  itemSprite: {fileID: 21300000, guid: b5542c8e5ae5ccb43bff84defd62e389, type: 3}
   itemPrefab: {fileID: 5569856306522701721, guid: ffea9772e6194a64b99be532d27507b8, type: 3}
   sellPrice: 50
   restockCost: 30
   itemCategory: 3
-  requiredTier: 0
+  tier: 2
   isUnlockedByDefault: 0
   description: Heavy but effective

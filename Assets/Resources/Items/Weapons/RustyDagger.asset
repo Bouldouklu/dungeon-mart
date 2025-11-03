@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: RustyDagger
   m_EditorClassIdentifier: Assembly-CSharp::ItemDataSO
   itemName: Rusty Dagger
-  itemSprite: {fileID: 0}
+  itemSprite: {fileID: 21300000, guid: d5a0b58ee01f05e4799ffa1eca29cdbb, type: 3}
   itemPrefab: {fileID: 3854796525763737719, guid: b4bb41fdd6229264b9015b70dbc649c0, type: 3}
   sellPrice: 5
   restockCost: 3
   itemCategory: 0
-  requiredTier: 0
+  tier: 1
   isUnlockedByDefault: 1
   description: Barely sharp but it's a start

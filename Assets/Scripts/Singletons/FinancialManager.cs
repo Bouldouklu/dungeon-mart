@@ -20,7 +20,7 @@ public class FinancialManager : MonoBehaviour
 
     #region Rent System
     [Header("Rent Settings")]
-    [SerializeField] private int baseRentAmount = 500;
+    [SerializeField] private int baseRentAmount = 350;
     [SerializeField] private int daysPerMonth = 7;
 
     [Header("Rent State")]
@@ -56,7 +56,7 @@ public class FinancialManager : MonoBehaviour
     #region Loan System
     [Header("Loan Settings")]
     [SerializeField] private int[] availableLoanAmounts = new int[] { 300, 500, 1000 };
-    [SerializeField] private float interestRate = 0.20f; // 20% interest
+    [SerializeField] private float interestRate = 0.15f; // 15% interest
     [SerializeField] private int repaymentDays = 7;
 
     [Header("Loan State")]

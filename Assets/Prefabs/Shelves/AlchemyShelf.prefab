@@ -42,7 +42,6 @@ GameObject:
   - component: {fileID: 1802259958707890648}
   - component: {fileID: 6688771639884117530}
   - component: {fileID: 4901804947084972464}
-  - component: {fileID: 2817925763381534829}
   m_Layer: 0
   m_Name: AlchemyShelf
   m_TagString: Untagged
@@ -64,9 +63,14 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 416996864784330147}
-  - {fileID: 4014636554495635213}
+  - {fileID: 8229330039783964703}
   - {fileID: 3282051910133520553}
+  - {fileID: 4014636554495635213}
+  - {fileID: 1598785255237040137}
   - {fileID: 617030725639258182}
+  - {fileID: 3548015151356134079}
+  - {fileID: 5720905133014930177}
+  - {fileID: 1416176684432528414}
   - {fileID: 8663579881979812121}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -85,10 +89,15 @@ MonoBehaviour:
   shelfType: {fileID: 11400000, guid: 18e333c946f141e42a88c62e8fa95b7f, type: 2}
   slotPositions:
   - {fileID: 416996864784330147}
-  - {fileID: 4014636554495635213}
+  - {fileID: 8229330039783964703}
   - {fileID: 3282051910133520553}
+  - {fileID: 4014636554495635213}
+  - {fileID: 1598785255237040137}
   - {fileID: 617030725639258182}
-  baseItemsPerSlot: 5
+  - {fileID: 3548015151356134079}
+  - {fileID: 5720905133014930177}
+  - {fileID: 1416176684432528414}
+  baseItemsPerSlot: 3
   capacityBonus: 0
   quantityBadgePrefab: {fileID: 9035280196464585729, guid: 39967fd38ddf901478de942438df242b, type: 3}
   badgeOffset: {x: 0.2, y: 0.2, z: 0}
@@ -114,22 +123,37 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.4935805, y: 1.8452888, z: 0.61715317}
   m_Center: {x: 0.0034549832, y: 0.9200001, z: 0}
---- !u!114 &2817925763381534829
-MonoBehaviour:
+--- !u!1 &4494936324371380251
+GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2875983890247804323}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8af5ad3275769bd4fa33dccf8e840440, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ShelfUrgencyVisual
-  normalMaterial: {fileID: 2100000, guid: dc2a54819bb0ca14da7c1870ab0d7987, type: 2}
-  urgencyMaterial: {fileID: 2100000, guid: b09737644a75a6145b4d4022fb499d40, type: 2}
-  targetRenderer: {fileID: 5626356084696646867}
-  debugMode: 1
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5720905133014930177}
+  m_Layer: 0
+  m_Name: SlotPos_1 (7)
+  m_TagString: Untagged
+  m_Icon: {fileID: 3306451490063965843, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 2147483647
+  m_IsActive: 1
+--- !u!4 &5720905133014930177
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4494936324371380251}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.016, y: 0.614, z: -0.18199998}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1802259958707890648}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4498521511607481586
 GameObject:
   m_ObjectHideFlags: 0
@@ -224,6 +248,68 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1802259958707890648}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5764862843695281421
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1416176684432528414}
+  m_Layer: 0
+  m_Name: SlotPos_1 (8)
+  m_TagString: Untagged
+  m_Icon: {fileID: 3306451490063965843, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 2147483647
+  m_IsActive: 1
+--- !u!4 &1416176684432528414
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5764862843695281421}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.32, y: 0.614, z: -0.18199998}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1802259958707890648}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6098167126691144107
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3548015151356134079}
+  m_Layer: 0
+  m_Name: SlotPos_1 (6)
+  m_TagString: Untagged
+  m_Icon: {fileID: 3306451490063965843, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 2147483647
+  m_IsActive: 1
+--- !u!4 &3548015151356134079
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6098167126691144107}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.387, y: 0.614, z: -0.18199998}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1802259958707890648}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7243091575108151067
 GameObject:
   m_ObjectHideFlags: 0
@@ -250,6 +336,68 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.387, y: 0.99599993, z: -0.18199998}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1802259958707890648}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8438538466684731926
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8229330039783964703}
+  m_Layer: 0
+  m_Name: SlotPos_1 (4)
+  m_TagString: Untagged
+  m_Icon: {fileID: 3306451490063965843, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 2147483647
+  m_IsActive: 1
+--- !u!4 &8229330039783964703
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8438538466684731926}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.026, y: 1.407, z: -0.182}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1802259958707890648}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8454223112513286107
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1598785255237040137}
+  m_Layer: 0
+  m_Name: SlotPos_1 (5)
+  m_TagString: Untagged
+  m_Icon: {fileID: 3306451490063965843, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 2147483647
+  m_IsActive: 1
+--- !u!4 &1598785255237040137
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8454223112513286107}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.016, y: 0.99599993, z: -0.18199998}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -336,11 +484,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 9133053548782982092}
   m_SourcePrefab: {fileID: 100100000, guid: 2b7d6541113c03e4ab45315d40bc6be4, type: 3}
---- !u!23 &5626356084696646867 stripped
-MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: 746736148549348956, guid: 2b7d6541113c03e4ab45315d40bc6be4, type: 3}
-  m_PrefabInstance: {fileID: 4920223956575300239}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &6130570607837586694 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1250888962069073801, guid: 2b7d6541113c03e4ab45315d40bc6be4, type: 3}

@@ -3,7 +3,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour {
     public static GameManager Instance;
 
-    [SerializeField] private int currentMoney = 500;
+    [SerializeField] private int currentMoney = 700;
 
     /// <summary>
     /// Event triggered when money is added to player's account.

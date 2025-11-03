@@ -4,6 +4,7 @@ using TMPro;
 
 public class OrderMenuItem : MonoBehaviour {
     [Header("UI References")]
+    [SerializeField] private Image itemIconImage;
     [SerializeField] private TextMeshProUGUI itemNameText;
 
     [SerializeField] private TextMeshProUGUI itemCostText;
@@ -43,6 +44,14 @@ public class OrderMenuItem : MonoBehaviour {
 
         if (itemCostText != null) {
             itemCostText.text = $"${itemData.restockCost}";
+        }
+
+        if (itemIconImage != null && itemData.itemSprite != null) {
+            itemIconImage.sprite = itemData.itemSprite;
+            itemIconImage.enabled = true;
+        } else if (itemIconImage != null) {
+            // Hide icon if no sprite available
+            itemIconImage.enabled = false;
         }
 
         UpdateQuantityDisplay();

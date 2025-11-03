@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: IronHelmet
   m_EditorClassIdentifier: Assembly-CSharp::ItemDataSO
   itemName: Iron Helmet
-  itemSprite: {fileID: 0}
+  itemSprite: {fileID: 21300000, guid: 9485789d785388449b7b143059632b43, type: 3}
   itemPrefab: {fileID: 6547670077245812608, guid: 4a8b1a2a49273d842bb2317dcb961060, type: 3}
   sellPrice: 35
   restockCost: 21
   itemCategory: 3
-  requiredTier: 0
+  tier: 2
   isUnlockedByDefault: 0
   description: Protects your thinking parts

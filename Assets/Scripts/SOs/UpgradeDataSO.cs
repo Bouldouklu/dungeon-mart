@@ -8,8 +8,7 @@ public enum UpgradeCategory
     ShopExpansion,   // Unlock new shop segments
     ShelfCapacity,   // Increase items per shelf slot
     Operations,      // Efficiency improvements (bulk ordering, auto-restock)
-    CustomerFlow,    // More/faster customers
-    Licenses         // Item category unlock permits (weapons, armor, traps, etc.)
+    CustomerFlow     // More/faster customers
 }
 
 /// <summary>

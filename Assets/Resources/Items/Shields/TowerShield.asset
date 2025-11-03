@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: TowerShield
   m_EditorClassIdentifier: Assembly-CSharp::ItemDataSO
   itemName: Tower Shield
-  itemSprite: {fileID: 0}
+  itemSprite: {fileID: 21300000, guid: 847d27acc6d1d50409ba642a50f2ed17, type: 3}
   itemPrefab: {fileID: 2624739391105603386, guid: 2d7e6fdac12166b4e8f3df0a229c3bc5, type: 3}
   sellPrice: 50
   restockCost: 30
   itemCategory: 1
-  requiredTier: 0
+  tier: 2
   isUnlockedByDefault: 1
   description: You ARE the wall

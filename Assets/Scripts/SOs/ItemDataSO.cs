@@ -17,8 +17,9 @@ public class ItemDataSO : ScriptableObject {
     [Tooltip("The category this item belongs to (determines which shelves can hold it)")]
     public ItemCategory itemCategory = ItemCategory.Weapons;
 
-    [Tooltip("Minimum progression tier required to unlock this item (0 = available from start)")]
-    public int requiredTier = 0; // TODO: Future feature - customer AI shopping behavior based on tier
+    [Tooltip("Item quality tier (1 = cheap/starting, 2 = normal/mid-game, 3 = premium/late-game). Auto-assigned based on sell price.")]
+    [Range(1, 3)]
+    public int tier = 1;
 
     [Tooltip("If true, this item is available from the beginning regardless of category unlock status")]
     public bool isUnlockedByDefault = false;
