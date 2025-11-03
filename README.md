@@ -36,28 +36,34 @@
 - ✅ Shelf System Refactor**: Replace grid-calculated slot positioning with inspector-assigned transform array for maximum flexibility in shelf design
 - ✅ Managers Refactor: Merged 3 Managers (expense, loan, failstate) → 1 Unified Manager (financial)
 - ✅ Debug Input System: Centralized DebugInputManager with compilation directives for automatic release build exclusion
-- ✅ 2D to 3D Conversion: Complete transformation from 2D orthographic to 3D perspective top-down gameplay with NavMesh pathfinding, WebGL-optimized rendering
-- ✅ Item System Refactor: Converted from 2D sprites to 3D models - ItemDataSO now carries prefab reference (data-driven design), Item.cs simplified to pure data container, visual setup handled by prefab structure
-- ✅ Progression System: Lifetime revenue tracking, tier-based milestones (5 tiers: Street Vendor → Tycoon), persistent progress UI
-- ✅ Upgrade Shop System: Card-based UI, purchase flow, tier-locked upgrades, dynamic rent contribution (8 upgrades for tiers 1-3)
-- ✅ Upgrade System Testing (Phase 1.3): All upgrade effects verified and working - shop segment unlocking, shelf capacity increases, customer count bonuses, rent contribution system, full integration testing, edge case handling
-- ✅ Rent UI Dynamic Updates: RentCountdownUI now subscribes to OnSegmentUnlocked event for immediate rent display updates when shop expands
-- ✅ Mouse-Based Interaction System: Transitioned from WASD keyboard controls to fully mouse-based point-and-click gameplay - click shelves to restock, click delivery boxes to open, hover feedback with pink (#FF6B9D) outline and scale pulse effect
-- ✅ Customer Animation System: Component-based animation controller for customer walk/idle states - attaches to visual prefabs, automatically finds NavMeshAgent in parent hierarchy, velocity-based animation switching with configurable threshold
-- ✅ Quantity Badge System: Replaced visual item stacking with quantity badges - single item display per slot with badge overlay showing "x2", "x3", etc. for multiple items, badge auto-hides when count ≤ 1, follows DialogueBubble pattern with world-to-screen space conversion, auto-finds canvas at runtime (no manual inspector assignment needed)
-- ✅ HUD Button System: Transitioned from keyboard-only to clickable HUD buttons for orders and upgrades - HUDButtonManager manages phase-based button enabling (both buttons only active during EndOfDay), buttons positioned in bottom-right corner with visual feedback (grayed out when disabled), removed Tab key shortcut for orders, removed ESC menu access to upgrades, singleton pattern added to OrderMenu for external access
-- ✅ Category Filter System: Upgrade shop now has 4 category filters (Shop Expansion, Shelves, Operations, Customer Flow) for better organization
-- ✅ Item Category System: Replaced size-based item system (Small/Medium/Big) with flexible category system (Weapons, Shields, Potions, Armor & Apparel, Traps, Magic Items) - supports multiple categories per shelf, hybrid unlock system (category unlocks via upgrades + tier-based item gating), starting categories (Weapons, Shields, Potions) unlocked by default
-- ✅ ~~License Upgrade System~~ (REMOVED): Previously had "Licenses" category with 3 license upgrades - replaced by objective-based progression where category unlocks now happen through completing objectives instead of purchasing upgrades
-- ✅ Objective-Based Progression System: Completely replaced tier-based progression with parallel objective tracking - 5 objective types (Revenue, CustomersServed, ItemsSold, DaysPlayed, Hybrid), category-specific item tracking, prerequisite system for objectives and upgrades, reveal conditions (AlwaysVisible, AfterObjectiveCount, AfterSpecificObjective), dark humor completion messages, debug keys F11/F12 for testing, ItemCategory.None added for non-filtered objectives
-- ✅ Objectives Panel UI System: Full-featured objectives panel with ObjectivesPanelUI managing display/filtering, ObjectiveCard prefab for individual objective display with progress bars and completion states, 3 filter buttons (All/InProgress/Completed), HUD integration with always-enabled Objectives button, dynamic progress text formatting by objective type (Revenue shows $X/$Y, CustomersServed shows X/Y Customers, ItemsSold shows X/Y [Category] Sold), color-coded states (gray for in-progress, dark green for completed), gold checkmark badge for completed objectives, "Unlocks: [upgrade]" text display - UI scripts complete and ready for Unity Editor setup
-- ✅ Active Restocking & Fast Pacing: Eliminated dead time during business phase by compressing duration from 3-5 minutes to 90-120 seconds: customer spawn interval reduced from 3s→1.5s, checkout time reduced from 2s→1s, browse time reduced to 0.5-1s random (full shelves) and 0.25-0.5s (empty shelves); NavMeshAgent obstacle avoidance disabled (NoObstacleAvoidance) allowing customers to walk through each other without blocking while still respecting NavMesh-baked static obstacles; active restocking enabled during business phase with no phase restrictions
-- ✅ Item Database & Shelf System Expansion: Created comprehensive 35-item database across 6 categories with balanced 3-tier pricing (Early $5-25, Mid $30-75, Late $80-150) and 40% profit margins; Updated CSV importer tool (DungeonMart_Items_v2.csv format) with description field support and prefab auto-linking; Created PlaceholderItemGenerator editor tool for color-coded primitive prefabs (Red=Weapons, Blue=Shields, Green=Potions, Orange=Armor, Purple=Traps, Cyan=Magic); Designed 6 shelf types including multi-category shelves (DefenseWall holds Shields+Armor, GeneralShelf holds Weapons+Shields+Potions); Category-based unlocking system with 18 starting items (Weapons/Shields/Potions) and 17 objective-unlocked items (Armor/Traps/Magic categories unlocked through progression)
-- ✅ Asset Organization & Shelf Prefabs: Reorganized item assets into category-based folder structure for better project management, added new shelf type prefabs
-- ✅ UI Layering Fix: Corrected render order so dialogue bubbles and quantity badges now properly render behind UI panels (pause menu, order menu)
-- ✅ Dynamic Customer Spawn Intervals: Added configurable min/max spawn interval range (1.0s-2.0s default) with randomization for more natural customer flow
-- ✅ Phase Progression Button: Added always-visible HUD button with dynamic text ("Open Shop"/"Close Shop"/"Next Day") that intelligently progresses through game phases - stops customer spawning during business phase and waits for all customers to finish before ending day, enabling complete mouse-only gameplay
-- ✅ Item Tier System: Implemented 3-tier quality progression system (Tier 1: $1-29 Cheap/Starting, Tier 2: $30-79 Normal/Mid-game, Tier 3: $80+ Premium/Late-game) - tiers unlock via objectives independent of category unlocks, creating hybrid progression where items require both category AND tier unlock; ItemDataSO.tier field with auto-assignment based on sell price; SupplyChainManager tracks currentUnlockedTier with filtering in AvailableItems; ObjectiveDataSO.unlocksTier field (0-3) triggers SupplyChainManager.UnlockTier() on completion; ItemTierAssigner editor tool (Tools → DungeonMart → Assign Item Tiers) batch-updates all items; Debug key U unlocks next tier for testing; combines with objective-based category unlocking for dual-gate item progression
+- ✅ 2D to 3D Conversion: Complete transformation to 3D perspective top-down gameplay with NavMesh pathfinding
+- ✅ Item System Refactor: Converted from 2D sprites to 3D models with prefab-based data-driven design
+- ✅ Progression System: Lifetime revenue tracking with 5 tiers (Street Vendor → Tycoon) and persistent UI
+- ✅ Upgrade Shop System: Card-based UI with tier-locked upgrades and dynamic rent contribution
+- ✅ Upgrade System Testing: All upgrade effects verified - shop expansion, shelf capacity, customer bonuses, rent system
+- ✅ Rent UI Dynamic Updates: Real-time rent display updates when shop segments unlock
+- ✅ Mouse-Based Interaction System: Full transition from WASD to point-and-click gameplay with hover feedback
+- ✅ Customer Animation System: Velocity-based walk/idle animation controller for customer visuals
+- ✅ Quantity Badge System: Item stacking replaced with quantity badges (x2, x3, etc.) in world-to-screen space
+- ✅ HUD Button System: Clickable HUD buttons for orders and upgrades with phase-based enabling
+- ✅ Category Filter System: Upgrade shop organized with 4 category filters
+- ✅ Item Category System: Replaced size system with 6 categories (Weapons, Shields, Potions, Armor, Traps, Magic)
+- ✅ ~~License Upgrade System~~ (REMOVED): Replaced by objective-based category unlocking
+- ✅ Objective-Based Progression: Parallel objective tracking with 5 types (Revenue, Customers, Items, Days, Hybrid)
+- ✅ Objectives Panel UI: Panel with filtering (All/InProgress/Completed), progress bars, and completion badges
+- ✅ Active Restocking & Fast Pacing: Compressed business phase to 90-120s with faster customer spawns and interactions
+- ✅ Item Database Expansion: 35-item database across 6 categories with 3-tier pricing and CSV importer updates
+- ✅ Asset Organization: Reorganized items into category folders and added new shelf type prefabs
+- ✅ UI Layering Fix: Dialogue bubbles and quantity badges now render behind UI panels
+- ✅ Dynamic Customer Spawn Intervals: Randomized spawn intervals (1.0-2.0s) for natural customer flow
+- ✅ Phase Progression Button: HUD button with dynamic text to progress phases (Open/Close Shop, Next Day)
+- ✅ Item Tier System: 3-tier quality progression (Tier 1-3) unlocked via objectives with editor tools
+- ✅ Visual Enhancements: Added fire-colored point lighting to GameScene and enabled URP additional lights
+- ✅ Dialogue System Cleanup: Simplified dialogue system and cleaned up PhaseIndicatorUI
+- ✅ 3D Item Models: Replaced placeholder item prefabs with 3D models from Fantasy Props asset pack
+- ✅ Item Thumbnail Export Tool: Created editor tool to export item thumbnails and added icons to order menu
+- ✅ Customer Demand System: Implemented trending items with demand bubbles showing popular categories
+- ✅ Order Accumulation Fix: Fixed bug where multiple orders during End of Day phase would overwrite previous orders - orders now properly accumulate instead of replacing
 
 ---
 
