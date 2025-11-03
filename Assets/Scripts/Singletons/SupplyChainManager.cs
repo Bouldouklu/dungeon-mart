@@ -338,16 +338,22 @@ public class SupplyChainManager : MonoBehaviour
     /// </summary>
     private void AddPendingDelivery(Dictionary<ItemDataSO, int> orderItems)
     {
-        // Clear previous pending delivery
-        pendingDelivery.Clear();
-
-        // Store new order for next morning
+        // Accumulate orders instead of replacing them
         foreach (var kvp in orderItems)
         {
-            pendingDelivery[kvp.Key] = kvp.Value;
+            if (pendingDelivery.ContainsKey(kvp.Key))
+            {
+                pendingDelivery[kvp.Key] += kvp.Value; // Add to existing quantity
+            }
+            else
+            {
+                pendingDelivery[kvp.Key] = kvp.Value; // New item
+            }
         }
 
-        Debug.Log($"Order stored for delivery. {pendingDelivery.Count} item types to deliver.");
+        // Calculate total items for debug log
+        int totalItems = pendingDelivery.Sum(kvp => kvp.Value);
+        Debug.Log($"Order added to delivery queue. {pendingDelivery.Count} item types ({totalItems} total items) scheduled for delivery.");
     }
 
     /// <summary>
