@@ -132,8 +132,9 @@
 **2. Not Yet Implemented Upgrade Effects**
 - **Status**: Placeholder TODOs in UpgradeManager.cs
 - **Pending Implementation**: Checkout speed decrease, bulk ordering, auto-restock
-- **Implemented & Tested**: Shop segment unlocking ✅, shelf capacity increases ✅, customer count bonuses ✅
-- **Files**: `UpgradeManager.cs:207-220`
+- **Implemented & Tested**: Shop segment unlocking ✅, customer count bonuses ✅, auto-scaling customers with shop expansion ✅
+- **Removed**: Shelf capacity increases (removed with 1-item-per-slot redesign)
+- **Files**: `UpgradeManager.cs:230-242`
 
 **3. Restocking mechanic and game play should be redone. There is no way to say where we want to restock. The player has to click through it and can't come back if he went too far.**
 
@@ -182,8 +183,8 @@
 - **F4** - Unlock segment 1 (test shop expansion)
 - **F5** - Unlock segment 2 (test shop expansion)
 - **F6** - Unlock segment 3 (test shop expansion)
-- **F7** - Add +2 shelf capacity bonus (test Efficient Shelving upgrade)
-- **F8** - Add +2 bonus customers (test Extended Hours upgrade)
+- **F7** - Add +1 bonus customer (test Extended Hours upgrade effect)
+- **F8** - Add +2 bonus customers (faster testing of customer scaling)
 - **F9** - Log rent contribution breakdown (debug rent calculation)
 - **F10** - Pay rent immediately (test rent payment system)
 

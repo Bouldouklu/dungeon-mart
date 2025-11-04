@@ -21,7 +21,7 @@ MonoBehaviour:
   prerequisites: []
   category: 3
   effectType: 2
-  effectValue: 3
+  effectValue: 1
   targetSegmentIndex: -1
   categoryToUnlock: 0
   isRepeatable: 1

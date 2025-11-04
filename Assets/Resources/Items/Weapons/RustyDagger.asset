@@ -15,8 +15,8 @@ MonoBehaviour:
   itemName: Rusty Dagger
   itemSprite: {fileID: 21300000, guid: d5a0b58ee01f05e4799ffa1eca29cdbb, type: 3}
   itemPrefab: {fileID: 3854796525763737719, guid: b4bb41fdd6229264b9015b70dbc649c0, type: 3}
-  sellPrice: 5
-  restockCost: 3
+  sellPrice: 8
+  restockCost: 5
   itemCategory: 0
   tier: 1
   isUnlockedByDefault: 1

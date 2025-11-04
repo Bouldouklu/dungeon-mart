@@ -14,16 +14,6 @@ public class Shelf : MonoBehaviour, IInteractable {
     [Header("Slot Positions")]
     [SerializeField] private Transform[] slotPositions;
 
-    [Header("Slot Settings")]
-    [SerializeField] private int baseItemsPerSlot = 5;
-    [SerializeField] private int capacityBonus = 0;
-
-    [Header("Quantity Badge UI")]
-    [SerializeField] private GameObject quantityBadgePrefab;
-    [SerializeField] private Vector3 badgeOffset = new Vector3(0, 0.5f, 0);
-
-    private Canvas badgeCanvas; // Auto-found at runtime
-
     [Header("Interaction Visual Feedback")]
     [SerializeField] private OutlineEffect outlineEffect;
 
@@ -34,7 +24,6 @@ public class Shelf : MonoBehaviour, IInteractable {
     public bool IsEmpty => slots.All(slot => slot.IsEmpty);
     public bool IsFull => slots.All(slot => slot.IsFull);
     public int TotalItems => slots.Sum(slot => slot.ItemCount);
-    public int ItemsPerSlot => baseItemsPerSlot + capacityBonus;
 
     private void Awake() {
         if (!isInitialized) {
@@ -56,22 +45,6 @@ public class Shelf : MonoBehaviour, IInteractable {
             return;
         }
 
-        // Auto-find WorldSpaceUICanvas in scene for quantity badges
-        if (badgeCanvas == null && quantityBadgePrefab != null) {
-            // Find canvas with name starting with "WorldSpaceUICanvas" (supports hyphens like WorldSpaceUICanvas----)
-            Canvas[] allCanvases = FindObjectsByType<Canvas>(FindObjectsSortMode.None);
-            foreach (Canvas canvas in allCanvases) {
-                if (canvas.gameObject.name.StartsWith("WorldSpaceUICanvas")) {
-                    badgeCanvas = canvas;
-                    break;
-                }
-            }
-
-            if (badgeCanvas == null) {
-                Debug.LogWarning($"Shelf {gameObject.name}: No canvas starting with 'WorldSpaceUICanvas' found in scene. Quantity badges will not be created.");
-            }
-        }
-
         // Create ShelfSlot components at each assigned transform position
         for (int i = 0; i < slotPositions.Length; i++) {
             Transform slotTransform = slotPositions[i];
@@ -87,41 +60,12 @@ public class Shelf : MonoBehaviour, IInteractable {
                 slot = slotTransform.gameObject.AddComponent<ShelfSlot>();
             }
 
-            // Create quantity badge for this slot if prefab and canvas are assigned
-            QuantityBadge badge = null;
-            if (quantityBadgePrefab != null && badgeCanvas != null) {
-                GameObject badgeObj = Instantiate(quantityBadgePrefab, badgeCanvas.transform);
-                badge = badgeObj.GetComponent<QuantityBadge>();
-
-                if (badge != null) {
-                    badge.Initialize(slotTransform, badgeOffset);
-                } else {
-                    Debug.LogWarning($"Shelf {gameObject.name}: Quantity badge prefab missing QuantityBadge component!");
-                    Destroy(badgeObj);
-                }
-            }
-
-            slot.Initialize(i, ItemsPerSlot, badge);
+            slot.Initialize(i);
             slots.Add(slot);
         }
 
         isInitialized = true;
-        Debug.Log($"Initialized {shelfType.shelfTypeName} with {slots.Count} slots at custom positions");
-    }
-
-    /// <summary>
-    /// Increases the capacity of all slots on this shelf (called by UpgradeManager).
-    /// </summary>
-    public void IncreaseCapacity(int amount)
-    {
-        capacityBonus += amount;
-        Debug.Log($"{shelfType?.shelfTypeName ?? gameObject.name}: Capacity increased by {amount}. New capacity: {ItemsPerSlot} items/slot");
-
-        // Update existing slots with new capacity
-        foreach (ShelfSlot slot in slots)
-        {
-            slot.UpdateMaxCapacity(ItemsPerSlot);
-        }
+        Debug.Log($"Initialized {shelfType.shelfTypeName} with {slots.Count} slots (1 item per slot)");
     }
 
     /// <summary>

@@ -17,7 +17,7 @@ MonoBehaviour:
   description: Take over the entire building and unlock powerful Magic Items! Maximum
     shop space for your growing arcane empire.
   upgradeIcon: {fileID: 0}
-  cost: 1200
+  cost: 3200
   requiredObjective: {fileID: 11400000, guid: 2e9b05f88d40ab04083bc896e5fbfd31, type: 2}
   prerequisites:
   - {fileID: 11400000, guid: 19c7af6b8f2b2aa478848ba929afa3e6, type: 2}

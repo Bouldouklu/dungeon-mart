@@ -98,13 +98,47 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2072708099565596751, guid: 0b87c5c82fdfc6c4686ad668eb24450e, type: 3}
+      propertyPath: m_DynamicOccludee
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2072708099565596751, guid: 0b87c5c82fdfc6c4686ad668eb24450e, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 33225d24242a4324f97c25b61ae3f7e7, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 559362766050234778, guid: 0b87c5c82fdfc6c4686ad668eb24450e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1538486326869319323}
   m_SourcePrefab: {fileID: 100100000, guid: 0b87c5c82fdfc6c4686ad668eb24450e, type: 3}
+--- !u!23 &7171007995847644821 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 2072708099565596751, guid: 0b87c5c82fdfc6c4686ad668eb24450e, type: 3}
+  m_PrefabInstance: {fileID: 9171357232985712346}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8345070174183091706 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 903132066109016864, guid: 0b87c5c82fdfc6c4686ad668eb24450e, type: 3}
   m_PrefabInstance: {fileID: 9171357232985712346}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &8684195412050163520 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 559362766050234778, guid: 0b87c5c82fdfc6c4686ad668eb24450e, type: 3}
+  m_PrefabInstance: {fileID: 9171357232985712346}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1538486326869319323
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8684195412050163520}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09fb2c5f145047846ac8e94ce0994dbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: AllIn13DShaderAssemebly::AllIn13DShader.AllIn13DShaderComponent
+  currRenderer: {fileID: 7171007995847644821}

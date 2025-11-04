@@ -212,10 +212,6 @@ public class UpgradeManager : MonoBehaviour
                 }
                 break;
 
-            case UpgradeEffectType.IncreaseShelfCapacity:
-                IncreaseAllShelfCapacity(upgrade.effectValue);
-                break;
-
             case UpgradeEffectType.IncreaseCustomerCount:
                 if (CustomerSpawner.Instance != null)
                 {
@@ -257,19 +253,6 @@ public class UpgradeManager : MonoBehaviour
                 Debug.LogWarning($"Unknown upgrade effect type: {upgrade.effectType}");
                 break;
         }
-    }
-
-    /// <summary>
-    /// Increases capacity for all shelves in the scene.
-    /// </summary>
-    private void IncreaseAllShelfCapacity(int amount)
-    {
-        Shelf[] shelves = FindObjectsByType<Shelf>(FindObjectsSortMode.None);
-        foreach (Shelf shelf in shelves)
-        {
-            shelf.IncreaseCapacity(amount);
-        }
-        Debug.Log($"Increased capacity for {shelves.Length} shelves by {amount}");
     }
 
     /// <summary>

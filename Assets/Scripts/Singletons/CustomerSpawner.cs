@@ -27,7 +27,35 @@ public class CustomerSpawner : MonoBehaviour {
     public int CustomersSpawned => customersSpawned;
     public int CustomersLeft => customersLeft;
     public int TotalCustomersForDay => totalCustomersForDay;
-    public int CustomersPerDay => baseCustomersPerDay + bonusCustomers;
+    public int CustomersPerDay => GetBaseCustomersForSegments() + bonusCustomers;
+
+    /// <summary>
+    /// Gets the base number of customers based on how many shop segments are unlocked.
+    /// Auto-scales customer count with shop expansion to maintain 60-80% turnover.
+    /// </summary>
+    private int GetBaseCustomersForSegments()
+    {
+        // Count unlocked segments (1-4, since segment 0 is always unlocked)
+        int unlockedSegments = 1; // Default to 1 (segment 0)
+        if (ShopSegmentManager.Instance != null)
+        {
+            unlockedSegments = ShopSegmentManager.Instance.UnlockedSegmentCount;
+        }
+
+        // Scale customers with shop expansion
+        // Segment 0 only (1 segment): 6 customers (20 slots × 70% = 14 items ÷ 2.5 items/customer = 6)
+        // Segments 0-1 (2 segments): 12 customers (45 slots × 70% = 31 items ÷ 2.5 = 12)
+        // Segments 0-2 (3 segments): 17 customers (62 slots × 70% = 43 items ÷ 2.5 = 17)
+        // Segments 0-3 (4 segments): 22 customers (80 slots × 70% = 56 items ÷ 2.5 = 22)
+        switch (unlockedSegments)
+        {
+            case 1: return 6;  // Segment 0 only
+            case 2: return 12; // Segments 0-1
+            case 3: return 17; // Segments 0-2
+            case 4: return 22; // Segments 0-3 (all segments)
+            default: return baseCustomersPerDay; // Fallback to base value
+        }
+    }
 
     private void Awake() {
         if (Instance != null && Instance != this) {

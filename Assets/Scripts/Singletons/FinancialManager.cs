@@ -20,7 +20,7 @@ public class FinancialManager : MonoBehaviour
 
     #region Rent System
     [Header("Rent Settings")]
-    [SerializeField] private int baseRentAmount = 350;
+    [SerializeField] private int baseRentAmount = 300;
     [SerializeField] private int daysPerMonth = 7;
 
     [Header("Rent State")]

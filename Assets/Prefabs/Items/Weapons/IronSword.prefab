@@ -98,13 +98,44 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 2364494, guid: 3d9fbbf00316ffc4485e2dc40e59aa93, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: a7a608aadb225b34f83a1d666a807992, type: 2}
+    m_RemovedComponents:
+    - {fileID: 64214549082379724, guid: 3d9fbbf00316ffc4485e2dc40e59aa93, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 185350, guid: 3d9fbbf00316ffc4485e2dc40e59aa93, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2144732808650143109}
   m_SourcePrefab: {fileID: 100100000, guid: 3d9fbbf00316ffc4485e2dc40e59aa93, type: 3}
+--- !u!23 &5298694478909984566 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 2364494, guid: 3d9fbbf00316ffc4485e2dc40e59aa93, type: 3}
+  m_PrefabInstance: {fileID: 5298694478912347000}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &5298694478912285576 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 471280, guid: 3d9fbbf00316ffc4485e2dc40e59aa93, type: 3}
   m_PrefabInstance: {fileID: 5298694478912347000}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &5298694478912425854 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 185350, guid: 3d9fbbf00316ffc4485e2dc40e59aa93, type: 3}
+  m_PrefabInstance: {fileID: 5298694478912347000}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2144732808650143109
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5298694478912425854}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09fb2c5f145047846ac8e94ce0994dbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: AllIn13DShaderAssemebly::AllIn13DShader.AllIn13DShaderComponent
+  currRenderer: {fileID: 5298694478909984566}

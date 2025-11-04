@@ -17,7 +17,7 @@ MonoBehaviour:
   description: Expand into the third wing and unlock dangerous Traps for sale! More
     room for merchandise (that may or may not be cursed).
   upgradeIcon: {fileID: 0}
-  cost: 800
+  cost: 2000
   requiredObjective: {fileID: 11400000, guid: 513a39c3f2fa5314487b041a8ee8ace4, type: 2}
   prerequisites:
   - {fileID: 11400000, guid: a5d3f1557c57b054f9085b0aac797ed2, type: 2}

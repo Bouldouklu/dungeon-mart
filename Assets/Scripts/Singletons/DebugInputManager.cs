@@ -244,27 +244,23 @@ public class DebugInputManager : MonoBehaviour
             }
         }
 
-        // Shelf capacity upgrade test
+        // Customer bonus test (F7 - matches Extended Hours upgrade effect)
         if (Input.GetKeyDown(KeyCode.F7))
         {
-            if (UpgradeManager.Instance != null)
+            if (CustomerSpawner.Instance != null)
             {
-                Shelf[] shelves = FindObjectsByType<Shelf>(FindObjectsSortMode.None);
-                foreach (Shelf shelf in shelves)
-                {
-                    shelf.IncreaseCapacity(2);
-                }
-                Debug.Log($"DEBUG: Increased capacity for {shelves.Length} shelves by 2");
+                CustomerSpawner.Instance.AddBonusCustomers(1);
+                Debug.Log($"DEBUG: Added 1 bonus customer. New total: {CustomerSpawner.Instance.CustomersPerDay} customers/day");
             }
         }
 
-        // Customer bonus test
+        // Add multiple bonus customers for testing (F8)
         if (Input.GetKeyDown(KeyCode.F8))
         {
             if (CustomerSpawner.Instance != null)
             {
-                CustomerSpawner.Instance.AddBonusCustomers(3);
-                Debug.Log($"DEBUG: Added 3 bonus customers. New total: {CustomerSpawner.Instance.CustomersPerDay} customers/day");
+                CustomerSpawner.Instance.AddBonusCustomers(2);
+                Debug.Log($"DEBUG: Added 2 bonus customers. New total: {CustomerSpawner.Instance.CustomersPerDay} customers/day");
             }
         }
 
