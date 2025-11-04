@@ -55,10 +55,9 @@ public class ShelfSlot : MonoBehaviour {
             itemCollider.enabled = false;
         }
 
-        // Position the item
+        // Position the item (scale preserved from prefab)
         item.transform.SetParent(itemContainer);
         item.transform.localPosition = Vector3.zero;
-        item.transform.localScale = Vector3.one;
         item.gameObject.SetActive(true);
 
         return true;

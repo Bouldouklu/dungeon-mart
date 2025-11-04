@@ -18,9 +18,6 @@ public class ShopSegment
     [Tooltip("Transform array for shelf positions in this segment")]
     public Transform[] shelfSlots;
 
-    [Tooltip("Cost to unlock this segment")]
-    public int unlockCost;
-
     [Tooltip("Is this segment currently unlocked?")]
     public bool isUnlocked = false;
 }

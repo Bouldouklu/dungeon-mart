@@ -14,9 +14,6 @@ public class ShelfTypeDataSO : ScriptableObject {
     [Tooltip("List of item categories this shelf can hold. Can be one or multiple categories.")]
     public List<ItemCategory> allowedCategories = new List<ItemCategory>();
 
-    [Header("Display Settings")]
-    public float itemScale = 1f;
-
     /// <summary>
     /// Check if this shelf type can hold items of the given category
     /// </summary>
