@@ -64,6 +64,7 @@
 - ✅ Item Thumbnail Export Tool: Created editor tool to export item thumbnails and added icons to order menu
 - ✅ Customer Demand System: Implemented trending items with demand bubbles showing popular categories
 - ✅ Order Accumulation Fix: Fixed bug where multiple orders during End of Day phase would overwrite previous orders - orders now properly accumulate instead of replacing
+- ✅ Code Cleanup: Removed redundant unlockCost field from ShopSegment (cost managed by UpgradeDataSO), removed unused itemScale field from ShelfTypeDataSO, removed scale override from shelf slots to preserve item prefab native scales
 
 ---
 
