@@ -50,11 +50,24 @@ public class DayManager : MonoBehaviour
 
     private void Start()
     {
+        // Delay initialization by one frame to ensure all other managers' Start() methods complete first
+        // This guarantees TrendManager, ObjectiveManager, etc. are fully initialized before we fire events
+        StartCoroutine(InitializeDayManagerCoroutine());
+    }
+
+    /// <summary>
+    /// Initializes DayManager after waiting one frame for all other managers to complete their Start() methods.
+    /// </summary>
+    private System.Collections.IEnumerator InitializeDayManagerCoroutine()
+    {
+        // Wait one frame to ensure all Start() methods have completed
+        yield return null;
+
         // Ensure game is not paused on start (safety fix)
         Time.timeScale = 1f;
         Debug.Log("DayManager.Start(): Set Time.timeScale = 1");
 
-        // Start first day in morning phase
+        // Start first day in morning phase (now all managers are ready)
         StartMorningPhase();
     }
 

@@ -42,11 +42,8 @@ public class MorningBannerUI : MonoBehaviour
         {
             dismissButton.onClick.AddListener(DismissBanner);
         }
-    }
 
-    private void Start()
-    {
-        // Subscribe to DayManager events
+        // Subscribe to DayManager events (must happen before DayManager.Start() fires first event)
         if (DayManager.Instance != null)
         {
             DayManager.Instance.OnPhaseChanged += OnPhaseChanged;

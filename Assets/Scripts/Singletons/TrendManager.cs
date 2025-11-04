@@ -36,16 +36,13 @@ public class TrendManager : MonoBehaviour
 
     private void Start()
     {
-        // Subscribe to week changes
+        // Initialize trending items for Day 1 (safe to access other managers in Start())
+        RefreshTrendingItems();
+
+        // Subscribe to week changes for future weeks
         if (DayManager.Instance != null)
         {
             DayManager.Instance.OnWeekChanged += OnWeekChanged;
-
-            // Generate initial trending items for Week 1 if starting fresh
-            if (DayManager.Instance.CurrentWeek == 1 && currentTrendingItems.Count == 0)
-            {
-                RefreshTrendingItems();
-            }
         }
         else
         {
