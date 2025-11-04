@@ -54,10 +54,6 @@ MonoBehaviour:
   - {fileID: 1184233571913845085}
   - {fileID: 644562905837724448}
   - {fileID: 4086546585504431261}
-  baseItemsPerSlot: 3
-  capacityBonus: 0
-  quantityBadgePrefab: {fileID: 9035280196464585729, guid: 39967fd38ddf901478de942438df242b, type: 3}
-  badgeOffset: {x: 0, y: 0.5, z: 0}
   outlineEffect: {fileID: 4428631967906359126}
 --- !u!65 &3879361229996636840
 BoxCollider:
@@ -105,7 +101,7 @@ Transform:
   m_GameObject: {fileID: 594405330010688578}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0, y: 0.885, z: -0.172}
+  m_LocalPosition: {x: 0, y: 0.921, z: 0.17599998}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -136,7 +132,7 @@ Transform:
   m_GameObject: {fileID: 4157213460268914614}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.7, y: 0.885, z: -0.172}
+  m_LocalPosition: {x: -0.7, y: 0.921, z: 0.176}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -199,7 +195,7 @@ Transform:
   m_GameObject: {fileID: 8870814096489033241}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.7, y: 0.885, z: -0.172}
+  m_LocalPosition: {x: 0.7, y: 0.921, z: 0.17599998}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
