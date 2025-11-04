@@ -52,7 +52,7 @@ public class OrderMenuItem : MonoBehaviour {
         }
 
         if (itemCostText != null) {
-            itemCostText.text = $"${itemData.restockCost}";
+            itemCostText.text = $"Cost: ${itemData.restockCost}\nSells: ${itemData.sellPrice}";
         }
 
         if (itemIconImage != null && itemData.itemSprite != null) {

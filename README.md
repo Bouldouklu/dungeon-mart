@@ -67,6 +67,7 @@
 - ✅ Code Cleanup: Removed redundant unlockCost field from ShopSegment (cost managed by UpgradeDataSO), removed unused itemScale field from ShelfTypeDataSO, removed scale override from shelf slots to preserve item prefab native scales
 - ✅ Express Checkout Upgrade: Implemented checkout speed upgrade (25% faster transactions via speed modifier in CheckoutCounter)
 - ✅ Bulk Ordering Upgrade: Implemented bulk ordering system with separate tracking for discounted items (5x quantity with 10% discount, visible in cart with green -10% indicator)
+- ✅ UI Price Display Enhancement: Added selling prices to Order Menu (stacked format) and Restock UI for better profit visibility
 
 ---
 

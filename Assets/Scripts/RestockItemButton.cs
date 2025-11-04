@@ -7,6 +7,7 @@ public class RestockItemButton : MonoBehaviour {
     [SerializeField] private Image itemIcon;
     [SerializeField] private TextMeshProUGUI itemNameText;
     [SerializeField] private TextMeshProUGUI quantityText;
+    [SerializeField] private TextMeshProUGUI sellPriceText;
     [SerializeField] private Button button;
 
     private ItemDataSO itemData;
@@ -45,6 +46,10 @@ public class RestockItemButton : MonoBehaviour {
 
         if (quantityText != null) {
             quantityText.text = $"x{quantity}";
+        }
+
+        if (sellPriceText != null) {
+            sellPriceText.text = $"Sells: ${itemData.sellPrice}";
         }
     }
 
