@@ -224,13 +224,29 @@ public class UpgradeManager : MonoBehaviour
                 break;
 
             case UpgradeEffectType.DecreaseCheckoutTime:
-                Debug.Log($"TODO: Implement checkout speed increase ({upgrade.effectValue}%)");
-                // Will be implemented when CheckoutCounter modifications are added
+                if (CheckoutCounter.Instance != null)
+                {
+                    float speedReduction = upgrade.effectValue / 100f; // Convert percentage (25) to decimal (0.25)
+                    float modifier = 1.0f - speedReduction; // 25% faster = 0.75x multiplier
+                    CheckoutCounter.Instance.ApplySpeedUpgrade(modifier);
+                    Debug.Log($"✅ Express Checkout applied! {upgrade.effectValue}% faster (modifier: {modifier}x)");
+                }
+                else
+                {
+                    Debug.LogError("CheckoutCounter not found!");
+                }
                 break;
 
             case UpgradeEffectType.EnableBulkOrdering:
-                Debug.Log("TODO: Implement bulk ordering feature");
-                // Will be implemented when OrderManager modifications are added
+                if (SupplyChainManager.Instance != null)
+                {
+                    SupplyChainManager.Instance.EnableBulkOrdering(true);
+                    Debug.Log($"✅ Bulk Ordering unlocked! Order 5x items with 10% discount.");
+                }
+                else
+                {
+                    Debug.LogError("SupplyChainManager not found!");
+                }
                 break;
 
             case UpgradeEffectType.EnableAutoRestock:

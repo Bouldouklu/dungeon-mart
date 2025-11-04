@@ -27,7 +27,9 @@ public class SupplyChainManager : MonoBehaviour
 
     private HashSet<ItemCategory> unlockedCategories = new HashSet<ItemCategory>();
     private Dictionary<ItemDataSO, int> currentOrder = new Dictionary<ItemDataSO, int>();
+    private Dictionary<ItemDataSO, int> bulkOrder = new Dictionary<ItemDataSO, int>(); // Items with bulk discount
     private int currentUnlockedTier = 1; // Start with Tier 1 unlocked
+    private bool bulkOrderingEnabled = false; // Unlocked via upgrade
 
     /// <summary>
     /// Event triggered when the current order is modified (item added/removed).
@@ -48,6 +50,20 @@ public class SupplyChainManager : MonoBehaviour
     /// Gets the current unlocked tier (1, 2, or 3).
     /// </summary>
     public int CurrentTier => currentUnlockedTier;
+
+    /// <summary>
+    /// Gets whether bulk ordering is enabled (unlocked via upgrade).
+    /// </summary>
+    public bool IsBulkOrderingEnabled => bulkOrderingEnabled;
+
+    /// <summary>
+    /// Enables or disables bulk ordering feature (called by UpgradeManager).
+    /// </summary>
+    public void EnableBulkOrdering(bool enabled)
+    {
+        bulkOrderingEnabled = enabled;
+        Debug.Log($"Bulk ordering {(enabled ? "enabled" : "disabled")}!");
+    }
 
     /// <summary>
     /// Returns list of items available based on unlocked categories and tier progression.
@@ -228,7 +244,7 @@ public class SupplyChainManager : MonoBehaviour
 
     #region Order System Methods
     /// <summary>
-    /// Adds an item to the current order.
+    /// Adds an item to the current order (regular price).
     /// </summary>
     public void AddToOrder(ItemDataSO item, int quantity)
     {
@@ -243,7 +259,27 @@ public class SupplyChainManager : MonoBehaviour
             currentOrder[item] = quantity;
         }
 
-        Debug.Log($"Added {quantity}x {item.itemName} to order");
+        Debug.Log($"Added {quantity}x {item.itemName} to order (regular price)");
+        OnOrderChanged?.Invoke();
+    }
+
+    /// <summary>
+    /// Adds an item to the bulk order (10% discount applied).
+    /// </summary>
+    public void AddToBulkOrder(ItemDataSO item, int quantity)
+    {
+        if (item == null || quantity <= 0) return;
+
+        if (bulkOrder.ContainsKey(item))
+        {
+            bulkOrder[item] += quantity;
+        }
+        else
+        {
+            bulkOrder[item] = quantity;
+        }
+
+        Debug.Log($"Added {quantity}x {item.itemName} to bulk order (10% discount)");
         OnOrderChanged?.Invoke();
     }
 
@@ -265,11 +301,12 @@ public class SupplyChainManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Clears the current order.
+    /// Clears both regular and bulk orders.
     /// </summary>
     public void ClearOrder()
     {
         currentOrder.Clear();
+        bulkOrder.Clear();
         OnOrderChanged?.Invoke();
     }
 
@@ -282,14 +319,24 @@ public class SupplyChainManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Calculates the total cost of the current order.
+    /// Calculates the total cost of the current order (regular + bulk with discount).
     /// </summary>
     public int GetTotalOrderCost()
     {
         int total = 0;
+
+        // Regular items at full price
         foreach (var kvp in currentOrder)
         {
             total += kvp.Key.restockCost * kvp.Value;
+        }
+
+        // Bulk items at 10% discount
+        foreach (var kvp in bulkOrder)
+        {
+            int bulkCost = kvp.Key.restockCost * kvp.Value;
+            int discountedCost = Mathf.RoundToInt(bulkCost * 0.9f); // 10% off
+            total += discountedCost;
         }
 
         return total;
@@ -315,8 +362,30 @@ public class SupplyChainManager : MonoBehaviour
             return false;
         }
 
-        // Schedule order for next morning delivery
-        AddPendingDelivery(GetCurrentOrder());
+        // Merge regular and bulk orders for delivery
+        Dictionary<ItemDataSO, int> combinedOrder = new Dictionary<ItemDataSO, int>();
+
+        // Add regular items
+        foreach (var kvp in currentOrder)
+        {
+            combinedOrder[kvp.Key] = kvp.Value;
+        }
+
+        // Add bulk items (merge if item already exists)
+        foreach (var kvp in bulkOrder)
+        {
+            if (combinedOrder.ContainsKey(kvp.Key))
+            {
+                combinedOrder[kvp.Key] += kvp.Value;
+            }
+            else
+            {
+                combinedOrder[kvp.Key] = kvp.Value;
+            }
+        }
+
+        // Schedule combined order for next morning delivery
+        AddPendingDelivery(combinedOrder);
 
         Debug.Log($"Order confirmed! Total cost: ${totalCost}. Items will be delivered tomorrow morning.");
         ClearOrder();
@@ -329,6 +398,14 @@ public class SupplyChainManager : MonoBehaviour
     public Dictionary<ItemDataSO, int> GetCurrentOrder()
     {
         return new Dictionary<ItemDataSO, int>(currentOrder);
+    }
+
+    /// <summary>
+    /// Gets a copy of the bulk order dictionary.
+    /// </summary>
+    public Dictionary<ItemDataSO, int> GetBulkOrder()
+    {
+        return new Dictionary<ItemDataSO, int>(bulkOrder);
     }
     #endregion
 

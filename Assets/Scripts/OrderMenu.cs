@@ -180,14 +180,26 @@ public class OrderMenu : MonoBehaviour {
 
         // Update cart details
         if (cartDetailsText != null) {
-            var cart = SupplyChainManager.Instance.GetCurrentOrder();
-            if (cart.Count == 0) {
+            var regularCart = SupplyChainManager.Instance.GetCurrentOrder();
+            var bulkCart = SupplyChainManager.Instance.GetBulkOrder();
+
+            if (regularCart.Count == 0 && bulkCart.Count == 0) {
                 cartDetailsText.text = "Cart is empty";
             }
             else {
                 string cartText = "Cart:\n";
-                foreach (var kvp in cart) {
-                    cartText += $"• {kvp.Value}x {kvp.Key.itemName} (${kvp.Key.restockCost * kvp.Value})\n";
+
+                // Show regular items
+                foreach (var kvp in regularCart) {
+                    int itemCost = kvp.Key.restockCost * kvp.Value;
+                    cartText += $"• {kvp.Value}x {kvp.Key.itemName} (${itemCost})\n";
+                }
+
+                // Show bulk items with discount indicator
+                foreach (var kvp in bulkCart) {
+                    int regularCost = kvp.Key.restockCost * kvp.Value;
+                    int discountedCost = Mathf.RoundToInt(regularCost * 0.9f);
+                    cartText += $"• {kvp.Value}x {kvp.Key.itemName} (${discountedCost}) <color=green>-10%</color>\n";
                 }
 
                 cartDetailsText.text = cartText;

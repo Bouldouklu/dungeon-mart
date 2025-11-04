@@ -12,6 +12,7 @@ public class CheckoutCounter : MonoBehaviour {
     private Queue<Customer> customerQueue = new Queue<Customer>();
     private Customer currentCustomer = null;
     private bool isProcessing = false;
+    private float checkoutSpeedModifier = 1.0f; // 1.0 = normal speed, 0.75 = 25% faster
 
     // Event fired when items are sold (for objective tracking)
     public event Action<ItemDataSO, int> OnItemSold;
@@ -59,8 +60,8 @@ public class CheckoutCounter : MonoBehaviour {
             // Small delay after arriving
             yield return new WaitForSeconds(0.3f);
 
-            // Process transaction
-            yield return new WaitForSeconds(transactionTime);
+            // Process transaction (apply speed modifier from upgrades)
+            yield return new WaitForSeconds(transactionTime * checkoutSpeedModifier);
 
             // Complete transaction
             currentCustomer.CompleteTransaction();
@@ -93,5 +94,14 @@ public class CheckoutCounter : MonoBehaviour {
         if (itemData != null) {
             OnItemSold?.Invoke(itemData, quantity);
         }
+    }
+
+    /// <summary>
+    /// Apply checkout speed upgrade (called by UpgradeManager)
+    /// </summary>
+    /// <param name="modifier">Speed modifier (e.g., 0.75 for 25% faster)</param>
+    public void ApplySpeedUpgrade(float modifier) {
+        checkoutSpeedModifier = modifier;
+        Debug.Log($"Checkout speed upgraded! New modifier: {modifier}x (transaction time: {transactionTime * modifier}s)");
     }
 }

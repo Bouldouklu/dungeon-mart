@@ -22,6 +22,7 @@ public class UpgradeCard : MonoBehaviour
     [SerializeField] private Color availableColor = new Color(0.2f, 0.8f, 0.2f, 1f); // Green
     [SerializeField] private Color ownedColor = new Color(0.3f, 0.5f, 0.9f, 1f); // Blue
     [SerializeField] private Color maxedColor = new Color(1f, 0.84f, 0f, 1f); // Gold
+    [SerializeField] private Color lockedPriceColor = new Color(242f/255f, 232f/255f, 213f/255f, 1f); // Beige (#F2E8D5) for locked prices
 
     private UpgradeDataSO upgradeData;
     private System.Action<UpgradeDataSO> onCardClicked;
@@ -111,8 +112,8 @@ public class UpgradeCard : MonoBehaviour
             }
             else if (state == UpgradeCardState.Locked)
             {
-                // Locked for tier/prereq reasons - show gray regardless of money
-                costText.color = Color.gray;
+                // Locked for tier/prereq reasons - show custom beige color regardless of money
+                costText.color = lockedPriceColor;
             }
             else
             {

@@ -14,6 +14,10 @@ public class OrderMenuItem : MonoBehaviour {
     [SerializeField] private Button increaseButton;
     [SerializeField] private Button addToCartButton;
 
+    [Header("Bulk Order (Optional - hidden if not unlocked)")]
+    [SerializeField] private Button addBulkToCartButton;
+    [SerializeField] private TextMeshProUGUI bulkCostText;
+
     private ItemDataSO itemData;
     private int currentQuantity = 1;
     private const int MIN_QUANTITY = 1;
@@ -32,7 +36,12 @@ public class OrderMenuItem : MonoBehaviour {
             addToCartButton.onClick.AddListener(AddToCart);
         }
 
+        if (addBulkToCartButton != null) {
+            addBulkToCartButton.onClick.AddListener(AddBulkToCart);
+        }
+
         UpdateQuantityDisplay();
+        UpdateBulkOrderDisplay();
     }
 
     public void Initialize(ItemDataSO data) {
@@ -56,6 +65,7 @@ public class OrderMenuItem : MonoBehaviour {
 
         UpdateQuantityDisplay();
         UpdateInventoryCount();
+        UpdateBulkOrderDisplay();
 
         // Subscribe to inventory changes
         if (InventoryManager.Instance != null) {
@@ -123,6 +133,42 @@ public class OrderMenuItem : MonoBehaviour {
             SupplyChainManager.Instance.AddToOrder(itemData, currentQuantity);
             currentQuantity = 1;
             UpdateQuantityDisplay();
+        }
+    }
+
+    private void AddBulkToCart() {
+        if (itemData != null && SupplyChainManager.Instance != null) {
+            // Bulk order: 5x the current quantity with 10% discount
+            int bulkQuantity = currentQuantity * 5;
+            SupplyChainManager.Instance.AddToBulkOrder(itemData, bulkQuantity);
+            currentQuantity = 1;
+            UpdateQuantityDisplay();
+
+            Debug.Log($"Added {bulkQuantity}x {itemData.itemName} to bulk order (5x multiplier, 10% discount)");
+        }
+    }
+
+    /// <summary>
+    /// Updates the bulk order button visibility and cost display based on upgrade status.
+    /// </summary>
+    private void UpdateBulkOrderDisplay() {
+        if (SupplyChainManager.Instance == null) return;
+
+        bool bulkEnabled = SupplyChainManager.Instance.IsBulkOrderingEnabled;
+
+        // Show/hide bulk button based on upgrade
+        if (addBulkToCartButton != null) {
+            addBulkToCartButton.gameObject.SetActive(bulkEnabled);
+        }
+
+        // Update bulk cost text
+        if (bulkCostText != null && itemData != null) {
+            int bulkQuantity = currentQuantity * 5;
+            int regularCost = itemData.restockCost * bulkQuantity;
+            int discountedCost = Mathf.RoundToInt(regularCost * 0.9f); // 10% discount
+
+            bulkCostText.text = $"5x: ${discountedCost} (10% off)";
+            bulkCostText.gameObject.SetActive(bulkEnabled);
         }
     }
 }

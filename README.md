@@ -65,6 +65,8 @@
 - ✅ Customer Demand System: Implemented trending items with demand bubbles showing popular categories
 - ✅ Order Accumulation Fix: Fixed bug where multiple orders during End of Day phase would overwrite previous orders - orders now properly accumulate instead of replacing
 - ✅ Code Cleanup: Removed redundant unlockCost field from ShopSegment (cost managed by UpgradeDataSO), removed unused itemScale field from ShelfTypeDataSO, removed scale override from shelf slots to preserve item prefab native scales
+- ✅ Express Checkout Upgrade: Implemented checkout speed upgrade (25% faster transactions via speed modifier in CheckoutCounter)
+- ✅ Bulk Ordering Upgrade: Implemented bulk ordering system with separate tracking for discounted items (5x quantity with 10% discount, visible in cart with green -10% indicator)
 
 ---
 
@@ -131,11 +133,11 @@
 ### ⚠️ MEDIUM PRIORITY
 
 **2. Not Yet Implemented Upgrade Effects**
-- **Status**: Placeholder TODOs in UpgradeManager.cs
-- **Pending Implementation**: Checkout speed decrease, bulk ordering, auto-restock
-- **Implemented & Tested**: Shop segment unlocking ✅, customer count bonuses ✅, auto-scaling customers with shop expansion ✅
+- **Status**: Auto-restock placeholder remains in UpgradeManager.cs
+- **Pending Implementation**: Auto-restock (not yet designed)
+- **Implemented & Tested**: Shop segment unlocking ✅, customer count bonuses ✅, auto-scaling customers with shop expansion ✅, express checkout ✅, bulk ordering ✅
 - **Removed**: Shelf capacity increases (removed with 1-item-per-slot redesign)
-- **Files**: `UpgradeManager.cs:230-242`
+- **Files**: `UpgradeManager.cs:252-255`
 
 **3. Restocking mechanic and game play should be redone. There is no way to say where we want to restock. The player has to click through it and can't come back if he went too far.**
 
