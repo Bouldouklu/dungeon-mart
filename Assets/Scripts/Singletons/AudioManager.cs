@@ -49,6 +49,39 @@ public class AudioManager : MonoBehaviour {
 
         // Create default AudioSources if not assigned
         EnsureAudioSources();
+
+        // Auto-start continuous business music loop
+        StartBusinessMusicLoop();
+    }
+
+    /// <summary>
+    /// Start playing business music continuously without interruption.
+    /// Called once on initialization to provide constant background music.
+    /// </summary>
+    private void StartBusinessMusicLoop()
+    {
+        if (ambientSource == null)
+        {
+            Debug.LogWarning("Cannot start business music - ambientSource is null");
+            return;
+        }
+
+        // Get the business music clip
+        AudioClip businessClip = GetMusicClipForType(MusicType.BusinessMusic);
+        if (businessClip == null)
+        {
+            Debug.LogWarning("No AudioClip assigned for BusinessMusic - assign in Inspector");
+            return;
+        }
+
+        // Start playing immediately at full volume, looping
+        ambientSource.clip = businessClip;
+        ambientSource.volume = ambientVolume;
+        ambientSource.loop = true;
+        ambientSource.Play();
+        currentMusicTrack = MusicType.BusinessMusic;
+
+        Debug.Log("Business music started - playing continuously");
     }
 
     /// <summary>
