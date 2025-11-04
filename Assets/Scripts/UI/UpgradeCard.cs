@@ -139,10 +139,6 @@ public class UpgradeCard : MonoBehaviour
                 description += $"\n<i>Unlocks shop segment {upgradeData.targetSegmentIndex + 1}</i>";
                 break;
 
-            case UpgradeEffectType.IncreaseShelfCapacity:
-                description += $"\n<i>+{upgradeData.effectValue} items per shelf slot</i>";
-                break;
-
             case UpgradeEffectType.IncreaseCustomerCount:
                 description += $"\n<i>+{upgradeData.effectValue} customers per day</i>";
                 break;

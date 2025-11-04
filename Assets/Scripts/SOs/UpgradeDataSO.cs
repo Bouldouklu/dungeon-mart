@@ -6,7 +6,6 @@ using UnityEngine;
 public enum UpgradeCategory
 {
     ShopExpansion,   // Unlock new shop segments
-    ShelfCapacity,   // Increase items per shelf slot
     Operations,      // Efficiency improvements (bulk ordering, auto-restock)
     CustomerFlow     // More/faster customers
 }
@@ -17,7 +16,6 @@ public enum UpgradeCategory
 public enum UpgradeEffectType
 {
     UnlockShopSegment,     // Enable a locked shop area
-    IncreaseShelfCapacity, // Add items per slot capacity
     IncreaseCustomerCount, // Add customers per day
     DecreaseCheckoutTime,  // Speed up checkout process
     EnableBulkOrdering,    // Allow 5x orders with discount
@@ -111,7 +109,6 @@ public class UpgradeDataSO : ScriptableObject
         return effectType switch
         {
             UpgradeEffectType.UnlockShopSegment => $"Unlock Shop Segment {targetSegmentIndex}",
-            UpgradeEffectType.IncreaseShelfCapacity => $"+{effectValue} items per shelf slot",
             UpgradeEffectType.IncreaseCustomerCount => $"+{effectValue} customers per day",
             UpgradeEffectType.DecreaseCheckoutTime => $"{effectValue}% faster checkout",
             UpgradeEffectType.EnableBulkOrdering => "Order 5x items with 10% discount",

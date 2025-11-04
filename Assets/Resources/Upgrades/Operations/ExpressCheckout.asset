@@ -18,7 +18,7 @@ MonoBehaviour:
     customers!
   upgradeIcon: {fileID: 0}
   cost: 700
-  tierRequirement: 3
+  requiredObjective: {fileID: 11400000, guid: 48c8fc587ed2e53478a1d5329afa1b26, type: 2}
   prerequisites: []
   category: 2
   effectType: 3

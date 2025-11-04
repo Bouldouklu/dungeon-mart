@@ -18,7 +18,7 @@ MonoBehaviour:
     with 10% off restock costs.
   upgradeIcon: {fileID: 0}
   cost: 400
-  tierRequirement: 1
+  requiredObjective: {fileID: 11400000, guid: 58431afc33c6d344d9a4845f58020ba2, type: 2}
   prerequisites: []
   category: 2
   effectType: 4

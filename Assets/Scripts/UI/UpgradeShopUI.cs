@@ -20,7 +20,6 @@ public class UpgradeShopUI : MonoBehaviour
 
     [Header("Filter UI")]
     [SerializeField] private Button filterShopExpansionButton;
-    [SerializeField] private Button filterShelvesButton;
     [SerializeField] private Button filterOperationsButton;
     [SerializeField] private Button filterCustomerFlowButton;
 
@@ -112,12 +111,6 @@ public class UpgradeShopUI : MonoBehaviour
             Debug.Log("✅ FilterShopExpansion button listener added");
         }
 
-        if (filterShelvesButton != null)
-        {
-            filterShelvesButton.onClick.AddListener(() => SetFilter(UpgradeCategory.ShelfCapacity));
-            Debug.Log("✅ FilterShelves button listener added");
-        }
-
         if (filterOperationsButton != null)
         {
             filterOperationsButton.onClick.AddListener(() => SetFilter(UpgradeCategory.Operations));
@@ -147,7 +140,6 @@ public class UpgradeShopUI : MonoBehaviour
     {
         if (closeButton != null) closeButton.onClick.RemoveAllListeners();
         if (filterShopExpansionButton != null) filterShopExpansionButton.onClick.RemoveAllListeners();
-        if (filterShelvesButton != null) filterShelvesButton.onClick.RemoveAllListeners();
         if (filterOperationsButton != null) filterOperationsButton.onClick.RemoveAllListeners();
         if (filterCustomerFlowButton != null) filterCustomerFlowButton.onClick.RemoveAllListeners();
         if (confirmYesButton != null) confirmYesButton.onClick.RemoveAllListeners();
