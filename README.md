@@ -29,7 +29,7 @@
 - ✅ Single Item Size Per Shelf Type restriction
 - ✅ Restock UI System with item selection and size filtering
 - ✅ CSV Item Importer Tool: Automated ItemDataSO generation from Excel/CSV spreadsheet
-- ✅ Monthly Expenses System: Rent tracking, loan system with interest, fail states (KNOWN BUG: Game Over UI input blocked)
+- ✅ Monthly Expenses System: Rent tracking, loan system with interest, fail states
 - ✅ Visual Polish**: Customer visuals now use random SPUM character prefabs (48 variants)
 - ✅ Sound System**: Multi-AudioSource sound effects with gameplay and UI sounds
 - ✅ Music System**: Phase-based dynamic background music with smooth crossfades
@@ -68,6 +68,7 @@
 - ✅ Express Checkout Upgrade: Implemented checkout speed upgrade (25% faster transactions via speed modifier in CheckoutCounter)
 - ✅ Bulk Ordering Upgrade: Implemented bulk ordering system with separate tracking for discounted items (5x quantity with 10% discount, visible in cart with green -10% indicator)
 - ✅ UI Price Display Enhancement: Added selling prices to Order Menu (stacked format) and Restock UI for better profit visibility
+- ✅ Game Over UI Input Fix: Fixed Unity Editor focus loss bug - changed Debug.LogError to Debug.Log for game over states, preventing window defocus and input freeze
 
 ---
 
@@ -123,24 +124,16 @@
 
 ## Known Issues
 
-### 🐛 HIGH PRIORITY
-
-**1. Game Over UI Input Blocking**
-- **Status**: Under Investigation
-- **Symptoms**: Game Over screen appears correctly but all input stops working, window loses fullscreen, buttons non-clickable
-- **Workaround**: None - must restart Unity play mode
-- **Files**: `GameOverUI.cs`, `FailStateManager.cs`, `LoanManager.cs`, `DayManager.cs`
-
 ### ⚠️ MEDIUM PRIORITY
 
-**2. Not Yet Implemented Upgrade Effects**
+**1. Not Yet Implemented Upgrade Effects**
 - **Status**: Auto-restock placeholder remains in UpgradeManager.cs
 - **Pending Implementation**: Auto-restock (not yet designed)
 - **Implemented & Tested**: Shop segment unlocking ✅, customer count bonuses ✅, auto-scaling customers with shop expansion ✅, express checkout ✅, bulk ordering ✅
 - **Removed**: Shelf capacity increases (removed with 1-item-per-slot redesign)
 - **Files**: `UpgradeManager.cs:252-255`
 
-**3. Restocking mechanic and game play should be redone. There is no way to say where we want to restock. The player has to click through it and can't come back if he went too far.**
+**2. Restocking mechanic and game play should be redone. There is no way to say where we want to restock. The player has to click through it and can't come back if he went too far.**
 
 
 ---

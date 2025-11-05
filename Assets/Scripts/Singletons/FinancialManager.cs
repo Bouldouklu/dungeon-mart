@@ -243,7 +243,7 @@ public class FinancialManager : MonoBehaviour
             // Check if loan deadline has passed
             if (daysUntilLoanDue <= 0)
             {
-                Debug.LogError("Loan deadline passed - DEFAULTING!");
+                Debug.Log("Loan deadline passed - DEFAULTING!");
                 DefaultOnLoan();
             }
         }
@@ -351,7 +351,7 @@ public class FinancialManager : MonoBehaviour
         }
 
         // Player cannot afford rent and has no loan option - game over
-        Debug.LogError("Cannot pay rent and no loan available - GAME OVER!");
+        Debug.Log("Cannot pay rent and no loan available - GAME OVER!");
         TriggerGameOver(GameOverReason.RentUnpaid, rentAmount);
     }
     #endregion
@@ -474,7 +474,7 @@ public class FinancialManager : MonoBehaviour
     /// </summary>
     private void DefaultOnLoan()
     {
-        Debug.LogError($"LOAN DEFAULTED! Owed: ${LoanAmountRemaining}");
+        Debug.Log($"LOAN DEFAULTED! Owed: ${LoanAmountRemaining}");
         OnLoanDefaulted?.Invoke(LoanAmountRemaining);
         TriggerGameOver(GameOverReason.LoanDefault, LoanAmountRemaining);
     }

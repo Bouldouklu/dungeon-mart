@@ -67,6 +67,13 @@ public class DayManager : MonoBehaviour
         Time.timeScale = 1f;
         Debug.Log("DayManager.Start(): Set Time.timeScale = 1");
 
+        // Subscribe to game over event to stop coroutines when game ends
+        if (FinancialManager.Instance != null)
+        {
+            FinancialManager.Instance.OnGameOver += OnGameOverTriggered;
+            Debug.Log("DayManager subscribed to OnGameOver event");
+        }
+
         // Start first day in morning phase (now all managers are ready)
         StartMorningPhase();
     }
@@ -203,5 +210,23 @@ public class DayManager : MonoBehaviour
     {
         // Customer left without purchasing - still counts as "served"
         Debug.Log("Customer left empty-handed");
+    }
+
+    /// <summary>
+    /// Called when game over is triggered. Stops all running coroutines to prevent Unity input freeze bug.
+    /// </summary>
+    private void OnGameOverTriggered(GameOverReason reason, int daysSurvived, int totalRevenue, int amountOwed)
+    {
+        Debug.Log("DayManager: Game Over detected - stopping all coroutines to prevent input freeze");
+        StopAllCoroutines();
+    }
+
+    private void OnDestroy()
+    {
+        // Unsubscribe from game over event
+        if (FinancialManager.Instance != null)
+        {
+            FinancialManager.Instance.OnGameOver -= OnGameOverTriggered;
+        }
     }
 }
