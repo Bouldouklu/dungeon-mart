@@ -113,189 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Alchemy Enthusiast
-      rect:
-        serializedVersion: 2
-        x: 41
-        y: 777
-        width: 224
-        height: 206
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 31b68a613e12401e0800000000000000
-      internalID: -2232622256047494381
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Arcane Merchant
-      rect:
-        serializedVersion: 2
-        x: 279
-        y: 777
-        width: 224
-        height: 206
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: eacd75959eb82ec4d9c9deb4693c4bab
-      internalID: 1485410752
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Business Tycoon
-      rect:
-        serializedVersion: 2
-        x: 517
-        y: 777
-        width: 224
-        height: 206
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 90a9d5a9cd5fb90468d9f4bd669331e9
-      internalID: -701247471
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Customer Satisfaction Guru
-      rect:
-        serializedVersion: 2
-        x: 755
-        y: 777
-        width: 224
-        height: 206
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 57a1441b69f0fdf489ae3af5d3d5ee32
-      internalID: 667061754
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Dungeon Commerce Overlord
-      rect:
-        serializedVersion: 2
-        x: 41
-        y: 533
-        width: 224
-        height: 206
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 8f514335fc79dc940b6b8e752472e2ab
-      internalID: -595320739
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Expansion Mogul
-      rect:
-        serializedVersion: 2
-        x: 279
-        y: 533
-        width: 224
-        height: 206
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: ed8d9fef3496cfd43b41c8be7757b1ee
-      internalID: -1566786115
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: First Blood Money
-      rect:
-        serializedVersion: 2
-        x: 517
-        y: 533
-        width: 224
-        height: 206
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 1675ede9bde804b459a6c5f94b845058
-      internalID: -758506341
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: People Person Sort Of
-      rect:
-        serializedVersion: 2
-        x: 755
-        y: 533
-        width: 224
-        height: 206
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 509bd3d779bce474a9d03f6d84121082
-      internalID: -1879868996
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: i_am_making_a_video_game_and_have_some_objectives_within_the_game_i_want_an_icon_for_each_objective_8fcwmcshq2eq6wq8e7h7_8_8
       rect:
         serializedVersion: 2
-        x: 41
-        y: 289
-        width: 224
-        height: 206
+        x: 71
+        y: 312
+        width: 162
+        height: 160
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -311,35 +135,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: War Profiteer
-      rect:
-        serializedVersion: 2
-        x: 279
-        y: 289
-        width: 224
-        height: 206
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 71aaee49c4131d5479f562adc35b3b0f
-      internalID: -602493312
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: i_am_making_a_video_game_and_have_some_objectives_within_the_game_i_want_an_icon_for_each_objective_8fcwmcshq2eq6wq8e7h7_8_10
       rect:
         serializedVersion: 2
-        x: 517
-        y: 289
-        width: 224
-        height: 206
+        x: 551
+        y: 312
+        width: 162
+        height: 160
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -358,10 +160,10 @@ TextureImporter:
       name: i_am_making_a_video_game_and_have_some_objectives_within_the_game_i_want_an_icon_for_each_objective_8fcwmcshq2eq6wq8e7h7_8_11
       rect:
         serializedVersion: 2
-        x: 755
-        y: 289
-        width: 224
-        height: 206
+        x: 791
+        y: 312
+        width: 162
+        height: 160
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -377,35 +179,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Potion Pusher
-      rect:
-        serializedVersion: 2
-        x: 41
-        y: 45
-        width: 224
-        height: 206
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 8f81dd97b35a9694dab4a29cdf17cf1f
-      internalID: 520633247
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: i_am_making_a_video_game_and_have_some_objectives_within_the_game_i_want_an_icon_for_each_objective_8fcwmcshq2eq6wq8e7h7_8_13
       rect:
         serializedVersion: 2
-        x: 279
-        y: 45
-        width: 224
-        height: 206
+        x: 311
+        y: 72
+        width: 162
+        height: 160
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -421,13 +201,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Weapons Dealer
+      name: Alchemy Enthusiast
       rect:
         serializedVersion: 2
-        x: 517
-        y: 45
-        width: 224
-        height: 206
+        x: 71
+        y: 792
+        width: 162
+        height: 160
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -436,7 +216,227 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ba9584ec5443ef34bbde337cbe0aa3a7
+      spriteID: 97a6d13cdc7669c40a10545b8316ba72
+      internalID: -2232622256047494381
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Arcane Merchant
+      rect:
+        serializedVersion: 2
+        x: 311
+        y: 792
+        width: 162
+        height: 160
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0e9aaa4fea0168e4095bc9f5224d6ff2
+      internalID: 1485410752
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Business Tycoon
+      rect:
+        serializedVersion: 2
+        x: 551
+        y: 792
+        width: 162
+        height: 160
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d4d0101089893f1478fe63983d40463c
+      internalID: -701247471
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Customer Satisfaction Guru
+      rect:
+        serializedVersion: 2
+        x: 791
+        y: 793
+        width: 162
+        height: 160
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 204c55656d323104e911b346a5fd60c2
+      internalID: -1127524736
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dungeon Commerce Overlord
+      rect:
+        serializedVersion: 2
+        x: 71
+        y: 552
+        width: 162
+        height: 160
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dae070fb53c377a4798223cc1b212986
+      internalID: -595320739
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Expansion Mogul
+      rect:
+        serializedVersion: 2
+        x: 311
+        y: 552
+        width: 162
+        height: 160
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1e1de1986b6fd90488c220e31b158519
+      internalID: -1514182758
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: First Blood Money
+      rect:
+        serializedVersion: 2
+        x: 551
+        y: 552
+        width: 162
+        height: 160
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d0c55c4f88f1a7c48bd4cb8196738ab6
+      internalID: -758506341
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: People Person Sort of
+      rect:
+        serializedVersion: 2
+        x: 791
+        y: 552
+        width: 162
+        height: 160
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d8ef583656757c046b537b2f691c7c73
+      internalID: -2043193996
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: War Profiteer
+      rect:
+        serializedVersion: 2
+        x: 311
+        y: 312
+        width: 162
+        height: 160
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5393133d2b22063458adea3db93adbd3
+      internalID: -602493312
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Potion Pusher
+      rect:
+        serializedVersion: 2
+        x: 71
+        y: 72
+        width: 162
+        height: 160
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0be4e73d463cefa42a99ece03a3b24fd
+      internalID: 520633247
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Weapons Dealer
+      rect:
+        serializedVersion: 2
+        x: 551
+        y: 72
+        width: 162
+        height: 160
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: df0f83178aeb1b44783d7f4fa1fcbb8c
       internalID: -599085202
       vertices: []
       indices: 
@@ -446,10 +446,10 @@ TextureImporter:
       name: Week One Survivor
       rect:
         serializedVersion: 2
-        x: 755
-        y: 45
-        width: 224
-        height: 206
+        x: 791
+        y: 72
+        width: 162
+        height: 160
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -458,7 +458,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a2193752eeebf8c4aa4b3f0d7b13a9bd
+      spriteID: 73821eea71fd3f740bdb675121a529d1
       internalID: 288257225
       vertices: []
       indices: 
@@ -478,16 +478,16 @@ TextureImporter:
     spriteCustomMetadata:
       entries:
       - key: SpriteEditor.SliceSettings
-        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":224.0,"y":206.0},"gridSpriteOffset":{"x":41.0,"y":41.0},"gridSpritePadding":{"x":14.0,"y":38.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":162.0,"y":160.0},"gridSpriteOffset":{"x":71.0,"y":72.0},"gridSpritePadding":{"x":78.0,"y":80.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
       Alchemy Enthusiast: -2232622256047494381
       Arcane Merchant: 1485410752
       Business Tycoon: -701247471
-      Customer Satisfaction Guru: 667061754
+      Customer Satisfaction Guru: -1127524736
       Dungeon Commerce Overlord: -595320739
-      Expansion Mogul: -1566786115
+      Expansion Mogul: -1514182758
       First Blood Money: -758506341
-      People Person Sort Of: -1879868996
+      People Person Sort of: -2043193996
       Potion Pusher: 520633247
       War Profiteer: -602493312
       Weapons Dealer: -599085202
