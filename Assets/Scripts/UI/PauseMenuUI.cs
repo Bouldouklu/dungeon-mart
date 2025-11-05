@@ -108,6 +108,13 @@ public class PauseMenuUI : MonoBehaviour
     private void OnResumeClicked()
     {
         Debug.Log("Resume clicked");
+
+        // Play UI click sound
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlaySound(SoundType.UIClick);
+        }
+
         if (PauseManager.Instance != null)
         {
             PauseManager.Instance.ResumeGame();
@@ -131,6 +138,12 @@ public class PauseMenuUI : MonoBehaviour
     {
         Debug.Log("Returning to main menu...");
 
+        // Play UI click sound
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlaySound(SoundType.UIClick);
+        }
+
         // Resume time before scene change to avoid time scale issues
         if (PauseManager.Instance != null)
         {
@@ -146,6 +159,12 @@ public class PauseMenuUI : MonoBehaviour
     private void OnQuitClicked()
     {
         Debug.Log("Quitting game...");
+
+        // Play UI click sound
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlaySound(SoundType.UIClick);
+        }
 
         #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;

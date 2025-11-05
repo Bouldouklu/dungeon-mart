@@ -196,6 +196,12 @@ namespace DungeonMart3D
 
         private void OnOrderButtonClicked()
         {
+            // Play UI click sound
+            if (AudioManager.Instance != null)
+            {
+                AudioManager.Instance.PlaySound(SoundType.UIClick);
+            }
+
             if (OrderMenu.Instance != null)
             {
                 OrderMenu.Instance.ToggleMenu();
@@ -208,6 +214,12 @@ namespace DungeonMart3D
 
         private void OnUpgradesButtonClicked()
         {
+            // Play UI click sound
+            if (AudioManager.Instance != null)
+            {
+                AudioManager.Instance.PlaySound(SoundType.UIClick);
+            }
+
             if (UpgradeShopUI.Instance != null)
             {
                 UpgradeShopUI.Instance.ShowUpgradeShop();
@@ -220,6 +232,12 @@ namespace DungeonMart3D
 
         private void OnObjectivesButtonClicked()
         {
+            // Play UI click sound
+            if (AudioManager.Instance != null)
+            {
+                AudioManager.Instance.PlaySound(SoundType.UIClick);
+            }
+
             // Find ObjectivesPanelUI in scene and toggle it
             ObjectivesPanelUI objectivesPanel = FindFirstObjectByType<ObjectivesPanelUI>();
             if (objectivesPanel != null)
@@ -234,6 +252,12 @@ namespace DungeonMart3D
 
         private void OnProgressButtonClicked()
         {
+            // Play UI click sound
+            if (AudioManager.Instance != null)
+            {
+                AudioManager.Instance.PlaySound(SoundType.UIClick);
+            }
+
             if (DayManager.Instance != null)
             {
                 DayManager.Instance.ProgressToNextPhase();

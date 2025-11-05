@@ -305,6 +305,12 @@ public class EndOfDaySummaryUI : MonoBehaviour
     {
         Debug.Log("Continue to place orders clicked");
 
+        // Play UI click sound
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlaySound(SoundType.UIClick);
+        }
+
         if (summaryPanel != null)
         {
             summaryPanel.SetActive(false);

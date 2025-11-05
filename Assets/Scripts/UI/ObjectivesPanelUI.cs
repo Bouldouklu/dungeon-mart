@@ -116,6 +116,12 @@ public class ObjectivesPanelUI : MonoBehaviour
             RefreshObjectiveCards();
             UpdateTitleText();
 
+            // Play UI click sound
+            if (AudioManager.Instance != null)
+            {
+                AudioManager.Instance.PlaySound(SoundType.UIClick);
+            }
+
             if (showDebugLogs)
                 Debug.Log("[ObjectivesPanelUI] Panel opened");
         }
@@ -129,6 +135,12 @@ public class ObjectivesPanelUI : MonoBehaviour
         if (panelRoot != null)
         {
             panelRoot.SetActive(false);
+
+            // Play UI close sound
+            if (AudioManager.Instance != null)
+            {
+                AudioManager.Instance.PlaySound(SoundType.UICancel);
+            }
 
             if (showDebugLogs)
                 Debug.Log("[ObjectivesPanelUI] Panel closed");
@@ -165,6 +177,12 @@ public class ObjectivesPanelUI : MonoBehaviour
         currentFilter = filter;
         RefreshObjectiveCards();
         UpdateFilterButtonStates();
+
+        // Play UI click sound
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlaySound(SoundType.UIClick);
+        }
 
         if (showDebugLogs)
             Debug.Log($"[ObjectivesPanelUI] Filter set to: {filter}");

@@ -214,6 +214,12 @@ public class UpgradeShopUI : MonoBehaviour
     {
         Debug.Log($"🔘 SetFilter called: category={category}");
 
+        // Play UI click sound
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlaySound(SoundType.UIClick);
+        }
+
         currentFilter = category;
         RefreshUpgradeCards();
     }

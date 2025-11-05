@@ -186,11 +186,24 @@ public class LoanUI : MonoBehaviour
             if (success)
             {
                 Debug.Log($"Loan taken: ${amount}");
+
+                // Play UI confirm sound
+                if (AudioManager.Instance != null)
+                {
+                    AudioManager.Instance.PlaySound(SoundType.UIConfirm);
+                }
+
                 // Panel will close via OnLoanTaken event
             }
             else
             {
                 Debug.LogError($"Failed to take loan of ${amount}");
+
+                // Play error sound
+                if (AudioManager.Instance != null)
+                {
+                    AudioManager.Instance.PlaySound(SoundType.UIError);
+                }
             }
         }
     }
@@ -218,6 +231,12 @@ public class LoanUI : MonoBehaviour
     /// </summary>
     private void CloseLoanPanel()
     {
+        // Play UI close sound
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlaySound(SoundType.UICancel);
+        }
+
         if (loanPanel != null)
         {
             loanPanel.SetActive(false);

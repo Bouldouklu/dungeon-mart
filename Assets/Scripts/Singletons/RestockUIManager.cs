@@ -86,6 +86,11 @@ public class RestockUIManager : MonoBehaviour {
         // Show the panel
         restockPanel.SetActive(true);
 
+        // Play UI click sound
+        if (AudioManager.Instance != null) {
+            AudioManager.Instance.PlaySound(SoundType.UIClick);
+        }
+
         // Disable player interactions while UI is open (backwards compatible with old movement system)
         DisablePlayerMovement();
     }
@@ -94,6 +99,11 @@ public class RestockUIManager : MonoBehaviour {
     /// Hide the restock UI and clean up
     /// </summary>
     public void HideRestockUI() {
+        // Play UI close sound
+        if (AudioManager.Instance != null) {
+            AudioManager.Instance.PlaySound(SoundType.UICancel);
+        }
+
         if (restockPanel != null) {
             restockPanel.SetActive(false);
         }
@@ -146,10 +156,22 @@ public class RestockUIManager : MonoBehaviour {
 
         if (success) {
             Debug.Log($"Successfully restocked {itemData.itemName}");
+
+            // Play success sound
+            if (AudioManager.Instance != null) {
+                AudioManager.Instance.PlaySound(SoundType.UIClick);
+            }
+
             // Refresh UI to show updated inventory (keep UI open for multiple restocks)
             RefreshUI();
         } else {
             Debug.LogWarning($"Failed to restock {itemData.itemName} - shelf may be full");
+
+            // Play error sound
+            if (AudioManager.Instance != null) {
+                AudioManager.Instance.PlaySound(SoundType.UIError);
+            }
+
             // Refresh the UI to show updated inventory
             RefreshUI();
         }
