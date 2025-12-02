@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 134c7a884d0cef04e9ba73c7d5a58a6d, type: 3}
-  m_Name: EnchantedRobes
+  m_Name: EnchantedBoots
   m_EditorClassIdentifier: Assembly-CSharp::ItemDataSO
-  itemName: Enchanted Robes
+  itemName: Enchanted Boots
   itemSprite: {fileID: 21300000, guid: 63b191a28292d2f4296df1d4dd45f8df, type: 3}
   itemPrefab: {fileID: 8575527354053659559, guid: 50b5899dfbcbb1e4b86184c4cb2aca39, type: 3}
   sellPrice: 110
